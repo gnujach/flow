@@ -17,7 +17,7 @@ class CreatePacientesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('ap1');
-            $table->string('ap2');
+            $table->string('ap2')->nullable();
             $table->string('email');
             $table->timestamps();
         });

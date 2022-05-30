@@ -31,6 +31,7 @@ import JetResponsiveNavLink from "@/Jetstream/ResponsiveNavLink.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import Navbar from "./Nav.vue";
 import SideBar from "./SideBar.vue";
+import { Inertia } from "@inertiajs/inertia";
 
 export default defineComponent({
     props: {
@@ -70,7 +71,7 @@ export default defineComponent({
         },
 
         logout() {
-            this.$inertia.post(route("logout"));
+            Inertia.post("/logout");
         },
     },
 });

@@ -31,18 +31,31 @@
                         </button>
                     </div>
                     <div
-                        v-for="(item, index) in mainNavigation"
-                        :key="index"
-                        class="py-4 px-6 flex"
+                        v-if="
+                            $page.props.auth.permissions.includes(
+                                'manage-users'
+                            )
+                        "
                     >
-                        <component
-                            :is="item.icon"
-                            class="h-6 w-6 text-gray-500 mx-2"
-                        />
-                        <Link :href="item.url" @click="toggleNavBar"
-                            >{{ item.label }}
-                        </Link>
+                        <div
+                            v-for="(item, index) in mainNavigationAdmin"
+                            :key="index"
+                            class="py-4 px-6 flex"
+                        >
+                            <component
+                                :is="item.icon"
+                                class="h-6 w-6 text-gray-500 mx-2"
+                            />
+                            <Link :href="item.url" @click="toggleNavBar"
+                                >{{ item.label }}
+                            </Link>
+                        </div>
                     </div>
+                    <div
+                        v-if="
+                            $page.props.auth.roles[0] === 'PersonalVentanilla'
+                        "
+                    ></div>
                     <!-- <DialogOverlay /> -->
                 </TransitionChild>
                 <TransitionChild
@@ -99,23 +112,32 @@ export default defineComponent({
         let completeButtonRef1 = ref(null);
         const store = useStore();
         return {
-            statusSideBar: computed(() => store.getters["statusSideBar"]),
-            toggleNavBar: (id) => store.commit("toggleNavBar"),
+            statusSideBar: computed(
+                () => store.getters["todoStore/statusSideBar"]
+            ),
+            toggleNavBar: (id) => store.commit("todoStore/toggleNavBar"),
             completeButtonRef,
             completeButtonRef1,
             toogle: false,
-            mainNavigation: [
+            mainNavigationAdmin: [
                 {
-                    url: "/dashboard",
-                    label: "Home",
+                    url: "/admin/medios",
+                    label: "Canales de atención",
                     icon: HomeIcon,
                 },
 
                 {
-                    url: "/tasks",
-                    label: "Tareas",
+                    url: "/admin/usuarios",
+                    label: "Administración de Usuarios",
                     icon: HeartIcon,
                 },
+                {
+                    url: "/solicitudes",
+                    label: "Solicitudes",
+                    icon: ClipboardCheckIcon,
+                },
+            ],
+            mainNavigationPersonalVentanilla: [
                 {
                     url: "/solicitudes",
                     label: "Solicitudes",

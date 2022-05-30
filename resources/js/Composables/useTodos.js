@@ -1,5 +1,5 @@
 const { ref, computed } = require("vue");
-const { useStore } = require("vuex");
+const { useStore, mapGetters } = require("vuex");
 
 const useTodos = () => {
     const store = useStore();
@@ -10,16 +10,22 @@ const useTodos = () => {
 
     return {
         currrentTab,
-        tareasTodas: computed(() => store.getters["tareasTodas"]),
-        tareasCompletadas: computed(() => store.getters["tareasCompletadas"]),
+        ...mapGetters("todoStore"),
+        /**
+
+        tareasTodas: computed(() => store.getters["todoStore/tareasTodas"]),
+        tareasCompletadas: computed(
+            () => store.getters["todoStore/tareasCompletadas"]
+        ),
         tareasNoCompletadas: computed(
-            () => store.getters["tareasNoCompletadas"]
+            () => store.getters["todoStore/tareasNoCompletadas"]
         ),
         getTodosByTab: computed(() =>
-            store.getters["getTodosbyTab"](currrentTab.value)
+            store.getters["todoStore/getTodosbyTab"](currrentTab.value)
         ),
+        */
         //methods
-        toggleTodo: (id) => store.commit("toggleTodo", id),
+        toggleTodo: (id) => store.commit("todoStore/toggleTodo", id),
         clickme,
     };
 };

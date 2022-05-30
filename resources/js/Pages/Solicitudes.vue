@@ -5,23 +5,94 @@
                 Solicitudes
             </h2>
         </template>
+        <div class="py-4 flex mx-auto max-w-7xl">
+            <div
+                class="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto"
+            >
+                <div class="animate-pulse flex flex-col space-x-4">
+                    <div class="flex-1 mx-auto"><span>Trámite</span></div>
+                    <div class="flex-1 space-y-6 py-1" v-if="!selected">
+                        <div class="h-2 bg-slate-200 rounded"></div>
+                        <div class="space-y-3">
+                            <div class="grid grid-cols-3 gap-4">
+                                <div
+                                    class="h-2 bg-slate-200 rounded col-span-2"
+                                ></div>
+                                <div
+                                    class="h-2 bg-slate-200 rounded col-span-1"
+                                ></div>
+                            </div>
+                            <div class="h-2 bg-slate-200 rounded"></div>
+                        </div>
+                    </div>
+                    <div class="flex-1 space-y-6 py-1" v-else>
+                        {{ selected.name }}
+                    </div>
+                </div>
+            </div>
+            <div
+                class="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto"
+            >
+                <div
+                    class="flex flex-col space-x-4 justify-items-center items-center"
+                    :class="{ 'animate-pulse': selectIndexTab == 1 }"
+                >
+                    <div class="flex-1 mx-auto"><span>Usuario</span></div>
+                    <div class="rounded-full bg-slate-200 h-16 w-16"></div>
+                </div>
+            </div>
+
+            <div
+                class="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto"
+            >
+                <div
+                    class="flex space-x-4"
+                    :class="{ 'animate-pulse': selectIndexTab == 2 }"
+                >
+                    <div class="rounded-full bg-slate-200 h-10 w-10"></div>
+                    <div class="flex-1 space-y-6 py-1">
+                        <div class="h-2 bg-slate-200 rounded"></div>
+                        <div class="space-y-3">
+                            <div class="grid grid-cols-3 gap-4">
+                                <div
+                                    class="h-2 bg-slate-200 rounded col-span-2"
+                                ></div>
+                                <div
+                                    class="h-2 bg-slate-200 rounded col-span-1"
+                                ></div>
+                            </div>
+                            <div class="h-2 bg-slate-200 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="shadow-xl sm:rounded-lg mb-4 w-full max-w-full">
                     <TabGroup :selectedIndex="selectIndexTab">
                         <TabList class="flex p-1 space-x-1 rounded-xl">
                             <Tab
-                                v-for="category in Object.keys(categories)"
+                                v-for="(category, key) in Object.keys(
+                                    categories
+                                )"
                                 as="template"
                                 :key="category"
                                 v-slot="{ selected }"
+                                @click="
+                                    {
+                                        {
+                                            selectIndexTab = key;
+                                        }
+                                    }
+                                "
                             >
                                 <button
                                     :class="[
                                         'w-full py-2.5 text-lg leading-5 font-medium text-blue-700 font-semibold bg-white',
                                         'focus:outline-none ',
                                         selected
-                                            ? 'bg-white  border-b-2 border-blue-800'
+                                            ? 'bg-green-400  border-b-2 border-blue-800'
                                             : 'text-blue-100 hover:bg-white/[0.12] hover:text-gray-200 font-bold',
                                     ]"
                                 >
@@ -273,36 +344,79 @@
                                     </div>
                                 </div>
                             </TabPanel>
-                            <TabPanel
-                                v-for="(posts, idx) in Object.values(
-                                    categories
-                                )"
-                                :key="idx"
-                                :class="[
-                                    'rounded-xl p-3',
-                                    'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60',
-                                ]"
-                            >
+                            <TabPanel>
                                 <div
-                                    class="grid grid-rows-3 grid-flow-col gap-4 h-96"
+                                    class="grid grid-rows-3 grid-flow-col gap-4 h-96 bg-gray-200"
                                 >
-                                    <ModalSearch />
+                                    <div class="flex justify-around">
+                                        <ModalSearch />
+                                        <ModalAddUser />
+                                    </div>
+                                    <div class="flex">
+                                        <div
+                                            class="block mx-auto p-2 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+                                        >
+                                            <h5
+                                                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                                            >
+                                                Información de usuario
+                                            </h5>
+                                            <p
+                                                v-if="
+                                                    getSelectedUsuario.id !=
+                                                    null
+                                                "
+                                            >
+                                                {{
+                                                    `${getSelectedUsuario.name} ${getSelectedUsuario.ap1} ${getSelectedUsuario.ap2}`
+                                                }}
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="block mx-auto p-2 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+                                        >
+                                            <h5
+                                                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                                            >
+                                                Medio de atención
+                                            </h5>
+                                            <p>Interno</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </TabPanel>
+                            <TabPanel>
+                                <div
+                                    class="grid grid-rows-3 grid-flow-col gap-4 h-96 bg-gradient-to-r from-blue-500"
+                                >
+                                    <h2>Tareas ...</h2>
                                 </div>
                             </TabPanel>
                         </TabPanels>
                         <div class="flex m-2 justify-around">
-                            <button>Anterior</button>
-                            <button @click="changeTab">Siguiente</button>
+                            <button
+                                @click="changePrevTab"
+                                :disabled="selectIndexTab <= 0"
+                            >
+                                Anterior
+                            </button>
+                            <button
+                                @click="changeNextTab"
+                                :disabled="selectIndexTab >= 2"
+                            >
+                                Siguiente
+                            </button>
                         </div>
                     </TabGroup>
                 </div>
+                <span>TabIndex: {{ selectIndexTab }}</span>
             </div>
         </div>
     </app-layout>
 </template>
 
 <script>
-import { defineComponent, ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 import {
     TabGroup,
     TabList,
@@ -320,7 +434,8 @@ import {
 } from "@headlessui/vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import ModalSearch from "@/modules/Dialog/Components/ModalSearch.vue";
-
+import ModalAddUser from "@/modules/Dialog/Components/ModalAddUser";
+import { useStore, mapGetters } from "vuex";
 import {
     SearchIcon,
     SelectorIcon,
@@ -336,8 +451,9 @@ const people = [
     { id: 2, name: "Control Escolar", unavailable: false },
 ];
 const selectedPerson = ref(people[0]);
-
-export default defineComponent({
+const showModalAddUser = ref(false);
+export default {
+    emits: ["btn-click"],
     components: {
         AppLayout,
         TabGroup,
@@ -358,12 +474,19 @@ export default defineComponent({
         CheckIcon,
         ColorSwatchIcon,
         ModalSearch,
+        ModalAddUser,
     },
 
-    setup() {
+    setup(props, context) {
+        const store = useStore();
+        const getSelectedUsuario = computed(
+            () => store.getters["solicitudesStore/getSelectedUsuario"]
+        );
         onMounted(() => {
             tramites.value = plans;
+            // useKeyboard();
         });
+
         const plans = [
             {
                 departamento_id: 1,
@@ -443,13 +566,13 @@ export default defineComponent({
                 dirijido: "Escuelas con Tienda Escolar",
             },
         ];
-        const selected = ref(plans[0]);
+        const selected = ref(null);
         ref(plans);
         const text = ref("");
         let selectIndexTab = ref(0);
         const tramites = ref([]);
         let categories = ref({
-            Tramite: "",
+            Trámite: "",
             Usuario: [
                 {
                     id: 1,
@@ -458,15 +581,8 @@ export default defineComponent({
                     commentCount: 29,
                     shareCount: 16,
                 },
-                {
-                    id: 2,
-                    title: "The most innovative things happening in coffee",
-                    date: "Mar 19",
-                    commentCount: 24,
-                    shareCount: 12,
-                },
             ],
-            "Medio de Atención": [
+            Tareas: [
                 {
                     id: 1,
                     title: "Ask Me Anything: 10 answers to your questions about coffee",
@@ -498,9 +614,13 @@ export default defineComponent({
                 if (plan.departamento_id === id) return true;
             });
         };
-        const changeTab = () => {
-            selectIndexTab.value = selectIndexTab.value + 1;
-            console.log(selectIndexTab.value);
+        const changeNextTab = () => {
+            if (selectIndexTab.value < 2)
+                selectIndexTab.value = selectIndexTab.value + 1;
+        };
+        const changePrevTab = () => {
+            if (selectIndexTab.value > 0)
+                selectIndexTab.value = selectIndexTab.value - 1;
         };
         return {
             SelectDeptoId,
@@ -512,11 +632,14 @@ export default defineComponent({
             tramites,
             selectByName,
             text,
-            changeTab,
             selectIndexTab,
+            changeNextTab,
+            changePrevTab,
+            showModalAddUser,
+            getSelectedUsuario,
         };
     },
-});
+};
 </script>
 
 <style></style>

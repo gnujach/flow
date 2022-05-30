@@ -8,6 +8,7 @@ use Laravel\Jetstream\Contracts\CreatesTeams;
 use Laravel\Jetstream\Events\AddingTeam;
 use Laravel\Jetstream\Jetstream;
 
+
 class CreateTeam implements CreatesTeams
 {
     /**
@@ -31,6 +32,7 @@ class CreateTeam implements CreatesTeams
             'name' => $input['name'],
             'personal_team' => false,
         ]));
+
 
         return $team;
     }

@@ -4,6 +4,9 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Principal
             </h2>
+            <h3>
+                Can {{ $page.props.auth.roles[0] === "Admin" ? true : false }}
+            </h3>
         </template>
 
         <div class="py-12">

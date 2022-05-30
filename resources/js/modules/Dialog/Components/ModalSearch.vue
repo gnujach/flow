@@ -3,22 +3,22 @@
         <button
             v-bind="$attrs"
             type="button"
-            @click="openModal"
-            class="flex items-center space-x-2 border border-gray-900/10 shadow-sm px-3 py-1.5 hover:border-gray-300 focus:outline-none focus:border-gray-300 rounded-lg"
+            @click="toggleModalSearchUser"
+            class="flex items-center space-x-2 border border-gray-300 shadow-sm px-3 py-1.5 hover:border-gray-600 focus:outline-none focus:border-gray-600 rounded-lg"
         >
             <SearchIcon
-                class="flex-none text-gray-500 -ml-1 w-5 h-5"
+                class="flex-none text-blue-800 -ml-1 w-5 h-5"
                 aria-hidden="true"
             />
-            <span class="text-sm text-gray-400 flex-1 text-left">..buscar</span>
-            <span class="flex-none text-xs font-semibold text-gray-400">{{
+            <span class="text-sm text-blue-800 flex-1 text-left">..buscar</span>
+            <span class="flex-none text-xs font-semibold text-blue-800">{{
                 keyboardShortcut
             }}</span>
         </button>
         <TransitionRoot :show="isOpen" as="template">
             <Dialog
                 :open="isOpen"
-                @close="isOpen = false"
+                @close="closeModal"
                 @keydown="navigateResults"
                 class="fixed inset-0 z-50 flex justify-center items-start"
             >
@@ -65,18 +65,28 @@
                                 @input="(e) => search(e.target.value)"
                                 @keydown="onTermKeydown"
                                 type="text"
-                                placeholder="Search"
+                                placeholder="Buscar"
                                 class="w-full py-4 pl-12 border-b border-gray-100 placeholder-gray-400"
                             />
                             <div
                                 class="absolute inset-y-0 right-0 flex items-center pr-3"
                             >
                                 <button
-                                    @click="isOpen = false"
+                                    @click="closeModal"
                                     type="button"
                                     class="flex items-center p-1.5 uppercase font-semibold tracking-wider text-gray-700 rounded-md border border-gray-200 focus:outline-none focus:border-gray-300 text-xxs"
                                 >
                                     Esc
+                                </button>
+                                <button
+                                    @click="toggleModalAddUser()"
+                                    type="button"
+                                    class="flex items-center p-1.5 uppercase ml-1 rounded-md border border-gray-200 focus:outline-none focus:border-gray-300 text-xxs"
+                                >
+                                    <UserAddIcon
+                                        class="flex-none text-gray-700 -ml-1 w-5 h-5"
+                                        aria-hidden="true"
+                                    />
                                 </button>
                             </div>
                         </form>
@@ -100,15 +110,16 @@
                                     "
                                     @mousemove="selectedIndex = index"
                                     class="flex items-center px-4 py-2.5 relative"
+                                    @click="selectUsuario(item)"
                                 >
-                                    <a :href="item.url">
-                                        <span class="absolute inset-0"></span>
-                                    </a>
+                                    <span class="absolute inset-0"></span>
                                     <div class="ml-3">
                                         <div
                                             class="font-semibold text-gray-600"
                                         >
                                             {{ item.name }}
+                                            {{ item.ap1 }}
+                                            {{ item.ap2 }}
                                         </div>
                                     </div>
                                 </li>
@@ -117,7 +128,7 @@
                                 v-if="results.length === 0"
                                 class="p-10 text-lg text-center text-gray-400"
                             >
-                                No results...
+                                Sin resultados aún...
                             </p>
                         </div>
                     </div>
@@ -128,8 +139,10 @@
 </template>
 
 <script>
-import { nextTick, onMounted, onUnmounted, ref } from "vue";
-import { SearchIcon } from "@heroicons/vue/solid";
+import { nextTick, computed, onMounted, onUnmounted, ref } from "vue";
+import { SearchIcon, UserAddIcon } from "@heroicons/vue/solid";
+import JetNavLink from "@/Jetstream/NavLink";
+import { useStore, mapActions } from "vuex";
 import {
     Dialog,
     DialogOverlay,
@@ -141,13 +154,15 @@ import { debounce } from "lodash";
 export default {
     components: {
         SearchIcon,
+        UserAddIcon,
         Dialog,
         DialogOverlay,
         TransitionRoot,
         TransitionChild,
+        JetNavLink,
     },
-
-    setup() {
+    setup(props, context) {
+        const store = useStore();
         const isAppleOS = () => {
             const platform =
                 navigator?.userAgentData?.platform ||
@@ -155,8 +170,14 @@ export default {
                 "unknown";
             return /(Mac|iPhone|iPod|iPad)/i.test(platform);
         };
+        onMounted(() => {
+            window.addEventListener("keydown", onKeyDown);
+        });
         const keyboardShortcut = isAppleOS() ? "⌘K" : "Ctrl+K";
-        const isOpen = ref(false);
+        // const isOpen = ref(false);
+        const isOpen = computed(
+            () => store.getters["solicitudesStore/getSearchCreate"]
+        );
         const results = ref([]);
         const resultsRefs = ref([]);
         const selectedIndex = ref(0);
@@ -166,13 +187,13 @@ export default {
                     term,
                 },
             });
-            console.log(res.data);
             results.value = res.data;
             await nextTick();
             resultsRefs.value = [];
         }, 250);
+
         const onTermKeydown = (event) => {
-            if (["ArrowUp", "ArrowDown"].includes(event.code)) {
+            if (["ArrowUp", "ArrowDown", "Enter"].includes(event.code)) {
                 event.preventDefault();
             }
         };
@@ -192,6 +213,13 @@ export default {
                         selectedIndex.value -= 1;
                     }
                     break;
+                case "Enter":
+                    // console.log(results.value[selectedIndex.value].id);
+                    store.dispatch(
+                        "solicitudesStore/selectUsuario",
+                        results.value[selectedIndex.value]
+                    );
+                    break;
             }
 
             resultsRefs.value[selectedIndex.value]?.scrollIntoView(false);
@@ -201,8 +229,8 @@ export default {
             if (isOpen.value) return;
 
             if ((event.metaKey || event.ctrlKey) && event.key === "k") {
+                store.dispatch("solicitudesStore/toggleModalSearchUser");
                 event.preventDefault();
-                isOpen.value = true;
             }
         };
         const onSubmit = () => {
@@ -210,12 +238,18 @@ export default {
                 window.location = results.value[selectedIndex.value].url;
             }
         };
-        onMounted(() => {
-            window.addEventListener("keydown", onKeyDown);
-            // search();
-        }),
-            onUnmounted(() => window.removeEventListener("keydown", onKeyDown));
+
+        const closeModal = () => {
+            store.dispatch("solicitudesStore/toggleModalSearchUser");
+        };
+        onUnmounted(() => window.removeEventListener("keydown", onKeyDown));
+
         return {
+            ...mapActions("solicitudesStore", [
+                "toggleModalAddUser",
+                "selectUsuario",
+                "toggleModalSearchUser",
+            ]),
             isOpen,
             navigateResults,
             onSubmit,
@@ -224,13 +258,9 @@ export default {
             resultsRefs,
             search,
             selectedIndex,
-            closeModal() {
-                isOpen.value = false;
-            },
-            openModal() {
-                isOpen.value = true;
-            },
+            closeModal,
             keyboardShortcut,
+            onSubmit,
         };
     },
 };

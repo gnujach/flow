@@ -96,7 +96,7 @@ export default defineComponent({
         return {
             clickme,
             currrentTab,
-            tareasTodas: computed(() => store.getters["tareasTodas"]),
+            tareasTodas: computed(() => store.getters["todoStore/tareasTodas"]),
             tareasCompletadas: computed(
                 () => store.getters["tareasCompletadas"]
             ),
@@ -104,9 +104,9 @@ export default defineComponent({
                 () => store.getters["tareasNoCompletadas"]
             ),
             getTodosByTab: computed(() =>
-                store.getters["getTodosbyTab"](currrentTab.value)
+                store.getters["todoStore/getTodosbyTab"](currrentTab.value)
             ),
-            toggleTodo: (id) => store.commit("toggleTodo", id),
+            toggleTodo: (id) => store.commit("todoStore/toggleTodo", id),
         };
     },
 });

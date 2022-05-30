@@ -4,7 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Paciente;
 use Illuminate\Http\Request;
+use App\Http\Resources\PacienteCollection;
+use App\Http\Resources\Paciente as PacienteResource;
 use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
+use Inertia;
+use Illuminate\Support\Facades\Validator;
+use Redirect;
 
 class PacienteController extends Controller
 {
@@ -27,7 +33,12 @@ class PacienteController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia\Inertia::render(
+            'Pacientes/ListPacientes',
+            [
+                'pacientes' => new PacienteCollection(Paciente::orderBy('id', 'desc')->paginate(config('openlink.perpage'))),
+            ]
+        );
     }
 
     /**
@@ -37,7 +48,9 @@ class PacienteController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia\Inertia::render(
+            'Pacientes/CreatePaciente',
+        );
     }
 
     /**
@@ -48,7 +61,33 @@ class PacienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validator::make($request->all(), [
+        //     'name' => ['required', 'min:4', 'max:255'],
+        //     'email' => ['required', 'email', 'max:255', Rule::unique('pacientes')],
+        //     'ap1' => ['required', 'string', 'max:255',],
+        //     'ap2' => ['nullable', 'string', 'max:255',],
+        // ])->validateWithBag('savePacienteInformation');
+        // dd(request()->all());
+
+        request()->validate([
+            'name' => ['required', 'min:4', 'max:255'],
+            'email' => ['required', 'email', 'max:255', Rule::unique('pacientes')],
+            'ap1' => ['required', 'string', 'max:255',],
+            'ap2' => ['nullable', 'string', 'max:255',],
+        ]);
+        if (request()->has('prevalidate')) {
+            return redirect()->back();
+        }
+        Paciente::create([
+            'name' => $request->input('name'),
+            'ap1' => $request->input('ap1'),
+            'ap2' => $request->input('ap2'),
+            'email' => $request->input('email'),
+        ]);
+        if (request()->has('modal')) {
+            return redirect()->back();
+        }
+        return Redirect::route('admin.pacientes/');
     }
 
     /**
@@ -70,7 +109,10 @@ class PacienteController extends Controller
      */
     public function edit(Paciente $paciente)
     {
-        //
+        return Inertia\Inertia::render(
+            'Pacientes/CreatePaciente',
+            ['paciente' => new EstudioResource($paciente)],
+        );
     }
 
     /**

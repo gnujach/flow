@@ -53,65 +53,73 @@
                 <ClipboardIcon class="h-6 w-6 text-gray-500 mx-2" />
                 <BellIcon class="h-6 w-6 text-gray-500 mx-2" />
                 <MoonIcon class="h-6 w-6 text-gray-500 mx-2" />
-                <button
-                    type="button"
-                    class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                    id="user-menu-button"
-                    aria-expanded="false"
-                    data-dropdown-toggle="dropdown"
-                >
-                    <span class="sr-only">Open user menu</span>
-                    <img
-                        class="w-8 h-8 rounded-full"
-                        src="https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-                        alt="user photo"
-                    />
-                </button>
                 <!-- Dropdown menu -->
-                <div
-                    class="hidden z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
-                    id="dropdown"
-                >
-                    <div class="py-3 px-4">
-                        <span
-                            class="block text-sm text-gray-900 dark:text-white"
-                            >Bonnie Green</span
-                        >
-                        <span
-                            class="block text-sm font-medium text-gray-500 truncate dark:text-gray-400"
-                            >name@flowbite.com</span
-                        >
-                    </div>
-                    <ul class="py-1" aria-labelledby="dropdown">
-                        <li>
-                            <a
-                                href="#"
-                                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                >Dashboard</a
+                <div class="ml-3 relative">
+                    <jet-dropdown align="right" width="48">
+                        <template #trigger>
+                            <button
+                                v-if="
+                                    $page.props.jetstream.managesProfilePhotos
+                                "
+                                class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out"
                             >
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                >Settings</a
+                                <img
+                                    class="h-8 w-8 rounded-full object-cover"
+                                    :src="$page.props.user.profile_photo_url"
+                                    :alt="$page.props.user.name"
+                                />
+                            </button>
+
+                            <span v-else class="inline-flex rounded-md">
+                                <button
+                                    type="button"
+                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                >
+                                    {{ $page.props.user.name }}
+
+                                    <svg
+                                        class="ml-2 -mr-0.5 h-4 w-4"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                            clip-rule="evenodd"
+                                        />
+                                    </svg>
+                                </button>
+                            </span>
+                        </template>
+
+                        <template #content>
+                            <!-- Account Management -->
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                Manage Account
+                            </div>
+
+                            <jet-dropdown-link :href="route('profile.show')">
+                                Configuraciones
+                            </jet-dropdown-link>
+
+                            <jet-dropdown-link
+                                :href="route('api-tokens.index')"
+                                v-if="$page.props.jetstream.hasApiFeatures"
                             >
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                >Earnings</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                >Sign out</a
-                            >
-                        </li>
-                    </ul>
+                                API Tokens
+                            </jet-dropdown-link>
+
+                            <div class="border-t border-gray-100"></div>
+
+                            <!-- Authentication -->
+                            <form @submit.prevent="logout">
+                                <jet-dropdown-link as="button">
+                                    Logout
+                                </jet-dropdown-link>
+                            </form>
+                        </template>
+                    </jet-dropdown>
                 </div>
             </div>
         </div>
@@ -121,7 +129,12 @@
 <script>
 import { defineComponent, computed } from "vue";
 import { useStore } from "vuex";
+import JetNavLink from "@/Jetstream/NavLink";
+import JetResponsiveNavLink from "@/Jetstream/ResponsiveNavLink";
+import JetDropdown from "@/Jetstream/Dropdown";
+import JetDropdownLink from "@/Jetstream/DropdownLink";
 import Icon from "../Shared/Icon.vue";
+import { Inertia } from "@inertiajs/inertia";
 import {
     BellIcon,
     ClipboardIcon,
@@ -139,12 +152,21 @@ export default defineComponent({
         Icon,
         XIcon,
         MenuAlt1Icon,
+        JetNavLink,
+        JetResponsiveNavLink,
+        JetDropdown,
+        JetDropdownLink,
     },
     setup() {
         const store = useStore();
         return {
-            toggleNavBar: () => store.commit("toggleNavBar"),
-            statusSideBar: computed(() => store.getters["statusSideBar"]),
+            toggleNavBar: () => store.commit("todoStore/toggleNavBar"),
+            statusSideBar: computed(
+                () => store.getters["todoStore/statusSideBar"]
+            ),
+            logout: () => {
+                Inertia.post("/logout");
+            },
         };
     },
 });

@@ -12,6 +12,8 @@ use App\Actions\Jetstream\UpdateTeamName;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Jetstream\Jetstream;
 
+
+
 class JetstreamServiceProvider extends ServiceProvider
 {
     /**
@@ -40,6 +42,21 @@ class JetstreamServiceProvider extends ServiceProvider
         Jetstream::removeTeamMembersUsing(RemoveTeamMember::class);
         Jetstream::deleteTeamsUsing(DeleteTeam::class);
         Jetstream::deleteUsersUsing(DeleteUser::class);
+        Jetstream::spatieRoles();
+        //Get the user roles
+        // $is_admin = true;
+
+        // Fortify::authenticateUsing(function (Request $request) {
+        //     $user = User::where('email', $request->email)->first();
+
+        //     if (
+        //         $user &&
+        //         Hash::check($request->password, $user->password)
+        //     ) {
+        //         // dd($user->roles()->get());
+        //         return $user;
+        //     }
+        // });
     }
 
     /**
