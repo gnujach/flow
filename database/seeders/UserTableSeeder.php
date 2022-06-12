@@ -31,6 +31,9 @@ class UserTableSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@example.com',
             'password' => Hash::make('1234'),
+            'cct_id' => 1,
+            'departamento_id' => 1,
+            'puesto_id' => 1,
         ]);
         $adminUser->assignRole($adminRole);
     }

@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class USerPolicy
+class UserPolicy
 {
     use HandlesAuthorization;
 
@@ -66,7 +66,12 @@ class USerPolicy
      */
     public function update(User $user, User $model)
     {
-        //
+        return $user->hasRole('Admin');
+    }
+
+    public function updatebyUser(User $user)
+    {
+        return $user->hasRole('Admin');
     }
 
     /**

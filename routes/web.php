@@ -8,6 +8,8 @@ use App\Http\Controllers\MedioController;
 use App\Http\Controllers\AzureController;
 use App\Http\Controllers\CategoriaRequisitoController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PuestoController;
+use App\Http\Controllers\ClienteController;
 use Inertia\Inertia;
 
 /*
@@ -56,6 +58,7 @@ Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(functi
     Route::get('/pacientes/create', [Pacientecontroller::class, 'create'])->name('pacientes/create');
     Route::post('/pacientes', [Pacientecontroller::class, 'store'])->name('pacientes/store');
 });
+
 Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(function () {
     Route::get('/medios/', [Mediocontroller::class, 'index'])->name('medios/');
     Route::get('/medios/create', [Mediocontroller::class, 'create'])->name('medios/create');
@@ -69,6 +72,21 @@ Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(functi
     Route::delete('/categorias_requisito/{uuid}/delete', [CategoriaRequisitocontroller::class, 'destroy'])->name('categoriarequisitos/delete');
     //Administrar usuarios
     Route::get('/usuarios/', [UserController::class, 'index'])->name('usuarios.index/');
+    Route::put('/usuarios/{user:uuid}/update', [Usercontroller::class, 'update'])->name('usuarios/update');
+    Route::get('/usuarios/{user:uuid}/edit', [Usercontroller::class, 'edit'])->name('usuarios/edit');
+
+    //Administrar Puestos de Trabajo
+    Route::get('/puestos/', [PuestoController::class, 'index'])->name('puestos/');
+    Route::get('/puestos/create', [Puestocontroller::class, 'create'])->name('puestos/create');
+    Route::get('/puestos/{puesto:uuid}/edit', [Puestocontroller::class, 'edit'])->name('puestos/edit');
+    Route::post('/puestos/', [Puestocontroller::class, 'store'])->name('puestos/store');
+    Route::put('/puestos/{puesto:uuid}/update', [Puestocontroller::class, 'update'])->name('puestos/update');
+    //Administrar Clientes
+    Route::get('/clientes/', [ClienteController::class, 'index'])->name('clientes/');
+    Route::get('/clientes/search', [ClienteController::class, 'search'])
+        ->name('clientes.search');
+    Route::post('/clientes/', [Clientecontroller::class, 'store'])->name('clientes/store');
+    Route::put('/clientes/{cliente:uuid}/update', [Clientecontroller::class, 'update'])->name('clientes/update');
 });
 
 Route::get('/auth/facebook', [SocialController::class, 'redirectFacebook']);

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasUuid;
 
 
-class CCT extends Model
+class Cct extends Model
 {
     use HasFactory;
     use HasUuid;

@@ -117,9 +117,9 @@
                                         <div
                                             class="font-semibold text-gray-600"
                                         >
-                                            {{ item.name }}
-                                            {{ item.ap1 }}
-                                            {{ item.ap2 }}
+                                            {{ item.nombre }}
+                                            {{ item.apellido1 }}
+                                            {{ item.apellido2 }}
                                         </div>
                                     </div>
                                 </li>
@@ -182,7 +182,7 @@ export default {
         const resultsRefs = ref([]);
         const selectedIndex = ref(0);
         const search = debounce(async (term) => {
-            let res = await axios.get("/pacientes/search/", {
+            let res = await axios.get("/admin/clientes/search/", {
                 params: {
                     term,
                 },

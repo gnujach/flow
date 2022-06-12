@@ -3,9 +3,10 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\CCT;
+use App\Models\Cct;
+use Illuminate\Support\Facades\DB;
 
-class CCTSeeder extends Seeder
+class CctSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,13 +15,14 @@ class CCTSeeder extends Seeder
      */
     public function run()
     {
-        CCT::truncate();
-        $csvFile = fopen(base_path("database/data/ccts.csv"), "r");
+        Cct::truncate();
+        DB::disableQueryLog();
+        $csvFile = fopen(base_path("database/data/Ccts.csv"), "r");
         $firstline = true;
         while (($data = fgetcsv($csvFile, 2000, ",")) !== FALSE) {
             if (!$firstline) {
-                CCT::create([
-                    "cct" => $data['0'],
+                Cct::create([
+                    "Cct" => $data['0'],
                     "nombre_ct" => $data['1'],
                     "clave_turno" => $data['2'],
                     "descripcion_turno" => $data['3'],

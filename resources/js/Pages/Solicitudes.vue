@@ -129,7 +129,7 @@
                                                             <span
                                                                 class="block truncate"
                                                                 >{{
-                                                                    selectedPerson.name
+                                                                    selectedPerson.nombre
                                                                 }}</span
                                                             >
                                                             <span
@@ -368,7 +368,7 @@
                                                 "
                                             >
                                                 {{
-                                                    `${getSelectedUsuario.name} ${getSelectedUsuario.ap1} ${getSelectedUsuario.ap2}`
+                                                    `${getSelectedUsuario.nombre} ${getSelectedUsuario.apellido1} ${getSelectedUsuario.apellido2}`
                                                 }}
                                             </p>
                                         </div>

@@ -22,6 +22,7 @@
                             class="mt-1 block w-full"
                             v-model="form.nombre"
                             autocomplete="nombre"
+                            autofocus
                         />
                         <jet-input-error
                             :message="form.errors.nombre"

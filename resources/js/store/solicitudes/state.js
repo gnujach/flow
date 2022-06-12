@@ -3,8 +3,8 @@ export default () => ({
     isOpenSearch: false,
     usuario: {
         id: null,
-        name: null,
-        ap1: null,
-        ap2: null,
+        nombre: null,
+        apellido1: null,
+        apellido2: null,
     },
 });

@@ -114,6 +114,9 @@
                                     </tr>
                                 </table>
                             </div>
+                            <div class="max-w-3xl mx-auto sm:px-6 lg:px-8 pt-4">
+                                <pagination :meta="medios.meta" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -140,6 +143,7 @@ export default defineComponent({
         JetNavLink,
         Pagination,
         Icon,
+        Pagination,
         ViewListIcon,
         PencilIcon,
         BanIcon,

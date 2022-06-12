@@ -11,6 +11,7 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use App\Traits\HasUuid;
 
 class User extends Authenticatable
 {
@@ -21,6 +22,7 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
     use HasRoles;
+    use HasUuid;
 
     /**
      * The attributes that are mass assignable.
@@ -28,9 +30,16 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name', 'email', 'password', 'azure_id'
+        'name', 'uuid', 'email', 'password', 'azure_id', 'cct_id', 'departamento_id', 'puesto_id'
     ];
 
+
+    /**Relaciones */
+
+    public function cct()
+    {
+        return $this->belongsTo(Cct::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -59,16 +68,5 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
-        // 'permissions',
-        // 'roles'
     ];
-
-    // public function getPermissionsAttribute()
-    // {
-    //     return $this->permissions()->get();
-    // }
-    // public function getRolesAttribute()
-    // {
-    //     return $this->roles()->get();
-    // }
 }
