@@ -16,4 +16,9 @@ class Puesto extends Model
         'uuid',
         'by'
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
 }

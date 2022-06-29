@@ -25,7 +25,7 @@ class UpdatePuestoRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => ['nullable', 'min:4', 'max:255', Rule::unique('puestos')->ignore($this->id)],
+            'nombre' => ['required', 'min:4', 'max:255', Rule::unique('puestos')->ignore($this->id)],
             'activo' => ['nullable', 'boolean'],
         ];
     }

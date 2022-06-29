@@ -80,6 +80,7 @@ import JetInput from "@/Jetstream/Input";
 import JetInputError from "@/Jetstream/InputError";
 import JetLabel from "@/Jetstream/Label";
 import JetActionMessage from "@/Jetstream/ActionMessage";
+import JetSectionBorder from "@/Jetstream/SectionBorder";
 import { useForm } from "@inertiajs/inertia-vue3";
 import { ref } from "vue";
 import { Switch } from "@headlessui/vue";
@@ -95,7 +96,7 @@ function rellena(form, medio) {
     form.nombre = medio.data.attributes.nombre;
     form.uuid = medio.data.uuid;
     // form.activo = medio.data.attributes.activo;
-    form.activo = medio.data.attributes.activo;
+    form.activo = Boolean(medio.data.attributes.activo);
 }
 
 export default {
@@ -108,6 +109,7 @@ export default {
         JetInput,
         JetInputError,
         JetLabel,
+        JetSectionBorder,
         Switch,
     },
     setup(props) {
@@ -127,7 +129,6 @@ export default {
         };
         rellena(form, props.medio);
         uuid.value = props.medio.data.uuid;
-        console.log(uuid);
         return {
             form,
             enabled,

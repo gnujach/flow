@@ -147,6 +147,7 @@ export default defineComponent({
         ViewListIcon,
         PencilIcon,
         BanIcon,
+        BadgeCheckIcon,
     },
     props: ["medios"],
     setup() {

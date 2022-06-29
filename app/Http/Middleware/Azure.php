@@ -171,6 +171,10 @@ class Azure
                 'name' => $profile->upn,
                 'email' => $profile->unique_name,
                 'password' => Hash::make(Str::random(24)),
+                'cct_id' => 1,
+                'puesto_id' => 1,
+                'centro_id' => 1,
+                'departamento_id' => 1
             ]);
             Auth::login($newUser);
 

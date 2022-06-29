@@ -82,6 +82,7 @@ import JetInput from "@/Jetstream/Input";
 import JetInputError from "@/Jetstream/InputError";
 import JetLabel from "@/Jetstream/Label";
 import JetActionMessage from "@/Jetstream/ActionMessage";
+import JetSectionBorder from "@/Jetstream/SectionBorder";
 import { useForm } from "@inertiajs/inertia-vue3";
 import { ref } from "vue";
 import { Switch } from "@headlessui/vue";
@@ -96,7 +97,7 @@ const uuid = ref(null);
 function rellena(form, puesto) {
     form.nombre = puesto.data.attributes.nombre;
     form.uuid = puesto.data.uuid;
-    form.activo = puesto.data.attributes.activo;
+    form.activo = Boolean(puesto.data.attributes.activo);
     form.id = puesto.data.id;
 }
 export default {
@@ -109,6 +110,7 @@ export default {
         JetInput,
         JetInputError,
         JetLabel,
+        JetSectionBorder,
         Switch,
     },
     setup(props) {
@@ -128,7 +130,6 @@ export default {
         };
         rellena(form, props.puesto);
         uuid.value = props.puesto.data.uuid;
-        console.log(uuid);
         return {
             form,
             enabled,

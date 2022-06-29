@@ -9,6 +9,8 @@ use App\Http\Resources\User as UsuarioResource;
 use App\Http\Resources\UserCollection as UserCollection;
 use App\Http\Requests\UpdateUserRequest;
 use App\Services\UserService;
+use Illuminate\Support\Facades\DB;
+use Redirect;
 
 class UserController extends Controller
 {
@@ -23,7 +25,7 @@ class UserController extends Controller
         return Inertia\Inertia::render(
             'Users/ListUsers',
             [
-                'users' => new UserCollection(User::orderBy('id', 'desc')->paginate(config('openlink.perpage'))),
+                'users' => new UserCollection(User::orderBy('id', 'desc')->with(['puesto', 'centro', 'departamento'])->paginate(config('openlink.perpage'))),
             ]
         );
     }
@@ -72,10 +74,14 @@ class UserController extends Controller
         return Inertia\Inertia::render(
             'Users/EditUser',
             [
-                'user' => new UsuarioResource($user)
+                'user' => new UsuarioResource($user),
+                'departamentos' => DB::table('departamentos')->where('activo', true)->select('id', 'nombre')->get(),
+                'puestos' => DB::table('puestos')->where('activo', true)->select('id', 'nombre')->get()
             ]
         );
     }
+
+
 
     /**
      * Update the specified resource in storage.
@@ -88,8 +94,13 @@ class UserController extends Controller
     {
         $this->authorize('updatebyUser', User::class);
         $user = $userService->updateUser($request, $user);
-        $data = ['message' => 'Todo has been updated', 'user_update' => $user];
-        return response()->json($data, 201);
+        return Redirect::route('admin.usuarios/');
+    }
+    public function updateTrabajo(UpdateUserRequest $request, User $user, UserService $userService)
+    {
+        $this->authorize('updatebyUser', User::class);
+        $user = $userService->updateUserTrabajo($request, $user);
+        return Redirect::route('admin.usuarios/');
     }
 
     /**

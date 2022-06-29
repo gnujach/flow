@@ -16,7 +16,7 @@ class ClienteCollection extends ResourceCollection
     {
         return [
             'message'       => 'Todos los clientes',
-            'puestos'     =>  $this->collection,
+            'clientes'     =>  $this->collection,
             'pagination'    => [
                 'total'         =>  $this->total(),
                 'per_page'      =>  $this->perPage(),

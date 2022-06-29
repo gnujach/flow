@@ -3,19 +3,11 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 
 class UpdateUserRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    // public function authorize()
-    // {
-    //     return $this->user()->hasRole('Admin');
-    // }
 
     /**
      * Get the validation rules that apply to the request.
@@ -25,10 +17,12 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-
+            'name' => ['nullable', 'min:4', 'max:255', Rule::unique('users')->ignoreModel($this->user)],
+            'email' => ['nullable', 'email', Rule::unique('users')->ignoreModel($this->user)],
+            'activo' => ['nullable', 'boolean'],
             'centro_id' => ['nullable', 'exists:centros,uuid'],
-            'departamento_id' => ['nullable', 'exists:departamentos,uuid'],
-            'puesto_id' => ['nullable', 'exists:puestos,uuid'],
+            'departamento_id' => ['nullable', 'exists:departamentos,id'],
+            'puesto_id' => ['nullable', 'exists:puestos,id'],
         ];
     }
 }

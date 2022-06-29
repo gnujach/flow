@@ -34,6 +34,7 @@ class UserTableSeeder extends Seeder
             'cct_id' => 1,
             'departamento_id' => 1,
             'puesto_id' => 1,
+            'activo' => true
         ]);
         $adminUser->assignRole($adminRole);
     }

@@ -1,34 +1,34 @@
 <template>
     <div
-        class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0"
+        class="relative flex bg-no-repeat bg-cover bg-fixed items-top justify-center z-0 min-h-screen bg-[url('/assets/img/pactosocial2.svg')] sm:items-center sm:pt-0"
     >
         <div
             v-if="canLogin"
-            class="hidden fixed top-0 right-0 px-6 py-4 sm:block"
+            class="fixed top-0 right-0 px-6 py-4 sm:block z-40"
         >
-            <inertia-link
+            <jet-nav-link
                 v-if="$page.props.user"
                 href="/dashboard"
-                class="text-sm text-gray-700 underline"
+                class="text-sm text-orange-500 underline"
             >
                 Dashboard
-            </inertia-link>
+            </jet-nav-link>
 
             <template v-else>
-                <inertia-link
+                <jet-nav-link
                     :href="route('login')"
-                    class="text-sm text-gray-700 underline"
+                    class="z-40 text-sm text-orange-500 underline"
                 >
                     Login
-                </inertia-link>
+                </jet-nav-link>
 
-                <inertia-link
+                <jet-nav-link
                     v-if="canRegister"
                     :href="route('register')"
-                    class="ml-4 text-sm text-gray-700 underline"
+                    class="ml-4 text-sm text-orange-700 underline"
                 >
                     Register
-                </inertia-link>
+                </jet-nav-link>
             </template>
         </div>
 
@@ -36,7 +36,7 @@
             <div class="flex justify-center sm:justify-start sm:pt-0">
                 <a href="/login">
                     <img
-                        src="/assets/img/logo-ddm.png"
+                        src="/assets/img/crater-logo.png"
                         class="block w-48 h-auto max-w-full mb-32 text-primary-400"
                         alt="Logo DDM"
                     />
@@ -111,12 +111,16 @@
 </style>
 
 <script>
+import JetNavLink from "@/Jetstream/NavLink";
 export default {
     props: {
         canLogin: Boolean,
         canRegister: Boolean,
         laravelVersion: String,
         phpVersion: String,
+    },
+    components: {
+        JetNavLink,
     },
 };
 </script>

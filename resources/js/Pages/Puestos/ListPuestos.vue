@@ -2,7 +2,7 @@
     <app-layout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Canales de Atención
+                Puestos
             </h2>
             <div class="py-12">
                 <div class="max-w-full mx-auto sm:px-6 lg:px-8">
@@ -133,7 +133,12 @@ import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
 import Pagination from "@/Shared/Pagination";
 import Icon from "@/Shared/Icon";
-import { ViewListIcon, PencilIcon, BanIcon } from "@heroicons/vue/outline";
+import {
+    ViewListIcon,
+    PencilIcon,
+    BanIcon,
+    BadgeCheckIcon,
+} from "@heroicons/vue/outline";
 
 export default {
     components: {
@@ -144,6 +149,7 @@ export default {
         ViewListIcon,
         PencilIcon,
         BanIcon,
+        BadgeCheckIcon,
     },
     props: ["puestos"],
 };

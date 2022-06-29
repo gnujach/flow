@@ -10,18 +10,11 @@ use App\Http\Controllers\CategoriaRequisitoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PuestoController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\DepartamentoController;
+use App\Http\Controllers\CentroController;
 use Inertia\Inertia;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -32,11 +25,6 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/users', function () {
-    return Inertia::render('Users', [
-        'users' => json_encode(array('a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5))
-    ]);
-});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -71,8 +59,9 @@ Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(functi
     Route::put('/categorias_requisito/{categoriarequisito:uuid}/update', [CategoriaRequisitocontroller::class, 'update'])->name('categoriarequisitos/update');
     Route::delete('/categorias_requisito/{uuid}/delete', [CategoriaRequisitocontroller::class, 'destroy'])->name('categoriarequisitos/delete');
     //Administrar usuarios
-    Route::get('/usuarios/', [UserController::class, 'index'])->name('usuarios.index/');
+    Route::get('/usuarios/', [UserController::class, 'index'])->name('usuarios/');
     Route::put('/usuarios/{user:uuid}/update', [Usercontroller::class, 'update'])->name('usuarios/update');
+    Route::put('/usuarios/{user:uuid}/updatedatostrabajo', [Usercontroller::class, 'updateTrabajo'])->name('usuarios/updatedatostrabajo');
     Route::get('/usuarios/{user:uuid}/edit', [Usercontroller::class, 'edit'])->name('usuarios/edit');
 
     //Administrar Puestos de Trabajo
@@ -81,12 +70,24 @@ Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(functi
     Route::get('/puestos/{puesto:uuid}/edit', [Puestocontroller::class, 'edit'])->name('puestos/edit');
     Route::post('/puestos/', [Puestocontroller::class, 'store'])->name('puestos/store');
     Route::put('/puestos/{puesto:uuid}/update', [Puestocontroller::class, 'update'])->name('puestos/update');
+    //Administrar Departamentos de Trabajo
+    Route::get('/departamentos/', [DepartamentoController::class, 'index'])->name('departamentos/');
+    Route::get('/departamentos/create', [DepartamentoController::class, 'create'])->name('departamentos/create');
+    Route::get('/departamentos/{departamento:uuid}/edit', [Departamentocontroller::class, 'edit'])->name('departamentos/edit');
+    Route::post('/departamentos/', [Departamentocontroller::class, 'store'])->name('departamentos/store');
+    Route::put('/departamentos/{departamento:uuid}/update', [Departamentocontroller::class, 'update'])->name('departamentos/update');
     //Administrar Clientes
     Route::get('/clientes/', [ClienteController::class, 'index'])->name('clientes/');
     Route::get('/clientes/search', [ClienteController::class, 'search'])
         ->name('clientes.search');
     Route::post('/clientes/', [Clientecontroller::class, 'store'])->name('clientes/store');
     Route::put('/clientes/{cliente:uuid}/update', [Clientecontroller::class, 'update'])->name('clientes/update');
+    //Administrar Centros de Trabajo
+    Route::get('/centros/', [CentroController::class, 'index'])->name('centros/');
+    Route::get('/centros/create', [CentroController::class, 'create'])->name('centros/create');
+    Route::get('/centros/{centro:uuid}/edit', [CentroController::class, 'edit'])->name('centros/edit');
+    Route::post('/centros/', [Centrocontroller::class, 'store'])->name('centros/store');
+    Route::put('/centros/{centro:uuid}/update', [Centrocontroller::class, 'update'])->name('centros/update');
 });
 
 Route::get('/auth/facebook', [SocialController::class, 'redirectFacebook']);

@@ -22,10 +22,12 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->string('profile_photo_path', 2048)->nullable();
+            $table->boolean('activo')->default(true);
             $table->foreignId('current_team_id')->nullable();
-            $table->foreignId('cct_id')->nullable(false);
+            $table->foreignId('centro_id')->nullable(false);
             $table->foreignId('puesto_id')->nullable(false);
             $table->foreignId('departamento_id')->nullable(false);
+
             $table->timestamps();
         });
     }

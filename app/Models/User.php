@@ -30,16 +30,30 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name', 'uuid', 'email', 'password', 'azure_id', 'cct_id', 'departamento_id', 'puesto_id'
+        'name', 'uuid', 'email', 'password', 'azure_id', 'cct_id', 'departamento_id', 'puesto_id', 'activo'
     ];
 
 
-    /**Relaciones */
+    /**Relaciones **/
 
-    public function cct()
+    // public function cct()
+    // {
+    //     return $this->belongsTo(Cct::class);
+    // }
+
+    public function centro()
     {
-        return $this->belongsTo(Cct::class);
+        return $this->belongsTo(Centro::class);
     }
+    public function puesto()
+    {
+        return $this->belongsTo(Puesto::class);
+    }
+    public function departamento()
+    {
+        return $this->belongsTo(Departamento::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

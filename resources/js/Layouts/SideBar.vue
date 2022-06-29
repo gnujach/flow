@@ -137,6 +137,16 @@ export default defineComponent({
                     icon: HeartIcon,
                 },
                 {
+                    url: "/admin/departamentos",
+                    label: "Administración de Departamentos",
+                    icon: HeartIcon,
+                },
+                {
+                    url: "/admin/centros",
+                    label: "Administración de Centros",
+                    icon: HeartIcon,
+                },
+                {
                     url: "/solicitudes",
                     label: "Solicitudes",
                     icon: ClipboardCheckIcon,

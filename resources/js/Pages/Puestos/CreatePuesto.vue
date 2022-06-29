@@ -60,6 +60,7 @@ import JetLabel from "@/Jetstream/Label";
 import JetActionMessage from "@/Jetstream/ActionMessage";
 import { useForm } from "@inertiajs/inertia-vue3";
 import { usePrevalidate } from "@/Composables/usePrevalidate";
+import JetSectionBorder from "@/Jetstream/SectionBorder";
 const form = useForm({
     nombre: null,
 });
@@ -84,6 +85,7 @@ export default {
         JetInput,
         JetInputError,
         JetLabel,
+        JetSectionBorder,
     },
     setup() {
         return {

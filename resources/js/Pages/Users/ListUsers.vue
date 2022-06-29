@@ -12,7 +12,7 @@
                         >
                             <div class="mt-8 flex flex-row m-2">
                                 <p class="text-2xl ml-4 w-1/2">
-                                    Pacientes activos en el sistema
+                                    Usuarios activos en el sistema
                                 </p>
                                 <div class="w-1/2 flex justify-end">
                                     <jet-nav-link
@@ -26,7 +26,7 @@
                                                     class="block w-6 h-6 fill-gray-400"
                                                 />
                                                 <p class="font-bold">
-                                                    Agregar user de Atención
+                                                    Agregar Usuario
                                                 </p>
                                             </div>
                                         </button>
@@ -65,12 +65,42 @@
                                                 <icon
                                                     name="sun"
                                                     class="w-8 h-8 mr-2 text-indigo-900"
+                                                />Centro de Trabajo
+                                            </div>
+                                        </th>
+                                        <th class="px-6 pt-6 pb-4">
+                                            <div
+                                                class="flex content-center items-center"
+                                            >
+                                                <icon
+                                                    name="sun"
+                                                    class="w-8 h-8 mr-2 text-indigo-900"
+                                                />Departamento
+                                            </div>
+                                        </th>
+                                        <th class="px-6 pt-6 pb-4">
+                                            <div
+                                                class="flex content-center items-center"
+                                            >
+                                                <icon
+                                                    name="sun"
+                                                    class="w-8 h-8 mr-2 text-indigo-900"
+                                                />Puesto
+                                            </div>
+                                        </th>
+                                        <th class="px-6 pt-6 pb-4">
+                                            <div
+                                                class="flex content-center items-center"
+                                            >
+                                                <icon
+                                                    name="sun"
+                                                    class="w-8 h-8 mr-2 text-indigo-900"
                                                 />Acciones
                                             </div>
                                         </th>
                                     </tr>
                                     <tr
-                                        v-for="user in users.data"
+                                        v-for="user in users.data.usuarios"
                                         :key="user.data.id"
                                         class="hover:bg-gray-100 focus-within:bg-gray-100"
                                         :class="[
@@ -90,16 +120,48 @@
                                             </p>
                                         </td>
                                         <td class="border-t">
+                                            <p class="pl-4 font-bold">
+                                                USAE SJI
+                                            </p>
+                                        </td>
+                                        <td class="border-t">
+                                            <p class="pl-4 font-bold">
+                                                {{
+                                                    user.data.departamento.data
+                                                        .attributes.nombre
+                                                }}
+                                            </p>
+                                        </td>
+                                        <td class="border-t">
+                                            <p class="pl-4 font-bold">
+                                                {{
+                                                    user.data.puesto.data
+                                                        .attributes.nombre
+                                                }}
+                                            </p>
+                                        </td>
+                                        <td class="border-t">
                                             <div
                                                 class="flex flex-row items-center text-gray-400 focus-within:text-gray-600"
                                             >
                                                 <ViewListIcon
                                                     class="w-5 h-5 ml-3 pointer-events-none"
                                                 />
-
-                                                <PencilIcon
-                                                    class="w-5 h-5 ml-3 pointer-events-none"
-                                                />
+                                                <jet-nav-link
+                                                    :href="
+                                                        route(
+                                                            'admin.usuarios/edit',
+                                                            {
+                                                                user: user.data
+                                                                    .uuid,
+                                                            }
+                                                        )
+                                                    "
+                                                >
+                                                    <PencilIcon
+                                                        class="w-5 h-5 ml-3 pointer-events-none"
+                                                    />
+                                                </jet-nav-link>
                                                 <BanIcon
                                                     v-if="
                                                         user.data.attributes
@@ -115,6 +177,9 @@
                                         </td>
                                     </tr>
                                 </table>
+                            </div>
+                            <div class="max-w-3xl mx-auto sm:px-6 lg:px-8 pt-4">
+                                <pagination :meta="users.meta" />
                             </div>
                         </div>
                     </div>
@@ -145,6 +210,7 @@ export default defineComponent({
         ViewListIcon,
         PencilIcon,
         BanIcon,
+        BadgeCheckIcon,
     },
     props: ["users"],
     setup() {

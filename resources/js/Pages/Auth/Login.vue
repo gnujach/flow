@@ -44,7 +44,7 @@
                         v-model:checked="form.remember"
                     />
                     <span class="ml-2 text-sm text-gray-600"
-                        >Recuerdar usuario</span
+                        >Recordar usuario</span
                     >
                 </label>
             </div>
@@ -55,7 +55,7 @@
                     :href="route('password.request')"
                     class="underline text-sm text-gray-600 hover:text-gray-900"
                 >
-                    Forgot your password?
+                    Recuperar Contraseña
                 </Link>
 
                 <jet-button
@@ -63,7 +63,7 @@
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
-                    Log in
+                    Ingresar
                 </jet-button>
             </div>
         </form>
@@ -71,7 +71,7 @@
             <a href="/auth/facebook"><button>Login Facebook</button></a>
         </div>
         <div class="w-full">
-            <a href="/login/azure"><button>Login Azure</button></a>
+            <a href="/login/azure"><button>Login Correo Seg</button></a>
         </div>
     </jet-authentication-card>
 </template>
