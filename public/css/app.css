@@ -1624,9 +1624,6 @@ input[type=file]::file-selector-button:hover {
 .right-auto {
   right: auto;
 }
-.top-16 {
-  top: 4rem;
-}
 .z-0 {
   z-index: 0;
 }
@@ -1886,9 +1883,6 @@ input[type=file]::file-selector-button:hover {
 }
 .w-44 {
   width: 11rem;
-}
-.w-72 {
-  width: 18rem;
 }
 .w-screen {
   width: 100vw;

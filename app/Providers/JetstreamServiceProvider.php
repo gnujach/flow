@@ -42,7 +42,7 @@ class JetstreamServiceProvider extends ServiceProvider
         Jetstream::removeTeamMembersUsing(RemoveTeamMember::class);
         Jetstream::deleteTeamsUsing(DeleteTeam::class);
         Jetstream::deleteUsersUsing(DeleteUser::class);
-        Jetstream::spatieRoles();
+        // Jetstream::spatieRoles();
         //Get the user roles
         // $is_admin = true;
 
