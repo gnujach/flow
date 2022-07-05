@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             DepartamentoSeeder::class,
             PuestoSeeder::class,
             UserTableSeeder::class,
-            PacienteSeeder::class,
+            // PacienteSeeder::class,
             MediosTableSeeder::class,
             ClienteSeeder::class,
         ]);
