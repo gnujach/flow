@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 use App\Traits\HasUuid;
 
 
@@ -11,6 +12,7 @@ class Cct extends Model
 {
     use HasFactory;
     use HasUuid;
+    use Searchable;
     protected $fillable = [
         'cct',
         'nombre_ct',
