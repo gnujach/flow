@@ -107,7 +107,7 @@ export default {
         );
         const formTrabajo = useForm({
             departamento_id: departamentoActual.value.id,
-            puesto_id: 1,
+            puesto_id: puestoActual.value.id,
         });
         function updateTrabajoInformation() {
             formTrabajo.put(

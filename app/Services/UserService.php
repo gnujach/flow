@@ -5,6 +5,7 @@ namespace App\Services;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class UserService
 {
@@ -27,5 +28,23 @@ class UserService
             'departamento_id' => $request->departamento_id,
             'puesto_id' => $request->puesto_id,
         ]);
+    }
+    public function updateRolUser(Request $request, User $user)
+    {
+        $rol_valido = false;
+        $roles = $request->roles_id;
+        if (is_array($roles)) {
+            foreach ($roles as $rol) {
+                $role = Role::find($rol);
+                if ($role) {
+                    $rol_valido = true;
+                }
+            }
+            $user->syncRoles($roles);
+        } else {
+            // dd($roles);
+            $user->syncRoles($roles);
+        }
+        // if ($rol_valido)
     }
 }

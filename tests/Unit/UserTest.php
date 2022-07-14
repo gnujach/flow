@@ -69,3 +69,13 @@ it('user_with_rol_admin_can_update_user', function () {
     $response = $this->actingAs($this->user)->put("/admin/usuarios/{$attributes->uuid}/update", $attributesUpdate);
     $response->assertStatus(201);
 });
+
+/**
+ * Listar todos los roles del sistema
+ */
+
+it('user_with_rol_admin_can_view_roles', function () {
+    $this->withoutExceptionHandling();
+    $request = $this->actingAs($this->user)->get('/admin/roles/show');
+    $request->assertStatus(200);
+});

@@ -147,6 +147,11 @@ export default defineComponent({
                     icon: HeartIcon,
                 },
                 {
+                    url: "/admin/requisitos/",
+                    label: "Administración de Requisitos",
+                    icon: HeartIcon,
+                },
+                {
                     url: "/solicitudes",
                     label: "Solicitudes",
                     icon: ClipboardCheckIcon,

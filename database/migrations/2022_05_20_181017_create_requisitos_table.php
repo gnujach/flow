@@ -17,6 +17,7 @@ class CreateRequisitosTable extends Migration
             $table->id();
             $table->uuid('uuid')->index()->unique();
             $table->string('nombre')->nullable(false);
+            $table->string('objetivo')->nullable(true);
             $table->boolean('activo')->default(true);
             $table->BigInteger('by')->nullable(false);
             $table->timestamps();

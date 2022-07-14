@@ -12,6 +12,7 @@ use App\Http\Resources\Puesto as PuestoResource;
 use App\Http\Resources\PuestoCollection;
 use Inertia\Inertia;
 use Redirect;
+use Illuminate\Support\Facades\DB;
 
 class PuestoController extends Controller
 {
@@ -26,7 +27,9 @@ class PuestoController extends Controller
         return Inertia::render(
             'Puestos/ListPuestos',
             [
-                'puestos' => new PuestoCollection(Puesto::orderBy('id', 'desc')->paginate(config('openlink.perpage'))),
+                'puestos' => new PuestoCollection(Puesto::orderBy('id','desc')
+                    ->where('id','>', 1)
+                    ->paginate(config('openlink.perpage'))),
             ]
         );
     }

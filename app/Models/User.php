@@ -83,4 +83,14 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function getRoles()
+    {
+        $res = [];
+        $allPermissions = $this->getAllRoles();
+        foreach ($allPermissions as $p) {
+            $res[] = $p->name;
+        }
+        return $res;
+    }
 }

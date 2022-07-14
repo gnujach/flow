@@ -20,6 +20,13 @@
                     />
                     <jet-section-border />
                 </div>
+                <div v-if="$page.props.jetstream.canUpdateProfileInformation">
+                    <update-rol-user-form
+                        :user="$page.props.user"
+                        :roles="$page.props.roles"
+                    />
+                    <jet-section-border />
+                </div>
             </div>
         </div>
     </app-layout>
@@ -29,9 +36,10 @@
 import AppLayout from "@/Layouts/AppLayout.vue";
 import UpdateActivoInformationForm from "@/Pages/Profile/Partials/UpdateActivoInformationForm.vue";
 import UpdateTrabajoUserForm from "@/Pages/Profile/Partials/UpdateTrabajoUserForm.vue";
+import UpdateRolUserForm from "@/Pages/Profile/Partials/UpdateRolUserForm.vue";
 import JetSectionBorder from "@/Jetstream/SectionBorder";
 import { ref } from "vue";
-props: ["user", "departamentos", "puestos"];
+props: ["user", "departamentos", "puestos", "roles", "rolesUsuario"];
 </script>
 
 <style></style>

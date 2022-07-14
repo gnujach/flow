@@ -27,7 +27,7 @@ class DepartamentoController extends Controller
         return Inertia::render(
             'Departamentos/ListDepartamentos',
             [
-                'departamentos' => new DepartamentoCollection(Departamento::orderBy('id', 'desc')->paginate(config('openlink.perpage'))),
+                'departamentos' => new DepartamentoCollection(Departamento::orderBy('id', 'desc')->where('id','>',1)->paginate(config('openlink.perpage'))),
             ]
         );
     }

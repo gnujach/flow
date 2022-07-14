@@ -7,9 +7,14 @@ use Inertia;
 use Illuminate\Http\Request;
 use App\Http\Resources\User as UsuarioResource;
 use App\Http\Resources\UserCollection as UserCollection;
+use App\Http\Resources\Rol as RolResource;
+use App\Http\Resources\RolCollection as RolCollection;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UpdateRolRequest;
 use App\Services\UserService;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Redirect;
 
 class UserController extends Controller
@@ -76,7 +81,9 @@ class UserController extends Controller
             [
                 'user' => new UsuarioResource($user),
                 'departamentos' => DB::table('departamentos')->where('activo', true)->select('id', 'nombre')->get(),
-                'puestos' => DB::table('puestos')->where('activo', true)->select('id', 'nombre')->get()
+                'puestos' => DB::table('puestos')->where('activo', true)->select('id', 'nombre')->get(),
+                'roles' => DB::table('roles')->select('id', 'name AS nombre')->get(),
+                'rolesUsario' => $user->getRoleNames()
             ]
         );
     }
@@ -112,5 +119,27 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+    //Show roles
+    public function showroles(Request $request)
+    {
+        $this->authorize('updatebyUser', User::class);
+        $all_roles_in_database = Role::all();
+        return $all_roles_in_database;
+        return RolResource::collection($all_roles_in_database);
+    }
+
+    /**
+     * Update roles
+     * @author @gnujach
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateRoles(UpdateRolRequest $request, User $user, UserService $userService)
+    {
+        $this->authorize('updatebyUser', User::class);
+        $user = $userService->updateRolUser($request, $user);
+        return Redirect::route('admin.usuarios/');
     }
 }

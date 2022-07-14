@@ -25,7 +25,7 @@ class CentroController extends Controller
         return Inertia::render(
             'Centros/ListCentros',
             [
-                'centros' => new CentroCollection(Centro::orderBy('id', 'desc')->paginate(config('openlink.perpage'))),
+                'centros' => new CentroCollection(Centro::orderBy('id', 'desc')->where('id','>',1)->paginate(config('openlink.perpage'))),
             ]
         );
     }

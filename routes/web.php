@@ -12,6 +12,7 @@ use App\Http\Controllers\PuestoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\CentroController;
+use App\Http\Controllers\RequisitoController;
 use Inertia\Inertia;
 
 
@@ -63,6 +64,8 @@ Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(functi
     Route::put('/usuarios/{user:uuid}/update', [Usercontroller::class, 'update'])->name('usuarios/update');
     Route::put('/usuarios/{user:uuid}/updatedatostrabajo', [Usercontroller::class, 'updateTrabajo'])->name('usuarios/updatedatostrabajo');
     Route::get('/usuarios/{user:uuid}/edit', [Usercontroller::class, 'edit'])->name('usuarios/edit');
+    Route::put('/usuarios/{user:uuid}/updateroles', [Usercontroller::class, 'updateRoles'])->name('usuarios/updateroles');
+    Route::get('/roles/show', [Usercontroller::class, 'showroles'])->name('roles.show');
 
     //Administrar Puestos de Trabajo
     Route::get('/puestos/', [PuestoController::class, 'index'])->name('puestos/');
@@ -88,6 +91,12 @@ Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(functi
     Route::get('/centros/{centro:uuid}/edit', [CentroController::class, 'edit'])->name('centros/edit');
     Route::post('/centros/', [Centrocontroller::class, 'store'])->name('centros/store');
     Route::put('/centros/{centro:uuid}/update', [Centrocontroller::class, 'update'])->name('centros/update');
+    //Administrar Requisitos
+    Route::get('/requisitos/', [RequisitoController::class, 'index'])->name('requisitos/');
+    Route::get('/requisitos/create', [RequisitoController::class, 'create'])->name('requisitos/create');
+    Route::get('/requisitos/{requisito:uuid}/edit', [RequisitoController::class, 'edit'])->name('requisitos/edit');
+    Route::post('/requisitos',[RequisitoController::class,'store'])->name('requisitos/store');
+    Route::put('/requisito/{requisito:uuid}/update', [Requisitocontroller::class, 'update'])->name('requisitos/update');
 });
 
 Route::get('/auth/facebook', [SocialController::class, 'redirectFacebook']);

@@ -24,9 +24,9 @@ return new class extends Migration
             $table->string('profile_photo_path', 2048)->nullable();
             $table->boolean('activo')->default(true);
             $table->foreignId('current_team_id')->nullable();
-            $table->foreignId('centro_id')->nullable(false);
-            $table->foreignId('puesto_id')->nullable(false);
-            $table->foreignId('departamento_id')->nullable(false);
+            $table->foreignId('centro_id')->nullable(false)->default(1);
+            $table->foreignId('puesto_id')->nullable(false)->default(1);
+            $table->foreignId('departamento_id')->nullable(false)->default(1);
 
             $table->timestamps();
         });

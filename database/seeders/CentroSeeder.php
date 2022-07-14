@@ -15,6 +15,10 @@ class CentroSeeder extends Seeder
     public function run()
     {
         Centro::create([
+            'nombre' => 'Sin Centro',
+            'by' => 1
+        ]);
+        Centro::create([
             'nombre' => 'Usae San José Iturbide',
             'by' => 1
         ]);

@@ -16,6 +16,10 @@ class PuestoSeeder extends Seeder
     public function run()
     {
         Puesto::create([
+            'nombre' => 'Sin Puesto',
+            'by' => 1
+        ]);
+        Puesto::create([
             'nombre' => 'Subjefe de Informática',
             'by' => 1
         ]);
