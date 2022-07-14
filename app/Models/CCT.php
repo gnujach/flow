@@ -12,7 +12,9 @@ class Cct extends Model
 {
     use HasFactory;
     use HasUuid;
+    //Hacemos el modelo buscable
     use Searchable;
+
     protected $fillable = [
         'cct',
         'nombre_ct',
