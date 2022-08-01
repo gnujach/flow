@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TramiteController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PacienteController;
@@ -14,7 +15,6 @@ use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\CentroController;
 use App\Http\Controllers\RequisitoController;
 use Inertia\Inertia;
-
 
 
 Route::get('/', function () {
@@ -95,8 +95,15 @@ Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(functi
     Route::get('/requisitos/', [RequisitoController::class, 'index'])->name('requisitos/');
     Route::get('/requisitos/create', [RequisitoController::class, 'create'])->name('requisitos/create');
     Route::get('/requisitos/{requisito:uuid}/edit', [RequisitoController::class, 'edit'])->name('requisitos/edit');
-    Route::post('/requisitos',[RequisitoController::class,'store'])->name('requisitos/store');
+    Route::post('/requisitos', [RequisitoController::class, 'store'])->name('requisitos/store');
     Route::put('/requisito/{requisito:uuid}/update', [Requisitocontroller::class, 'update'])->name('requisitos/update');
+    // Rutas de Tramites
+    Route::get('/tramites/', [TramiteController::class, 'index'])->name('tramites/');
+    Route::get('/tramites/create', [TramiteController::class, 'create'])->name('tramites/create');
+    Route::get('/tramites/{tramite:uuid}/edit', [TramiteController::class, 'edit'])->name('tramites/edit');
+    Route::post('/tramitess', [TramiteController::class, 'store'])->name('tramites/store');
+
+
 });
 
 Route::get('/auth/facebook', [SocialController::class, 'redirectFacebook']);

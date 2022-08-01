@@ -23,7 +23,7 @@ class RequisitoController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Requisito::class);
-        return Inertia::render('Requisitos/ListRequisitos',[
+        return Inertia::render('Requisitos/ListRequisitos', [
             'requisitos' => new RequisitoCollection(Requisito::OrderBy('id', 'desc')->paginate(config('openlink.perpage'))),
         ]);
     }
@@ -43,23 +43,24 @@ class RequisitoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RequisitoPostRequest $request, RequisitoService $requisitoService )
+    public function store(RequisitoPostRequest $request, RequisitoService $requisitoService)
     {
         $this->authorize('create', Requisito::class);
         if (request()->has('prevalidate')) {
             return redirect()->back();
         }
         $requisito = $requisitoService->storeRequisito($request);
-        return Redirect::route('admin.requisitos/');
+        return Redirect::route('admin.requisitos/')->banner('Requisito Guardado.');
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Requisito  $requisito
+     * @param \App\Models\Requisito $requisito
      * @return \Illuminate\Http\Response
      */
     public function show(Requisito $requisito)
@@ -70,7 +71,7 @@ class RequisitoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Requisito  $requisito
+     * @param \App\Models\Requisito $requisito
      * @return \Illuminate\Http\Response
      */
     public function edit(Requisito $requisito)
@@ -86,8 +87,8 @@ class RequisitoController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Requisito  $requisito
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Requisito $requisito
      * @return \Illuminate\Http\Response
      */
     public function update(RequisitoUpdateRequest $request, Requisito $requisito, RequisitoService $requisitoService)
@@ -99,7 +100,7 @@ class RequisitoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Requisito  $requisito
+     * @param \App\Models\Requisito $requisito
      * @return \Illuminate\Http\Response
      */
     public function destroy(Requisito $requisito)

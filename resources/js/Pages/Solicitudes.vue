@@ -517,7 +517,7 @@ export default {
                 dirijido: "Empleados activos de SEG",
             },
             {
-                departamento_id: 2,
+                departamento_id: 1,
                 name: "Solicitud de Cambio de escuela",
                 departamento: "Control Escolar",
                 ct: "Usae San José Iturbide",

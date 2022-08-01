@@ -18,4 +18,11 @@ class Requisito extends Model
         'uuid',
         'by'
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tramites() {
+        return $this->belongsToMany(Tramite::class);
+    }
 }

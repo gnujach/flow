@@ -13,7 +13,6 @@ use Inertia\Inertia;
 use Redirect;
 
 
-
 class DepartamentoController extends Controller
 {
     /**
@@ -27,7 +26,7 @@ class DepartamentoController extends Controller
         return Inertia::render(
             'Departamentos/ListDepartamentos',
             [
-                'departamentos' => new DepartamentoCollection(Departamento::orderBy('id', 'desc')->where('id','>',1)->paginate(config('openlink.perpage'))),
+                'departamentos' => new DepartamentoCollection(Departamento::orderBy('id', 'desc')->where('id', '>', 1)->paginate(config('openlink.perpage'))),
             ]
         );
     }
@@ -48,7 +47,7 @@ class DepartamentoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreDepartamentoRequest $request, DepartamentoService $serviceDepartamento)
@@ -57,14 +56,14 @@ class DepartamentoController extends Controller
         if (request()->has('prevalidate')) {
             return redirect()->back();
         }
-        $Departamento = $serviceDepartamento->storeDepartamento($request);
-        return Redirect::route('admin.departamentos/');
+        $serviceDepartamento->storeDepartamento($request);
+        return Redirect::route('admin.departamentos/')->banner('Departamento Guardado.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Departamento  $departamento
+     * @param \App\Models\Departamento $departamento
      * @return \Illuminate\Http\Response
      */
     public function show(Departamento $departamento)
@@ -75,7 +74,7 @@ class DepartamentoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Departamento  $departamento
+     * @param \App\Models\Departamento $departamento
      * @return \Illuminate\Http\Response
      */
     public function edit(Departamento $departamento)
@@ -92,8 +91,8 @@ class DepartamentoController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Departamento  $departamento
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Departamento $departamento
      * @return \Illuminate\Http\Response
      */
     public function update(updateDepartamentoRequest $request, Departamento $departamento, DepartamentoService $serviceDepartamento)
@@ -106,7 +105,7 @@ class DepartamentoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Departamento  $departamento
+     * @param \App\Models\Departamento $departamento
      * @return \Illuminate\Http\Response
      */
     public function destroy(Departamento $departamento)

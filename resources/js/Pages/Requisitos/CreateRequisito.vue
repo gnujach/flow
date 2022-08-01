@@ -10,12 +10,12 @@
                 @focusout="validate"
                 @submitted="saveRequisitoInformation"
             >
-                <template #title> Requisito </template>
-                <template #description> Alta de Requisito </template>
+                <template #title> Requisito</template>
+                <template #description> Alta de Requisito</template>
                 <!-- nombre -->
                 <template #form>
                     <div class="col-span-6 sm:col-span-4">
-                        <jet-label for="nombre" value="Nombre" />
+                        <jet-label for="nombre" value="Nombre"/>
                         <jet-input
                             id="nombre"
                             type="text"
@@ -28,8 +28,9 @@
                             :message="form.errors.nombre"
                             class="mt-2"
                         />
-                    </div><div class="col-span-6 sm:col-span-4">
-                        <jet-label for="objetivo" value="Objetivo" />
+                    </div>
+                    <div class="col-span-6 sm:col-span-4">
+                        <jet-label for="objetivo" value="Objetivo"/>
                         <jet-input
                             id="objetivo"
                             type="text"
@@ -50,7 +51,7 @@
                     >
                         Guardado!!
                     </jet-action-message>
-                    <jet-section-border />
+                    <jet-section-border/>
                     <jet-button
                         :class="{ 'opacity-25': form.processing }"
                         :disabled="form.processing"
@@ -72,15 +73,16 @@ import JetInputError from "@/Jetstream/InputError";
 import JetSectionBorder from "@/Jetstream/SectionBorder";
 import JetLabel from "@/Jetstream/Label";
 import JetActionMessage from "@/Jetstream/ActionMessage";
-import { useForm } from "@inertiajs/inertia-vue3";
-import { usePrevalidate } from "@/Composables/usePrevalidate";
+import {useForm} from "@inertiajs/inertia-vue3";
+import {usePrevalidate} from "@/Composables/usePrevalidate";
+
 const form = useForm({
     nombre: null,
     objetivo: null,
 });
-const { validate } = usePrevalidate(form, {
+const {validate} = usePrevalidate(form, {
     method: "post",
-    url: route("admin.centros/store"),
+    url: route("admin.requisitos/store"),
 });
 const saveRequisitoInformation = () => {
     form.transform((data) => ({

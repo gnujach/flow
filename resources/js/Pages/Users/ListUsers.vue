@@ -16,8 +16,9 @@
                                 </p>
                                 <div class="w-1/2 flex justify-end">
                                     <jet-nav-link
-                                        :href="route('admin.medios/create', {})"
-                                        ><button
+                                        :href="route('admin.usuarios/', {})"
+                                    >
+                                        <button
                                             class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500"
                                         >
                                             <div class="flex flex-row">
@@ -45,7 +46,8 @@
                                                 <icon
                                                     name="sun"
                                                     class="w-8 h-8 mr-2 text-indigo-900"
-                                                />Nombre
+                                                />
+                                                Nombre
                                             </div>
                                         </th>
                                         <th class="px-6 pt-6 pb-4">
@@ -55,7 +57,8 @@
                                                 <icon
                                                     name="sun"
                                                     class="w-8 h-8 mr-2 text-indigo-900"
-                                                />email
+                                                />
+                                                email
                                             </div>
                                         </th>
                                         <th class="px-6 pt-6 pb-4">
@@ -65,7 +68,8 @@
                                                 <icon
                                                     name="sun"
                                                     class="w-8 h-8 mr-2 text-indigo-900"
-                                                />Centro de Trabajo
+                                                />
+                                                Centro de Trabajo
                                             </div>
                                         </th>
                                         <th class="px-6 pt-6 pb-4">
@@ -75,7 +79,8 @@
                                                 <icon
                                                     name="sun"
                                                     class="w-8 h-8 mr-2 text-indigo-900"
-                                                />Departamento
+                                                />
+                                                Departamento
                                             </div>
                                         </th>
                                         <th class="px-6 pt-6 pb-4">
@@ -85,7 +90,8 @@
                                                 <icon
                                                     name="sun"
                                                     class="w-8 h-8 mr-2 text-indigo-900"
-                                                />Puesto
+                                                />
+                                                Puesto
                                             </div>
                                         </th>
                                         <th class="px-6 pt-6 pb-4">
@@ -95,7 +101,8 @@
                                                 <icon
                                                     name="sun"
                                                     class="w-8 h-8 mr-2 text-indigo-900"
-                                                />Acciones
+                                                />
+                                                Acciones
                                             </div>
                                         </th>
                                     </tr>
@@ -179,7 +186,7 @@
                                 </table>
                             </div>
                             <div class="max-w-3xl mx-auto sm:px-6 lg:px-8 pt-4">
-                                <pagination :meta="users.meta" />
+                                <pagination :meta="users.meta"/>
                             </div>
                         </div>
                     </div>
@@ -190,7 +197,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, computed, onMounted } from "vue";
+import {defineComponent, ref, computed, onMounted} from "vue";
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
 import Pagination from "@/Shared/Pagination";
@@ -201,6 +208,7 @@ import {
     BanIcon,
     BadgeCheckIcon,
 } from "@heroicons/vue/outline";
+
 export default defineComponent({
     components: {
         AppLayout,
