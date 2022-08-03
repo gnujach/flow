@@ -51,9 +51,9 @@ class TramitePolicy
      * @param \App\Models\Tramite $tramite
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Tramite $tramite)
+    public function updateRequest(User $user)
     {
-        //
+        return $user->hasRole('Admin');
     }
 
     /**

@@ -5,6 +5,9 @@ use Spatie\Permission\Models\Permission;
 use Inertia\Testing\AssertableInertia as Assert;
 use App\Models\User;
 use App\Models\Tramite;
+use App\Models\Requisito;
+use App\Models\Departamento;
+
 beforeEach(function () {
     //Creamos el Rol y permisos asociados al usuario
     $adminRole = Role::create(['name' => 'Admin']);
@@ -25,4 +28,49 @@ it('logged user with rol admin can view requisitos index', function () {
     $response = $this->actingAs($this->user)->get('/admin/tramites/');
     $response->assertStatus(200);
     $this->assertCount(1, Tramite::all());
+});
+
+it('logger user can add a new tramite with requisitos and task', function () {
+    $requisitos = Requisito::factory(4)->create();
+    $tramite = Tramite::factory()
+        ->hasTareastramite(2)
+        ->create(['by' => $this->user->id]);
+    $tramite->requisitos()->attach($requisitos);
+//    foreach ($requisitos as $requisito) {
+//        $tramite->requisitos()->attach($requisito['id']);
+//    }
+    $response = $this->actingAs($this->user)->get('/admin/tramites/');
+    $response->assertStatus(200);
+    $this->assertCount(1, Tramite::all());
+    $this->assertCount(4, Requisito::all());
+    $this->assertCount(4, $tramite->requisitos()->get());
+    $this->assertCount(2, $tramite->Tareastramite()->get());
+});
+
+it('logger user with priveleges admin can modify a Tramite into general options test', function () {
+    $tramite = Tramite::factory()
+        ->hasTareastramite(2)
+        ->has(Requisito::factory()->count(3))
+        ->create(['by' => $this->user->id]);
+    Departamento::factory(1)->create();
+    $requisitos = Requisito::factory(5)->create();
+    $attributesUpdate = [
+        'nombre' => strtoupper('Nuevo trámite'),
+        'objetivo' => strtoupper('Nuevo Objetivo'),
+        'fundamento_jur' => strtoupper('Nuevo fundamento_jur'),
+        'tipo_usuario' => 'interno',
+        'plazo_respuesta' => 1,
+        'departamento_id' => 1,
+        'requisitos' => $requisitos,
+        'costo' => 0,
+        'activo' => false,
+    ];
+//Falta verificar si hay requisitos y entonces actualizar
+
+    $response = $this->actingAs($this->user)->put("/admin/tramites/{$tramite->uuid}/update", $attributesUpdate);
+    $this->assertCount(1, Tramite::all());
+    $this->assertCount(5, $tramite->requisitos()->get());
+    $this->assertCount(2, $tramite->Tareastramite()->get());
+    $response->assertStatus(302);
+
 });

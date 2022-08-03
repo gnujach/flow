@@ -17,6 +17,6 @@ class Tareatramite extends Model
 
     public function Tramite()
     {
-        return $this->hasOne(Tramite::class);
+        return $this->belongsTo(Tramite::class);
     }
 }

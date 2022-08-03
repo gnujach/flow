@@ -18,14 +18,14 @@ class TramiteFactory extends Factory
             'nombre' => Name::class,
             'objetivo' => Name::class,
             'fundamento_jur' => Name::class,
-            'casos' =>Name::class,
+            'casos' => Name::class,
             'modalidad' => 'presencial',
             'plazo_respuesta' => 1,
             'costo' => 0.0,
             'tipo_usuario' => 'interno',
-            'activo' => true,
-            'cliente_id' => 1,
-            'by' => 1
+            'departamento_id' => 1,
+            'by' => 1,
+            'activo' => true
         ];
     }
 }

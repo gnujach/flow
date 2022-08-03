@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RequestUpdateTramite;
 use App\Http\Requests\TramitePostRequest;
 use App\Http\Resources\TramiteCollection;
-use App\Models\Departamento;
 use App\Models\Tareatramite;
 use App\Models\Tramite;
-use Illuminate\Http\Request;
+use App\Services\TramiteService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -62,13 +62,12 @@ class TramiteController extends Controller
             $tramite = Tramite::create([
                 'nombre' => strtoupper($request->input('nombre')),
                 'objetivo' => strtoupper($request->objetivo),
-                'fundamento_jur' => strtoupper($request->objetivo),
+                'fundamento_jur' => strtoupper($request->fundamento_jur),
                 'casos' => strtoupper($request->casos),
                 'modalidad' => $request->modalidad,
                 'plazo_respuesta' => $request->plazo_respuesta,
                 'costo' => $request->costo,
                 'tipo_usuario' => $request->tipo_usuario_id,
-//                'cliente_id' => 1,
                 'by' => Auth::id(),
                 'activo' => $request->activo,
                 'url_proceso' => $request->url_proceso,
@@ -125,9 +124,12 @@ class TramiteController extends Controller
      * @param \App\Models\Tramite $tramite
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tramite $tramite)
+    public function update(RequestUpdateTramite $request, Tramite $tramite, TramiteService $tramiteService)
     {
-        //
+        $this->authorize('updateRequest', Tramite::class);
+        $tramiteService->updateTramite($request, $tramite);
+        return Redirect::route('admin.tramites/');
+
     }
 
     /**

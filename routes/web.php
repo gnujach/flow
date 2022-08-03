@@ -101,8 +101,8 @@ Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(functi
     Route::get('/tramites/', [TramiteController::class, 'index'])->name('tramites/');
     Route::get('/tramites/create', [TramiteController::class, 'create'])->name('tramites/create');
     Route::get('/tramites/{tramite:uuid}/edit', [TramiteController::class, 'edit'])->name('tramites/edit');
-    Route::post('/tramitess', [TramiteController::class, 'store'])->name('tramites/store');
-
+    Route::post('/tramites', [TramiteController::class, 'store'])->name('tramites/store');
+    Route::put('/tramites/{tramite:uuid}/update', [Tramitecontroller::class, 'update'])->name('tramites/update');
 
 });
 

@@ -93,6 +93,7 @@ class RequisitoController extends Controller
      */
     public function update(RequisitoUpdateRequest $request, Requisito $requisito, RequisitoService $requisitoService)
     {
+        $this->authorize('create', Requisito::class);
         $requisito = $requisitoService->updateRequisito($request, $requisito);
         return Redirect::route('admin.requisitos/');
     }

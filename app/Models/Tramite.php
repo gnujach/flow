@@ -31,7 +31,7 @@ class Tramite extends Model
     /**
      * Un tramite puede tener muchos requisitos
      */
-    public function requisitos()
+    public function requisitos(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Requisito::class);
     }

@@ -30,6 +30,7 @@
                     </div>
                 </div>
             </div>
+            <Alert v-if="form.hasErrors "/>
         </template>
         <div class="max-w-7xl  mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <div
@@ -127,6 +128,7 @@
                                             type="text"
                                             class="mt-1 border-blue-500"
                                             v-model="form.plazo_respuesta"
+                                            @blur="validate"
                                         />
                                         <jet-input-error
                                             :message="form.errors.plazo_respuesta"
@@ -308,10 +310,7 @@
                                             class="mt-1 border-blue-400"
                                             v-model="task"
                                         />
-                                        <jet-input-error
-                                            :message="form.errors.plazo_respuesta"
-                                            class="mt-2"
-                                        />
+
                                         <button
                                             class="bg-gray-100 text-blue-700 rounded-md flex flex-row m-2 items-center hover:bg-blue-700 hover:text-gray-100"
                                             @click="addTarea(task)">
@@ -386,6 +385,7 @@ import BaseListbox from "@/Shared/BaseListbox.vue";
 import {ref} from "vue";
 import {Switch} from "@headlessui/vue";
 import {usePrevalidate} from "@/Composables/usePrevalidate";
+import Alert from "@/Components/Alert";
 
 props:['requisitos', 'departamentos'];
 
