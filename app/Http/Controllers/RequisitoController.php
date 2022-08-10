@@ -53,6 +53,8 @@ class RequisitoController extends Controller
             return redirect()->back();
         }
         $requisito = $requisitoService->storeRequisito($request);
+        if ($request->modal)
+            return redirect()->back();
         return Redirect::route('admin.requisitos/')->banner('Requisito Guardado.');
 
     }

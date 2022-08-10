@@ -16,7 +16,7 @@ class CreatePuestoRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => ['required', 'min:4', 'max:35', Rule::unique('puestos')],
+            'nombre' => ['required', 'min:4', 'max:50', Rule::unique('puestos')],
         ];
     }
 }

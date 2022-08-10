@@ -10,12 +10,12 @@
                 @focusout="validate"
                 @submitted="savePuestoInformation"
             >
-                <template #title> Puesto </template>
-                <template #description> Alta de Puesto </template>
+                <template #title> Puesto</template>
+                <template #description> Alta de Puesto</template>
                 <!-- nombre -->
                 <template #form>
                     <div class="col-span-6 sm:col-span-4">
-                        <jet-label for="nombre" value="Nombre" />
+                        <jet-label for="nombre" value="Nombre"/>
                         <jet-input
                             id="nombre"
                             type="text"
@@ -37,7 +37,7 @@
                     >
                         Guardado!!
                     </jet-action-message>
-                    <jet-section-border />
+                    <jet-section-border/>
                     <jet-button
                         :class="{ 'opacity-25': form.processing }"
                         :disabled="form.processing"
@@ -58,13 +58,14 @@ import JetInput from "@/Jetstream/Input";
 import JetInputError from "@/Jetstream/InputError";
 import JetLabel from "@/Jetstream/Label";
 import JetActionMessage from "@/Jetstream/ActionMessage";
-import { useForm } from "@inertiajs/inertia-vue3";
-import { usePrevalidate } from "@/Composables/usePrevalidate";
+import {useForm} from "@inertiajs/inertia-vue3";
+import {usePrevalidate} from "@/Composables/usePrevalidate";
 import JetSectionBorder from "@/Jetstream/SectionBorder";
+
 const form = useForm({
     nombre: null,
 });
-const { validate } = usePrevalidate(form, {
+const {validate} = usePrevalidate(form, {
     method: "post",
     url: route("admin.puestos/store"),
 });
@@ -72,9 +73,11 @@ const savePuestoInformation = () => {
     form.transform((data) => ({
         ...data,
     })).post(route("admin.puestos/store"), {
-        errorBag: "savePuestoInformation",
-        preserveScroll: true,
+        preserveState: false
     });
+    if (form.wasSuccessful) {
+        form.reset();
+    }
 };
 export default {
     components: {

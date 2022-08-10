@@ -41,9 +41,15 @@
                                 :class="{'visible ':selectIndexTab==0, 'hidden':selectIndexTab!= 0}">
                             Información General
                             del Trámite</p></Tab>
-                        <Tab><p class="text-2xl font-bold "
-                                :class="{'visible':selectIndexTab==1, 'hidden':selectIndexTab!= 1}">
-                            Requisitos</p>
+                        <Tab>
+                            <div class="flex flex-row justify-around"
+                                 :class="{'visible':selectIndexTab==1, 'hidden':selectIndexTab!= 1}">
+                                <div class="w-2/3">
+                                    <p class="text-2xl font-bold "
+                                    >
+                                        Requisitos</p>
+                                </div>
+                            </div>
                         </Tab>
                         <Tab><p class="text-2xl font-bold "
                                 :class="{'visible':selectIndexTab==2, 'hidden':selectIndexTab!= 2}">Tareas</p>
@@ -208,6 +214,9 @@
                             </div>
                         </TabPanel>
                         <TabPanel>
+                            <div class="max-w-8xl flex justify-end mb-2">
+                                <ModalAddRequisito/>
+                            </div>
                             <div class="max-w-8xl">
                                 <div
                                     class="grid grid-row-4 grid-cols-4 gap-4 max-h-96 ">
@@ -386,8 +395,9 @@ import {ref} from "vue";
 import {Switch} from "@headlessui/vue";
 import {usePrevalidate} from "@/Composables/usePrevalidate";
 import Alert from "@/Components/Alert";
+import ModalAddRequisito from "@/modules/Dialog/Components/ModalAddRequisito";
 
-props:['requisitos', 'departamentos'];
+props:['requisitos', 'departamentos', 'errors'];
 
 const form = useForm({
     nombre: null,
@@ -433,11 +443,14 @@ let checked = ref(false);
 let active = ref(false);
 const task = ref(null);
 const addRequisito = (requisito) => {
+    console.log(form.requisitos.some(elem => elem.id === requisito.id));
+    if (form.requisitos.some(elem => elem.id === requisito.id))
+        return;
     if (!form.requisitos.includes(requisito)) {
         form.requisitos.push(requisito)
     }
 }
-const findRequisito = (requisito) => form.requisitos.includes(requisito);
+const findRequisito = (requisito) => form.requisitos.some(elem => elem.id === requisito.id);
 
 const deleteRequisito = (index) => {
     form.requisitos.splice(index, 1);
