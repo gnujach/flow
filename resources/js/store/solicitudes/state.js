@@ -7,4 +7,5 @@ export default () => ({
         apellido1: null,
         apellido2: null,
     },
+    cliente: []
 });

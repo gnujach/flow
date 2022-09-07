@@ -7,3 +7,7 @@ export const getSearchCreate = (state) => {
 export const getSelectedUsuario = (state) => {
     return state.usuario;
 };
+export const getSelectedCliente = (state) => {
+    return state.cliente;
+};
+

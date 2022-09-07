@@ -475,7 +475,4 @@ const saveTramiteInformation = () => {
 }
 </script>
 
-<style scoped>
-
-</style>
 

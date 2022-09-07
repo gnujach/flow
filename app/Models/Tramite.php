@@ -37,6 +37,14 @@ class Tramite extends Model
     }
 
     /**
+     * Un tramite pertenece a un departamento
+     */
+    public function departamento()
+    {
+        return $this->belongsTo(Departamento::class);
+    }
+
+    /**
      * Un Tramite puede tener muchas tareas
      */
     public function Tareastramite()

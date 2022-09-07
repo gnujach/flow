@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RequestUpdateTramite;
 use App\Http\Requests\TramitePostRequest;
 use App\Http\Resources\TramiteCollection;
+use App\Http\Resources\Tramite as TramiteResouce;
 use App\Models\Tareatramite;
 use App\Models\Tramite;
 use App\Services\TramiteService;
@@ -103,7 +104,8 @@ class TramiteController extends Controller
      */
     public function show(Tramite $tramite)
     {
-        //
+        $this->authorize('viewAny', Tramite::class);
+        return new TramiteResouce($tramite);
     }
 
     /**
@@ -129,7 +131,6 @@ class TramiteController extends Controller
         $this->authorize('updateRequest', Tramite::class);
         $tramiteService->updateTramite($request, $tramite);
         return Redirect::route('admin.tramites/');
-
     }
 
     /**

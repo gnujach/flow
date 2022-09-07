@@ -12,3 +12,6 @@ export const SELECT_USUARIO = (state, usuario) => {
 export const TOGGLE_OPEN_MODAL_SEARCH_USER = (state) => {
     state.isOpenSearch = !state.isOpenSearch;
 };
+export const SET_CLIENTE = (state, cliente) => {
+    state.cliente = cliente;
+};

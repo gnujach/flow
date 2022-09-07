@@ -23,7 +23,7 @@ beforeEach(function () {
 it('logged user with rol admin can view clientes index', function () {
     Cliente::factory()->create(['by' => $this->user->id]);
     $response = $this->actingAs($this->user)->get('/admin/clientes/')->assertInertia(
-        fn (Assert $page) => $page
+        fn(Assert $page) => $page
             ->component('Clientes/ListClientes')
             ->has('clientes')
     );

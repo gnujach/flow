@@ -23,6 +23,9 @@ class ClienteService
             'telefono' => $request->input('telefono'),
             'by' => Auth::id(),
         ]);
+        if ($cliente)
+            return $cliente;
+        else return null;
     }
 
     public function updateCliente(Request $request, Cliente $cliente)

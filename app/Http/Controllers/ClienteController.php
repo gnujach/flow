@@ -43,6 +43,7 @@ class ClienteController extends Controller
         $result = Cliente::search($keyword)->take(10)->get();
         return response()->json($result, 200);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -50,13 +51,27 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render(
+            'Clientes/CreateCliente',
+        );
+    }
+
+    /**
+     * get the last cliente saved.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getlast()
+    {
+        $this->authorize('create', Cliente::class);
+        $cliente = Cliente::latest()->first();
+        return response()->json($cliente);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreClienteRequest $request, ClienteService $clienteService)
@@ -65,14 +80,19 @@ class ClienteController extends Controller
         if (request()->has('prevalidate')) {
             return redirect()->back();
         }
-        $clienteService->storeCliente($request);
-        return Redirect::route('admin.clientes/');
+        $record = $clienteService->storeCliente($request);
+        if (request()->has('modal') and $record) {
+            return redirect()->back()->banner('Cliente Guardado.')->withInput();
+        }
+        if (!request()->has('modal') and $record) {
+            return Redirect::route('admin.clientes/');
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Cliente  $cliente
+     * @param \App\Models\Cliente $cliente
      * @return \Illuminate\Http\Response
      */
     public function show(Cliente $cliente)
@@ -83,7 +103,7 @@ class ClienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Cliente  $cliente
+     * @param \App\Models\Cliente $cliente
      * @return \Illuminate\Http\Response
      */
     public function edit(Cliente $cliente)
@@ -94,8 +114,8 @@ class ClienteController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cliente  $cliente
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Cliente $cliente
      * @return \Illuminate\Http\Response
      */
     public function update(updateClienteRequest $request, Cliente $cliente, ClienteService $clienteService)
@@ -108,7 +128,7 @@ class ClienteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Cliente  $cliente
+     * @param \App\Models\Cliente $cliente
      * @return \Illuminate\Http\Response
      */
     public function destroy(Cliente $cliente)

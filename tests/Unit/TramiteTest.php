@@ -3,6 +3,7 @@
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Inertia\Testing\AssertableInertia as Assert;
+use Illuminate\Testing\Fluent\AssertableJson;
 use App\Models\User;
 use App\Models\Tramite;
 use App\Models\Requisito;
@@ -45,6 +46,26 @@ it('logger user can add a new tramite with requisitos and task', function () {
     $this->assertCount(4, Requisito::all());
     $this->assertCount(4, $tramite->requisitos()->get());
     $this->assertCount(2, $tramite->Tareastramite()->get());
+});
+it('logged user can show a tramite', function () {
+    $tramite = Tramite::factory()
+        ->hasTareastramite(2)
+        ->has(Requisito::factory()->count(3))
+        ->create(['by' => $this->user->id]);
+    $response = $this->actingAs($this->user)->get("/admin/tramites/{$tramite->uuid}/show");
+    $response->assertStatus(200);
+    $this->assertCount(1, Tramite::all());
+    $response->assertJson(function (AssertableJson $json) {
+        return $json->has('data');
+    });
+    $response
+        ->assertJson(function (AssertableJson $json) {
+//            dd($json);
+            return $json->where('data.id', 1);
+//                ->where('data.attributes.objetivo', 'Nuevo Objetivo');
+//                ->whereNot('data.departamento_id', 2);
+        }
+        );
 });
 
 it('logger user with priveleges admin can modify a Tramite into general options test', function () {

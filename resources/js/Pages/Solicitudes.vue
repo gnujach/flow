@@ -9,9 +9,10 @@
             <div
                 class="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto"
             >
-                <div class="animate-pulse flex flex-col space-x-4">
+                <div class="flex flex-col space-x-4" :class="{ 'animate-pulse': !selected }">
                     <div class="flex-1 mx-auto"><span>Trámite</span></div>
                     <div class="flex-1 space-y-6 py-1" v-if="!selected">
+
                         <div class="h-2 bg-slate-200 rounded"></div>
                         <div class="space-y-3">
                             <div class="grid grid-cols-3 gap-4">
@@ -25,8 +26,9 @@
                             <div class="h-2 bg-slate-200 rounded"></div>
                         </div>
                     </div>
-                    <div class="flex-1 space-y-6 py-1" v-else>
-                        {{ selected.name }}
+                    <div class="flex flex-row justify-around space-y-6 py-1" v-else>
+                        {{ selected.nombre }}
+                        <ModalInfoTramite :tram='selected'/>
                     </div>
                 </div>
             </div>
@@ -80,20 +82,16 @@
                                 :key="category"
                                 v-slot="{ selected }"
                                 @click="
-                                    {
-                                        {
-                                            selectIndexTab = key;
-                                        }
-                                    }
+                                            selectIndexTab = key
                                 "
                             >
                                 <button
                                     :class="[
-                                        'w-full py-2.5 text-lg leading-5 font-medium text-blue-700 font-semibold bg-white',
-                                        'focus:outline-none ',
+                                        'w-full py-2.5 text-lg leading-5 font-medium font-semibold ',
+                                        'hover:ring-2 hover:ring-sky-900 hover:bg-sky-900 hover:text-white',
                                         selected
-                                            ? 'bg-green-400  border-b-2 border-blue-800'
-                                            : 'text-blue-100 hover:bg-white/[0.12] hover:text-gray-200 font-bold',
+                                            ? 'bg-sky-900  border-b-2 border-blue-800 text-white italic'
+                                            : 'text-blue-100 hover:bg-white/[0.12] hover:text-gray-200 font-bold bg-blue-400',
                                     ]"
                                 >
                                     {{ category }}
@@ -116,7 +114,7 @@
                                                 class="w-5 h-5 ml-4"
                                                 aria-hidden="true"
                                             />
-                                            <div class="w-44">
+                                            <div class="w-60">
                                                 <Listbox
                                                     v-model="selectedPerson"
                                                 >
@@ -128,7 +126,7 @@
                                                         >
                                                             <span
                                                                 class="block truncate"
-                                                                >{{
+                                                            >{{
                                                                     selectedPerson.nombre
                                                                 }}</span
                                                             >
@@ -148,26 +146,26 @@
                                                             leave-to-class="opacity-0"
                                                         >
                                                             <ListboxOptions
-                                                                class="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                                                                class="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-96 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
                                                             >
                                                                 <ListboxOption
                                                                     v-slot="{
                                                                         active,
                                                                         selected,
                                                                     }"
-                                                                    v-for="person in people"
+                                                                    v-for="departamento in $page.props.departamentos"
                                                                     :key="
-                                                                        person.name
+                                                                        departamento.id
                                                                     "
                                                                     :value="
-                                                                        person
+                                                                        departamento
                                                                     "
                                                                     as="template"
                                                                 >
                                                                     <li
                                                                         @click="
                                                                             SelectDeptoId(
-                                                                                person.id
+                                                                                departamento.id
                                                                             )
                                                                         "
                                                                         :class="[
@@ -178,14 +176,15 @@
                                                                         ]"
                                                                     >
                                                                         <span
+                                                                            class="capitalize"
                                                                             :class="[
                                                                                 selected
                                                                                     ? 'font-medium'
                                                                                     : 'font-normal',
                                                                                 'block truncate',
                                                                             ]"
-                                                                            >{{
-                                                                                person.name
+                                                                        >{{
+                                                                                departamento.nombre
                                                                             }}</span
                                                                         >
                                                                         <span
@@ -239,16 +238,17 @@
                                     >
                                         <RadioGroup v-model="selected">
                                             <RadioGroupLabel class="sr-only"
-                                                >Trámite</RadioGroupLabel
+                                            >Trámite
+                                            </RadioGroupLabel
                                             >
                                             <div
-                                                class="grid justify-between justify-items-center md:grid-rows-4 md:grid-flow-col gap-4 my-4"
+                                                class="grid grid-cols-4 justify-between justify-items-center md:grid-rows-2 md:grid-flow-row-dense gap-4 my-4 overflow-y-auto"
                                             >
                                                 <RadioGroupOption
                                                     as="template"
-                                                    v-for="plan in tramites"
-                                                    :key="plan.name"
-                                                    :value="plan"
+                                                    v-for="tramite in listaTramites"
+                                                    :key="tramite.nombre"
+                                                    :value="tramite"
                                                     v-slot="{ active, checked }"
                                                 >
                                                     <div
@@ -278,11 +278,8 @@
                                                                                 ? 'text-white'
                                                                                 : 'text-gray-900'
                                                                         "
-                                                                        class="font-medium"
-                                                                    >
-                                                                        {{
-                                                                            plan.name
-                                                                        }}
+                                                                        class="font-medium uppercase"
+                                                                    >"{{ tramite.nombre }}"
                                                                     </RadioGroupLabel>
                                                                     <RadioGroupDescription
                                                                         as="span"
@@ -295,19 +292,11 @@
                                                                     >
                                                                         <span>
                                                                             {{
-                                                                                plan.departamento
+                                                                                tramite.objetivo
                                                                             }}/{{
-                                                                                plan.ct
+                                                                                tramite.departamento.nombre
                                                                             }}</span
                                                                         >
-                                                                        <span
-                                                                            aria-hidden="true"
-                                                                        >
-                                                                            &middot;
-                                                                        </span>
-                                                                        <span>{{
-                                                                            plan.dirijido
-                                                                        }}</span>
                                                                     </RadioGroupDescription>
                                                                 </div>
                                                             </div>
@@ -349,12 +338,12 @@
                                     class="grid grid-rows-3 grid-flow-col gap-4 h-96 bg-gray-200"
                                 >
                                     <div class="flex justify-around">
-                                        <ModalSearch />
-                                        <ModalAddUser />
+                                        <ModalSearch/>
+                                        <ModalAddUser/>
                                     </div>
-                                    <div class="flex">
+                                    <div class="flex flex-row justify-around row-span-2">
                                         <div
-                                            class="block mx-auto p-2 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+                                            class="w-1/3 block mx-auto p-2 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100"
                                         >
                                             <h5
                                                 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
@@ -373,23 +362,86 @@
                                             </p>
                                         </div>
                                         <div
-                                            class="block mx-auto p-2 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+                                            class="w-1/3 bg-white p-2 mx-auto rounded-lg shadow-md overflow-y-auto h-auto"
                                         >
                                             <h5
-                                                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-                                            >
-                                                Medio de atención
-                                            </h5>
-                                            <p>Interno</p>
+                                                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-center "
+                                            >Medios de Atención</h5>
+                                            <RadioGroup v-model="medioAtencion">
+                                                <RadioGroupLabel class="sr-only">Medios de Atención</RadioGroupLabel>
+                                                <div class="space-y-2">
+                                                    <RadioGroupOption
+                                                        as="template"
+                                                        v-for="medio in medios"
+                                                        :key="medio.nombre"
+                                                        :value="medio"
+                                                        v-slot="{ active, checked }"
+                                                    >
+                                                        <div
+                                                            :class="[
+                                                                active
+                                                                  ? 'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-sky-300'
+                                                                  : '',
+                                                                checked ? 'bg-sky-900 bg-opacity-75 text-white ' : 'bg-sky-100 ',
+                                                              ]"
+                                                            class="flex cursor-pointer rounded-lg px-2 py-2 shadow-md focus:outline-none w-full"
+                                                        >
+                                                            <div class="flex w-full items-center justify-between">
+                                                                <div v-show="checked" class="shrink-0 text-white">
+                                                                    <CheckCircleIcon class="h-6 w-6"/>
+                                                                </div>
+                                                                <div v-show="!checked" class="shrink-0 text-gray-600">
+                                                                    <PlusCircleIcon class="h-6 w-6"/>
+                                                                </div>
+                                                                <div class="flex items-center">
+                                                                    <div class="text-sm">
+                                                                        <RadioGroupLabel
+                                                                            as="p"
+                                                                            :class="checked ? 'text-white' : 'text-gray-900'"
+                                                                            class="font-medium"
+                                                                        >
+                                                                            {{ medio.nombre }}
+                                                                        </RadioGroupLabel>
+                                                                        <RadioGroupDescription
+                                                                            as="span"
+                                                                            :class="checked ? 'text-sky-100' : 'text-gray-500'"
+                                                                            class="inline"
+                                                                        >
+                                                                        </RadioGroupDescription>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </RadioGroupOption>
+                                                </div>
+                                            </RadioGroup>
                                         </div>
                                     </div>
                                 </div>
                             </TabPanel>
                             <TabPanel>
                                 <div
-                                    class="grid grid-rows-3 grid-flow-col gap-4 h-96 bg-gradient-to-r from-blue-500"
+                                    class="grid grid-rows-1 grid-flow-col gap-4 h-96 bg-gradient-to-r from-blue-500 items-center"
                                 >
-                                    <h2>Tareas ...</h2>
+                                    <div class="w-32 h-32 mx-4">
+                                        <CogIcon class=" w-32 h-32 text-gray-400 "/>
+                                    </div>
+                                    <hr/>
+                                    <div class="flex flex-row shrink-0 mx-auto items-center justify-items-center"
+                                         v-if="selected">
+                                        <div v-for="tarea in selected.tareastramite"
+                                             class="flex flex-row justify-items-center">
+                                            <div class="ring-2 w-32 h-32 mx-4 p-4 rounded-full ">
+                                                <span class="text-center">
+                                                    {{ tarea.nombre }}
+                                                    </span>
+                                            </div>
+                                            <hr/>
+                                        </div>
+                                    </div>
+                                    <div class="w-32 h-32 mx-4">
+                                        <NewspaperIcon class=" w-32 h-32 text-gray-400"/>
+                                    </div>
                                 </div>
                             </TabPanel>
                         </TabPanels>
@@ -415,8 +467,8 @@
     </app-layout>
 </template>
 
-<script>
-import { ref, computed, onMounted } from "vue";
+<script setup>
+import {ref, computed, toRefs, defineProps, defineEmits, onMounted} from "vue";
 import {
     TabGroup,
     TabList,
@@ -435,211 +487,152 @@ import {
 import AppLayout from "@/Layouts/AppLayout.vue";
 import ModalSearch from "@/modules/Dialog/Components/ModalSearch.vue";
 import ModalAddUser from "@/modules/Dialog/Components/ModalAddUser";
-import { useStore, mapGetters } from "vuex";
+import ModalInfoTramite from "@/modules/Dialog/Components/ModalInfoTramite";
+import {useStore, mapGetters} from "vuex";
 import {
     SearchIcon,
     SelectorIcon,
     CheckIcon,
     ColorSwatchIcon,
+    CheckCircleIcon,
+    PlusCircleIcon,
+    NewspaperIcon,
+    CogIcon
 } from "@heroicons/vue/outline";
 
-const people = [
-    { id: 0, name: "Todos", unavailable: false },
-    { id: 1, name: "Informática", unavailable: false },
-    { id: 4, name: "Serv. Financieros", unavailable: true },
-    { id: 3, name: "Serv. al Personal", unavailable: false },
-    { id: 2, name: "Control Escolar", unavailable: false },
-];
-const selectedPerson = ref(people[0]);
+let listaTramites = ref(props.tramites);
+const props = defineProps(['tramites', 'departamentos', 'medios']);
+const {departamentos, tramites, medios} = toRefs(props);
+const medioAtencion = ref(null);
+
+const selectedPerson = ref(departamentos.value[0]);
 const showModalAddUser = ref(false);
-export default {
-    emits: ["btn-click"],
-    components: {
-        AppLayout,
-        TabGroup,
-        TabList,
-        Tab,
-        TabPanels,
-        TabPanel,
-        RadioGroup,
-        RadioGroupLabel,
-        RadioGroupDescription,
-        RadioGroupOption,
-        Listbox,
-        ListboxButton,
-        ListboxOptions,
-        ListboxOption,
-        SearchIcon,
-        SelectorIcon,
-        CheckIcon,
-        ColorSwatchIcon,
-        ModalSearch,
-        ModalAddUser,
-    },
 
-    setup(props, context) {
-        const store = useStore();
-        const getSelectedUsuario = computed(
-            () => store.getters["solicitudesStore/getSelectedUsuario"]
-        );
-        onMounted(() => {
-            tramites.value = plans;
-            // useKeyboard();
-        });
+const emits = defineEmits(["btn-click"]);
 
-        const plans = [
-            {
-                departamento_id: 1,
-                name: "Solicitud de Correo Electrónico",
-                departamento: "Informática",
-                ct: "Usae San José Iturbide",
-                dirijido: "Empleados activos de SEG",
-            },
-            {
-                departamento_id: 1,
-                name: "Asesoría Técnica",
-                departamento: "Informática",
-                ct: "Usae San José Iturbide",
-                dirijido: "Empleados activos de SEG",
-            },
-            {
-                departamento_id: 1,
-                name: "Mantenimiento Correctivo de Equipo de Informática",
-                departamento: "Informática",
-                ct: "Usae San José Iturbide",
-                dirijido: "Empleados activos de SEG",
-            },
-            {
-                departamento_id: 1,
-                name: "Mantenimiento Preventivo de Equipo de Informática",
-                departamento: "Informática",
-                ct: "Usae San José Iturbide",
-                dirijido: "Empleados activos de SEG",
-            },
-            {
-                departamento_id: 1,
-                name: "Solicitud de Cambio de escuela",
-                departamento: "Control Escolar",
-                ct: "Usae San José Iturbide",
-                dirijido: "Padres de Familia",
-            },
-            {
-                departamento_id: 2,
-                name: "Solicitud de Adscripción",
-                departamento: "Control Escolar",
-                ct: "Usae San José Iturbide",
-                dirijido: "Padres de Familia",
-            },
-            {
-                departamento_id: 3,
-                name: "Cotejo de Documentos",
-                departamento: "Servicios al Personal",
-                ct: "Usae San José Iturbide",
-                dirijido: "Empleados y Ciudadanía en General",
-            },
-            {
-                departamento_id: 3,
-                name: "Credencial de Empleado",
-                departamento: "Servicios al Personal",
-                ct: "Usae San José Iturbide",
-                dirijido: "Empleados de SEG",
-            },
-            {
-                departamento_id: 3,
-                name: "Licencias Médicas",
-                departamento: "Servicios al Personal",
-                ct: "Usae San José Iturbide",
-                dirijido: "Empleados de SEG",
-            },
-            {
-                departamento_id: 4,
-                name: "Actualicación de SINA",
-                departamento: "Servicios Financieros y Materiales",
-                ct: "Usae San José Iturbide",
-                dirijido: "Empleados de SEG",
-            },
-            {
-                departamento_id: 4,
-                name: "Fiscalización de Ingresos Propios",
-                departamento: "Servicios Financieros y Materiales",
-                ct: "Usae San José Iturbide",
-                dirijido: "Escuelas con Tienda Escolar",
-            },
-        ];
-        const selected = ref(null);
-        ref(plans);
-        const text = ref("");
-        let selectIndexTab = ref(0);
-        const tramites = ref([]);
-        let categories = ref({
-            Trámite: "",
-            Usuario: [
-                {
-                    id: 1,
-                    title: "Is tech making coffee better or worse?",
-                    date: "Jan 7",
-                    commentCount: 29,
-                    shareCount: 16,
-                },
-            ],
-            Tareas: [
-                {
-                    id: 1,
-                    title: "Ask Me Anything: 10 answers to your questions about coffee",
-                    date: "2d ago",
-                    commentCount: 9,
-                    shareCount: 5,
-                },
-                {
-                    id: 2,
-                    title: "The worst advice we've ever heard about coffee",
-                    date: "4d ago",
-                    commentCount: 1,
-                    shareCount: 2,
-                },
-            ],
-        });
-        const selectByName = () => {
-            // console.log(text.value);
-            tramites.value = plans.filter((plan) => {
-                return plan.name
-                    .toLowerCase()
-                    .includes(text.value.toLowerCase());
-            });
-        };
-        const SelectDeptoId = (id) => {
-            text.value = "";
-            if (id == 0) return (tramites.value = plans);
-            tramites.value = plans.filter((plan) => {
-                if (plan.departamento_id === id) return true;
-            });
-        };
-        const changeNextTab = () => {
-            if (selectIndexTab.value < 2)
-                selectIndexTab.value = selectIndexTab.value + 1;
-        };
-        const changePrevTab = () => {
-            if (selectIndexTab.value > 0)
-                selectIndexTab.value = selectIndexTab.value - 1;
-        };
-        return {
-            SelectDeptoId,
-            selected,
-            plans,
-            categories,
-            people,
-            selectedPerson,
-            tramites,
-            selectByName,
-            text,
-            selectIndexTab,
-            changeNextTab,
-            changePrevTab,
-            showModalAddUser,
-            getSelectedUsuario,
-        };
+
+const store = useStore();
+const getSelectedUsuario = computed(
+    () => store.getters["solicitudesStore/getSelectedUsuario"]
+);
+const getSelectedCliente = computed(
+    () => store.getters["solicitudesStore/getSelectedCliente"]
+)
+onMounted(() => {
+    medioAtencion.value = medios.value[0];
+})
+const plans = [
+    {
+        departamento_id: 1,
+        name: "Solicitud de Correo Electrónico",
+        departamento: "Informática",
+        ct: "Usae San José Iturbide",
+        dirijido: "Empleados activos de SEG",
     },
+    {
+        departamento_id: 1,
+        name: "Asesoría Técnica",
+        departamento: "Informática",
+        ct: "Usae San José Iturbide",
+        dirijido: "Empleados activos de SEG",
+    },
+    {
+        departamento_id: 1,
+        name: "Mantenimiento Correctivo de Equipo de Informática",
+        departamento: "Informática",
+        ct: "Usae San José Iturbide",
+        dirijido: "Empleados activos de SEG",
+    },
+    {
+        departamento_id: 1,
+        name: "Mantenimiento Preventivo de Equipo de Informática",
+        departamento: "Informática",
+        ct: "Usae San José Iturbide",
+        dirijido: "Empleados activos de SEG",
+    },
+    {
+        departamento_id: 1,
+        name: "Solicitud de Cambio de escuela",
+        departamento: "Control Escolar",
+        ct: "Usae San José Iturbide",
+        dirijido: "Padres de Familia",
+    },
+    {
+        departamento_id: 2,
+        name: "Solicitud de Adscripción",
+        departamento: "Control Escolar",
+        ct: "Usae San José Iturbide",
+        dirijido: "Padres de Familia",
+    },
+    {
+        departamento_id: 3,
+        name: "Cotejo de Documentos",
+        departamento: "Servicios al Personal",
+        ct: "Usae San José Iturbide",
+        dirijido: "Empleados y Ciudadanía en General",
+    },
+    {
+        departamento_id: 3,
+        name: "Credencial de Empleado",
+        departamento: "Servicios al Personal",
+        ct: "Usae San José Iturbide",
+        dirijido: "Empleados de SEG",
+    },
+    {
+        departamento_id: 3,
+        name: "Licencias Médicas",
+        departamento: "Servicios al Personal",
+        ct: "Usae San José Iturbide",
+        dirijido: "Empleados de SEG",
+    },
+    {
+        departamento_id: 4,
+        name: "Actualicación de SINA",
+        departamento: "Servicios Financieros y Materiales",
+        ct: "Usae San José Iturbide",
+        dirijido: "Empleados de SEG",
+    },
+    {
+        departamento_id: 4,
+        name: "Fiscalización de Ingresos Propios",
+        departamento: "Servicios Financieros y Materiales",
+        ct: "Usae San José Iturbide",
+        dirijido: "Escuelas con Tienda Escolar",
+    },
+];
+const selected = ref(null);
+ref(plans);
+const text = ref("");
+let selectIndexTab = ref(0);
+// const tramites = ref([]);
+let categories = ref({
+    Trámite: "",
+    Usuario: [],
+    Tareas: [],
+});
+const selectByName = () => {
+
+    listaTramites.value = tramites.value.filter((tramite) => {
+        return tramite.nombre
+            .toLowerCase()
+            .includes(text.value.toLowerCase());
+    });
+    text.value = '';
+};
+const SelectDeptoId = (id) => {
+    listaTramites.value = props.tramites;
+    if (id === 1) return listaTramites;
+    listaTramites.value = listaTramites.value.filter((tramite) => {
+        if (tramite.id === id) return true;
+    });
+};
+const changeNextTab = () => {
+    if (selectIndexTab.value < 2)
+        selectIndexTab.value = selectIndexTab.value + 1;
+};
+const changePrevTab = () => {
+    if (selectIndexTab.value > 0)
+        selectIndexTab.value = selectIndexTab.value - 1;
 };
 </script>
 
-<style></style>

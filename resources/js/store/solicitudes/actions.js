@@ -14,7 +14,7 @@ export const openModalAddUser = (context) => {
     }
 };
 
-export const selectUsuario = ({ commit }, usuario) => {
+export const selectUsuario = ({commit}, usuario) => {
     commit("SELECT_USUARIO", usuario);
     commit("TOGGLE_OPEN_MODAL_SEARCH_USER");
 };
@@ -26,3 +26,11 @@ export const toggleModalSearchUser = (context) => {
         console.log("error action");
     }
 };
+export const loadLastCliente = async (context) => {
+    try {
+        const data = await axios.get("/admin/clientes/getlast")
+        context.commit("SET_CLIENTE", data.data)
+    } catch (error) {
+        console.log(error)
+    }
+}

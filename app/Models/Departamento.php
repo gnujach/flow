@@ -10,6 +10,7 @@ class Departamento extends Model
 {
     use HasFactory;
     use HasUuid;
+
     protected $fillable = [
         'nombre',
         'activo',
@@ -20,5 +21,10 @@ class Departamento extends Model
     public function user()
     {
         return $this->hasOne(User::class);
+    }
+
+    public function tramite()
+    {
+        return $this->hasMany(Tramite::class);
     }
 }

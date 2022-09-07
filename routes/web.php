@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\TramiteController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -33,9 +34,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/tasks', function () {
     return Inertia::render('Task');
 })->name('dashboard');
-Route::middleware(['auth:sanctum', 'verified'])->get('/solicitudes', function () {
-    return Inertia::render('Solicitudes');
-})->name('solicitudes');
+Route::middleware(['auth:sanctum', 'verified'])->get('/solicitudes', [SolicitudController::class, 'create'])->name('solicitudes');
+Route::get('/request', [SolicitudController::class, 'recaptcha'])->name('request');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dialog', function () {
     return Inertia::render('Dialog');
@@ -81,6 +81,8 @@ Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(functi
     Route::put('/departamentos/{departamento:uuid}/update', [Departamentocontroller::class, 'update'])->name('departamentos/update');
     //Administrar Clientes
     Route::get('/clientes/', [ClienteController::class, 'index'])->name('clientes/');
+    Route::get('/clientes/create', [ClienteController::class, 'create'])->name('clientes/create');
+    Route::get('/clientes/getlast', [ClienteController::class, 'getlast'])->name('clientes/getlast');
     Route::get('/clientes/search', [ClienteController::class, 'search'])
         ->name('clientes.search');
     Route::post('/clientes/', [Clientecontroller::class, 'store'])->name('clientes/store');
@@ -101,7 +103,9 @@ Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(functi
     Route::get('/tramites/', [TramiteController::class, 'index'])->name('tramites/');
     Route::get('/tramites/create', [TramiteController::class, 'create'])->name('tramites/create');
     Route::get('/tramites/{tramite:uuid}/edit', [TramiteController::class, 'edit'])->name('tramites/edit');
+    Route::get('/tramites/{tramite:uuid}/show', [TramiteController::class, 'show'])->name('tramites/show');
     Route::post('/tramites', [TramiteController::class, 'store'])->name('tramites/store');
+
     Route::put('/tramites/{tramite:uuid}/update', [Tramitecontroller::class, 'update'])->name('tramites/update');
 
 });

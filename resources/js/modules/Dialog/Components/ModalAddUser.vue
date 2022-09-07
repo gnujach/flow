@@ -11,11 +11,11 @@
                 aria-hidden="true"
             />
             <span class="text-sm text-blue-800 flex-1 text-left"
-                >Agregar Usuario</span
+            >Agregar Usuario</span
             >
             <span class="flex-none text-xs font-semibold text-blue-800">{{
-                keyboardShortcutaddUser
-            }}</span>
+                    keyboardShortcutaddUser
+                }}</span>
         </button>
         <TransitionRoot :show="isOpenCreate" as="template">
             <Dialog
@@ -90,10 +90,10 @@
                                             id="nombre"
                                             type="text"
                                             class="mx-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            v-model="form.name"
+                                            v-model="form.nombre"
                                         />
                                         <jet-input-error
-                                            :message="form.errors.name"
+                                            :message="form.errors.nombre"
                                             class="mt-2 flex justify-center"
                                         />
                                     </div>
@@ -114,11 +114,10 @@
                                             id="ap1"
                                             type="text"
                                             class="mx-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            v-model="form.ap1"
-                                            autocomplete="ap1"
+                                            v-model="form.apellido1"
                                         />
                                         <jet-input-error
-                                            :message="form.errors.ap1"
+                                            :message="form.errors.apellido1"
                                             class="mt-2"
                                         />
                                     </div>
@@ -128,21 +127,20 @@
                                     class="flex justify-between items-start my-4 mx-2 col-span-6 sm:col-span-4"
                                 >
                                     <jet-label
-                                        for="ap2"
+                                        for="apellido2"
                                         value="Apellido Materno"
                                     />
                                     <div
                                         class="flex flex-col w-2/3 justify-center items-center"
                                     >
                                         <jet-input
-                                            id="ap2"
+                                            id="apellido2"
                                             type="text"
                                             class="mx-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            v-model="form.ap2"
-                                            autocomplete="ap2"
+                                            v-model="form.apellido2"
                                         />
                                         <jet-input-error
-                                            :message="form.errors.ap2"
+                                            :message="form.errors.apellido2"
                                             class="mt-2"
                                         />
                                     </div>
@@ -151,7 +149,7 @@
                                 <div
                                     class="flex justify-between items-start my-4 mx-2 col-span-6 sm:col-span-4"
                                 >
-                                    <jet-label for="email" value="Email" />
+                                    <jet-label for="email" value="Email"/>
                                     <div
                                         class="flex flex-col w-2/3 justify-center items-center"
                                     >
@@ -172,7 +170,7 @@
                                 <div
                                     class="flex justify-between items-start my-4 mx-2 col-span-6 sm:col-span-4"
                                 >
-                                    <jet-label for="email" value="Teléfono" />
+                                    <jet-label for="telefono" value="Teléfono"/>
                                     <div
                                         class="flex flex-col w-2/3 justify-center items-center"
                                     >
@@ -181,13 +179,27 @@
                                             type="text"
                                             class="mx-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             v-model="form.telefono"
-                                            autocomplete="email"
                                         />
                                         <jet-input-error
-                                            :message="form.errors.email"
+                                            :message="form.errors.telefono"
                                             class="mt-2"
                                         />
                                     </div>
+                                </div>
+                                <!-- Interno -->
+                                <div class="col-span-6 sm:col-span-4 flex flex-row justify-between mx-2">
+                                    <jet-label for="interno" value="El usuario pertenece a SEG"/>
+                                    <jet-checkbox
+                                        id="interno"
+                                        type="checkbox"
+                                        class="mt-1 block"
+                                        checked
+                                        v-model="form.interno"
+                                    />
+                                    <jet-input-error
+                                        :message="form.errors.interno"
+                                        class="mt-2"
+                                    />
                                 </div>
                                 <!-- buttons -->
                                 <div
@@ -202,6 +214,7 @@
                                     </button>
                                     <jet-button
                                         type="button"
+                                        :disabled="form.processing"
                                         @Click="onSubmit"
                                         class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                     >
@@ -218,12 +231,13 @@
 </template>
 
 <script>
-import { SearchIcon, UserAddIcon } from "@heroicons/vue/solid";
+import {SearchIcon, UserAddIcon} from "@heroicons/vue/solid";
 import JetNavLink from "@/Jetstream/NavLink";
 import JetFormSection from "@/Jetstream/FormSection";
 import JetInput from "@/Jetstream/Input";
 import JetInputError from "@/Jetstream/InputError";
 import JetLabel from "@/Jetstream/Label";
+import JetCheckbox from "@/Jetstream/Checkbox";
 import JetButton from "@/Jetstream/Button";
 import {
     nextTick,
@@ -233,17 +247,17 @@ import {
     ref,
     computed,
 } from "vue";
-import { useStore, mapActions } from "vuex";
-import { usePrevalidate } from "@/Composables/usePrevalidate";
-import axios from "axios";
-import { debounce } from "lodash";
+import {useStore, mapActions} from "vuex";
+import {usePrevalidate} from "@/Composables/usePrevalidate";
+
 import {
     Dialog,
     DialogOverlay,
     TransitionRoot,
     TransitionChild,
 } from "@headlessui/vue";
-import { useForm } from "@inertiajs/inertia-vue3";
+import {useForm} from "@inertiajs/inertia-vue3";
+
 export default {
     components: {
         SearchIcon,
@@ -258,6 +272,7 @@ export default {
         JetInputError,
         JetLabel,
         JetButton,
+        JetCheckbox
     },
     props: {},
 
@@ -274,7 +289,7 @@ export default {
         const isOpenCreate = computed(
             () => store.getters["solicitudesStore/getOpenCreate"]
         );
-        const results = ref([]);
+        const results = ref(null);
         const resultsRefs = ref([]);
 
         const closeModalCreate = () => {
@@ -300,28 +315,37 @@ export default {
         const onSubmit = () => {
             form.transform((data) => ({
                 ...data,
-            })).post(route("admin.pacientes/store"), {
-                errorBag: "savePacienteInformation",
+                interno: data.interno ? 1 : 0
+            })).post(route("admin.clientes/store"), {
+                errorBag: "saveClienteInformation",
                 preserveScroll: true,
+                onSuccess: () => {
+                    store.dispatch("solicitudesStore/toggleModalAddUser")
+                    store.dispatch("solicitudesStore/loadLastCliente")
+                    form.reset()
+                }
             });
-            store.dispatch("solicitudesStore/toggleModalAddUser");
         };
+
         const form = useForm({
-            name: "",
-            ap1: "",
-            ap2: "",
+            nombre: "",
+            apellido1: "",
+            apellido2: "",
             email: "",
             telefono: "",
             modal: true,
+            cct_id: 1,
+            interno: 1
         });
-        const { validate } = usePrevalidate(form, {
+        const {validate} = usePrevalidate(form, {
             method: "post",
-            url: route("admin.pacientes/store"),
+            url: route("admin.clientes/store"),
         });
         return {
             ...mapActions("solicitudesStore", [
                 "toggleModalAddUser",
                 "openModalAddUser",
+                "loadLastCliente"
             ]),
 
             form,
