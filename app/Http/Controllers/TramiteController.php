@@ -59,6 +59,7 @@ class TramiteController extends Controller
         }
         DB::beginTransaction();
         try {
+            dd($request);
             //Guardar los datos del tramite
             $tramite = Tramite::create([
                 'nombre' => strtoupper($request->input('nombre')),

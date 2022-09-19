@@ -22419,7 +22419,7 @@ var OPEN_OPEN_MODAL_ADD_USER = function OPEN_OPEN_MODAL_ADD_USER(state) {
   state.isOpenCreate = true;
 };
 var SELECT_USUARIO = function SELECT_USUARIO(state, usuario) {
-  state.usuario = usuario;
+  state.cliente = usuario;
 };
 var TOGGLE_OPEN_MODAL_SEARCH_USER = function TOGGLE_OPEN_MODAL_SEARCH_USER(state) {
   state.isOpenSearch = !state.isOpenSearch;
@@ -22614,8 +22614,10 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "closeModalSaveDialog": () => (/* binding */ closeModalSaveDialog),
 /* harmony export */   "getTramite": () => (/* binding */ getTramite),
 /* harmony export */   "openModalInfoTramite": () => (/* binding */ openModalInfoTramite),
+/* harmony export */   "openModalSaveDialog": () => (/* binding */ openModalSaveDialog),
 /* harmony export */   "toggleModalInfoTramite": () => (/* binding */ toggleModalInfoTramite)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -22642,15 +22644,21 @@ var openModalInfoTramite = function openModalInfoTramite(context) {
   } catch (_unused2) {
     console.log("error action");
   }
-}; //
-// export async const getTramite = ({context}, uuid) => {
-//     try {
-//         const data = await axios.get('/tramites/show', {uuid: uuid});
-//         commit('SET_TRAMITE', data.data);
-//     }
-//     catch((error) => console.log(error));
-// }
-
+};
+var openModalSaveDialog = function openModalSaveDialog(context) {
+  try {
+    context.commit("OPEN_OPEN_MODAL_SAVE_DIALOG");
+  } catch (_unused3) {
+    console.log("error action");
+  }
+};
+var closeModalSaveDialog = function closeModalSaveDialog(context) {
+  try {
+    context.commit("CLOSE_OPEN_MODAL_SAVE_DIALOG");
+  } catch (_unused4) {
+    console.log("error action");
+  }
+};
 function getTramite(_x, _x2) {
   return _getTramite.apply(this, arguments);
 }
@@ -22701,6 +22709,7 @@ function _getTramite() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getInfoTramite": () => (/* binding */ getInfoTramite),
+/* harmony export */   "getSaveDialogStatus": () => (/* binding */ getSaveDialogStatus),
 /* harmony export */   "getTramiteSelected": () => (/* binding */ getTramiteSelected)
 /* harmony export */ });
 var getInfoTramite = function getInfoTramite(state) {
@@ -22708,6 +22717,9 @@ var getInfoTramite = function getInfoTramite(state) {
 };
 var getTramiteSelected = function getTramiteSelected(state) {
   return state.tramite;
+};
+var getSaveDialogStatus = function getSaveDialogStatus(state) {
+  return state.isOpenModalSave;
 };
 
 /***/ }),
@@ -22751,7 +22763,9 @@ var tramitesStore = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CLOSE_OPEN_MODAL_SAVE_DIALOG": () => (/* binding */ CLOSE_OPEN_MODAL_SAVE_DIALOG),
 /* harmony export */   "OPEN_OPEN_MODAL_INFO_TRAMITE": () => (/* binding */ OPEN_OPEN_MODAL_INFO_TRAMITE),
+/* harmony export */   "OPEN_OPEN_MODAL_SAVE_DIALOG": () => (/* binding */ OPEN_OPEN_MODAL_SAVE_DIALOG),
 /* harmony export */   "SET_TRAMITE": () => (/* binding */ SET_TRAMITE),
 /* harmony export */   "TOGGLE_OPEN_MODAL_INFO_TRAMITE": () => (/* binding */ TOGGLE_OPEN_MODAL_INFO_TRAMITE)
 /* harmony export */ });
@@ -22763,6 +22777,12 @@ var OPEN_OPEN_MODAL_INFO_TRAMITE = function OPEN_OPEN_MODAL_INFO_TRAMITE(state) 
 };
 var SET_TRAMITE = function SET_TRAMITE(state, tram) {
   state.tramite = tram;
+};
+var OPEN_OPEN_MODAL_SAVE_DIALOG = function OPEN_OPEN_MODAL_SAVE_DIALOG(state) {
+  state.isOpenModalSave = true;
+};
+var CLOSE_OPEN_MODAL_SAVE_DIALOG = function CLOSE_OPEN_MODAL_SAVE_DIALOG(state) {
+  state.isOpenModalSave = false;
 };
 
 /***/ }),
@@ -22781,6 +22801,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
   return {
     isOpenModalInfoTramite: false,
+    isOpenModalSave: false,
     tramite: []
   };
 });

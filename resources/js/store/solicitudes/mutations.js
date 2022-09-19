@@ -6,7 +6,7 @@ export const OPEN_OPEN_MODAL_ADD_USER = (state) => {
 };
 
 export const SELECT_USUARIO = (state, usuario) => {
-    state.usuario = usuario;
+    state.cliente = usuario;
 };
 
 export const TOGGLE_OPEN_MODAL_SEARCH_USER = (state) => {

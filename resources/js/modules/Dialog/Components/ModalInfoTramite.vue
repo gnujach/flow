@@ -92,7 +92,7 @@
                                     </div>
                                     <div class="w-3/4">
                                         <p
-                                            class="text-lg font-semibold lowercase antialiased italic decoration-slate-200 indent-4 bg-gray-100 rounded-md align-middle">
+                                            class="text-lg font-semibold lowercase antialiased italic decoration-slate-200 indent-4 bg-gray-100 rounded-md align-middle!">
                                             {{ tram.plazo_respuesta }} días
                                         </p>
                                     </div>
@@ -161,7 +161,6 @@ const props = defineProps({
         type: Object,
         required: true
     }
-
 });
 const isAppleOS = () => {
     const platform =
@@ -180,7 +179,6 @@ const getTramiteSelected = computed(() => store.getters["infoTramiteStore/getTra
 
 const getTramite = (uuid) => store.dispatch("infoTramiteStore/getTramite", uuid);
 const showTramite = (tram) => {
-    console.log(tram);
     store.dispatch("infoTramiteStore/openModalInfoTramite");
 }
 const openModalInfoTramite = () => store.dispatch("infoTramiteStore/openModalInfoTramite");

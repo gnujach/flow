@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <div class="flex flex-row justify-around space-y-6 py-1" v-else>
-                        {{ selected.nombre }}
+                        <p class="font-bold">{{ selected.nombre }}</p>
                         <ModalInfoTramite :tram='selected'/>
                     </div>
                 </div>
@@ -37,10 +37,24 @@
             >
                 <div
                     class="flex flex-col space-x-4 justify-items-center items-center"
-                    :class="{ 'animate-pulse': selectIndexTab == 1 }"
+                    :class="{ 'animate-pulse': selectIndexTab == 1 && getSelectedCliente.id == null }"
                 >
                     <div class="flex-1 mx-auto"><span>Usuario</span></div>
-                    <div class="rounded-full bg-slate-200 h-16 w-16"></div>
+                    <div v-if="getSelectedCliente.id != null" class="flex flex-row justify-between items-center">
+                        <span class="block rounded-full w-20 h-20 bg-gray-200 bg-no-repeat bg-center ring-2 mx-2">
+                            <p class="text-center font-bold text-5xl mt-3 text-blue-400">{{
+                                    getSelectedCliente.nombre[0]
+                                }}</p>
+                        </span>
+                        <p class="font-bold ">{{
+                                `${getSelectedCliente.nombre} ${getSelectedCliente.apellido1} ${getSelectedCliente.apellido2}`
+                            }}</p>
+                    </div>
+                    <div v-else class="flex flex-row justify-around items-center">
+                       <span class="block rounded-full w-20 h-20 bg-gray-200 bg-no-repeat bg-center ring-2 mx-2">
+                        </span>
+                        <p class="font-bold ">No seleccionado</p>
+                    </div>
                 </div>
             </div>
 
@@ -91,7 +105,7 @@
                                         'hover:ring-2 hover:ring-sky-900 hover:bg-sky-900 hover:text-white',
                                         selected
                                             ? 'bg-sky-900  border-b-2 border-blue-800 text-white italic'
-                                            : 'text-blue-100 hover:bg-white/[0.12] hover:text-gray-200 font-bold bg-blue-400',
+                                            : 'text-blue-100 hover:bg-sky-900 hover:text-gray-200 font-bold bg-blue-400',
                                     ]"
                                 >
                                     {{ category }}
@@ -333,9 +347,9 @@
                                     </div>
                                 </div>
                             </TabPanel>
-                            <TabPanel>
+                            <TabPanel class="bg-gradient-to-r from-blue-500">
                                 <div
-                                    class="grid grid-rows-3 grid-flow-col gap-4 h-96 bg-gray-200"
+                                    class="grid grid-rows-3 grid-flow-col gap-4 h-96"
                                 >
                                     <div class="flex justify-around">
                                         <ModalSearch/>
@@ -352,12 +366,12 @@
                                             </h5>
                                             <p
                                                 v-if="
-                                                    getSelectedUsuario.id !=
+                                                    getSelectedCliente.id !=
                                                     null
                                                 "
                                             >
                                                 {{
-                                                    `${getSelectedUsuario.nombre} ${getSelectedUsuario.apellido1} ${getSelectedUsuario.apellido2}`
+                                                    `${getSelectedCliente.nombre} ${getSelectedCliente.apellido1} ${getSelectedCliente.apellido2}`
                                                 }}
                                             </p>
                                         </div>
@@ -420,48 +434,55 @@
                                 </div>
                             </TabPanel>
                             <TabPanel>
+                                <h2 class="text-center uppercase text-2xl">Selecciona tareas concluidas de
+                                    este trámite</h2>
                                 <div
-                                    class="grid grid-rows-1 grid-flow-col gap-4 h-96 bg-gradient-to-r from-blue-500 items-center"
+                                    class="grid grid-rows-1 grid-flow-col gap-4 h-96 bg-gradient-to-r from-blue-500 items-start"
                                 >
-                                    <div class="w-32 h-32 mx-4">
-                                        <CogIcon class=" w-32 h-32 text-gray-400 "/>
-                                    </div>
-                                    <hr/>
-                                    <div class="flex flex-row shrink-0 mx-auto items-center justify-items-center"
+                                    <div class="flex flex-row shrink-0 mx-auto items-center justify-around"
                                          v-if="selected">
-                                        <div v-for="tarea in selected.tareastramite"
-                                             class="flex flex-row justify-items-center">
-                                            <div class="ring-2 w-32 h-32 mx-4 p-4 rounded-full ">
-                                                <span class="text-center">
-                                                    {{ tarea.nombre }}
-                                                    </span>
-                                            </div>
-                                            <hr/>
+                                        <div v-for="(tarea, id) in selected.tareastramite"
+                                             class="flex flex-row justify-items-center justify-between items-center w-64 h-64">
+                                            <button class="flex flex-col justify-start items-center h-1/3"
+                                                    @click="saveSolicitud">
+                                                <div
+                                                    class="ring-2 w-32 h-32 mx-4 p-2 rounded-full ring-blue-900 hover:bg-blue-900">
+                                                    <span
+                                                        class="text-center text-white font-bold text-9xl ml-2 hover:text-gray-200">{{
+                                                            id + 1
+                                                        }}</span>
+                                                </div>
+                                                <section class="block w-full h-1/4">
+                                                    <div
+                                                        class="flex ring-1 mx-2 my-2 p-1 rounded-md  text-white ">
+                                                        {{ tarea.nombre }}
+                                                    </div>
+                                                </section>
+                                            </button>
                                         </div>
-                                    </div>
-                                    <div class="w-32 h-32 mx-4">
-                                        <NewspaperIcon class=" w-32 h-32 text-gray-400"/>
                                     </div>
                                 </div>
                             </TabPanel>
                         </TabPanels>
-                        <div class="flex m-2 justify-around">
+                        <div class="flex m-2 justify-around pb-1">
                             <button
                                 @click="changePrevTab"
                                 :disabled="selectIndexTab <= 0"
+                                class="rounded-md ring-2 bg-blue-400 font-medium text-2xl text-white mx-2 p-2 mt-1"
                             >
                                 Anterior
                             </button>
                             <button
                                 @click="changeNextTab"
                                 :disabled="selectIndexTab >= 2"
+                                class="rounded-md ring-2 bg-blue-400 font-medium text-2xl text-white mx-2 p-2 mt-1"
                             >
                                 Siguiente
                             </button>
                         </div>
                     </TabGroup>
                 </div>
-                <span>TabIndex: {{ selectIndexTab }}</span>
+                <SaveDialog/>
             </div>
         </div>
     </app-layout>
@@ -488,6 +509,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import ModalSearch from "@/modules/Dialog/Components/ModalSearch.vue";
 import ModalAddUser from "@/modules/Dialog/Components/ModalAddUser";
 import ModalInfoTramite from "@/modules/Dialog/Components/ModalInfoTramite";
+import SaveDialog from "@/modules/Dialog/Components/SaveDialog";
 import {useStore, mapGetters} from "vuex";
 import {
     SearchIcon,
@@ -521,87 +543,8 @@ const getSelectedCliente = computed(
 onMounted(() => {
     medioAtencion.value = medios.value[0];
 })
-const plans = [
-    {
-        departamento_id: 1,
-        name: "Solicitud de Correo Electrónico",
-        departamento: "Informática",
-        ct: "Usae San José Iturbide",
-        dirijido: "Empleados activos de SEG",
-    },
-    {
-        departamento_id: 1,
-        name: "Asesoría Técnica",
-        departamento: "Informática",
-        ct: "Usae San José Iturbide",
-        dirijido: "Empleados activos de SEG",
-    },
-    {
-        departamento_id: 1,
-        name: "Mantenimiento Correctivo de Equipo de Informática",
-        departamento: "Informática",
-        ct: "Usae San José Iturbide",
-        dirijido: "Empleados activos de SEG",
-    },
-    {
-        departamento_id: 1,
-        name: "Mantenimiento Preventivo de Equipo de Informática",
-        departamento: "Informática",
-        ct: "Usae San José Iturbide",
-        dirijido: "Empleados activos de SEG",
-    },
-    {
-        departamento_id: 1,
-        name: "Solicitud de Cambio de escuela",
-        departamento: "Control Escolar",
-        ct: "Usae San José Iturbide",
-        dirijido: "Padres de Familia",
-    },
-    {
-        departamento_id: 2,
-        name: "Solicitud de Adscripción",
-        departamento: "Control Escolar",
-        ct: "Usae San José Iturbide",
-        dirijido: "Padres de Familia",
-    },
-    {
-        departamento_id: 3,
-        name: "Cotejo de Documentos",
-        departamento: "Servicios al Personal",
-        ct: "Usae San José Iturbide",
-        dirijido: "Empleados y Ciudadanía en General",
-    },
-    {
-        departamento_id: 3,
-        name: "Credencial de Empleado",
-        departamento: "Servicios al Personal",
-        ct: "Usae San José Iturbide",
-        dirijido: "Empleados de SEG",
-    },
-    {
-        departamento_id: 3,
-        name: "Licencias Médicas",
-        departamento: "Servicios al Personal",
-        ct: "Usae San José Iturbide",
-        dirijido: "Empleados de SEG",
-    },
-    {
-        departamento_id: 4,
-        name: "Actualicación de SINA",
-        departamento: "Servicios Financieros y Materiales",
-        ct: "Usae San José Iturbide",
-        dirijido: "Empleados de SEG",
-    },
-    {
-        departamento_id: 4,
-        name: "Fiscalización de Ingresos Propios",
-        departamento: "Servicios Financieros y Materiales",
-        ct: "Usae San José Iturbide",
-        dirijido: "Escuelas con Tienda Escolar",
-    },
-];
+
 const selected = ref(null);
-ref(plans);
 const text = ref("");
 let selectIndexTab = ref(0);
 // const tramites = ref([]);
@@ -610,8 +553,11 @@ let categories = ref({
     Usuario: [],
     Tareas: [],
 });
+const saveSolicitud = () => {
+    store.dispatch("infoTramiteStore/openModalSaveDialog");
+    console.log("Pressed")
+}
 const selectByName = () => {
-
     listaTramites.value = tramites.value.filter((tramite) => {
         return tramite.nombre
             .toLowerCase()

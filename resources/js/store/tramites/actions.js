@@ -15,14 +15,21 @@ export const openModalInfoTramite = (context) => {
         console.log("error action");
     }
 };
-//
-// export async const getTramite = ({context}, uuid) => {
-//     try {
-//         const data = await axios.get('/tramites/show', {uuid: uuid});
-//         commit('SET_TRAMITE', data.data);
-//     }
-//     catch((error) => console.log(error));
-// }
+export const openModalSaveDialog = (context) => {
+    try {
+        context.commit("OPEN_OPEN_MODAL_SAVE_DIALOG");
+    } catch {
+        console.log("error action");
+    }
+};
+
+export const closeModalSaveDialog = (context) => {
+    try {
+        context.commit("CLOSE_OPEN_MODAL_SAVE_DIALOG");
+    } catch {
+        console.log("error action");
+    }
+};
 
 export async function getTramite(context, uuid) {
     try {
