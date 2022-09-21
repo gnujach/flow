@@ -10,62 +10,33 @@
             </div>
 
             <div class="mt-6 text-gray-500">
-                Welcome
+                Sistema Integral de Gestión de Solicitudes de Atención
             </div>
         </div>
 
         <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-            <div class="flex flex-row mx-auto">
-                <button
-                    type="button"
-                    @click="clickme('tareasTodas')"
-                    class="border rounded-md border-white bg-blue-400 mx-2 px-2"
-                    :class="{
-                        'border-x-2 border-gray-400 bg-blue-600':
-                            currrentTab === 'tareasTodas',
-                    }"
-                >
-                    Todas
-                </button>
-                <button
-                    type="button"
-                    @click="clickme('completadas')"
-                    class="border rounded-md border-gray-200 bg-green-400 mx-2 px-2"
-                    :class="{
-                        'border-x-2 border-gray-400 bg-green-600':
-                            currrentTab === 'completadas',
-                    }"
-                >
-                    Completadas
-                </button>
-                <button
-                    type="button"
-                    @click="clickme('pendientes')"
-                    class="border rounded-md border-gray-200 bg-yellow-200 mx-2 px-2"
-                    :class="{
-                        'border-x-2 border-gray-400 bg-yellow-600':
-                            currrentTab === 'pendientes',
-                    }"
-                >
-                    Pendientes
-                </button>
-            </div>
-            <div>
-                <ul>
-                    <li
-                        v-for="tarea in getTodosByTab"
-                        :key="tarea.id"
-                        :class="{
-                            'underline decoration-dotted': tarea.completed,
-                        }"
-                        @dblclick="toggleTodo(tarea.id)"
+            <div class="flex flex-row">
+                <div class="w-44 h-44">
+                    <jet-nav-link
+                        :href="route('solicitudes') "
                     >
-                        id: {{ tarea.id }} Description:
-                        {{ tarea.text }} Completed:
-                        {{ tarea.completed }}
-                    </li>
-                </ul>
+                        <button
+                            class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500"
+                        >
+                            <div class="flex flex-row">
+                                <icon
+                                    name="plus"
+                                    class="block w-6 h-6 fill-gray-400"
+                                />
+                                <p class="font-bold">
+                                    Nueva Solicitud
+                                </p>
+                            </div>
+                        </button>
+                    </jet-nav-link>
+                </div>
             </div>
+
         </div>
     </div>
 </template>
@@ -75,12 +46,17 @@ import {defineComponent} from "vue";
 import JetApplicationLogo from "@/Jetstream/ApplicationLogo.vue";
 import {computed, ref} from "vue";
 import {useStore} from "vuex";
+import Icon from "@/Shared/Icon";
+import JetNavLink from "@/Jetstream/NavLink";
 import Button from "@/Jetstream/Button.vue";
+import {plus,} from "@heroicons/vue/outline";
 
 export default defineComponent({
     components: {
         JetApplicationLogo,
         Button,
+        Icon,
+        JetNavLink
     },
     setup() {
         const currrentTab = ref("tareasTodas");

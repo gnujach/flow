@@ -5,14 +5,14 @@
                 Principal
             </h2>
             <h3>
-                Can {{ $page.props.auth.roles[0] === "Admin" ? true : false }}
+                Gestión de solicitudes
             </h3>
         </template>
 
         <div class="py-12">
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <welcome />
+                    <welcome/>
                 </div>
             </div>
         </div>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import {defineComponent} from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Welcome from "@/Jetstream/Welcome.vue";
 

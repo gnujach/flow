@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use App\Rules\Recaptcha;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Resources\SolicitudCollection;
 
 class SolicitudController extends Controller
 {
@@ -21,7 +22,9 @@ class SolicitudController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Solicitudes/ListSolicitudes', [
+            'solicitudes' => new SolicitudCollection(Solicitud::OrderBy('id', 'desc')->paginate(config('openlink.perpage'))),
+        ]);
     }
 
     /**
@@ -80,7 +83,7 @@ class SolicitudController extends Controller
                     ]);
             }
             DB::commit();
-            return Redirect::route('admin.tramites/')->banner('Solicitud Guardada.');
+            return Redirect::route('dashboard')->banner('Solicitud Guardada.');
         } catch (\Exception $e) {
             DB::rollback();
             return $e->getMessage();
