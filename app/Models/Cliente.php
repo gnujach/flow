@@ -11,6 +11,7 @@ use App\Traits\HasUuid;
 class Cliente extends Model
 {
     use HasFactory, Searchable, HasUuid;
+
     protected $fillable = [
         'uuid',
         'rfc',
@@ -25,4 +26,12 @@ class Cliente extends Model
         'interno',
         'by'
     ];
+
+    /**
+     * Un Tramite puede tener muchas tareas
+     */
+    public function solicitud()
+    {
+        return $this->hasMany(Solicitud::class);
+    }
 }

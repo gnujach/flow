@@ -10,10 +10,19 @@ class Medio extends Model
 {
     use HasFactory;
     use HasUuid;
+
     protected $fillable = [
         'nombre',
         'activo',
         'uuid',
         'by'
     ];
+
+    /**
+     * Un Tramite puede tener muchas tareas
+     */
+    public function solicitud()
+    {
+        return $this->hasMany(Solicitud::class);
+    }
 }

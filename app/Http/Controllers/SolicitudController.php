@@ -22,8 +22,9 @@ class SolicitudController extends Controller
      */
     public function index()
     {
+        $this->authorize('create', Solicitud::class);
         return Inertia::render('Solicitudes/ListSolicitudes', [
-            'solicitudes' => new SolicitudCollection(Solicitud::OrderBy('id', 'desc')->paginate(config('openlink.perpage'))),
+            'solicitudes' => new SolicitudCollection(Solicitud::OrderBy('id', 'desc')->with(['cliente', 'medio', 'tramite'])->paginate(config('openlink.perpage'))),
         ]);
     }
 
@@ -83,7 +84,7 @@ class SolicitudController extends Controller
                     ]);
             }
             DB::commit();
-            return Redirect::route('dashboard')->banner('Solicitud Guardada.');
+            return Redirect::route('solicitudes.list')->banner('Solicitud Guardada.');
         } catch (\Exception $e) {
             DB::rollback();
             return $e->getMessage();

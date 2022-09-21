@@ -99,8 +99,14 @@
                                         <td class="border-t">
                                             <p class="pl-4 font-bold uppercase">
                                                 {{
-                                                    solicitud.data.attributes
-                                                        .cliente
+                                                    `${solicitud.data.cliente.data.attributes.nombre} ${solicitud.data.cliente.data.attributes.apellido1} ${solicitud.data.cliente.data.attributes.apellido2 == 'NULL' ? '' : solicitud.data.cliente.data.attributes.apellido2}`
+                                                }}
+                                            </p>
+                                        </td>
+                                        <td class="border-t">
+                                            <p class="pl-4 font-bold uppercase">
+                                                {{
+                                                    solicitud.data.medio.data.attributes.nombre
                                                 }}
                                             </p>
                                         </td>
@@ -108,15 +114,7 @@
                                             <p class="pl-4 font-bold uppercase">
                                                 {{
                                                     solicitud.data.attributes
-                                                        .medio
-                                                }}
-                                            </p>
-                                        </td>
-                                        <td class="border-t">
-                                            <p class="pl-4 font-bold uppercase">
-                                                {{
-                                                    solicitud.data.attributes
-                                                        .concluido
+                                                        .concluido == 1 ? 'SI' : 'No'
                                                 }}
                                             </p>
                                         </td>

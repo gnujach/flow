@@ -50,4 +50,12 @@ class Solicitud extends Model
         return $this->belongsTo(Medio::class);
     }
 
+    /**
+     * Una solicitud pertenece a un tramite
+     */
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class);
+    }
+
 }

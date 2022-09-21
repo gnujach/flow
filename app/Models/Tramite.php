@@ -52,4 +52,12 @@ class Tramite extends Model
         return $this->hasMany(Tareatramite::class);
     }
 
+    /**
+     * Un Tramite puede tener muchas tareas
+     */
+    public function solicitud()
+    {
+        return $this->hasMany(Solicitud::class);
+    }
+
 }
