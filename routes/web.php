@@ -35,6 +35,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/tasks', function () {
     return Inertia::render('Task');
 })->name('dashboard');
 Route::middleware(['auth:sanctum', 'verified'])->get('/solicitudes', [SolicitudController::class, 'create'])->name('solicitudes');
+Route::middleware(['auth:sanctum', 'verified'])->post('/solicitudes/store', [SolicitudController::class, 'store'])->name('solicitudes/store');
 Route::get('/request', [SolicitudController::class, 'recaptcha'])->name('request');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dialog', function () {

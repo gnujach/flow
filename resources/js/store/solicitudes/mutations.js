@@ -15,3 +15,6 @@ export const TOGGLE_OPEN_MODAL_SEARCH_USER = (state) => {
 export const SET_CLIENTE = (state, cliente) => {
     state.cliente = cliente;
 };
+export const SET_TASK = (state, task) => {
+    state.task = task;
+}

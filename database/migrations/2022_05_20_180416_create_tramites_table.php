@@ -16,9 +16,9 @@ class CreateTramitesTable extends Migration
         Schema::create('tramites', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->index()->unique();
-            $table->string('nombre')->nullable(false);
-            $table->string('objetivo')->nullable(true);
-            $table->string('fundamento_jur')->nullable(true);
+            $table->string('nombre', 200)->nullable(false);
+            $table->string('objetivo', 200)->nullable(true);
+            $table->string('fundamento_jur', 200)->nullable(true);
             $table->string('casos')->nullable(true);
             $table->enum('modalidad', ['virtual', 'semi-presencial', 'presencial'])->nullable(true);
             $table->unsignedSmallInteger('plazo_respuesta')->nullable(false);

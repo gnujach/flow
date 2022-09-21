@@ -2,21 +2,15 @@
     <div>
         <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
             <div>
-                <jet-application-logo class="block h-12 w-auto" />
+                <jet-application-logo class="block h-12 w-auto"/>
             </div>
 
             <div class="mt-8 text-2xl">
-                Welcome to your Jetstream application!
+                Bienvenido
             </div>
 
             <div class="mt-6 text-gray-500">
-                Laravel Jetstream provides a beautiful, robust starting point
-                for your next Laravel application. Laravel is designed to help
-                you build your application using a development environment that
-                is simple, powerful, and enjoyable. We believe you should love
-                expressing your creativity through programming, so we have spent
-                time carefully crafting the Laravel ecosystem to be a breath of
-                fresh air. We hope you love it.
+                Welcome
             </div>
         </div>
 
@@ -77,11 +71,12 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import {defineComponent} from "vue";
 import JetApplicationLogo from "@/Jetstream/ApplicationLogo.vue";
-import { computed, ref } from "vue";
-import { useStore } from "vuex";
+import {computed, ref} from "vue";
+import {useStore} from "vuex";
 import Button from "@/Jetstream/Button.vue";
+
 export default defineComponent({
     components: {
         JetApplicationLogo,

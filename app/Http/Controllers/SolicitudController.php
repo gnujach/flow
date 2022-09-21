@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Solicitud;
+use App\Models\Historysolicitud;
 use App\Models\Tramite;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use App\Rules\Recaptcha;
@@ -59,7 +61,30 @@ class SolicitudController extends Controller
 
     public function store(Request $request)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $solicitud = Solicitud::create([
+                'by' => Auth::id(),
+                'cliente_id' => $request->cliente_id,
+                'tramite_id' => $request->tramite_id,
+                'medio_id' => $request->medio_id,
+                'modified_by' => Auth::id(),
+                'concluido' => $request->concluido,]);
+            //Guardar las tareas del tramite
+            foreach ($request->tareas as $tarea) {
+                Historysolicitud::create(
+                    [
+                        'solicitud_id' => $solicitud->id,
+                        'task_id' => $tarea,
+                        'by' => Auth::id(),
+                    ]);
+            }
+            DB::commit();
+            return Redirect::route('admin.tramites/')->banner('Solicitud Guardada.');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $e->getMessage();
+        }
     }
 
     /**

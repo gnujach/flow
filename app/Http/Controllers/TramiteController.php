@@ -53,20 +53,20 @@ class TramiteController extends Controller
      */
     public function store(TramitePostRequest $request)
     {
+//        dd($request);
         $this->authorize('create', Tramite::class);
         if (request()->has('prevalidate')) {
             return redirect()->back();
         }
         DB::beginTransaction();
         try {
-            dd($request);
             //Guardar los datos del tramite
             $tramite = Tramite::create([
                 'nombre' => strtoupper($request->input('nombre')),
                 'objetivo' => strtoupper($request->objetivo),
                 'fundamento_jur' => strtoupper($request->fundamento_jur),
                 'casos' => strtoupper($request->casos),
-                'modalidad' => $request->modalidad,
+                'modalidad' => $request->modalidad_id,
                 'plazo_respuesta' => $request->plazo_respuesta,
                 'costo' => $request->costo,
                 'tipo_usuario' => $request->tipo_usuario_id,

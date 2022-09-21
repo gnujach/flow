@@ -15,7 +15,7 @@ class DepartamentoSeeder extends Seeder
     public function run()
     {
         Departamento::create([
-            'nombre' => 'Sin Departamento',
+            'nombre' => 'Todos',
             'by' => 1
         ]);
         Departamento::create([

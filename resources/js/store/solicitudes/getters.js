@@ -10,4 +10,6 @@ export const getSelectedUsuario = (state) => {
 export const getSelectedCliente = (state) => {
     return state.cliente;
 };
-
+export const getSelectedTask = (state) => {
+    return state.task;
+};

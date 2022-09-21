@@ -21,25 +21,13 @@
                 >
                     Login
                 </jet-nav-link>
-
-                <jet-nav-link
-                    v-if="canRegister"
-                    :href="route('register')"
-                    class="ml-4 text-sm text-orange-700 underline"
-                >
-                    Register
-                </jet-nav-link>
             </template>
         </div>
 
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-center sm:justify-start sm:pt-0">
                 <a href="/login">
-                    <img
-                        src="/assets/img/crater-logo.png"
-                        class="block w-48 h-auto max-w-full mb-32 text-primary-400"
-                        alt="Logo DDM"
-                    />
+                    <span class="text-5xl text-white font-bold">Ingresar</span>
                 </a>
             </div>
         </div>
@@ -112,6 +100,7 @@
 
 <script>
 import JetNavLink from "@/Jetstream/NavLink";
+
 export default {
     props: {
         canLogin: Boolean,

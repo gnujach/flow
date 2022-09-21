@@ -15,6 +15,12 @@ class CreateSolicitudsTable extends Migration
     {
         Schema::create('solicituds', function (Blueprint $table) {
             $table->id();
+            $table->BigInteger('by')->nullable(false);
+            $table->foreignId('cliente_id');
+            $table->foreignId('tramite_id');
+            $table->foreignId('medio_id');
+            $table->BigInteger('modified_by')->nullable(false);
+            $table->boolean('concluido')->default(false);
             $table->timestamps();
         });
     }

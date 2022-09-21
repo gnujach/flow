@@ -34,3 +34,11 @@ export const loadLastCliente = async (context) => {
         console.log(error)
     }
 }
+
+export async function setTask(context, task) {
+    try {
+        context.commit('SET_TASK', task);
+    } catch (e) {
+        console.log(e)
+    }
+}

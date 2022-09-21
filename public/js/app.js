@@ -22264,6 +22264,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "loadLastCliente": () => (/* binding */ loadLastCliente),
 /* harmony export */   "openModalAddUser": () => (/* binding */ openModalAddUser),
 /* harmony export */   "selectUsuario": () => (/* binding */ selectUsuario),
+/* harmony export */   "setTask": () => (/* binding */ setTask),
 /* harmony export */   "toggleModalAddUser": () => (/* binding */ toggleModalAddUser),
 /* harmony export */   "toggleModalSearchUser": () => (/* binding */ toggleModalSearchUser)
 /* harmony export */ });
@@ -22335,6 +22336,31 @@ var loadLastCliente = /*#__PURE__*/function () {
     return _ref2.apply(this, arguments);
   };
 }();
+function setTask(_x2, _x3) {
+  return _setTask.apply(this, arguments);
+}
+
+function _setTask() {
+  _setTask = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(context, task) {
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            try {
+              context.commit('SET_TASK', task);
+            } catch (e) {
+              console.log(e);
+            }
+
+          case 1:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+  return _setTask.apply(this, arguments);
+}
 
 /***/ }),
 
@@ -22350,6 +22376,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getOpenCreate": () => (/* binding */ getOpenCreate),
 /* harmony export */   "getSearchCreate": () => (/* binding */ getSearchCreate),
 /* harmony export */   "getSelectedCliente": () => (/* binding */ getSelectedCliente),
+/* harmony export */   "getSelectedTask": () => (/* binding */ getSelectedTask),
 /* harmony export */   "getSelectedUsuario": () => (/* binding */ getSelectedUsuario)
 /* harmony export */ });
 var getOpenCreate = function getOpenCreate(state) {
@@ -22363,6 +22390,9 @@ var getSelectedUsuario = function getSelectedUsuario(state) {
 };
 var getSelectedCliente = function getSelectedCliente(state) {
   return state.cliente;
+};
+var getSelectedTask = function getSelectedTask(state) {
+  return state.task;
 };
 
 /***/ }),
@@ -22409,6 +22439,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "OPEN_OPEN_MODAL_ADD_USER": () => (/* binding */ OPEN_OPEN_MODAL_ADD_USER),
 /* harmony export */   "SELECT_USUARIO": () => (/* binding */ SELECT_USUARIO),
 /* harmony export */   "SET_CLIENTE": () => (/* binding */ SET_CLIENTE),
+/* harmony export */   "SET_TASK": () => (/* binding */ SET_TASK),
 /* harmony export */   "TOGGLE_OPEN_MODAL_ADD_USER": () => (/* binding */ TOGGLE_OPEN_MODAL_ADD_USER),
 /* harmony export */   "TOGGLE_OPEN_MODAL_SEARCH_USER": () => (/* binding */ TOGGLE_OPEN_MODAL_SEARCH_USER)
 /* harmony export */ });
@@ -22426,6 +22457,9 @@ var TOGGLE_OPEN_MODAL_SEARCH_USER = function TOGGLE_OPEN_MODAL_SEARCH_USER(state
 };
 var SET_CLIENTE = function SET_CLIENTE(state, cliente) {
   state.cliente = cliente;
+};
+var SET_TASK = function SET_TASK(state, task) {
+  state.task = task;
 };
 
 /***/ }),
@@ -22451,7 +22485,8 @@ __webpack_require__.r(__webpack_exports__);
       apellido1: null,
       apellido2: null
     },
-    cliente: []
+    cliente: [],
+    task: []
   };
 });
 

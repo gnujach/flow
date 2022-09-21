@@ -12,8 +12,8 @@
             />
             <span class="text-sm text-blue-800 flex-1 text-left">..buscar</span>
             <span class="flex-none text-xs font-semibold text-blue-800">{{
-                keyboardShortcut
-            }}</span>
+                    keyboardShortcut
+                }}</span>
         </button>
         <TransitionRoot :show="isOpen" as="template">
             <Dialog
@@ -119,7 +119,7 @@
                                         >
                                             {{ item.nombre }}
                                             {{ item.apellido1 }}
-                                            {{ item.apellido2 }}
+                                            {{ item.apellido2 == 'NULL' ? '' : item.apellido2 }}
                                         </div>
                                     </div>
                                 </li>
@@ -139,10 +139,10 @@
 </template>
 
 <script>
-import { nextTick, computed, onMounted, onUnmounted, ref } from "vue";
-import { SearchIcon, UserAddIcon } from "@heroicons/vue/solid";
+import {nextTick, computed, onMounted, onUnmounted, ref} from "vue";
+import {SearchIcon, UserAddIcon} from "@heroicons/vue/solid";
 import JetNavLink from "@/Jetstream/NavLink";
-import { useStore, mapActions } from "vuex";
+import {useStore, mapActions} from "vuex";
 import {
     Dialog,
     DialogOverlay,
@@ -150,7 +150,8 @@ import {
     TransitionChild,
 } from "@headlessui/vue";
 import axios from "axios";
-import { debounce } from "lodash";
+import {debounce} from "lodash";
+
 export default {
     components: {
         SearchIcon,

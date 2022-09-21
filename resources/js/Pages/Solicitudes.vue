@@ -90,7 +90,7 @@
                         <TabList class="flex p-1 space-x-1 rounded-xl">
                             <Tab
                                 v-for="(category, key) in Object.keys(
-                                    categories
+                                    tabs
                                 )"
                                 as="template"
                                 :key="category"
@@ -130,7 +130,7 @@
                                             />
                                             <div class="w-60">
                                                 <Listbox
-                                                    v-model="selectedPerson"
+                                                    v-model="selectedDepartamento"
                                                 >
                                                     <div
                                                         class="relative mt-1 z-20"
@@ -141,7 +141,7 @@
                                                             <span
                                                                 class="block truncate"
                                                             >{{
-                                                                    selectedPerson.nombre
+                                                                    selectedDepartamento.nombre
                                                                 }}</span
                                                             >
                                                             <span
@@ -371,7 +371,7 @@
                                                 "
                                             >
                                                 {{
-                                                    `${getSelectedCliente.nombre} ${getSelectedCliente.apellido1} ${getSelectedCliente.apellido2}`
+                                                    `${getSelectedCliente.nombre} ${getSelectedCliente.apellido1} ${getSelectedCliente.apellido2 == 'NULL' ? '' : getSelectedCliente.apellido2}`
                                                 }}
                                             </p>
                                         </div>
@@ -437,14 +437,14 @@
                                 <h2 class="text-center uppercase text-2xl">Selecciona tareas concluidas de
                                     este trámite</h2>
                                 <div
-                                    class="grid grid-rows-1 grid-flow-col gap-4 h-96 bg-gradient-to-r from-blue-500 items-start"
+                                    class="grid grid-rows-1 grid-flow-col gap-4 h-96 bg-gradient-to-r from-blue-500 items-center"
                                 >
                                     <div class="flex flex-row shrink-0 mx-auto items-center justify-around"
                                          v-if="selected">
                                         <div v-for="(tarea, id) in selected.tareastramite"
                                              class="flex flex-row justify-items-center justify-between items-center w-64 h-64">
                                             <button class="flex flex-col justify-start items-center h-1/3"
-                                                    @click="saveSolicitud">
+                                                    @click="saveSolicitud(tarea.id, false)">
                                                 <div
                                                     class="ring-2 w-32 h-32 mx-4 p-2 rounded-full ring-blue-900 hover:bg-blue-900">
                                                     <span
@@ -461,6 +461,18 @@
                                             </button>
                                         </div>
                                     </div>
+                                    <div class="flex flex-row shrink-0 mx-auto items-center justify-around mt-8">
+                                        <button class="flex flex-row justify-items-center justify-between  h-1/3"
+                                                @click="saveSolicitud(100, true)">
+                                            <div
+                                                class="flex flex-col justify-start items-center ring-2 w-32 h-32 mx-4 p-2 rounded-full ring-blue-900 hover:bg-blue-900">
+                                                    <span
+                                                        class="text-center text-white font-bold text-5xl ml-2 hover:text-gray-200 mt-8">
+                                                        Fin
+                                                        </span>
+                                            </div>
+                                        </button>
+                                    </div>
                                 </div>
                             </TabPanel>
                         </TabPanels>
@@ -468,21 +480,36 @@
                             <button
                                 @click="changePrevTab"
                                 :disabled="selectIndexTab <= 0"
-                                class="rounded-md ring-2 bg-blue-400 font-medium text-2xl text-white mx-2 p-2 mt-1"
+                                class=" flex flex-row justify-center items-center rounded-md ring-2 bg-blue-400 font-medium text-2xl text-white mx-2 p-2 mt-1 hover:bg-blue-900 hover:text-gray-200"
                             >
+                                <span>
+                                <ChevronLeftIcon
+                                    class="w-5 h-5"
+                                    aria-hidden="true"
+                                />
+                                    </span>
+                                <span>
                                 Anterior
+                                    </span>
                             </button>
                             <button
                                 @click="changeNextTab"
                                 :disabled="selectIndexTab >= 2"
-                                class="rounded-md ring-2 bg-blue-400 font-medium text-2xl text-white mx-2 p-2 mt-1"
-                            >
-                                Siguiente
+                                class=" flex flex-row justify-center items-center rounded-md ring-2 bg-blue-400 font-medium text-2xl text-white mx-2 p-2 mt-1 hover:bg-blue-900 hover:text-gray-200"
+                            ><span>
+                                    Siguiente
+                                </span>
+                                <span>
+                                <ChevronRightIcon
+                                    class="w-5 h-5"
+                                    aria-hidden="true"
+                                />
+                                    </span>
                             </button>
                         </div>
                     </TabGroup>
                 </div>
-                <SaveDialog/>
+                <SaveDialog @btn-save="buttonClickSave(getSelectedTask.id, getSelectedTask.concluido)"/>
             </div>
         </div>
     </app-layout>
@@ -518,42 +545,50 @@ import {
     ColorSwatchIcon,
     CheckCircleIcon,
     PlusCircleIcon,
+    ChevronLeftIcon, ChevronRightIcon,
     NewspaperIcon,
     CogIcon
 } from "@heroicons/vue/outline";
+import {useForm} from "@inertiajs/inertia-vue3";
 
 let listaTramites = ref(props.tramites);
 const props = defineProps(['tramites', 'departamentos', 'medios']);
 const {departamentos, tramites, medios} = toRefs(props);
 const medioAtencion = ref(null);
-
-const selectedPerson = ref(departamentos.value[0]);
+const selectedDepartamento = ref(departamentos.value[0]);
 const showModalAddUser = ref(false);
-
-const emits = defineEmits(["btn-click"]);
-
-
 const store = useStore();
 const getSelectedUsuario = computed(
     () => store.getters["solicitudesStore/getSelectedUsuario"]
 );
 const getSelectedCliente = computed(
     () => store.getters["solicitudesStore/getSelectedCliente"]
+);
+const getSelectedTask = computed(
+    () => store.getters["solicitudesStore/getSelectedTask"]
 )
+
 onMounted(() => {
     medioAtencion.value = medios.value[0];
 })
-
+const form = useForm({
+    cliente_id: null,
+    tramite_id: null,
+    concluido: false,
+    medio_id: null,
+    tareas: []
+});
 const selected = ref(null);
 const text = ref("");
 let selectIndexTab = ref(0);
 // const tramites = ref([]);
-let categories = ref({
+let tabs = ref({
     Trámite: "",
     Usuario: [],
     Tareas: [],
 });
-const saveSolicitud = () => {
+const saveSolicitud = (id, concluido) => {
+    store.dispatch("solicitudesStore/setTask", {id: id, concluido: concluido});
     store.dispatch("infoTramiteStore/openModalSaveDialog");
     console.log("Pressed")
 }
@@ -566,10 +601,11 @@ const selectByName = () => {
     text.value = '';
 };
 const SelectDeptoId = (id) => {
+    console.log(id);
     listaTramites.value = props.tramites;
     if (id === 1) return listaTramites;
     listaTramites.value = listaTramites.value.filter((tramite) => {
-        if (tramite.id === id) return true;
+        if (tramite.departamento_id === id) return true;
     });
 };
 const changeNextTab = () => {
@@ -580,5 +616,22 @@ const changePrevTab = () => {
     if (selectIndexTab.value > 0)
         selectIndexTab.value = selectIndexTab.value - 1;
 };
+
+
+function buttonClickSave(id, cerrado) {
+    // console.log(selected.value.id, getSelectedCliente.value.id, medioAtencion.value.id);
+    form.transform((data) => ({
+        ...data,
+        cliente_id: getSelectedCliente.value.id,
+        tramite_id: selected.value.id,
+        medio_id: medioAtencion.value.id,
+        concluido: cerrado,
+        tareas: {id: id}
+    })).post(route("solicitudes/store"), {
+        errorBag: "saveRequisitoInformation",
+        preserveScroll: true,
+    });
+    store.dispatch("infoTramiteStore/closeModalSaveDialog");
+}
 </script>
 

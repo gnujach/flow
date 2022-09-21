@@ -21,8 +21,8 @@ class TramitePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => ['required', 'min:4', 'max:120', Rule::unique('tramites')],
-            'objetivo' => ['required', 'min:4', 'max:120', Rule::unique('tramites')],
+            'nombre' => ['required', 'min:4', 'max:200', Rule::unique('tramites')],
+            'objetivo' => ['required', 'min:4', 'max:200', Rule::unique('tramites')],
             'plazo_respuesta' => ['required', 'min:1', 'max:1'],
             'departamento_id' => ['required', 'exists:departamentos,id'],
             'url_proceso' => ['nullable', 'url'],

@@ -318,6 +318,8 @@
                                             type="text"
                                             class="mt-1 border-blue-400"
                                             v-model="task"
+                                            size="44"
+                                            maxsize="44"
                                         />
 
                                         <button

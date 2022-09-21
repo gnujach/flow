@@ -16,7 +16,7 @@ class CreateTareatramitesTable extends Migration
         Schema::create('tareatramites', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->index()->unique();
-            $table->string('nombre', 48)->nullable(false);
+            $table->string('nombre', 128)->nullable(false);
             $table->foreignId('tramite_id');
             $table->timestamps();
         });

@@ -2545,7 +2545,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     modelValue: $setup.task,
                     "onUpdate:modelValue": _cache[13] || (_cache[13] = function ($event) {
                       return $setup.task = $event;
-                    })
+                    }),
+                    size: "44",
+                    maxsize: "44"
                   }, null, 8
                   /* PROPS */
                   , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
