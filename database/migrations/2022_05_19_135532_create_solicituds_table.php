@@ -15,6 +15,7 @@ class CreateSolicitudsTable extends Migration
     {
         Schema::create('solicituds', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->index()->unique();
             $table->BigInteger('by')->nullable(false);
             $table->foreignId('cliente_id');
             $table->foreignId('tramite_id');

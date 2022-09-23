@@ -122,22 +122,7 @@
                                             <div
                                                 class="flex flex-row items-center text-gray-400 focus-within:text-gray-600"
                                             >
-                                                <ViewListIcon
-                                                    class="w-5 h-5 ml-3 pointer-events-none"
-                                                />
-
-
-                                                <BanIcon
-                                                    v-if="
-                                                        solicitud.data.attributes
-                                                            .concluido
-                                                    "
-                                                    class="w-5 h-5 ml-3 pointer-events-none"
-                                                />
-                                                <BadgeCheckIcon
-                                                    v-else
-                                                    class="w-5 h-5 ml-3 pointer-events-none"
-                                                />
+                                                <ModalUpdateSolicitud :uuid="solicitud.data.id"/>
                                             </div>
                                         </td>
                                     </tr>
@@ -165,9 +150,11 @@ import {
     BanIcon,
     BadgeCheckIcon,
 } from "@heroicons/vue/outline";
+import ModalUpdateSolicitud from "@/modules/Dialog/Components/ModalUpdateSolicitud";
 
 export default {
     components: {
+        ModalUpdateSolicitud,
         AppLayout,
         JetNavLink,
         Pagination,
@@ -180,5 +167,3 @@ export default {
     props: ["solicitudes"],
 };
 </script>
-
-<style></style>

@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasUuid;
 
 class Solicitud extends Model
 {
     use HasFactory;
+
+//        use HasUuid;
 
     protected $fillable = [
         'by',
@@ -21,7 +24,7 @@ class Solicitud extends Model
     /**
      * Una solicitud puede tener muchas historysolicitud
      */
-    public function historysolicitud(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function historysolicitud()
     {
         return $this->hasMany(Historysolicitud::class);
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Solicitud;
+use App\Models\Tareatramite;
 use App\Models\Historysolicitud;
 use App\Models\Tramite;
 use Illuminate\Http\Request;
@@ -115,7 +116,10 @@ class SolicitudController extends Controller
      */
     public function edit(Solicitud $solicitud)
     {
-        //
+        $task = Tareatramite::where('tramite_id', $solicitud->tramite_id)->get();
+        $solicitud = Solicitud::where('id', $solicitud->id)->with('tramite', 'historysolicitud')->get();
+        $res = ['tareas' => $task, 'sol' => $solicitud];
+        return response()->json($res);
     }
 
     /**
