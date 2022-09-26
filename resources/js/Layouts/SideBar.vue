@@ -154,17 +154,17 @@ export default defineComponent({
                 }, {
                     url: "/admin/tramites/",
                     label: "Administración de Trámites",
-                    icon: HeartIcon,
+                    icon: ClipboardCheckIcon,
                 },
                 {
-                    url: "/solicitudes",
+                    url: "/dashboard",
                     label: "Solicitudes",
                     icon: ClipboardCheckIcon,
                 },
             ],
             mainNavigationPersonalVentanilla: [
                 {
-                    url: "/solicitudes",
+                    url: "/dashboard",
                     label: "Solicitudes",
                     icon: ClipboardCheckIcon,
                 },

@@ -537,14 +537,14 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         url: "/admin/tramites/",
         label: "Administración de Trámites",
-        icon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_5__["default"]
+        icon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_9__["default"]
       }, {
-        url: "/solicitudes",
+        url: "/dashboard",
         label: "Solicitudes",
         icon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_9__["default"]
       }],
       mainNavigationPersonalVentanilla: [{
-        url: "/solicitudes",
+        url: "/dashboard",
         label: "Solicitudes",
         icon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_9__["default"]
       }]
