@@ -13,11 +13,27 @@ export const openModalAddUser = (context) => {
         console.log("error action");
     }
 };
+export const openModalUpdateRequest = (context) => {
+    try {
+        context.commit("OPEN_MODAL_UPDATE_REQUEST");
+    } catch {
+        console.log("error action");
+    }
+};
+export const closeModalUpdateRequest = (context) => {
+    try {
+        context.commit("CLOSE_MODAL_UPDATE_REQUEST");
+    } catch {
+        console.log("error action");
+    }
+};
+
 
 export const selectUsuario = ({commit}, usuario) => {
     commit("SELECT_USUARIO", usuario);
     commit("TOGGLE_OPEN_MODAL_SEARCH_USER");
 };
+
 
 export const toggleModalSearchUser = (context) => {
     try {

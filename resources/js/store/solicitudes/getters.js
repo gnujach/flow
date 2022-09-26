@@ -13,3 +13,6 @@ export const getSelectedCliente = (state) => {
 export const getSelectedTask = (state) => {
     return state.task;
 };
+export const getUpdateRequest = (state) => {
+    return state.isUpdateRequest;
+};

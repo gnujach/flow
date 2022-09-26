@@ -1,6 +1,7 @@
 export default () => ({
     isOpenCreate: false,
     isOpenSearch: false,
+    isUpdateRequest: false,
     usuario: {
         id: null,
         nombre: null,

@@ -148,7 +148,9 @@ import {
 } from "vue";
 import {ArrowDownIcon, CheckIcon} from "@heroicons/vue/solid";
 import {PencilAltIcon} from "@heroicons/vue/outline"
+import {useStore} from "vuex";
 
+const store = useStore();
 
 const props = defineProps({
     uuid: {
@@ -185,6 +187,7 @@ const updateSolicitud = async (id, task_id, concluido) => {
             data: data.value,
             _method: 'put'
         })
+        store.dispatch("solicitudesStore/openModalUpdateRequest");
     } catch (error) {
         console.log(error)
     }

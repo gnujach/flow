@@ -5,6 +5,15 @@ export const OPEN_OPEN_MODAL_ADD_USER = (state) => {
     state.isOpenCreate = true;
 };
 
+export const OPEN_MODAL_UPDATE_REQUEST = (state) => {
+    state.isUpdateRequest = true;
+};
+
+export const CLOSE_MODAL_UPDATE_REQUEST = (state) => {
+    state.isUpdateRequest = false;
+};
+
+
 export const SELECT_USUARIO = (state, usuario) => {
     state.cliente = usuario;
 };

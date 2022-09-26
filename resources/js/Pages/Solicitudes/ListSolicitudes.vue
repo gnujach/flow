@@ -10,6 +10,7 @@
                         <div
                             class="p-6 sm:px-20 bg-white border-b border-gray-200"
                         >
+                            <AlertToast/>
                             <div class="mt-8 flex flex-row m-2">
                                 <p class="text-2xl ml-4 w-1/2">
                                     Solicitudes por usuario
@@ -160,9 +161,11 @@ import {
     PencilIcon,
     BanIcon,
     BadgeCheckIcon,
-    PencilAltIcon
+    PencilAltIcon,
+    LightningBoltIcon
 } from "@heroicons/vue/outline";
 import ModalUpdateSolicitud from "@/modules/Dialog/Components/ModalUpdateSolicitud";
+import AlertToast from "@/modules/Dialog/Components/AlertToast";
 
 export default {
     components: {
@@ -175,7 +178,8 @@ export default {
         PencilIcon,
         BanIcon,
         BadgeCheckIcon,
-        PencilAltIcon
+        PencilAltIcon,
+        AlertToast
     },
     props: ["solicitudes"],
 };

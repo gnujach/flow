@@ -22261,8 +22261,10 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "closeModalUpdateRequest": () => (/* binding */ closeModalUpdateRequest),
 /* harmony export */   "loadLastCliente": () => (/* binding */ loadLastCliente),
 /* harmony export */   "openModalAddUser": () => (/* binding */ openModalAddUser),
+/* harmony export */   "openModalUpdateRequest": () => (/* binding */ openModalUpdateRequest),
 /* harmony export */   "selectUsuario": () => (/* binding */ selectUsuario),
 /* harmony export */   "setTask": () => (/* binding */ setTask),
 /* harmony export */   "toggleModalAddUser": () => (/* binding */ toggleModalAddUser),
@@ -22290,6 +22292,20 @@ var openModalAddUser = function openModalAddUser(context) {
     console.log("error action");
   }
 };
+var openModalUpdateRequest = function openModalUpdateRequest(context) {
+  try {
+    context.commit("OPEN_MODAL_UPDATE_REQUEST");
+  } catch (_unused3) {
+    console.log("error action");
+  }
+};
+var closeModalUpdateRequest = function closeModalUpdateRequest(context) {
+  try {
+    context.commit("CLOSE_MODAL_UPDATE_REQUEST");
+  } catch (_unused4) {
+    console.log("error action");
+  }
+};
 var selectUsuario = function selectUsuario(_ref, usuario) {
   var commit = _ref.commit;
   commit("SELECT_USUARIO", usuario);
@@ -22298,7 +22314,7 @@ var selectUsuario = function selectUsuario(_ref, usuario) {
 var toggleModalSearchUser = function toggleModalSearchUser(context) {
   try {
     context.commit("TOGGLE_OPEN_MODAL_SEARCH_USER");
-  } catch (_unused3) {
+  } catch (_unused5) {
     console.log("error action");
   }
 };
@@ -22377,7 +22393,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getSearchCreate": () => (/* binding */ getSearchCreate),
 /* harmony export */   "getSelectedCliente": () => (/* binding */ getSelectedCliente),
 /* harmony export */   "getSelectedTask": () => (/* binding */ getSelectedTask),
-/* harmony export */   "getSelectedUsuario": () => (/* binding */ getSelectedUsuario)
+/* harmony export */   "getSelectedUsuario": () => (/* binding */ getSelectedUsuario),
+/* harmony export */   "getUpdateRequest": () => (/* binding */ getUpdateRequest)
 /* harmony export */ });
 var getOpenCreate = function getOpenCreate(state) {
   return state.isOpenCreate;
@@ -22393,6 +22410,9 @@ var getSelectedCliente = function getSelectedCliente(state) {
 };
 var getSelectedTask = function getSelectedTask(state) {
   return state.task;
+};
+var getUpdateRequest = function getUpdateRequest(state) {
+  return state.isUpdateRequest;
 };
 
 /***/ }),
@@ -22436,6 +22456,8 @@ var solicitudesStore = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CLOSE_MODAL_UPDATE_REQUEST": () => (/* binding */ CLOSE_MODAL_UPDATE_REQUEST),
+/* harmony export */   "OPEN_MODAL_UPDATE_REQUEST": () => (/* binding */ OPEN_MODAL_UPDATE_REQUEST),
 /* harmony export */   "OPEN_OPEN_MODAL_ADD_USER": () => (/* binding */ OPEN_OPEN_MODAL_ADD_USER),
 /* harmony export */   "SELECT_USUARIO": () => (/* binding */ SELECT_USUARIO),
 /* harmony export */   "SET_CLIENTE": () => (/* binding */ SET_CLIENTE),
@@ -22448,6 +22470,12 @@ var TOGGLE_OPEN_MODAL_ADD_USER = function TOGGLE_OPEN_MODAL_ADD_USER(state) {
 };
 var OPEN_OPEN_MODAL_ADD_USER = function OPEN_OPEN_MODAL_ADD_USER(state) {
   state.isOpenCreate = true;
+};
+var OPEN_MODAL_UPDATE_REQUEST = function OPEN_MODAL_UPDATE_REQUEST(state) {
+  state.isUpdateRequest = true;
+};
+var CLOSE_MODAL_UPDATE_REQUEST = function CLOSE_MODAL_UPDATE_REQUEST(state) {
+  state.isUpdateRequest = false;
 };
 var SELECT_USUARIO = function SELECT_USUARIO(state, usuario) {
   state.cliente = usuario;
@@ -22479,6 +22507,7 @@ __webpack_require__.r(__webpack_exports__);
   return {
     isOpenCreate: false,
     isOpenSearch: false,
+    isUpdateRequest: false,
     usuario: {
       id: null,
       nombre: null,
