@@ -22,6 +22,7 @@ class CreateSolicitudsTable extends Migration
             $table->foreignId('medio_id');
             $table->BigInteger('modified_by')->nullable(false);
             $table->boolean('concluido')->default(false);
+            $table->boolean('cancelado')->default(false);
             $table->timestamps();
         });
     }

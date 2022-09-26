@@ -6,6 +6,7 @@ use App\Models\Solicitud;
 use App\Models\Tareatramite;
 use App\Models\Historysolicitud;
 use App\Models\Tramite;
+use App\Services\SolicitudService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -116,10 +117,10 @@ class SolicitudController extends Controller
      */
     public function edit(Solicitud $solicitud)
     {
-        $task = Tareatramite::where('tramite_id', $solicitud->tramite_id)->get();
-        $solicitud = Solicitud::where('id', $solicitud->id)->with('tramite', 'historysolicitud')->get();
-        $res = ['tareas' => $task, 'sol' => $solicitud];
-        return response()->json($res);
+//        $task = Tareatramite::where('tramite_id', $solicitud->tramite_id)->get();
+//        $solicitud = Solicitud::where('id', $solicitud->id)->with('tramite', 'historysolicitud', 'cliente')->get();
+//        $res = ['tareas' => $task, 'sol' => $solicitud];
+        return response()->json($solicitud);
     }
 
     /**
@@ -129,9 +130,13 @@ class SolicitudController extends Controller
      * @param \App\Models\Solicitud $solicitud
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Solicitud $solicitud)
+    public function update(Request $request, Solicitud $solicitud, SolicitudService $solicitudService)
     {
-        //
+
+        $solicitudService->updateSolicitud($request, $solicitud);
+        return Inertia::render('Solicitudes/ListSolicitudes', [
+            'solicitudes' => new SolicitudCollection(Solicitud::OrderBy('id', 'desc')->paginate(config('openlink.perpage'))),
+        ]);
     }
 
     /**

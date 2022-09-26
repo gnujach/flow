@@ -39,7 +39,7 @@ class Tramite extends Model
     /**
      * Un tramite pertenece a un departamento
      */
-    public function departamento()
+    public function departamento(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Departamento::class);
     }
@@ -47,7 +47,7 @@ class Tramite extends Model
     /**
      * Un Tramite puede tener muchas tareas
      */
-    public function Tareastramite()
+    public function tareastramite(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Tareatramite::class);
     }
@@ -55,7 +55,7 @@ class Tramite extends Model
     /**
      * Un Tramite puede tener muchas tareas
      */
-    public function solicitud()
+    public function solicitud(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Solicitud::class);
     }

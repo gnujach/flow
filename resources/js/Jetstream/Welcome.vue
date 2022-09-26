@@ -35,6 +35,27 @@
                         </button>
                     </jet-nav-link>
                 </div>
+                <div class="w-44 h-44">
+                    <jet-nav-link
+                        :href="route('solicitudes.list') "
+                    >
+                        <button
+                            class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500"
+                        >
+                            <div class="flex flex-row">
+                                <icon
+                                    name="plus"
+                                    class="block w-6 h-6 fill-gray-400"
+                                />
+                                <p class="font-bold">
+                                    Ver Solicitudes
+                                </p>
+                            </div>
+                        </button>
+                    </jet-nav-link>
+                </div>
+
+
             </div>
 
         </div>

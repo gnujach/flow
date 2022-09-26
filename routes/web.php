@@ -39,6 +39,7 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/solicitudes/store', [Sol
 Route::get('/request', [SolicitudController::class, 'recaptcha'])->name('request');
 Route::middleware(['auth:sanctum', 'verified'])->get('solicitudes/list', [SolicitudController::class, 'index'])->name('solicitudes.list');
 Route::middleware(['auth:sanctum', 'verified'])->get('solicitudes/{solicitud:id}/edit', [SolicitudController::class, 'edit'])->name('solicitudes.edit');
+Route::middleware(['auth:sanctum', 'verified'])->put('/solicitudes/{solicitud:id}/update', [SolicitudController::class, 'update'])->name('solicitudes/update');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dialog', function () {
     return Inertia::render('Dialog');

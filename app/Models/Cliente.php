@@ -27,6 +27,14 @@ class Cliente extends Model
         'by'
     ];
 
+
+    public function getFullNameAttribute()
+    {
+        return $this->nombre . " " . $this->apellido1 . " " . $this->apellido2;
+    }
+
+    protected $appends = ['full_name'];
+
     /**
      * Un Tramite puede tener muchas tareas
      */

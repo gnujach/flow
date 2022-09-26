@@ -49,7 +49,8 @@
                             <div
                                 class="inset-y-0 left-0 flex items-center pl-4 pointer-events-none"
                             >
-                                <p class="mb-2 text-lg font-bold">Saúl Sanchez López {{ uuid }} </p>
+                                <p class="mb-2 text-lg font-bold uppercase">{{ solicitud.cliente.full_name }}/
+                                    {{ solicitud.tramite.nombre }} </p>
                             </div>
                             <div
                                 class="inset-y-0 right-0 flex items-center pr-3 my-2"
@@ -65,21 +66,34 @@
                         </div>
                         <div class="overflow-auto">
                             <div
-                                class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
-                                <div class="grid gap-6 row-gap-10 lg:grid-cols-2">
+                                class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
+                                <div class="grid gap-4 row-gap-4 lg:grid-cols-2">
                                     <div class="lg:py-6 lg:pr-16">
-                                        <div class="flex" v-for="tarea in solicitud.tareas" :key="tarea.id">
+                                        <div class="flex" v-for="tarea in solicitud.tramite.tareastramite"
+                                             :key="tarea.id">
                                             <div class="flex flex-col items-center mr-4">
                                                 <div>
                                                     <div
-                                                        class="flex items-center justify-center w-10 h-10 border rounded-full">
+                                                        class="flex items-center justify-center w-10 h-10 border rounded-full"
+                                                        :class="[tarea.id <= lastElement.task_id  ? 'bg-gray-400':'']">
                                                         <ArrowDownIcon class="h-5 w-5"/>
                                                     </div>
                                                 </div>
                                                 <div class="w-px h-full bg-gray-300"></div>
                                             </div>
-                                            <div class="pt-1 pb-8">
-                                                <p class="mb-2 text-lg font-bold">{{ tarea.nombre }}</p>
+                                            <div class="pt-1 pb-8 flex flex-row justify-around">
+                                                <p class="mb-2 text-lg font-bold"
+                                                   :class="[tarea.id <= lastElement.task_id  ? 'line-through text-gray-300':'']"
+                                                >
+                                                    {{ tarea.nombre }}</p>
+                                                <button v-if="tarea.id > lastElement.task_id"
+                                                        @click="updateSolicitud(solicitud.id, tarea.id, false)">
+                                                    <strong
+                                                        class="border text-blue-500 border-current uppercase px-2 py-1.5 rounded-full text-[7px] tracking-wide hover:bg-blue-900 hover:text-white"
+                                                    >
+                                                        Completada
+                                                    </strong>
+                                                </button>
                                             </div>
                                         </div>
                                         <div class="flex">
@@ -91,9 +105,16 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="pt-1">
+                                            <div class="pt-1 flex justify-between ">
                                                 <p class="mb-2 text-lg font-bold">Success</p>
-                                                <p class="text-gray-700"></p>
+                                                <button
+                                                    @click="updateSolicitud(solicitud.id, id = 100, concluida = true)">
+                                                    <strong
+                                                        class="border text-blue-500 border-current uppercase px-2 py-1.5 rounded-full text-[7px] tracking-wide hover:bg-blue-900 hover:text-white"
+                                                    >
+                                                        Completada
+                                                    </strong>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -138,14 +159,36 @@ const props = defineProps({
 
 const isOpenCreate = ref(false);
 const solicitud = ref(null);
+const lastElement = ref(0);
+const data = ref({
+    task_id: 100,
+    concluido: false
+});
 const openModalUpdateUser = async (uuid) => {
     try {
         const data = await axios.get(`/solicitudes/${uuid}/edit`)
         solicitud.value = data.data;
+        lastElement.value = solicitud.value.historysolicitud[solicitud.value.historysolicitud.length - 1];
+        // console.log(solicitud.value.historysolicitud[solicitud.value.historysolicitud.length - 1]);
     } catch (error) {
         console.log(error)
     }
     isOpenCreate.value = true
+}
+
+const updateSolicitud = async (id, task_id, concluido) => {
+    data.value.task_id = task_id;
+    data.value.concluido = concluido;
+    isOpenCreate.value = false
+    try {
+        await axios.put(`/solicitudes/${id}/update/`, {
+            data: data.value,
+            _method: 'put'
+        })
+    } catch (error) {
+        console.log(error)
+    }
+
 }
 const closeModalCreate = () => isOpenCreate.value = false
 

@@ -27,8 +27,8 @@ class PuestoController extends Controller
         return Inertia::render(
             'Puestos/ListPuestos',
             [
-                'puestos' => new PuestoCollection(Puesto::orderBy('id','desc')
-                    ->where('id','>', 1)
+                'puestos' => new PuestoCollection(Puesto::orderBy('id', 'desc')
+                    ->where('id', '>', 1)
                     ->paginate(config('openlink.perpage'))),
             ]
         );
@@ -50,7 +50,7 @@ class PuestoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(CreatePuestoRequest $request, PuestoService $servicePuesto)
@@ -72,7 +72,7 @@ class PuestoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Puesto  $puesto
+     * @param \App\Models\Puesto $puesto
      * @return \Illuminate\Http\Response
      */
     public function show(Puesto $puesto)
@@ -83,7 +83,7 @@ class PuestoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Puesto  $puesto
+     * @param \App\Models\Puesto $puesto
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, Puesto $puesto)
@@ -100,8 +100,8 @@ class PuestoController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Puesto  $puesto
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Puesto $puesto
      * @return \Illuminate\Http\Response
      */
     public function update(UpdatePuestoRequest $request, Puesto $puesto, puestoService $puestoService)
@@ -120,7 +120,7 @@ class PuestoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Puesto  $puesto
+     * @param \App\Models\Puesto $puesto
      * @return \Illuminate\Http\Response
      */
     public function destroy(Puesto $puesto)

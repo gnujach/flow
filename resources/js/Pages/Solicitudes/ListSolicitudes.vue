@@ -122,7 +122,18 @@
                                             <div
                                                 class="flex flex-row items-center text-gray-400 focus-within:text-gray-600"
                                             >
-                                                <ModalUpdateSolicitud :uuid="solicitud.data.id"/>
+                                                <ModalUpdateSolicitud :uuid="solicitud.data.id"
+                                                                      v-if="!solicitud.data.attributes.concluido"/>
+                                                <button v-else
+                                                        type="button"
+                                                        disabled
+                                                        class="flex  items-center space-x-2 border border-gray-300 shadow-sm px-3 py-1.5 hover:border-gray-600 focus:outline-none focus:border-gray-600 rounded-lg"
+                                                >
+                                                    <PencilAltIcon
+                                                        class="flex-none text-gray-200 ml-1 w-5 h-5"
+                                                        aria-hidden="true"
+                                                    />
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>
@@ -149,6 +160,7 @@ import {
     PencilIcon,
     BanIcon,
     BadgeCheckIcon,
+    PencilAltIcon
 } from "@heroicons/vue/outline";
 import ModalUpdateSolicitud from "@/modules/Dialog/Components/ModalUpdateSolicitud";
 
@@ -163,6 +175,7 @@ export default {
         PencilIcon,
         BanIcon,
         BadgeCheckIcon,
+        PencilAltIcon
     },
     props: ["solicitudes"],
 };
