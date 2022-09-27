@@ -1993,11 +1993,11 @@ input[type=file]::file-selector-button:hover {
 .max-w-full {
   max-width: 100%;
 }
-.max-w-sm {
-  max-width: 24rem;
-}
 .max-w-3xl {
   max-width: 48rem;
+}
+.max-w-sm {
+  max-width: 24rem;
 }
 .max-w-md {
   max-width: 28rem;
