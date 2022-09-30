@@ -1,22 +1,9 @@
 <template>
     <div>
-        <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-            <div>
-                <jet-application-logo class="block h-12 w-auto"/>
-            </div>
-
-            <div class="mt-8 text-2xl">
-                Bienvenido
-            </div>
-
-            <div class="mt-6 text-gray-500">
-                Sistema Integral de Gestión de Solicitudes de Atención
-            </div>
-        </div>
-
-        <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
+        <Actions/>
+        <div class="p-6 sm:px-20 bg-white border-b border-gray-200 divide-y-4 divide-slate-400/25">
             <div class="flex flex-row">
-                <div class="w-44 h-44">
+                <div class="w-32 h-32">
                     <jet-nav-link
                         :href="route('solicitudes') "
                     >
@@ -35,7 +22,7 @@
                         </button>
                     </jet-nav-link>
                 </div>
-                <div class="w-44 h-44">
+                <div class="w-32 h-32">
                     <jet-nav-link
                         :href="route('solicitudes.list') "
                     >
@@ -54,10 +41,7 @@
                         </button>
                     </jet-nav-link>
                 </div>
-
-
             </div>
-
         </div>
     </div>
 </template>
@@ -71,9 +55,11 @@ import Icon from "@/Shared/Icon";
 import JetNavLink from "@/Jetstream/NavLink";
 import Button from "@/Jetstream/Button.vue";
 import {plus,} from "@heroicons/vue/outline";
+import Actions from "@/Components/Actions";
 
 export default defineComponent({
     components: {
+        Actions,
         JetApplicationLogo,
         Button,
         Icon,
