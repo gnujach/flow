@@ -29,6 +29,7 @@ class TramiteController extends Controller
         ]);
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -90,7 +91,7 @@ class TramiteController extends Controller
                     ]);
             }
             DB::commit();
-            return Redirect::route('admin.tramites/')->banner('Trámite Guardado.');
+            return Redirect::route('admin.tramites')->banner('Trámite Guardado.');
         } catch (\Exception $e) {
             DB::rollback();
             return $e->getMessage();

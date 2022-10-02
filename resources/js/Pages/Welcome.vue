@@ -25,11 +25,17 @@
         </div>
 
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-            <div class="flex justify-center sm:justify-start sm:pt-0">
-                <a href="/login">
-                    <span class="text-5xl text-white font-bold">Ingresar</span>
-                </a>
-            </div>
+            <Link
+                :href="route('login')"
+                class="underline text-sm text-gray-600 hover:text-gray-900"
+            >
+                <jet-button
+                    class="ml-4"
+                >
+                    Ingresar
+                </jet-button>
+            </Link>
+
         </div>
     </div>
 </template>
@@ -100,6 +106,8 @@
 
 <script>
 import JetNavLink from "@/Jetstream/NavLink";
+import JetButton from "@/Jetstream/Button.vue";
+import {Head, Link} from "@inertiajs/inertia-vue3";
 
 export default {
     props: {
@@ -110,6 +118,9 @@ export default {
     },
     components: {
         JetNavLink,
+        JetButton,
+        Head,
+        Link
     },
 };
 </script>

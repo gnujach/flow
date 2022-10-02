@@ -103,7 +103,7 @@ Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(functi
     Route::post('/requisitos', [RequisitoController::class, 'store'])->name('requisitos/store');
     Route::put('/requisito/{requisito:uuid}/update', [Requisitocontroller::class, 'update'])->name('requisitos/update');
     // Rutas de Tramites
-    Route::get('/tramites/', [TramiteController::class, 'index'])->name('tramites/');
+    Route::get('/tramites/', [TramiteController::class, 'index'])->name('tramites');
     Route::get('/tramites/create', [TramiteController::class, 'create'])->name('tramites/create');
     Route::get('/tramites/{tramite:uuid}/edit', [TramiteController::class, 'edit'])->name('tramites/edit');
     Route::get('/tramites/{tramite:uuid}/show', [TramiteController::class, 'show'])->name('tramites/show');

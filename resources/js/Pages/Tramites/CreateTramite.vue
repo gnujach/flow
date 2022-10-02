@@ -163,7 +163,7 @@
                                         <jet-label for="tipo_departamento" value="Departamento"
                                                    class="text-lg font-semibold"/>
                                         <BaseListbox
-                                            :options="$page.props.departamentos"
+                                            :options="departamentosList"
                                             placeholder="Seleccione Departamento"
                                             v-model="form.departamento_id"
                                         />
@@ -375,7 +375,7 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout";
 import {
-    TabGroup, TabList, Tab, TabPanels, TabPanel, RadioGroup,
+    TabGroup, TabList, Tab, TabPanels, TabPanel,
 
 } from '@headlessui/vue'
 import {
@@ -399,7 +399,7 @@ import {usePrevalidate} from "@/Composables/usePrevalidate";
 import Alert from "@/Components/Alert";
 import ModalAddRequisito from "@/modules/Dialog/Components/ModalAddRequisito";
 
-props:['requisitos', 'departamentos', 'errors'];
+const props = defineProps(['requisitos', 'departamentos', 'errors']);
 
 const form = useForm({
     nombre: null,
@@ -441,11 +441,12 @@ const tipoUsuarios = [
     },
 ]
 let selectIndexTab = ref(0);
+const departamentosList = ref(props.departamentos);
 let checked = ref(false);
 let active = ref(false);
 const task = ref(null);
 const addRequisito = (requisito) => {
-    console.log(form.requisitos.some(elem => elem.id === requisito.id));
+    // console.log(form.requisitos.some(elem => elem.id === requisito.id));
     if (form.requisitos.some(elem => elem.id === requisito.id))
         return;
     if (!form.requisitos.includes(requisito)) {
