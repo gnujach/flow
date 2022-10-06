@@ -2035,6 +2035,9 @@ input[type=file]::file-selector-button:hover {
 .shrink-0 {
   flex-shrink: 0;
 }
+.table-fixed {
+  table-layout: fixed;
+}
 .origin-top-left {
   transform-origin: top left;
 }
@@ -2293,6 +2296,9 @@ input[type=file]::file-selector-button:hover {
 .whitespace-nowrap {
   white-space: nowrap;
 }
+.whitespace-pre-line {
+  white-space: pre-line;
+}
 .rounded-md {
   border-radius: 0.375rem;
 }
@@ -2547,6 +2553,10 @@ input[type=file]::file-selector-button:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(248 180 180 / var(--tw-bg-opacity));
 }
+.bg-green-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(188 240 218 / var(--tw-bg-opacity));
+}
 .bg-black {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
@@ -2572,6 +2582,9 @@ input[type=file]::file-selector-button:hover {
 }
 .bg-opacity-75 {
   --tw-bg-opacity: 0.75;
+}
+.bg-opacity-50 {
+  --tw-bg-opacity: 0.5;
 }
 .bg-gradient-to-r {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
@@ -2624,6 +2637,9 @@ input[type=file]::file-selector-button:hover {
 }
 .p-4 {
   padding: 1rem;
+}
+.p-3 {
+  padding: 0.75rem;
 }
 .p-1\.5 {
   padding: 0.375rem;
@@ -2990,6 +3006,14 @@ input[type=file]::file-selector-button:hover {
   --tw-text-opacity: 1;
   color: rgb(54 47 120 / var(--tw-text-opacity));
 }
+.text-blue-500 {
+  --tw-text-opacity: 1;
+  color: rgb(63 131 248 / var(--tw-text-opacity));
+}
+.text-green-800 {
+  --tw-text-opacity: 1;
+  color: rgb(3 84 63 / var(--tw-text-opacity));
+}
 .text-blue-700 {
   --tw-text-opacity: 1;
   color: rgb(26 86 219 / var(--tw-text-opacity));
@@ -2997,10 +3021,6 @@ input[type=file]::file-selector-button:hover {
 .text-blue-800 {
   --tw-text-opacity: 1;
   color: rgb(30 66 159 / var(--tw-text-opacity));
-}
-.text-blue-500 {
-  --tw-text-opacity: 1;
-  color: rgb(63 131 248 / var(--tw-text-opacity));
 }
 .text-red-900 {
   --tw-text-opacity: 1;
@@ -3295,6 +3315,10 @@ input[type=file]::file-selector-button:hover {
 .hover\:text-black:hover {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+.hover\:underline:hover {
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
 }
 .hover\:ring-2:hover {
   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);

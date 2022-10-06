@@ -873,6 +873,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     });
     var results = (0,vue__WEBPACK_IMPORTED_MODULE_7__.ref)(null);
     var resultsRefs = (0,vue__WEBPACK_IMPORTED_MODULE_7__.ref)([]);
+    var inputnombre = (0,vue__WEBPACK_IMPORTED_MODULE_7__.ref)(null);
 
     var closeModalCreate = function closeModalCreate() {
       store.dispatch("solicitudesStore/toggleModalAddUser");
@@ -895,6 +896,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     (0,vue__WEBPACK_IMPORTED_MODULE_7__.onUnmounted)(function () {
       return window.removeEventListener("keydown", onKeydownAddUser);
     });
+
+    var setFocus = function setFocus() {
+      store.dispatch("solicitudesStore/openModalAddUser");
+      (0,vue__WEBPACK_IMPORTED_MODULE_7__.nextTick)(function () {
+        inputnombre.value.focus();
+      });
+    };
 
     var onSubmit = function onSubmit() {
       form.transform(function (data) {
@@ -930,6 +938,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         validate = _usePrevalidate.validate;
 
     return _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_14__.mapActions)("solicitudesStore", ["toggleModalAddUser", "openModalAddUser", "loadLastCliente"])), {}, {
+      inputnombre: inputnombre,
       form: form,
       isOpenCreate: isOpenCreate,
       results: results,
@@ -938,6 +947,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       validate: validate,
       onSubmit: onSubmit,
       closeModalCreate: closeModalCreate,
+      setFocus: setFocus,
       openModalCreate: function openModalCreate() {
         isOpenCreate.value = true;
       }
@@ -3239,8 +3249,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)(_ctx.$attrs, {
     type: "button",
-    onClick: _cache[0] || (_cache[0] = function () {
-      return _ctx.openModalAddUser && _ctx.openModalAddUser.apply(_ctx, arguments);
+    onClick: _cache[0] || (_cache[0] = function ($event) {
+      return $setup.setFocus();
     }),
     "class": "flex items-center space-x-2 border border-gray-300 shadow-sm px-3 py-1.5 hover:border-gray-600 focus:outline-none focus:border-gray-600 rounded-lg"
   }), [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_UserAddIcon, {
@@ -3309,8 +3319,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 value: "Nombre",
                 "class": "block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
               }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input, {
-                id: "nombre",
+                id: "inputnombre",
                 type: "text",
+                ref: "inputnombre",
                 "class": "mx-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500",
                 modelValue: $setup.form.nombre,
                 "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {

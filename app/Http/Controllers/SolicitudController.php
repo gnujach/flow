@@ -14,6 +14,8 @@ use Inertia\Inertia;
 use App\Rules\Recaptcha;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Resources\SolicitudCollection;
+use App\Exports\SolicitudsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SolicitudController extends Controller
 {
@@ -148,5 +150,13 @@ class SolicitudController extends Controller
     public function destroy(Solicitud $solicitud)
     {
         //
+    }
+
+    /** exporte to excel */
+
+    public function export()
+    {
+        $this->authorize('create', Solicitud::class);
+        return Excel::download(new SolicitudsExport, 'solicitudes.xlsx');
     }
 }

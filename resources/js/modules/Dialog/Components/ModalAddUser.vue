@@ -3,7 +3,7 @@
         <button
             v-bind="$attrs"
             type="button"
-            @click="openModalAddUser"
+            @click="setFocus()"
             class="flex items-center space-x-2 border border-gray-300 shadow-sm px-3 py-1.5 hover:border-gray-600 focus:outline-none focus:border-gray-600 rounded-lg"
         >
             <UserAddIcon
@@ -87,8 +87,9 @@
                                         class="flex flex-col w-2/3 justify-center items-center"
                                     >
                                         <jet-input
-                                            id="nombre"
+                                            id="inputnombre"
                                             type="text"
+                                            ref="inputnombre"
                                             class="mx-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             v-model="form.nombre"
                                         />
@@ -291,7 +292,7 @@ export default {
         );
         const results = ref(null);
         const resultsRefs = ref([]);
-
+        const inputnombre = ref(null);
         const closeModalCreate = () => {
             store.dispatch("solicitudesStore/toggleModalAddUser");
         };
@@ -312,6 +313,12 @@ export default {
         onUnmounted(() =>
             window.removeEventListener("keydown", onKeydownAddUser)
         );
+        const setFocus = () => {
+            store.dispatch("solicitudesStore/openModalAddUser");
+            nextTick(() => {
+                inputnombre.value.focus();
+            })
+        }
         const onSubmit = () => {
             form.transform((data) => ({
                 ...data,
@@ -341,13 +348,14 @@ export default {
             method: "post",
             url: route("admin.clientes/store"),
         });
+
         return {
             ...mapActions("solicitudesStore", [
                 "toggleModalAddUser",
                 "openModalAddUser",
                 "loadLastCliente"
             ]),
-
+            inputnombre,
             form,
             isOpenCreate,
             results,
@@ -356,6 +364,7 @@ export default {
             validate,
             onSubmit,
             closeModalCreate,
+            setFocus,
             openModalCreate() {
                 isOpenCreate.value = true;
             },

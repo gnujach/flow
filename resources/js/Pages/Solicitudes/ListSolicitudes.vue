@@ -11,73 +11,69 @@
                             class="p-6 sm:px-20 bg-white border-b border-gray-200"
                         >
                             <AlertToast/>
-                            <div class="mt-8 flex flex-row m-2">
+                            <div class="mt-8 flex flex-row m-2 justify-between">
                                 <p class="text-2xl ml-4 w-1/2">
                                     Solicitudes por usuario
                                 </p>
-                                <div class="w-1/2 flex justify-end">
-                                    <jet-nav-link
-                                        :href="
+                                <div class="flex flex-row justify-end">
+                                    <div class=" flex justify-end">
+                                        <jet-nav-link
+                                            :href="
                                             route('solicitudes', {})
                                         "
-                                    >
-                                        <button
-                                            class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500"
                                         >
-                                            <div class="flex flex-row">
-                                                <icon
-                                                    name="plus"
-                                                    class="block w-6 h-6 fill-gray-400"
-                                                />
-                                                <p class="font-bold">
-                                                    Nueva Solicitud
-                                                </p>
-                                            </div>
-                                        </button>
-                                    </jet-nav-link>
+                                            <button
+                                                class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500"
+                                            >
+                                                <div class="flex flex-row">
+                                                    <icon
+                                                        name="plus"
+                                                        class="block w-6 h-6 fill-gray-400"
+                                                    />
+                                                    <p class="font-bold">
+                                                        Nueva Solicitud
+                                                    </p>
+                                                </div>
+                                            </button>
+                                        </jet-nav-link>
+                                    </div>
+                                    <div class="flex justify-center">
+                                        <a
+                                            href="/solicitudes/export/"
+                                        >
+                                            <button
+                                                class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500"
+                                            >
+                                                <div class="flex flex-row justify-between">
+                                                    <DocumentDownloadIcon class="h-5 w-5"/>
+                                                    <p class="font-bold">
+                                                        Excel
+                                                    </p>
+                                                </div>
+                                            </button>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                            <div
-                                class="bg-white rounded shadow overflow-x-auto ml-4 mr-4"
-                            >
-                                <table class="w-full">
-                                    <tr class="text-left font-bold bg-aqua">
-                                        <th class="px-6 pt-6 pb-4">
-                                            <div
-                                                class="flex content-center items-center"
-                                            >
-                                                <icon
-                                                    name="sun"
-                                                    class="w-8 h-8 mr-2 text-indigo-900"
-                                                />
-                                                Usuario
-                                            </div>
+                            <div class="overflow-auto rounded-lg shadow md:block ">
+                                <table class="w-full table-fixed">
+                                    <thead class="bg-gray-50 border-b-2 border-gray-200">
+                                    <tr class="p-3 text-sm font-semibold tracking-wide text-left">
+                                        <th class="p-3 text-sm font-semibold tracking-wide text-left w-32">
+                                            Usuario
                                         </th>
-                                        <th class="px-6 pt-6 pb-4">
-                                            <div
-                                                class="flex content-center items-center"
-                                            >
-                                                <icon
-                                                    name="sun"
-                                                    class="w-8 h-8 mr-2 text-indigo-900"
-                                                />
-                                                Medio de Atención
-                                            </div>
+                                        <th class="p-3 text-sm font-semibold tracking-wide text-center w-32">
+                                            Trámite
                                         </th>
-                                        <th class="px-6 pt-6 pb-4">
-                                            <div
-                                                class="flex content-center items-center"
-                                            >
-                                                <icon
-                                                    name="sun"
-                                                    class="w-8 h-8 mr-2 text-indigo-900"
-                                                />
-                                                Concluida
-                                            </div>
+                                        <th class="p-3 text-sm font-semibold tracking-wide text-center w-20">
+                                            Medio de Atención
                                         </th>
-                                        <th class="px-6 pt-6 pb-4">
+                                        <th class="p-3 text-sm font-semibold tracking-wide text-center w-12">
+                                            Concluida
+                                        </th>
+                                        <th class="w-32 p-3 text-sm font-semibold tracking-wide text-center w-12">
                                             <div
-                                                class="flex content-center items-center"
+                                                class="content-center items-center"
                                             >
                                                 <icon
                                                     name="sun"
@@ -87,6 +83,8 @@
                                             </div>
                                         </th>
                                     </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100">
                                     <tr
                                         v-for="solicitud in solicitudes.data.solicitudes"
                                         :key="solicitud.data.id"
@@ -97,21 +95,30 @@
                                                 : '',
                                         ]"
                                     >
-                                        <td class="border-t">
-                                            <p class="pl-4 font-bold uppercase">
+                                        <td class="p-3 text-sm text-gray-700 ">
+                                            <p class="font-bold text-blue-500 hover:underline">
                                                 {{
                                                     `${solicitud.data.cliente.data.attributes.nombre} ${solicitud.data.cliente.data.attributes.apellido1} ${solicitud.data.cliente.data.attributes.apellido2 == 'NULL' ? '' : solicitud.data.cliente.data.attributes.apellido2}`
                                                 }}
                                             </p>
                                         </td>
-                                        <td class="border-t">
-                                            <p class="pl-4 font-bold uppercase">
+                                        <td class="p-3 text-sm text-gray-700 ">
+                                            <p class="pl-4 font-bold uppercase whitespace-pre-line">
                                                 {{
-                                                    solicitud.data.medio.data.attributes.nombre
+                                                    `${solicitud.data.tramite.data.attributes.nombre}`
                                                 }}
                                             </p>
                                         </td>
-                                        <td class="border-t">
+
+                                        <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                            <span
+                                                class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
+                                                {{
+                                                    solicitud.data.medio.data.attributes.nombre
+                                                }}
+                                            </span>
+                                        </td>
+                                        <td class="p-3 text-sm text-gray-700 whitespace-nowrap text-center">
                                             <p class="pl-4 font-bold uppercase">
                                                 {{
                                                     solicitud.data.attributes
@@ -119,9 +126,9 @@
                                                 }}
                                             </p>
                                         </td>
-                                        <td class="border-t">
+                                        <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                             <div
-                                                class="flex flex-row items-center text-gray-400 focus-within:text-gray-600"
+                                                class="flex flex-row items-end justify-center text-gray-400 focus-within:text-gray-600"
                                             >
                                                 <ModalUpdateSolicitud :uuid="solicitud.data.id"
                                                                       v-if="!solicitud.data.attributes.concluido"/>
@@ -138,6 +145,7 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    </tbody>
                                 </table>
                             </div>
                             <div class="max-w-3xl mx-auto sm:px-6 lg:px-8 pt-4">
@@ -162,7 +170,7 @@ import {
     BanIcon,
     BadgeCheckIcon,
     PencilAltIcon,
-    LightningBoltIcon
+    DocumentDownloadIcon,
 } from "@heroicons/vue/outline";
 import ModalUpdateSolicitud from "@/modules/Dialog/Components/ModalUpdateSolicitud";
 import AlertToast from "@/modules/Dialog/Components/AlertToast";
@@ -179,7 +187,8 @@ export default {
         BanIcon,
         BadgeCheckIcon,
         PencilAltIcon,
-        AlertToast
+        AlertToast,
+        DocumentDownloadIcon
     },
     props: ["solicitudes"],
 };
