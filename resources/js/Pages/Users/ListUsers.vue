@@ -16,7 +16,9 @@
                                 </p>
                                 <div class="w-1/2 flex justify-end">
                                     <jet-nav-link
-                                        :href="route('admin.usuarios/', {})"
+                                        :href="
+                                            route('admin.usuarios/create', {})
+                                        "
                                     >
                                         <button
                                             class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500"
@@ -128,7 +130,10 @@
                                         </td>
                                         <td class="border-t">
                                             <p class="pl-4 font-bold">
-                                                USAE SJI
+                                                {{
+                                                    user.data.centro.data
+                                                        .attributes.nombre
+                                                }}
                                             </p>
                                         </td>
                                         <td class="border-t">
@@ -186,7 +191,7 @@
                                 </table>
                             </div>
                             <div class="max-w-3xl mx-auto sm:px-6 lg:px-8 pt-4">
-                                <pagination :meta="users.meta"/>
+                                <pagination :meta="users.meta" />
                             </div>
                         </div>
                     </div>
@@ -197,7 +202,7 @@
 </template>
 
 <script>
-import {defineComponent, ref, computed, onMounted} from "vue";
+import { defineComponent, ref, computed, onMounted } from "vue";
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
 import Pagination from "@/Shared/Pagination";

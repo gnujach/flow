@@ -30,9 +30,7 @@
                         <LightningBoltIcon class="w-10 h-10"/>
                     </div>
                     <h6 class="mb-2 font-semibold leading-5">Nueva Solicitud</h6>
-                    <jet-nav-link
-                        :href="route('solicitudes.list') "
-                    >
+                    <jet-nav-link :href="route('solicitudes', {})">
                         <p class="mb-3 text-sm text-gray-900">
                             Agregar nueva solicitud de atención al sistema
                         </p>

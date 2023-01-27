@@ -69,6 +69,20 @@
                         </div>
                         <div class="overflow-auto">
                             <div class="ring-1 border border-blue-500 rounded-md m-4">
+                                <div class="flex flex-row m-4">
+                                    <div class="flex w-1/4">
+                                        <span
+                                            class="pl-4 inline-block text-lg font-semibold capitalize bg-gradient-to-r align-middle h-14 rounded-md">
+                                            Tipo:
+                                        </span>
+                                    </div>
+                                    <div class="w-3/4">
+                                        <p
+                                            class="text-lg font-semibold lowercase antialiased italic decoration-slate-200 indent-4 bg-gray-100 rounded-md align-middle!">
+                                            {{ tram.tipo }}
+                                        </p>
+                                    </div>
+                                </div>
                                 <div class="flex flex-row m-4 rounded-md">
                                     <div class="flex w-1/4">
                                     <span
@@ -115,6 +129,20 @@
                                                 </div>
                                             </li>
                                         </ul>
+                                    </div>
+                                </div>
+                                <div class="flex flex-row m-4">
+                                    <div class="flex w-1/4">
+                                        <span
+                                            class="pl-4 inline-block text-lg font-semibold capitalize bg-gradient-to-r align-middle h-14 rounded-md">
+                                            Obtiene:
+                                        </span>
+                                    </div>
+                                    <div class="w-3/4">
+                                        <p
+                                            class="text-lg font-semibold lowercase antialiased italic decoration-slate-200 indent-4 bg-gray-100 rounded-md align-middle!">
+                                            {{ tram.ser_recibido }}
+                                        </p>
                                     </div>
                                 </div>
                             </div>

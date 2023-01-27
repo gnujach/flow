@@ -35,4 +35,12 @@ class ClienteService
         ]);
         return $cliente;
     }
+
+    public function updateClientePhone(Request $request, Cliente $cliente)
+    {
+        $cliente->update([
+            'telefono' => $request->telefono,
+        ]);
+        return $cliente;
+    }
 }

@@ -56,7 +56,6 @@
                                 >
                                     Guardar
                                 </button>
-
                             </div>
                         </DialogPanel>
                     </TransitionChild>

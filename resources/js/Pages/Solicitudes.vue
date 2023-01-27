@@ -9,10 +9,12 @@
             <div
                 class="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto"
             >
-                <div class="flex flex-col space-x-4" :class="{ 'animate-pulse': !selected }">
+                <div
+                    class="flex flex-col space-x-4"
+                    :class="{ 'animate-pulse': !selected }"
+                >
                     <div class="flex-1 mx-auto"><span>Trámite</span></div>
                     <div class="flex-1 space-y-6 py-1" v-if="!selected">
-
                         <div class="h-2 bg-slate-200 rounded"></div>
                         <div class="space-y-3">
                             <div class="grid grid-cols-3 gap-4">
@@ -26,9 +28,12 @@
                             <div class="h-2 bg-slate-200 rounded"></div>
                         </div>
                     </div>
-                    <div class="flex flex-row justify-around space-y-6 py-1" v-else>
+                    <div
+                        class="flex flex-row justify-around space-y-6 py-1"
+                        v-else
+                    >
                         <p class="font-bold">{{ selected.nombre }}</p>
-                        <ModalInfoTramite :tram='selected'/>
+                        <ModalInfoTramite :tram="selected"/>
                     </div>
                 </div>
             </div>
@@ -37,23 +42,41 @@
             >
                 <div
                     class="flex flex-col space-x-4 justify-items-center items-center"
-                    :class="{ 'animate-pulse': selectIndexTab == 1 && getSelectedCliente.id == null }"
+                    :class="{
+                        'animate-pulse':
+                            selectIndexTab == 1 &&
+                            getSelectedCliente.id == null,
+                    }"
                 >
                     <div class="flex-1 mx-auto"><span>Usuario</span></div>
-                    <div v-if="getSelectedCliente.id != null" class="flex flex-row justify-between items-center">
-                        <span class="block rounded-full w-20 h-20 bg-gray-200 bg-no-repeat bg-center ring-2 mx-2">
-                            <p class="text-center font-bold text-5xl mt-3 text-blue-400">{{
-                                    getSelectedCliente.nombre[0]
-                                }}</p>
+                    <div
+                        v-if="getSelectedCliente.id != null"
+                        class="flex flex-row justify-between items-center"
+                    >
+                        <span
+                            class="block rounded-full w-20 h-20 bg-gray-200 bg-no-repeat bg-center ring-2 mx-2"
+                        >
+                            <p
+                                class="text-center font-bold text-5xl mt-3 text-blue-400"
+                            >
+                                {{ getSelectedCliente.nombre[0] }}
+                            </p>
                         </span>
-                        <p class="font-bold ">{{
+                        <p class="font-bold">
+                            {{
                                 `${getSelectedCliente.nombre} ${getSelectedCliente.apellido1} ${getSelectedCliente.apellido2}`
-                            }}</p>
+                            }}
+                        </p>
                     </div>
-                    <div v-else class="flex flex-row justify-around items-center">
-                       <span class="block rounded-full w-20 h-20 bg-gray-200 bg-no-repeat bg-center ring-2 mx-2">
+                    <div
+                        v-else
+                        class="flex flex-row justify-around items-center"
+                    >
+                        <span
+                            class="block rounded-full w-20 h-20 bg-gray-200 bg-no-repeat bg-center ring-2 mx-2"
+                        >
                         </span>
-                        <p class="font-bold ">No seleccionado</p>
+                        <p class="font-bold">No seleccionado</p>
                     </div>
                 </div>
             </div>
@@ -89,15 +112,11 @@
                     <TabGroup :selectedIndex="selectIndexTab">
                         <TabList class="flex p-1 space-x-1 rounded-xl">
                             <Tab
-                                v-for="(category, key) in Object.keys(
-                                    tabs
-                                )"
+                                v-for="(category, key) in Object.keys(tabs)"
                                 as="template"
                                 :key="category"
                                 v-slot="{ selected }"
-                                @click="
-                                            selectIndexTab = key
-                                "
+                                @click="selectIndexTab = key"
                             >
                                 <button
                                     :class="[
@@ -112,7 +131,7 @@
                                 </button>
                             </Tab>
                         </TabList>
-
+                        <ToolBar/>
                         <TabPanels class="mt-8 mx-4 bg-blue-300/70 pb-8">
                             <TabPanel>
                                 <div
@@ -130,7 +149,9 @@
                                             />
                                             <div class="w-60">
                                                 <Listbox
-                                                    v-model="selectedDepartamento"
+                                                    v-model="
+                                                        selectedDepartamento
+                                                    "
                                                 >
                                                     <div
                                                         class="relative mt-1 z-20"
@@ -167,7 +188,9 @@
                                                                         active,
                                                                         selected,
                                                                     }"
-                                                                    v-for="departamento in $page.props.departamentos"
+                                                                    v-for="departamento in $page
+                                                                        .props
+                                                                        .departamentos"
                                                                     :key="
                                                                         departamento.id
                                                                     "
@@ -253,8 +276,7 @@
                                         <RadioGroup v-model="selected">
                                             <RadioGroupLabel class="sr-only"
                                             >Trámite
-                                            </RadioGroupLabel
-                                            >
+                                            </RadioGroupLabel>
                                             <div
                                                 class="grid grid-cols-4 justify-between justify-items-center md:grid-rows-2 md:grid-flow-row-dense gap-4 my-4 overflow-y-auto"
                                             >
@@ -293,7 +315,9 @@
                                                                                 : 'text-gray-900'
                                                                         "
                                                                         class="font-medium uppercase"
-                                                                    >"{{ tramite.nombre }}"
+                                                                    >"{{
+                                                                            tramite.nombre
+                                                                        }}"
                                                                     </RadioGroupLabel>
                                                                     <RadioGroupDescription
                                                                         as="span"
@@ -308,7 +332,9 @@
                                                                             {{
                                                                                 tramite.objetivo
                                                                             }}/{{
-                                                                                tramite.departamento.nombre
+                                                                                tramite
+                                                                                    .departamento
+                                                                                    .nombre
                                                                             }}</span
                                                                         >
                                                                     </RadioGroupDescription>
@@ -355,7 +381,9 @@
                                         <ModalSearch/>
                                         <ModalAddUser/>
                                     </div>
-                                    <div class="flex flex-row justify-around row-span-2">
+                                    <div
+                                        class="flex flex-row justify-around row-span-2"
+                                    >
                                         <div
                                             class="w-1/3 block mx-auto p-2 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100"
                                         >
@@ -364,61 +392,129 @@
                                             >
                                                 Información de usuario
                                             </h5>
-                                            <p
-                                                v-if="
+                                            <div v-if="
+                                                    getSelectedCliente.id !=
+                                                    null
+                                                ">
+                                                <p
+                                                    v-if="
                                                     getSelectedCliente.id !=
                                                     null
                                                 "
-                                            >
-                                                {{
-                                                    `${getSelectedCliente.nombre} ${getSelectedCliente.apellido1} ${getSelectedCliente.apellido2 == 'NULL' ? '' : getSelectedCliente.apellido2}`
-                                                }}
-                                            </p>
+                                                >
+                                                    {{
+                                                        `${
+                                                            getSelectedCliente.nombre
+                                                        } ${
+                                                            getSelectedCliente.apellido1
+                                                        } ${
+                                                            getSelectedCliente.apellido2 ==
+                                                            "NULL"
+                                                                ? ""
+                                                                : getSelectedCliente.apellido2
+                                                        }`
+                                                    }}
+                                                </p>
+                                                <hr/>
+                                                <span>{{ getSelectedCliente.email }}</span>
+                                                <hr/>
+                                                <div class="flex flex-row m-2">
+                                                    <jet-input v-model="formClientTel.telefono" class="m-2"></jet-input>
+                                                    <button
+                                                        type="button"
+                                                        class="h-8 inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-1 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                                        @click="updateTel"
+                                                    >
+                                                        Actualizar
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div
                                             class="w-1/3 bg-white p-2 mx-auto rounded-lg shadow-md overflow-y-auto h-auto"
                                         >
                                             <h5
-                                                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-center "
-                                            >Medios de Atención</h5>
+                                                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-center"
+                                            >
+                                                Medios de Atención
+                                            </h5>
                                             <RadioGroup v-model="medioAtencion">
-                                                <RadioGroupLabel class="sr-only">Medios de Atención</RadioGroupLabel>
+                                                <RadioGroupLabel class="sr-only"
+                                                >Medios de
+                                                    Atención
+                                                </RadioGroupLabel
+                                                >
                                                 <div class="space-y-2">
                                                     <RadioGroupOption
                                                         as="template"
                                                         v-for="medio in medios"
                                                         :key="medio.nombre"
                                                         :value="medio"
-                                                        v-slot="{ active, checked }"
+                                                        v-slot="{
+                                                            active,
+                                                            checked,
+                                                        }"
                                                     >
                                                         <div
                                                             :class="[
                                                                 active
-                                                                  ? 'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-sky-300'
-                                                                  : '',
-                                                                checked ? 'bg-sky-900 bg-opacity-75 text-white ' : 'bg-sky-100 ',
-                                                              ]"
+                                                                    ? 'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-sky-300'
+                                                                    : '',
+                                                                checked
+                                                                    ? 'bg-sky-900 bg-opacity-75 text-white '
+                                                                    : 'bg-sky-100 ',
+                                                            ]"
                                                             class="flex cursor-pointer rounded-lg px-2 py-2 shadow-md focus:outline-none w-full"
                                                         >
-                                                            <div class="flex w-full items-center justify-between">
-                                                                <div v-show="checked" class="shrink-0 text-white">
-                                                                    <CheckCircleIcon class="h-6 w-6"/>
+                                                            <div
+                                                                class="flex w-full items-center justify-between"
+                                                            >
+                                                                <div
+                                                                    v-show="
+                                                                        checked
+                                                                    "
+                                                                    class="shrink-0 text-white"
+                                                                >
+                                                                    <CheckCircleIcon
+                                                                        class="h-6 w-6"
+                                                                    />
                                                                 </div>
-                                                                <div v-show="!checked" class="shrink-0 text-gray-600">
-                                                                    <PlusCircleIcon class="h-6 w-6"/>
+                                                                <div
+                                                                    v-show="
+                                                                        !checked
+                                                                    "
+                                                                    class="shrink-0 text-gray-600"
+                                                                >
+                                                                    <PlusCircleIcon
+                                                                        class="h-6 w-6"
+                                                                    />
                                                                 </div>
-                                                                <div class="flex items-center">
-                                                                    <div class="text-sm">
+                                                                <div
+                                                                    class="flex items-center"
+                                                                >
+                                                                    <div
+                                                                        class="text-sm"
+                                                                    >
                                                                         <RadioGroupLabel
                                                                             as="p"
-                                                                            :class="checked ? 'text-white' : 'text-gray-900'"
+                                                                            :class="
+                                                                                checked
+                                                                                    ? 'text-white'
+                                                                                    : 'text-gray-900'
+                                                                            "
                                                                             class="font-medium"
                                                                         >
-                                                                            {{ medio.nombre }}
+                                                                            {{
+                                                                                medio.nombre
+                                                                            }}
                                                                         </RadioGroupLabel>
                                                                         <RadioGroupDescription
                                                                             as="span"
-                                                                            :class="checked ? 'text-sky-100' : 'text-gray-500'"
+                                                                            :class="
+                                                                                checked
+                                                                                    ? 'text-sky-100'
+                                                                                    : 'text-gray-500'
+                                                                            "
                                                                             class="inline"
                                                                         >
                                                                         </RadioGroupDescription>
@@ -434,42 +530,66 @@
                                 </div>
                             </TabPanel>
                             <TabPanel>
-                                <h2 class="text-center uppercase text-2xl">Selecciona tareas concluidas de
-                                    este trámite</h2>
+                                <h2 class="text-center uppercase text-2xl">
+                                    Selecciona tareas concluidas de este trámite
+                                </h2>
                                 <div
                                     class="grid grid-rows-1 grid-flow-col gap-4 h-96 bg-gradient-to-r from-blue-500 items-center"
                                 >
-                                    <div class="flex flex-row shrink-0 mx-auto items-center justify-around"
-                                         v-if="selected">
-                                        <div v-for="(tarea, id) in selected.tareastramite"
-                                             class="flex flex-row justify-items-center justify-between items-center w-64 h-64">
-                                            <button class="flex flex-col justify-start items-center h-1/3"
-                                                    @click="saveSolicitud(tarea.id, false)">
+                                    <div
+                                        class="flex flex-row shrink-0 mx-auto items-center justify-around"
+                                        v-if="selected"
+                                    >
+                                        <div
+                                            v-for="(
+                                                tarea, id
+                                            ) in selected.tareastramite"
+                                            class="flex flex-row justify-items-center justify-between items-center w-64 h-64"
+                                        >
+                                            <button
+                                                class="flex flex-col justify-start items-center h-1/3"
+                                                @click="
+                                                    saveSolicitud(
+                                                        tarea.id,
+                                                        false
+                                                    )
+                                                "
+                                            >
                                                 <div
-                                                    class="ring-2 w-32 h-32 mx-4 p-2 rounded-full ring-blue-900 hover:bg-blue-900">
+                                                    class="ring-2 w-32 h-32 mx-4 p-2 rounded-full ring-blue-900 hover:bg-blue-900"
+                                                >
                                                     <span
-                                                        class="text-center text-white font-bold text-9xl ml-2 hover:text-gray-200">{{
-                                                            id + 1
-                                                        }}</span>
+                                                        class="text-center text-white font-bold text-9xl ml-2 hover:text-gray-200"
+                                                    >{{ id + 1 }}</span
+                                                    >
                                                 </div>
-                                                <section class="block w-full h-1/4">
+                                                <section
+                                                    class="block w-full h-1/4"
+                                                >
                                                     <div
-                                                        class="flex ring-1 mx-2 my-2 p-1 rounded-md  text-white ">
+                                                        class="flex ring-1 mx-2 my-2 p-1 rounded-md text-white"
+                                                    >
                                                         {{ tarea.nombre }}
                                                     </div>
                                                 </section>
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="flex flex-row shrink-0 mx-auto items-center justify-around mt-8">
-                                        <button class="flex flex-row justify-items-center justify-between  h-1/3"
-                                                @click="saveSolicitud(100, true)">
+                                    <div
+                                        class="flex flex-row shrink-0 mx-auto items-center justify-around mt-8"
+                                    >
+                                        <button
+                                            class="flex flex-row justify-items-center justify-between h-1/3"
+                                            @click="saveSolicitud(100, true)"
+                                        >
                                             <div
-                                                class="flex flex-col justify-start items-center ring-2 w-32 h-32 mx-4 p-2 rounded-full ring-blue-900 hover:bg-blue-900">
-                                                    <span
-                                                        class="text-center text-white font-bold text-5xl ml-2 hover:text-gray-200 mt-8">
-                                                        Fin
-                                                        </span>
+                                                class="flex flex-col justify-start items-center ring-2 w-32 h-32 mx-4 p-2 rounded-full ring-blue-900 hover:bg-blue-900"
+                                            >
+                                                <span
+                                                    class="text-center text-white font-bold text-5xl ml-2 hover:text-gray-200 mt-8"
+                                                >
+                                                    Fin
+                                                </span>
                                             </div>
                                         </button>
                                     </div>
@@ -480,43 +600,54 @@
                             <button
                                 @click="changePrevTab"
                                 :disabled="selectIndexTab <= 0"
-                                class=" flex flex-row justify-center items-center rounded-md ring-2 bg-blue-400 font-medium text-2xl text-white mx-2 p-2 mt-1 hover:bg-blue-900 hover:text-gray-200"
+                                class="flex flex-row justify-center items-center rounded-md ring-2 bg-blue-400 font-medium text-2xl text-white mx-2 p-2 mt-1 hover:bg-blue-900 hover:text-gray-200"
                             >
                                 <span>
-                                <ChevronLeftIcon
-                                    class="w-5 h-5"
-                                    aria-hidden="true"
-                                />
-                                    </span>
-                                <span>
-                                Anterior
-                                    </span>
+                                    <ChevronLeftIcon
+                                        class="w-5 h-5"
+                                        aria-hidden="true"
+                                    />
+                                </span>
+                                <span> Anterior </span>
                             </button>
                             <button
                                 @click="changeNextTab"
                                 :disabled="selectIndexTab >= 2"
-                                class=" flex flex-row justify-center items-center rounded-md ring-2 bg-blue-400 font-medium text-2xl text-white mx-2 p-2 mt-1 hover:bg-blue-900 hover:text-gray-200"
-                            ><span>
-                                    Siguiente
-                                </span>
+                                class="flex flex-row justify-center items-center rounded-md ring-2 bg-blue-400 font-medium text-2xl text-white mx-2 p-2 mt-1 hover:bg-blue-900 hover:text-gray-200"
+                            >
+                                <span> Siguiente </span>
                                 <span>
-                                <ChevronRightIcon
-                                    class="w-5 h-5"
-                                    aria-hidden="true"
-                                />
-                                    </span>
+                                    <ChevronRightIcon
+                                        class="w-5 h-5"
+                                        aria-hidden="true"
+                                    />
+                                </span>
                             </button>
                         </div>
                     </TabGroup>
                 </div>
-                <SaveDialog @btn-save="buttonClickSave(getSelectedTask.id, getSelectedTask.concluido)"/>
+                <SaveDialog
+                    @btn-save="
+                        buttonClickSave(
+                            getSelectedTask.id,
+                            getSelectedTask.concluido
+                        )
+                    "
+                />
             </div>
         </div>
     </app-layout>
 </template>
 
 <script setup>
-import {ref, computed, toRefs, defineProps, defineEmits, onMounted} from "vue";
+import {
+    ref,
+    computed,
+    toRefs,
+    defineProps,
+    watch,
+    onMounted,
+} from "vue";
 import {
     TabGroup,
     TabList,
@@ -533,6 +664,7 @@ import {
     ListboxOption,
 } from "@headlessui/vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
+import ToolBar from "@/Components/ToolBar.vue";
 import ModalSearch from "@/modules/Dialog/Components/ModalSearch.vue";
 import ModalAddUser from "@/modules/Dialog/Components/ModalAddUser";
 import ModalInfoTramite from "@/modules/Dialog/Components/ModalInfoTramite";
@@ -545,14 +677,17 @@ import {
     ColorSwatchIcon,
     CheckCircleIcon,
     PlusCircleIcon,
-    ChevronLeftIcon, ChevronRightIcon,
+    ChevronLeftIcon,
+    ChevronRightIcon,
     NewspaperIcon,
-    CogIcon
+    CogIcon,
 } from "@heroicons/vue/outline";
 import {useForm} from "@inertiajs/inertia-vue3";
+import JetInput from "@/Jetstream/Input";
+import JetButton from "@/Jetstream/Button";
 
 let listaTramites = ref(props.tramites);
-const props = defineProps(['tramites', 'departamentos', 'medios']);
+const props = defineProps(["tramites", "departamentos", "medios"]);
 const {departamentos, tramites, medios} = toRefs(props);
 const medioAtencion = ref(null);
 const selectedDepartamento = ref(departamentos.value[0]);
@@ -566,17 +701,24 @@ const getSelectedCliente = computed(
 );
 const getSelectedTask = computed(
     () => store.getters["solicitudesStore/getSelectedTask"]
-)
+);
+
+const getNote = computed(() => store.getters["solicitudesStore/getNote"]);
 
 onMounted(() => {
-    medioAtencion.value = medios.value[0];
-})
+    // medioAtencion.value = medios.value[0];
+    console.log("Component Mounted")
+});
 const form = useForm({
     cliente_id: null,
     tramite_id: null,
     concluido: false,
     medio_id: null,
-    tareas: []
+    nota: null,
+    tareas: [],
+});
+const formClientTel = useForm({
+    telefono: null
 });
 const selected = ref(null);
 const text = ref("");
@@ -587,18 +729,27 @@ let tabs = ref({
     Usuario: [],
     Tareas: [],
 });
-const saveSolicitud = (id, concluido) => {
-    store.dispatch("solicitudesStore/setTask", {id: id, concluido: concluido});
-    store.dispatch("infoTramiteStore/openModalSaveDialog");
-    console.log("Pressed")
+const updateTel = () => {
+    formClientTel.put(route("admin.clientes/updatephone", {
+        cliente: getSelectedCliente.value.uuid
+    }), {
+        preserveState: true,
+        preserveScroll: true,
+        resetOnSuccess: false,
+    })
 }
+const saveSolicitud = (id, concluido) => {
+    store.dispatch("solicitudesStore/setTask", {
+        id: id,
+        concluido: concluido,
+    });
+    store.dispatch("infoTramiteStore/openModalSaveDialog");
+};
 const selectByName = () => {
     listaTramites.value = tramites.value.filter((tramite) => {
-        return tramite.nombre
-            .toLowerCase()
-            .includes(text.value.toLowerCase());
+        return tramite.nombre.toLowerCase().includes(text.value.toLowerCase());
     });
-    text.value = '';
+    text.value = "";
 };
 const SelectDeptoId = (id) => {
     console.log(id);
@@ -616,7 +767,9 @@ const changePrevTab = () => {
     if (selectIndexTab.value > 0)
         selectIndexTab.value = selectIndexTab.value - 1;
 };
-
+watch(getSelectedCliente, () => {
+    formClientTel.telefono = getSelectedCliente.value.telefono
+})
 
 function buttonClickSave(id, cerrado) {
     // console.log(selected.value.id, getSelectedCliente.value.id, medioAtencion.value.id);
@@ -626,7 +779,8 @@ function buttonClickSave(id, cerrado) {
         tramite_id: selected.value.id,
         medio_id: medioAtencion.value.id,
         concluido: cerrado,
-        tareas: {id: id}
+        tareas: {id: id},
+        nota: store.getters["solicitudesStore/getNote"],
     })).post(route("solicitudes/store"), {
         errorBag: "saveRequisitoInformation",
         preserveScroll: true,
@@ -634,4 +788,3 @@ function buttonClickSave(id, cerrado) {
     store.dispatch("infoTramiteStore/closeModalSaveDialog");
 }
 </script>
-

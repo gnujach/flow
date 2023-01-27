@@ -12,7 +12,7 @@
             </header>
             <div>
                 <!-- Page Content -->
-                <side-bar/>
+                <side-bar-two/>
                 <main>
                     <slot></slot>
                 </main>
@@ -31,7 +31,7 @@ import JetNavLink from "@/Jetstream/NavLink.vue";
 import JetResponsiveNavLink from "@/Jetstream/ResponsiveNavLink.vue";
 import {Head, Link} from "@inertiajs/inertia-vue3";
 import Navbar from "./Nav.vue";
-import SideBar from "./SideBar.vue";
+import SideBarTwo from "./SideBarTwo.vue";
 import {Inertia} from "@inertiajs/inertia";
 
 export default defineComponent({
@@ -49,7 +49,7 @@ export default defineComponent({
         JetResponsiveNavLink,
         Link,
         Navbar,
-        SideBar,
+        SideBarTwo
     },
 
     data() {

@@ -3,13 +3,14 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Permissions as PermissionResource;
 
 class Rol extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
@@ -18,13 +19,15 @@ class Rol extends JsonResource
             'data' => [
                 'type' => 'rol',
                 'id' => $this->id,
+                'permission' => new PermissionResource($this->whenLoaded('permissions')),
                 'attributes' => [
-                    'name' => $this->name,
-                    'guard_name' => $this->guard_name,
-                ],
-                'links' => [
-                    'self' => url('/admin/rol/' . $this->id),
-                ],
+                    'nombre' => $this->name,
+                    'created_at' => \Carbon\Carbon::parse($this->created_at)->diffForHumans(),
+                    'updated_at' => \Carbon\Carbon::parse($this->updated_at)->diffForHumans(),
+                ]
+            ],
+            'links' => [
+                'self' => url('/admin/roles/' . $this->id),
             ]
         ];
     }

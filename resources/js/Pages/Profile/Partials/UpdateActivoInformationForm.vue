@@ -92,7 +92,7 @@ export default {
         const form = useForm({
             name: props.user.data.attributes.name,
             email: props.user.data.attributes.email,
-            activo: props.user.data.attributes.activo,
+            activo: Boolean(props.user.data.attributes.activo),
         });
         function updateProfileInformation() {
             form.put(

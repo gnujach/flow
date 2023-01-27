@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ClienteCollection;
 use Illuminate\Http\Request;
 use App\Models\Solicitud;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Carbon\Carbon;
@@ -21,6 +22,7 @@ class DashboardController extends Controller
 
         $thisYearRequests = Solicitud::query()
             ->whereYear('created_at', date('Y'))
+            ->where('by', Auth::id())
 //            ->selectRaw('month(created_at) as month')
             ->selectRaw('count(*) as count')
 //            ->groupBy('month')
@@ -34,6 +36,7 @@ class DashboardController extends Controller
         $thisYearRequestsCompleted = Solicitud::query()
             ->whereYear('solicituds.created_at', date('Y'))
             ->where('solicituds.concluido', true)
+            ->where('by', Auth::id())
 //            ->selectRaw('month(solicituds.created_at) as month')
             ->selectRaw('count(*) as count')
 //            ->groupBy('month')

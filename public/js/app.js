@@ -22263,10 +22263,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "closeModalUpdateRequest": () => (/* binding */ closeModalUpdateRequest),
 /* harmony export */   "loadLastCliente": () => (/* binding */ loadLastCliente),
+/* harmony export */   "loadNote": () => (/* binding */ loadNote),
 /* harmony export */   "openModalAddUser": () => (/* binding */ openModalAddUser),
 /* harmony export */   "openModalUpdateRequest": () => (/* binding */ openModalUpdateRequest),
 /* harmony export */   "selectUsuario": () => (/* binding */ selectUsuario),
 /* harmony export */   "setTask": () => (/* binding */ setTask),
+/* harmony export */   "toggleModalAddNote": () => (/* binding */ toggleModalAddNote),
 /* harmony export */   "toggleModalAddUser": () => (/* binding */ toggleModalAddUser),
 /* harmony export */   "toggleModalSearchUser": () => (/* binding */ toggleModalSearchUser)
 /* harmony export */ });
@@ -22378,6 +22380,21 @@ function _setTask() {
   return _setTask.apply(this, arguments);
 }
 
+var toggleModalAddNote = function toggleModalAddNote(context) {
+  try {
+    context.commit("TOGGLE_OPEN_MODAL_ADD_NOTE");
+  } catch (_unused6) {
+    console.log("error action");
+  }
+};
+var loadNote = function loadNote(context, notes) {
+  try {
+    context.commit("SET_NOTE", notes);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 /***/ }),
 
 /***/ "./resources/js/store/solicitudes/getters.js":
@@ -22389,6 +22406,8 @@ function _setTask() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getNote": () => (/* binding */ getNote),
+/* harmony export */   "getOpenAddNote": () => (/* binding */ getOpenAddNote),
 /* harmony export */   "getOpenCreate": () => (/* binding */ getOpenCreate),
 /* harmony export */   "getSearchCreate": () => (/* binding */ getSearchCreate),
 /* harmony export */   "getSelectedCliente": () => (/* binding */ getSelectedCliente),
@@ -22413,6 +22432,12 @@ var getSelectedTask = function getSelectedTask(state) {
 };
 var getUpdateRequest = function getUpdateRequest(state) {
   return state.isUpdateRequest;
+};
+var getOpenAddNote = function getOpenAddNote(state) {
+  return state.isOpenAddNote;
+};
+var getNote = function getNote(state) {
+  return state.notes;
 };
 
 /***/ }),
@@ -22461,7 +22486,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "OPEN_OPEN_MODAL_ADD_USER": () => (/* binding */ OPEN_OPEN_MODAL_ADD_USER),
 /* harmony export */   "SELECT_USUARIO": () => (/* binding */ SELECT_USUARIO),
 /* harmony export */   "SET_CLIENTE": () => (/* binding */ SET_CLIENTE),
+/* harmony export */   "SET_NOTE": () => (/* binding */ SET_NOTE),
 /* harmony export */   "SET_TASK": () => (/* binding */ SET_TASK),
+/* harmony export */   "TOGGLE_OPEN_MODAL_ADD_NOTE": () => (/* binding */ TOGGLE_OPEN_MODAL_ADD_NOTE),
 /* harmony export */   "TOGGLE_OPEN_MODAL_ADD_USER": () => (/* binding */ TOGGLE_OPEN_MODAL_ADD_USER),
 /* harmony export */   "TOGGLE_OPEN_MODAL_SEARCH_USER": () => (/* binding */ TOGGLE_OPEN_MODAL_SEARCH_USER)
 /* harmony export */ });
@@ -22489,6 +22516,12 @@ var SET_CLIENTE = function SET_CLIENTE(state, cliente) {
 var SET_TASK = function SET_TASK(state, task) {
   state.task = task;
 };
+var TOGGLE_OPEN_MODAL_ADD_NOTE = function TOGGLE_OPEN_MODAL_ADD_NOTE(state) {
+  state.isOpenAddNote = !state.isOpenAddNote;
+};
+var SET_NOTE = function SET_NOTE(state, notes) {
+  state.notes = notes;
+};
 
 /***/ }),
 
@@ -22507,15 +22540,19 @@ __webpack_require__.r(__webpack_exports__);
   return {
     isOpenCreate: false,
     isOpenSearch: false,
+    isOpenAddNote: false,
     isUpdateRequest: false,
     usuario: {
       id: null,
       nombre: null,
       apellido1: null,
-      apellido2: null
+      apellido2: null,
+      tel: null,
+      email: null
     },
     cliente: [],
-    task: []
+    task: [],
+    notes: null
   };
 });
 
@@ -48950,6 +48987,14 @@ var map = {
 		"./resources/js/Pages/PrivacyPolicy.vue",
 		"resources_js_Pages_PrivacyPolicy_vue"
 	],
+	"./Profile/Partials/CreateActivoInformationForm.vue": [
+		"./resources/js/Pages/Profile/Partials/CreateActivoInformationForm.vue",
+		"resources_js_Pages_Profile_Partials_CreateActivoInformationForm_vue"
+	],
+	"./Profile/Partials/CreateRoleForm.vue": [
+		"./resources/js/Pages/Profile/Partials/CreateRoleForm.vue",
+		"resources_js_Pages_Profile_Partials_CreateRoleForm_vue"
+	],
 	"./Profile/Partials/DeleteUserForm.vue": [
 		"./resources/js/Pages/Profile/Partials/DeleteUserForm.vue",
 		"resources_js_Pages_Profile_Partials_DeleteUserForm_vue"
@@ -48977,6 +49022,10 @@ var map = {
 	"./Profile/Partials/UpdateRolUserForm.vue": [
 		"./resources/js/Pages/Profile/Partials/UpdateRolUserForm.vue",
 		"resources_js_Pages_Profile_Partials_UpdateRolUserForm_vue"
+	],
+	"./Profile/Partials/UpdateRoleForm.vue": [
+		"./resources/js/Pages/Profile/Partials/UpdateRoleForm.vue",
+		"resources_js_Pages_Profile_Partials_UpdateRoleForm_vue"
 	],
 	"./Profile/Partials/UpdateTrabajoUserForm.vue": [
 		"./resources/js/Pages/Profile/Partials/UpdateTrabajoUserForm.vue",
@@ -49009,6 +49058,18 @@ var map = {
 	"./Requisitos/ListRequisitos.vue": [
 		"./resources/js/Pages/Requisitos/ListRequisitos.vue",
 		"resources_js_Pages_Requisitos_ListRequisitos_vue"
+	],
+	"./Roles/CreateRole.vue": [
+		"./resources/js/Pages/Roles/CreateRole.vue",
+		"resources_js_Pages_Roles_CreateRole_vue"
+	],
+	"./Roles/EditRole.vue": [
+		"./resources/js/Pages/Roles/EditRole.vue",
+		"resources_js_Pages_Roles_EditRole_vue"
+	],
+	"./Roles/ListRoles.vue": [
+		"./resources/js/Pages/Roles/ListRoles.vue",
+		"resources_js_Pages_Roles_ListRoles_vue"
 	],
 	"./Solicitudes.vue": [
 		"./resources/js/Pages/Solicitudes.vue",
@@ -49061,6 +49122,10 @@ var map = {
 	"./Tramites/ListTramites.vue": [
 		"./resources/js/Pages/Tramites/ListTramites.vue",
 		"resources_js_Pages_Tramites_ListTramites_vue"
+	],
+	"./Users/CreateUser.vue": [
+		"./resources/js/Pages/Users/CreateUser.vue",
+		"resources_js_Pages_Users_CreateUser_vue"
 	],
 	"./Users/EditUser.vue": [
 		"./resources/js/Pages/Users/EditUser.vue",
@@ -49223,7 +49288,7 @@ module.exports = JSON.parse('{"_from":"axios@^0.21","_id":"axios@0.21.4","_inBun
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_Pages_API_Index_vue":1,"resources_js_Pages_API_Partials_ApiTokenManager_vue":1,"resources_js_Pages_Auth_ConfirmPassword_vue":1,"resources_js_Pages_Auth_ForgotPassword_vue":1,"resources_js_Pages_Auth_Login_vue":1,"resources_js_Pages_Auth_Register_vue":1,"resources_js_Pages_Auth_ResetPassword_vue":1,"resources_js_Pages_Auth_TwoFactorChallenge_vue":1,"resources_js_Pages_Auth_VerifyEmail_vue":1,"resources_js_Pages_Centros_CreateCentro_vue":1,"resources_js_Pages_Centros_EditCentro_vue":1,"resources_js_Pages_Centros_ListCentros_vue":1,"resources_js_Pages_Clientes_CreateCliente_vue":1,"resources_js_Pages_Clientes_ListClientes_vue":1,"resources_js_Pages_Dashboard_vue":1,"resources_js_Pages_Departamentos_CreateDepartamento_vue":1,"resources_js_Pages_Departamentos_EditDepartamento_vue":1,"resources_js_Pages_Departamentos_ListDepartamentos_vue":1,"resources_js_Pages_Dialog_vue":1,"resources_js_Pages_Medios_CreateMedio_vue":1,"resources_js_Pages_Medios_EditMedio_vue":1,"resources_js_Pages_Medios_ListMedios_vue":1,"resources_js_Pages_Pacientes_CreatePaciente_vue":1,"resources_js_Pages_Pacientes_ListPacientes_vue":1,"resources_js_Pages_PrivacyPolicy_vue":1,"resources_js_Pages_Profile_Partials_DeleteUserForm_vue":1,"resources_js_Pages_Profile_Partials_LogoutOtherBrowserSessionsForm_vue":1,"resources_js_Pages_Profile_Partials_TwoFactorAuthenticationForm_vue":1,"resources_js_Pages_Profile_Partials_UpdateActivoInformationForm_vue":1,"resources_js_Pages_Profile_Partials_UpdatePasswordForm_vue":1,"resources_js_Pages_Profile_Partials_UpdateProfileInformationForm_vue":1,"resources_js_Pages_Profile_Partials_UpdateRolUserForm_vue":1,"resources_js_Pages_Profile_Partials_UpdateTrabajoUserForm_vue":1,"resources_js_Pages_Profile_Show_vue":1,"resources_js_Pages_Puestos_CreatePuesto_vue":1,"resources_js_Pages_Puestos_EditPuesto_vue":1,"resources_js_Pages_Puestos_ListPuestos_vue":1,"resources_js_Pages_Requisitos_CreateRequisito_vue":1,"resources_js_Pages_Requisitos_EditRequisito_vue":1,"resources_js_Pages_Requisitos_ListRequisitos_vue":1,"resources_js_Pages_Solicitudes_vue":1,"resources_js_Pages_Solicitudes_ListSolicitudes_vue":1,"resources_js_Pages_Solicitudes_request_vue":1,"resources_js_Pages_Task_vue":1,"resources_js_Pages_Teams_Create_vue":1,"resources_js_Pages_Teams_Partials_CreateTeamForm_vue":1,"resources_js_Pages_Teams_Partials_DeleteTeamForm_vue":1,"resources_js_Pages_Teams_Partials_TeamMemberManager_vue":1,"resources_js_Pages_Teams_Partials_UpdateTeamNameForm_vue":1,"resources_js_Pages_Teams_Show_vue":1,"resources_js_Pages_TermsOfService_vue":1,"resources_js_Pages_Tramites_CreateTramite_vue":1,"resources_js_Pages_Tramites_ListTramites_vue":1,"resources_js_Pages_Users_EditUser_vue":1,"resources_js_Pages_Users_ListUsers_vue":1,"resources_js_Pages_Welcome_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_Pages_API_Index_vue":1,"resources_js_Pages_API_Partials_ApiTokenManager_vue":1,"resources_js_Pages_Auth_ConfirmPassword_vue":1,"resources_js_Pages_Auth_ForgotPassword_vue":1,"resources_js_Pages_Auth_Login_vue":1,"resources_js_Pages_Auth_Register_vue":1,"resources_js_Pages_Auth_ResetPassword_vue":1,"resources_js_Pages_Auth_TwoFactorChallenge_vue":1,"resources_js_Pages_Auth_VerifyEmail_vue":1,"resources_js_Pages_Centros_CreateCentro_vue":1,"resources_js_Pages_Centros_EditCentro_vue":1,"resources_js_Pages_Centros_ListCentros_vue":1,"resources_js_Pages_Clientes_CreateCliente_vue":1,"resources_js_Pages_Clientes_ListClientes_vue":1,"resources_js_Pages_Dashboard_vue":1,"resources_js_Pages_Departamentos_CreateDepartamento_vue":1,"resources_js_Pages_Departamentos_EditDepartamento_vue":1,"resources_js_Pages_Departamentos_ListDepartamentos_vue":1,"resources_js_Pages_Dialog_vue":1,"resources_js_Pages_Medios_CreateMedio_vue":1,"resources_js_Pages_Medios_EditMedio_vue":1,"resources_js_Pages_Medios_ListMedios_vue":1,"resources_js_Pages_Pacientes_CreatePaciente_vue":1,"resources_js_Pages_Pacientes_ListPacientes_vue":1,"resources_js_Pages_PrivacyPolicy_vue":1,"resources_js_Pages_Profile_Partials_CreateActivoInformationForm_vue":1,"resources_js_Pages_Profile_Partials_CreateRoleForm_vue":1,"resources_js_Pages_Profile_Partials_DeleteUserForm_vue":1,"resources_js_Pages_Profile_Partials_LogoutOtherBrowserSessionsForm_vue":1,"resources_js_Pages_Profile_Partials_TwoFactorAuthenticationForm_vue":1,"resources_js_Pages_Profile_Partials_UpdateActivoInformationForm_vue":1,"resources_js_Pages_Profile_Partials_UpdatePasswordForm_vue":1,"resources_js_Pages_Profile_Partials_UpdateProfileInformationForm_vue":1,"resources_js_Pages_Profile_Partials_UpdateRolUserForm_vue":1,"resources_js_Pages_Profile_Partials_UpdateRoleForm_vue":1,"resources_js_Pages_Profile_Partials_UpdateTrabajoUserForm_vue":1,"resources_js_Pages_Profile_Show_vue":1,"resources_js_Pages_Puestos_CreatePuesto_vue":1,"resources_js_Pages_Puestos_EditPuesto_vue":1,"resources_js_Pages_Puestos_ListPuestos_vue":1,"resources_js_Pages_Requisitos_CreateRequisito_vue":1,"resources_js_Pages_Requisitos_EditRequisito_vue":1,"resources_js_Pages_Requisitos_ListRequisitos_vue":1,"resources_js_Pages_Roles_CreateRole_vue":1,"resources_js_Pages_Roles_EditRole_vue":1,"resources_js_Pages_Roles_ListRoles_vue":1,"resources_js_Pages_Solicitudes_vue":1,"resources_js_Pages_Solicitudes_ListSolicitudes_vue":1,"resources_js_Pages_Solicitudes_request_vue":1,"resources_js_Pages_Task_vue":1,"resources_js_Pages_Teams_Create_vue":1,"resources_js_Pages_Teams_Partials_CreateTeamForm_vue":1,"resources_js_Pages_Teams_Partials_DeleteTeamForm_vue":1,"resources_js_Pages_Teams_Partials_TeamMemberManager_vue":1,"resources_js_Pages_Teams_Partials_UpdateTeamNameForm_vue":1,"resources_js_Pages_Teams_Show_vue":1,"resources_js_Pages_TermsOfService_vue":1,"resources_js_Pages_Tramites_CreateTramite_vue":1,"resources_js_Pages_Tramites_ListTramites_vue":1,"resources_js_Pages_Users_CreateUser_vue":1,"resources_js_Pages_Users_EditUser_vue":1,"resources_js_Pages_Users_ListUsers_vue":1,"resources_js_Pages_Welcome_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

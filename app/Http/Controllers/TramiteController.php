@@ -74,6 +74,9 @@ class TramiteController extends Controller
                 'by' => Auth::id(),
                 'activo' => $request->activo,
                 'url_proceso' => $request->url_proceso,
+                'tipo' => $request->tipo_id,
+                'ser_recibido' => $request->ser_recibido_id,
+                'url_proceso' => $request->url_proceso,
                 'departamento_id' => $request->departamento_id,
                 'by' => Auth::id(),
             ]);

@@ -39,6 +39,7 @@ it('logged user can add clientes', function () {
     $this->assertDatabaseHas('clientes', $attributes);
     $this->assertCount(1, Cliente::all());
 });
+
 it('logged user can role Admin can edit cliente', function () {
     $this->withoutExceptionHandling();
     $attributes = Cliente::factory()->create();
@@ -48,9 +49,20 @@ it('logged user can role Admin can edit cliente', function () {
     $this->assertCount(1, Cliente::all());
 });
 
+it('logged user with update tel info', function () {
+    $client = Cliente::factory()->create(['by' => $this->user->id]);
+    $attributesUpdate = ['telefono' => '0000000000'];
+    $response = $this->actingAs($this->user)->put("/admin/clientes/{$client->uuid}/updatephone", $attributesUpdate);
+    $response->assertStatus(200);
+    $this->assertCount(1, Cliente::all());
+    $clientUpdate = Cliente::query()->select('telefono')->where('uuid', $client->uuid)->get();
+    $tel = $clientUpdate->pluck('telefono');
+    $this->assertEquals($tel[0], '0000000000');
+});
 it('logged user can find clients', function () {
     // $this->withoutExceptionHandling();
     $response = $this->actingAs($this->user)->get("/admin/clientes/search/");
     $response->assertStatus(200);
-    // $this->assertCount(1, Cliente::all());
+    $this->assertCount(1, Cliente::all());
+
 });

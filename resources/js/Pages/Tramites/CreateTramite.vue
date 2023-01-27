@@ -127,7 +127,7 @@
 
                                     </div>
                                     <div class="flex flex-col w-full">
-                                        <jet-label for="plazo" value="Plazo de Respuesta"
+                                        <jet-label for="plazo" value="Plazo de Respuesta (días)"
                                                    class="text-lg font-semibold"/>
                                         <jet-input
                                             id="plazo"
@@ -172,7 +172,26 @@
                                             class="mt-2"
                                         />
                                     </div>
-                                    <div class="flex flex-col col-span-3">
+                                    <div class="flex flex-col">
+                                        <jet-label for="ser_recibido" value="Documento o Servicio Recibido"
+                                                   class="text-lg font-semibold"/>
+                                        <BaseListbox
+                                            :options="ser_recibo"
+                                            placeholder="Obtiene"
+                                            v-model="form.ser_recibido_id"
+                                        />
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <jet-label for="tipo" value="Tipo de Trámite"
+                                                   class="text-lg font-semibold"/>
+                                        <BaseListbox
+                                            :options="tipos"
+                                            placeholder="Seleccione Tipo"
+                                            v-model="form.tipo_id"
+                                        />
+                                    </div>
+
+                                    <div class="flex flex-col items-center ">
                                         <jet-label for="url_proceso" value="Url Proceso"
                                                    class="text-lg font-semibold"/>
                                         <jet-input
@@ -187,7 +206,7 @@
                                             class="mt-2"
                                         />
                                     </div>
-                                    <div class="flex flex-col items-center">
+                                    <div class="flex flex-col ">
                                         <jet-label for="activo" value="Activo" class="text-lg font-semibold"/>
                                         <Switch
                                             v-model="form.activo"
@@ -204,6 +223,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="flex flex-row w-full justify-end">
                                 <button
                                     class="bg-gray-100 text-blue-700 rounded-md flex flex-row m-2 items-center hover:bg-blue-700 hover:text-gray-100"
@@ -406,11 +426,13 @@ const form = useForm({
     objetivo: null,
     fundamento_jur: null,
     casos: null,
-    modalidad_id: 1,
+    modalidad_id: 'presencial',
+    ser_recibido_id: 'documento',
+    tipo_id: 'tramite',
     plazo_respuesta: null,
     costo: 0,
-    tipo_usuario_id: 1,
-    departamento_id: null,
+    tipo_usuario_id: 'interno',
+    departamento_id: 1,
     activo: true,
     url_proceso: null,
     requisitos: [],
@@ -418,25 +440,45 @@ const form = useForm({
 });
 const modalidad = [
     {
-        id: 1,
+        id: 'presencial',
         nombre: 'Presencial'
     },
     {
-        id: 2,
+        id: 'semi-presencial',
         nombre: 'Semi-presencial'
     },
     {
-        id: 3,
+        id: 'virtual',
         nombre: 'Virtual'
     }
 ];
+const ser_recibo = [
+    {
+        id: 'documento',
+        nombre: 'Documento'
+    },
+    {
+        id: 'servicio',
+        nombre: 'Servicio'
+    },
+];
+const tipos = [
+    {
+        id: 'tramite',
+        nombre: 'Tramite'
+    },
+    {
+        id: 'servicio',
+        nombre: 'Servicio'
+    },
+]
 const tipoUsuarios = [
     {
-        id: 1,
+        id: 'interno',
         nombre: 'Interno'
     },
     {
-        id: 2,
+        id: 'externo',
         nombre: 'Externo'
     },
 ]

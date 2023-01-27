@@ -28,7 +28,11 @@ class SolicitudController extends Controller
     {
         $this->authorize('create', Solicitud::class);
         return Inertia::render('Solicitudes/ListSolicitudes', [
-            'solicitudes' => new SolicitudCollection(Solicitud::OrderBy('id', 'desc')->with(['cliente', 'medio', 'tramite'])->paginate(config('openlink.perpage'))),
+            'solicitudes' => new SolicitudCollection(Solicitud::whereHas('tramite', function ($query) {
+                $query->where('departamento_id', Auth::user()->departamento_id);
+            })->OrderBy('id', 'desc')
+                ->with(['cliente', 'medio', 'tramite'])
+                ->paginate(config('openlink.perpage'))),
         ]);
     }
 
@@ -77,7 +81,9 @@ class SolicitudController extends Controller
                 'tramite_id' => $request->tramite_id,
                 'medio_id' => $request->medio_id,
                 'modified_by' => Auth::id(),
-                'concluido' => $request->concluido,]);
+                'concluido' => $request->concluido,
+                'nota' => $request->nota
+            ]);
             //Guardar las tareas del tramite
             foreach ($request->tareas as $tarea) {
                 Historysolicitud::create(

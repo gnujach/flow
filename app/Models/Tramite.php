@@ -25,6 +25,8 @@ class Tramite extends Model
         'departamento_id',
         'uuid',
         'by',
+        'ser_recibido',
+        'tipo'
 //        'cliente_id'
     ];
 

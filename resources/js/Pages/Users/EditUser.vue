@@ -9,7 +9,6 @@
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
                 <div v-if="$page.props.jetstream.canUpdateProfileInformation">
                     <update-activo-information-form :user="$page.props.user" />
-
                     <jet-section-border />
                 </div>
                 <div v-if="$page.props.jetstream.canUpdateProfileInformation">
@@ -17,6 +16,7 @@
                         :user="$page.props.user"
                         :departamentos="$page.props.departamentos"
                         :puestos="$page.props.puestos"
+                        :centros="$page.props.centros"
                     />
                     <jet-section-border />
                 </div>
@@ -39,7 +39,6 @@ import UpdateTrabajoUserForm from "@/Pages/Profile/Partials/UpdateTrabajoUserFor
 import UpdateRolUserForm from "@/Pages/Profile/Partials/UpdateRolUserForm.vue";
 import JetSectionBorder from "@/Jetstream/SectionBorder";
 import { ref } from "vue";
+
 props: ["user", "departamentos", "puestos", "roles", "rolesUsuario"];
 </script>
-
-<style></style>

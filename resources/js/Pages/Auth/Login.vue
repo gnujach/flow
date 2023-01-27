@@ -67,12 +67,16 @@
                 </jet-button>
             </div>
         </form>
-        <!--        <div class="w-full">-->
-        <!--            <a href="/auth/facebook"><button>Login Facebook</button></a>-->
-        <!--        </div>-->
-        <!--        <div class="w-full">-->
-        <!--            <a href="/login/azure"><button>Login Correo Seg</button></a>-->
-        <!--        </div>-->
+        <div class="w-full">
+            <a href="/auth/facebook">
+                <button>Login Facebook</button>
+            </a>
+        </div>
+        <div class="w-full">
+            <a href="/login/azure">
+                <button>Login Correo Seg</button>
+            </a>
+        </div>
     </jet-authentication-card>
 </template>
 

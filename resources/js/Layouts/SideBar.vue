@@ -18,18 +18,6 @@
                     leave-to="-translate-x-full"
                     as="div"
                 >
-                    <div class="py-4 px-6 flex items-center">
-                        <button ref="completeButtonRef" class="py-4 px-6 flex">
-                            <home-icon
-                                class="h-6 w-6 text-gray-500 mx-2 hover:text-blue-800 cursor-pointer"
-                            />
-                            <p
-                                class="text-xs md:text-lg text-gray-400 capitalize tracking-widest hover:text-blue-800 cursor-pointer"
-                            >
-                                Inicio
-                            </p>
-                        </button>
-                    </div>
                     <div
                         v-if="
                             $page.props.auth.permissions.includes(
@@ -145,6 +133,11 @@ export default defineComponent({
                 {
                     url: "/admin/centros",
                     label: "Administración de Centros",
+                    icon: HeartIcon,
+                },
+                {
+                    url: "/admin/clientes",
+                    label: "Administración de Clientes",
                     icon: HeartIcon,
                 },
                 {

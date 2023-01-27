@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\TramiteController;
 use Illuminate\Foundation\Application;
@@ -29,7 +30,7 @@ Route::get('/', function () {
 });
 
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.list');
 Route::middleware(['auth:sanctum', 'verified'])->get('/tasks', function () {
     return Inertia::render('Task');
 })->name('dashboard');
@@ -65,12 +66,19 @@ Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(functi
     Route::delete('/categorias_requisito/{uuid}/delete', [CategoriaRequisitocontroller::class, 'destroy'])->name('categoriarequisitos/delete');
     //Administrar usuarios
     Route::get('/usuarios/', [UserController::class, 'index'])->name('usuarios/');
+    Route::get('/usuarios/create', [UserController::class, 'create'])->name('usuarios/create');
     Route::put('/usuarios/{user:uuid}/update', [Usercontroller::class, 'update'])->name('usuarios/update');
-    Route::put('/usuarios/{user:uuid}/updatedatostrabajo', [Usercontroller::class, 'updateTrabajo'])->name('usuarios/updatedatostrabajo');
+    Route::put('/usuarios/{user:uuid}/updatetrabajo', [Usercontroller::class, 'updatect'])->name('usuarios/updatetrabajo');
     Route::get('/usuarios/{user:uuid}/edit', [Usercontroller::class, 'edit'])->name('usuarios/edit');
     Route::put('/usuarios/{user:uuid}/updateroles', [Usercontroller::class, 'updateRoles'])->name('usuarios/updateroles');
     Route::get('/roles/show', [Usercontroller::class, 'showroles'])->name('roles.show');
-
+    Route::post('/usuarios/', [Usercontroller::class, 'store'])->name('usuarios/store');
+    /** Roles y Permisos */
+    Route::get('/roles/', [RoleController::class, 'index'])->name('roles/');
+    Route::get('/roles/create', [RoleController::class, 'create'])->name('roles/create');
+    Route::get('/roles/{role:id}/edit', [Rolecontroller::class, 'edit'])->name('roles/edit');
+    Route::put('/roles/{role:id}/update', [Rolecontroller::class, 'update'])->name('roles/update');
+    Route::post('/roles/', [Rolecontroller::class, 'store'])->name('roles/store');
     //Administrar Puestos de Trabajo
     Route::get('/puestos/', [PuestoController::class, 'index'])->name('puestos/');
     Route::get('/puestos/create', [Puestocontroller::class, 'create'])->name('puestos/create');
@@ -91,6 +99,8 @@ Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(functi
         ->name('clientes.search');
     Route::post('/clientes/', [Clientecontroller::class, 'store'])->name('clientes/store');
     Route::put('/clientes/{cliente:uuid}/update', [Clientecontroller::class, 'update'])->name('clientes/update');
+    Route::put('/clientes/{cliente:uuid}/updatephone', [Clientecontroller::class, 'updateTel'])->name('clientes/updatephone');
+//    Route::get('/clientes/updatetel', [ClienteController::class, 'editTel'])->name('clientes/updatetel');
     //Administrar Centros de Trabajo
     Route::get('/centros/', [CentroController::class, 'index'])->name('centros/');
     Route::get('/centros/create', [CentroController::class, 'create'])->name('centros/create');
@@ -111,7 +121,6 @@ Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(functi
     Route::post('/tramites', [TramiteController::class, 'store'])->name('tramites/store');
 
     Route::put('/tramites/{tramite:uuid}/update', [Tramitecontroller::class, 'update'])->name('tramites/update');
-
 });
 
 Route::get('/auth/facebook', [SocialController::class, 'redirectFacebook']);

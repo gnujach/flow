@@ -82,6 +82,29 @@
                                                     name="sun"
                                                     class="w-8 h-8 mr-2 text-indigo-900"
                                                 />
+                                                Teléfono
+                                            </div>
+                                        </th>
+                                        <th class="px-6 pt-6 pb-4">
+                                            <div
+                                                class="flex content-center items-center"
+                                            >
+                                                <icon
+                                                    name="sun"
+                                                    class="w-8 h-8 mr-2 text-indigo-900"
+                                                />
+                                                Correo
+                                            </div>
+                                        </th>
+
+                                        <th class="px-6 pt-6 pb-4">
+                                            <div
+                                                class="flex content-center items-center"
+                                            >
+                                                <icon
+                                                    name="sun"
+                                                    class="w-8 h-8 mr-2 text-indigo-900"
+                                                />
                                                 Acciones
                                             </div>
                                         </th>
@@ -117,6 +140,22 @@
                                                 {{
                                                     cliente.data.attributes
                                                         .apellido2
+                                                }}
+                                            </p>
+                                        </td>
+                                        <td class="border-t">
+                                            <p class="pl-4 font-bold">
+                                                {{
+                                                    cliente.data.attributes
+                                                        .telefono
+                                                }}
+                                            </p>
+                                        </td>
+                                        <td class="border-t">
+                                            <p class="pl-4 font-bold ">
+                                                {{
+                                                    cliente.data.attributes
+                                                        .email
                                                 }}
                                             </p>
                                         </td>

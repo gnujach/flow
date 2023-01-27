@@ -1627,6 +1627,9 @@ input[type=file]::file-selector-button:hover {
 .right-auto {
   right: auto;
 }
+.top-\[3\.225rem\] {
+  top: 3.225rem;
+}
 .top-1 {
   top: 0.25rem;
 }
@@ -1668,6 +1671,9 @@ input[type=file]::file-selector-button:hover {
 }
 .row-span-2 {
   grid-row: span 2 / span 2;
+}
+.row-span-6 {
+  grid-row: span 6 / span 6;
 }
 .m-4 {
   margin: 1rem;
@@ -1810,11 +1816,17 @@ input[type=file]::file-selector-button:hover {
 .ml-auto {
   margin-left: auto;
 }
-.-ml-1 {
-  margin-left: -0.25rem;
+.-ml-2\.5 {
+  margin-left: -0.625rem;
+}
+.-ml-2 {
+  margin-left: -0.5rem;
 }
 .mt-\[10vh\] {
   margin-top: 10vh;
+}
+.-ml-1 {
+  margin-left: -0.25rem;
 }
 .block {
   display: block;
@@ -2071,6 +2083,10 @@ input[type=file]::file-selector-button:hover {
   --tw-translate-x: 0.25rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
+.-rotate-180 {
+  --tw-rotate: -180deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
 .scale-95 {
   --tw-scale-x: .95;
   --tw-scale-y: .95;
@@ -2150,6 +2166,9 @@ input[type=file]::file-selector-button:hover {
 }
 .grid-rows-1 {
   grid-template-rows: repeat(1, minmax(0, 1fr));
+}
+.grid-rows-2 {
+  grid-template-rows: repeat(2, minmax(0, 1fr));
 }
 .flex-row {
   flex-direction: row;
@@ -2269,6 +2288,10 @@ input[type=file]::file-selector-button:hover {
 .divide-gray-100 > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-opacity: 1;
   border-color: rgb(243 244 246 / var(--tw-divide-opacity));
+}
+.divide-gray-300 > :not([hidden]) ~ :not([hidden]) {
+  --tw-divide-opacity: 1;
+  border-color: rgb(209 213 219 / var(--tw-divide-opacity));
 }
 .self-center {
   align-self: center;
@@ -2431,6 +2454,10 @@ input[type=file]::file-selector-button:hover {
   --tw-border-opacity: 1;
   border-color: rgb(118 169 250 / var(--tw-border-opacity));
 }
+.border-gray-50 {
+  --tw-border-opacity: 1;
+  border-color: rgb(249 250 251 / var(--tw-border-opacity));
+}
 .border-current {
   border-color: currentColor;
 }
@@ -2561,6 +2588,10 @@ input[type=file]::file-selector-button:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
+.bg-blue-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(225 239 254 / var(--tw-bg-opacity));
+}
 .bg-blue-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(26 86 219 / var(--tw-bg-opacity));
@@ -2572,10 +2603,6 @@ input[type=file]::file-selector-button:hover {
 .bg-gray-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));
-}
-.bg-blue-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(225 239 254 / var(--tw-bg-opacity));
 }
 .bg-opacity-25 {
   --tw-bg-opacity: 0.25;
@@ -2755,14 +2782,14 @@ input[type=file]::file-selector-button:hover {
 .pt-8 {
   padding-top: 2rem;
 }
+.pr-2 {
+  padding-right: 0.5rem;
+}
 .pb-8 {
   padding-bottom: 2rem;
 }
 .pr-10 {
   padding-right: 2.5rem;
-}
-.pr-2 {
-  padding-right: 0.5rem;
 }
 .pl-10 {
   padding-left: 2.5rem;
@@ -2787,6 +2814,9 @@ input[type=file]::file-selector-button:hover {
 }
 .indent-4 {
   text-indent: 1rem;
+}
+.indent-2 {
+  text-indent: 0.5rem;
 }
 .align-middle {
   vertical-align: middle;
@@ -2962,6 +2992,10 @@ input[type=file]::file-selector-button:hover {
   --tw-text-opacity: 1;
   color: rgb(209 213 219 / var(--tw-text-opacity));
 }
+.text-amber-600 {
+  --tw-text-opacity: 1;
+  color: rgb(217 119 6 / var(--tw-text-opacity));
+}
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
@@ -2981,10 +3015,6 @@ input[type=file]::file-selector-button:hover {
 .text-amber-900 {
   --tw-text-opacity: 1;
   color: rgb(120 53 15 / var(--tw-text-opacity));
-}
-.text-amber-600 {
-  --tw-text-opacity: 1;
-  color: rgb(217 119 6 / var(--tw-text-opacity));
 }
 .text-sky-100 {
   --tw-text-opacity: 1;
@@ -3022,13 +3052,13 @@ input[type=file]::file-selector-button:hover {
   --tw-text-opacity: 1;
   color: rgb(30 66 159 / var(--tw-text-opacity));
 }
-.text-red-900 {
-  --tw-text-opacity: 1;
-  color: rgb(119 29 29 / var(--tw-text-opacity));
-}
 .text-blue-900 {
   --tw-text-opacity: 1;
   color: rgb(35 56 118 / var(--tw-text-opacity));
+}
+.text-red-900 {
+  --tw-text-opacity: 1;
+  color: rgb(119 29 29 / var(--tw-text-opacity));
 }
 .underline {
   -webkit-text-decoration-line: underline;
@@ -3268,13 +3298,13 @@ input[type=file]::file-selector-button:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
-.hover\:bg-blue-800:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(30 66 159 / var(--tw-bg-opacity));
-}
 .hover\:bg-blue-200:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(195 221 253 / var(--tw-bg-opacity));
+}
+.hover\:bg-blue-800:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 66 159 / var(--tw-bg-opacity));
 }
 .hover\:text-gray-500:hover {
   --tw-text-opacity: 1;
@@ -3295,10 +3325,6 @@ input[type=file]::file-selector-button:hover {
 .hover\:text-gray-900:hover {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
-}
-.hover\:text-blue-800:hover {
-  --tw-text-opacity: 1;
-  color: rgb(30 66 159 / var(--tw-text-opacity));
 }
 .hover\:text-white:hover {
   --tw-text-opacity: 1;
@@ -3483,13 +3509,13 @@ input[type=file]::file-selector-button:hover {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(255 255 255 / var(--tw-ring-opacity));
 }
-.focus-visible\:ring-red-500:focus-visible {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(240 82 82 / var(--tw-ring-opacity));
-}
 .focus-visible\:ring-blue-500:focus-visible {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(63 131 248 / var(--tw-ring-opacity));
+}
+.focus-visible\:ring-red-500:focus-visible {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(240 82 82 / var(--tw-ring-opacity));
 }
 .focus-visible\:ring-opacity-75:focus-visible {
   --tw-ring-opacity: 0.75;
@@ -3533,6 +3559,10 @@ input[type=file]::file-selector-button:hover {
 }
 .group:hover .group-hover\:grid {
   display: grid;
+}
+.group:hover .group-hover\:text-gray-600 {
+  --tw-text-opacity: 1;
+  color: rgb(75 85 99 / var(--tw-text-opacity));
 }
 .dark .dark\:border-gray-600 {
   --tw-border-opacity: 1;

@@ -11,14 +11,14 @@
 
         <form @submit.prevent="recaptcha">
             <div class="mt-4">
-                <jet-label for="password" value="RFC"/>
+                <jet-label for="password" value="Correo Electrónico"/>
                 <jet-input
                     id="password"
                     type="text"
                     class="mt-1 block w-full"
-                    v-model="form.rfc"
+                    v-model="form.email"
                     required
-                    autocomplete="current-password"
+                    autofocus
                 />
             </div>
             <div>
@@ -29,7 +29,6 @@
                     class="mt-1 block w-full"
                     v-model="form.folio"
                     required
-                    autofocus
                 />
             </div>
             <jet-input-error :message="form.errors.captcha_token" class="mt-2"/>
@@ -69,7 +68,7 @@ onMounted(() => {
 
 const form = useForm({
     folio: "",
-    rfc: "",
+    email: "",
     message: null,
     captcha_token: null,
 });

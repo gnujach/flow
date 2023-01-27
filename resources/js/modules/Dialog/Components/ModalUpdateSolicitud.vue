@@ -106,7 +106,7 @@
                                                 </div>
                                             </div>
                                             <div class="pt-1 flex justify-between ">
-                                                <p class="mb-2 text-lg font-bold">Success</p>
+                                                <p class="mb-2 text-lg font-bold">Trámite Concluído</p>
                                                 <button
                                                     @click="updateSolicitud(solicitud.id, id = 100, concluida = true)">
                                                     <strong
@@ -119,11 +119,23 @@
                                         </div>
                                     </div>
                                     <div class="relative">
-                                        <img
-                                            class="inset-0 object-cover object-bottom w-full rounded shadow-lg h-96 lg:absolute lg:h-full"
-                                            src="https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
-                                            alt=""
-                                        />
+                                        <div class="grid grid-rows-2 grid-cols-1">
+                                            <div class="border-b border-blue-500"><h3 class="text-center">
+                                                Observaciones</h3></div>
+                                            <div>
+                                                <p class="uppercase indent-2 text-lg text-gray-600 italic"
+                                                   v-if="solicitud.nota">{{
+                                                        solicitud.nota
+                                                    }}</p>
+                                                <p v-else class="uppercase indent-2 text-lg text-gray-600 italic">No se
+                                                    tienen observaciones</p>
+                                            </div>
+                                        </div>
+                                        <!--                                        <img-->
+                                        <!--                                            class="inset-0 object-cover object-bottom w-full rounded shadow-lg h-96 lg:absolute lg:h-full"-->
+                                        <!--                                            src="https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"-->
+                                        <!--                                            alt=""-->
+                                        <!--                                        />-->
                                     </div>
                                 </div>
                             </div>
@@ -193,7 +205,9 @@ const updateSolicitud = async (id, task_id, concluido) => {
     }
 
 }
-const closeModalCreate = () => isOpenCreate.value = false
+const closeModalCreate = () => {
+    isOpenCreate.value = false;
+}
 
 
 </script>

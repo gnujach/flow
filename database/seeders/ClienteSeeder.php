@@ -14,35 +14,36 @@ class ClienteSeeder extends Seeder
      *
      * @return void
      * funciona
-
-    public function run()
-    {
-        Cliente::truncate();
-        DB::disableQueryLog();
-        $csvFile = fopen(base_path("database/data/clientes_csv.csv"), "r");
-        $firstline = true;
-        while (($data = fgetcsv($csvFile, 2000, ",")) !== FALSE) {
-            if (!$firstline) {
-                Cliente::create([
-                    "rfc" => $data['0'],
-                    "curp" => $data['1'],
-                    "apellido1" => $data['2'],
-                    "apellido2" => $data['3'],
-                    "nombre" => $data['4'],
-                    "cct_id" => 1,
-                    "interno" => 1,
-                    "email" => '',
-                    "telefono" => '',
-                    'by' => 1
-                ]);
-            }
-            $firstline = false;
-        }
-    }
+     *
+     * public function run()
+     * {
+     * Cliente::truncate();
+     * DB::disableQueryLog();
+     * $csvFile = fopen(base_path("database/data/clientes_csv.csv"), "r");
+     * $firstline = true;
+     * while (($data = fgetcsv($csvFile, 2000, ",")) !== FALSE) {
+     * if (!$firstline) {
+     * Cliente::create([
+     * "rfc" => $data['0'],
+     * "curp" => $data['1'],
+     * "apellido1" => $data['2'],
+     * "apellido2" => $data['3'],
+     * "nombre" => $data['4'],
+     * "cct_id" => 1,
+     * "interno" => 1,
+     * "email" => '',
+     * "telefono" => '',
+     * 'by' => 1
+     * ]);
+     * }
+     * $firstline = false;
+     * }
+     * }
      */
     public function run()
     {
-        $file = database_path("data/clientes_csv.csv");
+//        $file = database_path("data/clientes_csv.csv");
+        $file = database_path("data/clientes_slp_csv.csv");
         $csv_reader = new readLargeCSVService($file, ",");
         $cur_time = now();
         Cliente::truncate();

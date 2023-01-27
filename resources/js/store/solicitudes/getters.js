@@ -16,3 +16,9 @@ export const getSelectedTask = (state) => {
 export const getUpdateRequest = (state) => {
     return state.isUpdateRequest;
 };
+export const getOpenAddNote = (state) => {
+    return state.isOpenAddNote;
+};
+export const getNote = (state) => {
+    return state.notes;
+};

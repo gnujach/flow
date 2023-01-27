@@ -1,16 +1,16 @@
 <template>
-    <jet-form-section @submitted="updateTrabajoInformation">
+    <jet-form-section @submit.prevent="updateTrabajoInformation">
         <template #title> Información de Servidor Público </template>
 
         <template #description>
-            Actualizar información de servidor público
+            Actualizar información refente al trabajo
         </template>
 
         <template #form>
             <!-- Departamentos-->
             <div
                 class="col-span-6 sm:col-span-4"
-                v-if="puestos && puestos.length > 0"
+                v-if="departamentos && departamentos.length > 0"
             >
                 <jet-label for="puesto" value="Departamentos" />
                 <BaseListbox
@@ -30,10 +30,17 @@
                     placeholder="Seleccione Puesto de Trabajo"
                     v-model="formTrabajo.puesto_id"
                 />
-
-                <jet-input-error
-                    :message="formTrabajo.errors.puesto"
-                    class="mt-2"
+            </div>
+            <!-- Centro -->
+            <div
+                class="col-span-6 sm:col-span-4"
+                v-if="centros && centros.length > 0"
+            >
+                <jet-label for="centro" value="Centro" />
+                <BaseListbox
+                    :options="centros"
+                    placeholder="Seleccione Puesto de Trabajo"
+                    v-model="formTrabajo.centro_id"
                 />
             </div>
         </template>
@@ -43,20 +50,20 @@
                 :on="formTrabajo.recentlySuccessful"
                 class="mr-3"
             >
-                Guardar.
+                Actualizar.
             </jet-action-message>
 
             <jet-button
                 :class="{ 'opacity-25': formTrabajo.processing }"
                 :disabled="formTrabajo.processing"
             >
-                Guardar
+                Actualizar
             </jet-button>
         </template>
     </jet-form-section>
 </template>
 
-<script>
+<script setup>
 import JetButton from "@/Jetstream/Button.vue";
 import JetFormSection from "@/Jetstream/FormSection.vue";
 import JetInputError from "@/Jetstream/InputError.vue";
@@ -74,54 +81,33 @@ import {
 } from "@headlessui/vue";
 import { CheckIcon, SelectorIcon } from "@heroicons/vue/solid";
 
-export default {
-    props: ["departamentos", "puestos", "user"],
-    components: {
-        JetActionMessage,
-        JetButton,
-        JetFormSection,
-        JetInputError,
-        JetLabel,
-        JetSecondaryButton,
-        Listbox,
-        ListboxButton,
-        ListboxOption,
-        ListboxOptions,
-        CheckIcon,
-        SelectorIcon,
-        BaseListbox,
-    },
-
-    setup(props) {
-        const departamentoActual = ref(
-            props.departamentos.find(
-                (departamento) =>
-                    departamento.id ===
-                    props.user.data.attributes.departamento_id
-            )
-        );
-        const puestoActual = ref(
-            props.puestos.find(
-                (puesto) => puesto.id === props.user.data.attributes.puesto_id
-            )
-        );
-        const formTrabajo = useForm({
-            departamento_id: departamentoActual.value.id,
-            puesto_id: puestoActual.value.id,
-        });
-        function updateTrabajoInformation() {
-            formTrabajo.put(
-                route("admin.usuarios/updatedatostrabajo", {
-                    user: props.user.data.uuid,
-                })
-            );
-        }
-        return {
-            updateTrabajoInformation,
-            formTrabajo,
-            departamentoActual,
-            puestoActual,
-        };
-    },
-};
+const props = defineProps(["departamentos", "puestos", "user", "centros"]);
+const departamentoActual = ref(
+    props.departamentos.find(
+        (departamento) =>
+            departamento.id === props.user.data.attributes.departamento_id
+    )
+);
+const puestoActual = ref(
+    props.puestos.find(
+        (puesto) => puesto.id === props.user.data.attributes.puesto_id
+    )
+);
+const centroActual = ref(
+    props.centros.find(
+        (centro) => centro.id === props.user.data.attributes.centro_id
+    )
+);
+const formTrabajo = useForm({
+    departamento_id: departamentoActual.value.id,
+    puesto_id: puestoActual.value.id,
+    centro_id: centroActual.value.id,
+});
+function updateTrabajoInformation() {
+    formTrabajo.put(
+        route("admin.usuarios/updatetrabajo", {
+            user: props.user.data.uuid,
+        })
+    );
+}
 </script>

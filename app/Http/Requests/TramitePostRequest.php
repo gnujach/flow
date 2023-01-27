@@ -23,7 +23,7 @@ class TramitePostRequest extends FormRequest
         return [
             'nombre' => ['required', 'min:4', 'max:200', Rule::unique('tramites')],
             'objetivo' => ['required', 'min:4', 'max:200', Rule::unique('tramites')],
-            'plazo_respuesta' => ['required', 'min:1', 'max:1'],
+            'plazo_respuesta' => ['required', 'min:1', 'max:2'],
             'departamento_id' => ['required', 'exists:departamentos,id'],
             'url_proceso' => ['nullable', 'url'],
             'activo' => ['nullable', 'boolean'],

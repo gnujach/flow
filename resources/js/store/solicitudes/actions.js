@@ -58,3 +58,19 @@ export async function setTask(context, task) {
         console.log(e)
     }
 }
+
+export const toggleModalAddNote = (context) => {
+    try {
+        context.commit("TOGGLE_OPEN_MODAL_ADD_NOTE");
+    } catch {
+        console.log("error action");
+    }
+};
+
+export const loadNote = (context, notes) => {
+    try {
+        context.commit("SET_NOTE", notes)
+    } catch (error) {
+        console.log(error)
+    }
+}

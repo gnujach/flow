@@ -27,3 +27,13 @@ export const SET_CLIENTE = (state, cliente) => {
 export const SET_TASK = (state, task) => {
     state.task = task;
 }
+
+export const TOGGLE_OPEN_MODAL_ADD_NOTE = (state) => {
+    state.isOpenAddNote = !state.isOpenAddNote;
+};
+
+export const SET_NOTE = (state, notes) => {
+    state.notes = notes;
+};
+
+

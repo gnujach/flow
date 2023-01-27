@@ -11,7 +11,7 @@ class Solicitud extends Model
 {
     use HasFactory;
 
-//        use HasUuid;
+    use HasUuid;
 
     protected $fillable = [
         'by',
@@ -20,6 +20,7 @@ class Solicitud extends Model
         'medio_id',
         'modified_by',
         'concluido',
+        'nota'
     ];
 
 //    protected $with = ['cliente', 'historysolicitud', 'tramite', 'medio'];

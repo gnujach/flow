@@ -25,6 +25,8 @@ class CreateTramitesTable extends Migration
             $table->decimal('costo', $precision = 8, $scale = 2);
             $table->enum('tipo_usuario', ['interno', 'externo'])->nullable(false);
             $table->boolean('activo')->default(true);
+            $table->enum('ser_recibido', ['documento', 'servicio'])->nullable(false);
+            $table->enum('tipo', ['tramite', 'servicio'])->nullable(false);
             $table->BigInteger('by')->nullable(false);
             $table->string('url_proceso')->nullable(true);
             $table->foreignId('departamento_id');

@@ -52,7 +52,7 @@ const chartData = {
     labels: ['Solicitadas', 'Concluidas'],
     datasets: [
         {
-            label: 'Tramites solicitados Septiembre',
+            label: 'Tramites solicitados este mes',
             data: [dataYear.value[0], dataConcluidas.value[0]],
             // data: [48, 44],
             backgroundColor: ['#f87979', 'lightgreen'],

@@ -9,7 +9,7 @@ class Cliente extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
@@ -26,7 +26,7 @@ class Cliente extends JsonResource
                     'apellido2' => $this->apellido2,
                     'nombre' => $this->nombre,
                     'email' => $this->email,
-                    'telefono' => $this->email,
+                    'telefono' => $this->telefono,
                     'cct_id' => $this->cct_id,
                     'created_at' => \Carbon\Carbon::parse($this->created_at)->diffForHumans(),
                     'updated_at' => \Carbon\Carbon::parse($this->updated_at)->diffForHumans(),

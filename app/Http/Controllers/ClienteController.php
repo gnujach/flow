@@ -9,6 +9,7 @@ use App\Http\Resources\ClienteCollection;
 use App\Services\ClienteService;
 use App\Http\Requests\StoreClienteRequest;
 use App\Http\Requests\updateClienteRequest;
+use Illuminate\Http\Response;
 use Redirect;
 use Inertia\Inertia;
 
@@ -25,7 +26,7 @@ class ClienteController extends Controller
         return Inertia::render(
             'Clientes/ListClientes',
             [
-                'clientes' => new ClienteCollection(Cliente::orderBy('id', 'desc')->paginate(config('openlink.perpage'))),
+                'clientes' => new ClienteCollection(Cliente::orderBy('apellido1', 'asc')->paginate(config('openlink.perpage'))),
             ]
         );
         return Redirect::route('admin.clientes/');
@@ -106,9 +107,11 @@ class ClienteController extends Controller
      * @param \App\Models\Cliente $cliente
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cliente $cliente)
+    public function updateTel(Request $request, Cliente $cliente, ClienteService $clienteService)
     {
-        //
+        $this->authorize('updatebyUser', Cliente::class);
+        $clienteService->updateClientePhone($request, $cliente);
+        return back()->banner('Cliente Actualizado.');
     }
 
     /**

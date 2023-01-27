@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use Inertia;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use App\Http\Resources\Rol as RolResource;
 use App\Http\Resources\RolCollection as RolCollection;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UpdateRolRequest;
+use App\Http\Requests\StoreCtUserRequest;
 use App\Services\UserService;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
@@ -42,24 +44,35 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('updatebyUser', User::class);
+        return Inertia\Inertia::render(
+            'Users/CreateUser',
+            [
+                'departamentos' => DB::table('departamentos')->where('activo', true)->select('id', 'nombre')->get(),
+                'puestos' => DB::table('puestos')->where('activo', true)->select('id', 'nombre')->get(),
+                'roles' => DB::table('roles')->select('id', 'name AS nombre')->get(),
+                'centros' => DB::table('centros')->select('id', 'nombre')->get(),
+            ]
+        );
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request, UserService $userService)
     {
-        //
+        $this->authorize('updatebyUser', User::class);
+        $user = $userService->storeUser($request);
+        return Redirect::route('admin.usuarios/');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -70,7 +83,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $uuid
+     * @param int $uuid
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
@@ -81,6 +94,7 @@ class UserController extends Controller
             [
                 'user' => new UsuarioResource($user),
                 'departamentos' => DB::table('departamentos')->where('activo', true)->select('id', 'nombre')->get(),
+                'centros' => DB::table('centros')->where('activo', true)->select('id', 'nombre')->get(),
                 'puestos' => DB::table('puestos')->where('activo', true)->select('id', 'nombre')->get(),
                 'roles' => DB::table('roles')->select('id', 'name AS nombre')->get(),
                 'rolesUsario' => $user->getRoleNames()
@@ -89,12 +103,11 @@ class UserController extends Controller
     }
 
 
-
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateUserRequest $request, User $user, UserService $userService)
@@ -103,23 +116,33 @@ class UserController extends Controller
         $user = $userService->updateUser($request, $user);
         return Redirect::route('admin.usuarios/');
     }
+
     public function updateTrabajo(UpdateUserRequest $request, User $user, UserService $userService)
     {
+        echo "Hola";
+        dd($request);
         $this->authorize('updatebyUser', User::class);
         $user = $userService->updateUserTrabajo($request, $user);
         return Redirect::route('admin.usuarios/');
     }
 
+    public function updatect(Request $request, User $user, UserService $userService)
+    {
+        $this->authorize('updatebyUser', User::class);
+        $user = $userService->updateUserTrabajo($request, $user);
+        return Redirect::route('admin.usuarios/');
+    }
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
     }
+
     //Show roles
     public function showroles(Request $request)
     {
@@ -131,10 +154,10 @@ class UserController extends Controller
 
     /**
      * Update roles
-     * @author @gnujach
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
+     * @author @gnujach
      */
     public function updateRoles(UpdateRolRequest $request, User $user, UserService $userService)
     {

@@ -225,7 +225,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     });
     var form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.useForm)({
       folio: "",
-      rfc: "",
+      email: "",
       message: null,
       captcha_token: null
     }); // console.log($this.recaptch);
@@ -593,17 +593,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         onSubmit: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.recaptcha, ["prevent"])
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["JetLabel"], {
         "for": "password",
-        value: "RFC"
+        value: "Correo Electrónico"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["JetInput"], {
         id: "password",
         type: "text",
         "class": "mt-1 block w-full",
-        modelValue: $setup.form.rfc,
+        modelValue: $setup.form.email,
         "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
-          return $setup.form.rfc = $event;
+          return $setup.form.email = $event;
         }),
         required: "",
-        autocomplete: "current-password"
+        autofocus: ""
       }, null, 8
       /* PROPS */
       , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["JetLabel"], {
@@ -617,8 +617,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
           return $setup.form.folio = $event;
         }),
-        required: "",
-        autofocus: ""
+        required: ""
       }, null, 8
       /* PROPS */
       , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["JetInputError"], {

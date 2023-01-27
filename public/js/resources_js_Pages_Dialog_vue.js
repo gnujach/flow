@@ -331,7 +331,7 @@ var _hoisted_7 = {
 };
 var _hoisted_8 = {
   key: 0,
-  "class": "divide-y divide-gray-100"
+  "class": "divide-y divide-gray-300"
 };
 var _hoisted_9 = ["onMousemove", "onClick"];
 
@@ -461,14 +461,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                   ref: function ref(el) {
                     $setup.resultsRefs[index] = el;
                   },
-                  "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([$setup.selectedIndex === index ? 'bg-gray-100' : '', "flex items-center px-4 py-2.5 relative"]),
+                  "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([$setup.selectedIndex === index ? 'italic bg-gray-100' : '', "flex items-center px-4 py-2.5 relative"]),
                   onMousemove: function onMousemove($event) {
                     return $setup.selectedIndex = index;
                   },
                   onClick: function onClick($event) {
                     return _ctx.selectUsuario(item);
                   }
-                }, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.nombre) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.apellido1) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.apellido2 == 'NULL' ? '' : item.apellido2), 1
+                }, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.nombre) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.apellido1) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.apellido2 == "NULL" ? "" : item.apellido2), 1
                 /* TEXT */
                 )])], 42
                 /* CLASS, PROPS, HYDRATE_EVENTS */

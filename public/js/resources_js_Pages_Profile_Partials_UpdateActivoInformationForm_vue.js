@@ -200,7 +200,7 @@ __webpack_require__.r(__webpack_exports__);
     var form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_8__.useForm)({
       name: props.user.data.attributes.name,
       email: props.user.data.attributes.email,
-      activo: props.user.data.attributes.activo
+      activo: Boolean(props.user.data.attributes.activo)
     });
 
     function updateProfileInformation() {

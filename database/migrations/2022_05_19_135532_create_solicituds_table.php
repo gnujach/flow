@@ -23,6 +23,7 @@ class CreateSolicitudsTable extends Migration
             $table->BigInteger('modified_by')->nullable(false);
             $table->boolean('concluido')->default(false);
             $table->boolean('cancelado')->default(false);
+            $table->string('nota', 240)->nullable(true);
             $table->timestamps();
         });
     }
