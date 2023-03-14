@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Departamento as DepartamentoResource;
 
 class Tramite extends JsonResource
 {
@@ -19,6 +20,7 @@ class Tramite extends JsonResource
                 'type' => 'tramite',
                 'id' => $this->id,
                 'uuid' => $this->uuid,
+                'departamento' => new DepartamentoResource($this->whenLoaded('departamento')),
                 'attributes' => [
                     'nombre' => $this->nombre,
                     'objetivo' => $this->objetivo,

@@ -21,7 +21,7 @@ class UserService
             'email' => $request->email,
             'activo' => $request->activo,
             // 'centro_id' => $request->centro_id,
-            // 'departamento_id' => $request->departamento_id,
+            // 'departamento_id' => $request->departamento_id,User
             // 'puesto_id' => $request->puesto_id,
         ]);
     }

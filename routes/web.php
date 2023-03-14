@@ -4,7 +4,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\TramiteController;
+use App\Mail\OrdenEmail;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\SocialController;
@@ -29,6 +31,9 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('testemail', function () {
+    dispatch(new App\Jobs\SendEmailJob());
+});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.list');
 Route::middleware(['auth:sanctum', 'verified'])->get('/tasks', function () {

@@ -29,9 +29,9 @@ class SolicitudController extends Controller
         $this->authorize('create', Solicitud::class);
         return Inertia::render('Solicitudes/ListSolicitudes', [
             'solicitudes' => new SolicitudCollection(Solicitud::whereHas('tramite', function ($query) {
-                $query->where('departamento_id', Auth::user()->departamento_id);
+                $query->where('departamento_id', Auth::user()->departamento_id)->orwhere('by', Auth::user()->id);
             })->OrderBy('id', 'desc')
-                ->with(['cliente', 'medio', 'tramite'])
+                ->with(['cliente', 'medio', 'tramite', 'tramite.departamento:id,nombre'])
                 ->paginate(config('openlink.perpage'))),
         ]);
     }
@@ -142,6 +142,7 @@ class SolicitudController extends Controller
     {
 
         $solicitudService->updateSolicitud($request, $solicitud);
+//        $tramiteconcluido =
         return Inertia::render('Solicitudes/ListSolicitudes', [
             'solicitudes' => new SolicitudCollection(Solicitud::OrderBy('id', 'desc')->paginate(config('openlink.perpage'))),
         ]);

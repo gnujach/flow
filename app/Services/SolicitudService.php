@@ -24,6 +24,7 @@ class SolicitudService
                 'by' => Auth::id(),
             ]);
             DB::commit();
+//            return
         } catch (\Exception $e) {
             DB::rollback();
             return $e->getMessage();

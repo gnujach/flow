@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use App\Http\Resources\Medio as MedioResource;
 use App\Http\Resources\Cliente as ClienteResource;
 use App\Http\Resources\Tramite as TramiteResource;
+
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Solicitud extends JsonResource
