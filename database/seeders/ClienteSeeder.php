@@ -42,11 +42,11 @@ class ClienteSeeder extends Seeder
      */
     public function run()
     {
-//        $file = database_path("data/clientes_csv.csv");
-        $file = database_path("data/clientes_slp_csv.csv");
+        // $file = database_path("data/clientes_slp_csv.csv");
+        $file = database_path("data/personal_csv.csv");
         $csv_reader = new readLargeCSVService($file, ",");
         $cur_time = now();
-        Cliente::truncate();
+        // Cliente::truncate();
         DB::disableQueryLog();
         foreach ($csv_reader->csvToArray() as $data) {
             // Preprocessing of the array.
