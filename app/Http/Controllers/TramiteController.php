@@ -39,7 +39,8 @@ class TramiteController extends Controller
     {
         $this->authorize('create', Tramite::class);
         return Inertia::render(
-            'Tramites/CreateTramite', [
+            'Tramites/CreateTramite',
+            [
                 'requisitos' => DB::table('requisitos')->where('activo', true)->select('id', 'nombre', 'objetivo')->get(),
                 'departamentos' => DB::table('departamentos')->where('id', '>', 1)->where('activo', true)->select('id', 'nombre')->get(),
             ]
@@ -54,7 +55,7 @@ class TramiteController extends Controller
      */
     public function store(TramitePostRequest $request)
     {
-//        dd($request);
+        //        dd($request);
         $this->authorize('create', Tramite::class);
         if (request()->has('prevalidate')) {
             return redirect()->back();
@@ -91,7 +92,8 @@ class TramiteController extends Controller
                     [
                         'nombre' => $tarea,
                         'tramite_id' => $tramite->id,
-                    ]);
+                    ]
+                );
             }
             DB::commit();
             return Redirect::route('admin.tramites')->banner('Trámite Guardado.');
@@ -110,7 +112,13 @@ class TramiteController extends Controller
     public function show(Tramite $tramite)
     {
         $this->authorize('viewAny', Tramite::class);
-        return new TramiteResouce($tramite);
+        $tramite->load('departamento', 'requisitos');
+        return Inertia::render(
+            'Tramites/ShowTramite',
+            [
+                'tramite' => new TramiteResouce($tramite),
+            ]
+        );
     }
 
     /**

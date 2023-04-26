@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Departamento as DepartamentoResource;
+use App\Http\Resources\RequisitoListCollection;
 
 class Tramite extends JsonResource
 {
@@ -21,6 +22,7 @@ class Tramite extends JsonResource
                 'id' => $this->id,
                 'uuid' => $this->uuid,
                 'departamento' => new DepartamentoResource($this->whenLoaded('departamento')),
+                'requisitos' => new RequisitoListCollection($this->whenLoaded('requisitos')),
                 'attributes' => [
                     'nombre' => $this->nombre,
                     'objetivo' => $this->objetivo,
@@ -31,6 +33,7 @@ class Tramite extends JsonResource
                     'costo' => $this->costo,
                     'tipo_usuario' => $this->tipo_usuario,
                     'activo' => $this->activo,
+                    'updated' => $this->updated_at->format('d-m-Y'),
                 ],
                 'links' => [
                     'self' => url('/admin/tramite/' . $this->uuid),
