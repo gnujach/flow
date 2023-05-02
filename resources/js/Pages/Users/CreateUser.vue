@@ -2,7 +2,7 @@
     <app-layout title="Profile">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Nuevo usuario
+                <Breadcrumb :items="breadcrumbs" />
             </h2>
         </template>
         <div>
@@ -25,7 +25,27 @@
 import AppLayout from "@/Layouts/AppLayout.vue";
 import CreateActivoInformationForm from "@/Pages/Profile/Partials/CreateActivoInformationForm.vue";
 import JetSectionBorder from "@/Jetstream/SectionBorder";
-import { ref } from "vue";
+import { computed } from "vue";
+import { usePage } from "@inertiajs/inertia-vue3";
+import Breadcrumb from "@/Components/Breadcrumb.vue";
+
+const appName = computed(() => usePage().props.appName);
+const url = computed(() => usePage().url);
 
 props: ["departamentos", "puestos", "roles"];
+const breadcrumbs = computed(() => {
+    return [
+        {
+            label: "Inicio",
+            url: route("dashboard.list"),
+        },
+        {
+            label: "Usuarios",
+            url: route("admin.usuarios/"),
+        },
+        {
+            label: "Nuevo usuario",
+        },
+    ];
+});
 </script>

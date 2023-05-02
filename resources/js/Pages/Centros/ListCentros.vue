@@ -2,7 +2,7 @@
     <app-layout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Centros
+                <Breadcrumb :items="breadcrumbs" />
             </h2>
             <div class="py-12">
                 <div class="max-w-full mx-auto sm:px-6 lg:px-8">
@@ -128,7 +128,8 @@
     </app-layout>
 </template>
 
-<script>
+<script setup>
+import { computed } from "vue";
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
 import Pagination from "@/Shared/Pagination";
@@ -139,20 +140,21 @@ import {
     BanIcon,
     BadgeCheckIcon,
 } from "@heroicons/vue/outline";
-
-export default {
-    components: {
-        AppLayout,
-        JetNavLink,
-        Pagination,
-        Icon,
-        ViewListIcon,
-        PencilIcon,
-        BanIcon,
-        BadgeCheckIcon,
-    },
-    props: ["centros"],
-};
+import Breadcrumb from "@/Components/Breadcrumb.vue";
+const breadcrumbs = computed(() => {
+    return [
+        {
+            label: "Inicio",
+            url: route("dashboard.list"),
+        },
+        {
+            label: "Centros de trabajo",
+        },
+    ];
+});
+const props = defineProps({
+    centros: Object,
+});
 </script>
 
 <style></style>

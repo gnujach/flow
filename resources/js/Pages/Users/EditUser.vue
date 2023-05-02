@@ -2,7 +2,7 @@
     <app-layout title="Profile">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Perfil de usuario
+                <Breadcrumb :items="breadcrumbs" />
             </h2>
         </template>
         <div>
@@ -38,7 +38,23 @@ import UpdateActivoInformationForm from "@/Pages/Profile/Partials/UpdateActivoIn
 import UpdateTrabajoUserForm from "@/Pages/Profile/Partials/UpdateTrabajoUserForm.vue";
 import UpdateRolUserForm from "@/Pages/Profile/Partials/UpdateRolUserForm.vue";
 import JetSectionBorder from "@/Jetstream/SectionBorder";
-import { ref } from "vue";
+import Breadcrumb from "@/Components/Breadcrumb.vue";
+import { ref, computed } from "vue";
 
 props: ["user", "departamentos", "puestos", "roles", "rolesUsuario"];
+const breadcrumbs = computed(() => {
+    return [
+        {
+            label: "Inicio",
+            url: route("dashboard.list"),
+        },
+        {
+            label: "Usuarios",
+            url: route("admin.usuarios/"),
+        },
+        {
+            label: "Editar usuario",
+        },
+    ];
+});
 </script>

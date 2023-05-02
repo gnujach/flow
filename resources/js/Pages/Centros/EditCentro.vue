@@ -2,7 +2,7 @@
     <app-layout>
         <template #header class="mb-2">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Modificación de Centro
+                <Breadcrumb :items="breadcrumbs" />
             </h2>
         </template>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
@@ -76,7 +76,7 @@
     </app-layout>
 </template>
 
-<script>
+<script setup>
 import AppLayout from "@/Layouts/AppLayout";
 import JetButton from "@/Jetstream/Button";
 import JetFormSection from "@/Jetstream/FormSection";
@@ -86,57 +86,31 @@ import JetLabel from "@/Jetstream/Label";
 import JetActionMessage from "@/Jetstream/ActionMessage";
 import JetSectionBorder from "@/Jetstream/SectionBorder";
 import { useForm } from "@inertiajs/inertia-vue3";
-import { ref } from "vue";
+import { computed } from "vue";
 import { Switch } from "@headlessui/vue";
-const form = useForm({
-    nombre: "",
-    activo: false,
-    uuid: "",
-    id: "",
+import Breadcrumb from "@/Components/Breadcrumb.vue";
+const breadcrumbs = computed(() => {
+    return [
+        {
+            label: "Inicio",
+            url: route("dashboard.list"),
+        },
+        {
+            label: "Centros",
+            url: route("admin.centros/"),
+        },
+        {
+            label: "Editar centro de atención",
+        },
+    ];
 });
-const enabled = ref(false);
-const uuid = ref(null);
-function rellena(form, centro) {
-    form.nombre = centro.data.attributes.nombre;
-    form.uuid = centro.data.uuid;
-    form.activo = Boolean(centro.data.attributes.activo);
-    form.id = centro.data.id;
-}
-export default {
-    props: ["centro"],
-    components: {
-        AppLayout,
-        JetActionMessage,
-        JetButton,
-        JetFormSection,
-        JetInput,
-        JetInputError,
-        JetLabel,
-        Switch,
-        JetSectionBorder,
-    },
-    setup(props) {
-        const savecentroInformation = () => {
-            form.transform((data) => ({
-                ...data,
-                activo: enabled,
-            })).put(
-                route("admin.centros/update", {
-                    centro: uuid,
-                }),
-                {
-                    errorBag: "updateCentroInformation",
-                    preserveScroll: false,
-                }
-            );
-        };
-        rellena(form, props.centro);
-        uuid.value = props.centro.data.uuid;
-        return {
-            form,
-            enabled,
-            savecentroInformation,
-        };
-    },
-};
+
+const props = defineProps({
+    centro: Object,
+});
+const form = useForm({
+    nombre: props.centro.data.attributes.nombre,
+    activo: Boolean(props.centro.data.attributes.activo),
+    uuid: props.centro.data.uuid,
+});
 </script>

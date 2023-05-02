@@ -35,7 +35,7 @@
                                 class="h-6 w-6 text-gray-500 mx-2"
                             />
                             <Link :href="item.url" @click="toggleNavBar"
-                            >{{ item.label }}
+                                >{{ item.label }}
                             </Link>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import {Link} from "@inertiajs/inertia-vue3";
+import { Link } from "@inertiajs/inertia-vue3";
 import {
     BadgeCheckIcon,
     HomeIcon,
@@ -78,8 +78,8 @@ import {
     DialogOverlay,
 } from "@headlessui/vue";
 import ApplicationLogo from "@/Jetstream/ApplicationLogo.vue";
-import {useStore} from "vuex";
-import {ref, computed, defineComponent} from "vue";
+import { useStore } from "vuex";
+import { ref, computed, defineComponent } from "vue";
 
 export default defineComponent({
     name: "SideBar",
@@ -137,14 +137,15 @@ export default defineComponent({
                 },
                 {
                     url: "/admin/clientes",
-                    label: "Administración de Clientes",
+                    label: "Administración de Usuario",
                     icon: HeartIcon,
                 },
                 {
                     url: "/admin/requisitos/",
                     label: "Administración de Requisitos",
                     icon: HeartIcon,
-                }, {
+                },
+                {
                     url: "/admin/tramites/",
                     label: "Administración de Trámites",
                     icon: ClipboardCheckIcon,
@@ -157,7 +158,7 @@ export default defineComponent({
             ],
             mainNavigationPersonalVentanilla: [
                 {
-                    url: "/dashboard",
+                    url: "/admin.list",
                     label: "Solicitudes",
                     icon: ClipboardCheckIcon,
                 },

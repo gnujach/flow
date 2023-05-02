@@ -2,7 +2,7 @@
     <app-layout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Canales de Atención
+                <Breadcrumb :items="breadcrumbs" />
             </h2>
             <div class="py-12">
                 <div class="max-w-full mx-auto sm:px-6 lg:px-8">
@@ -12,7 +12,7 @@
                         >
                             <div class="mt-8 flex flex-row m-2">
                                 <p class="text-2xl ml-4 w-1/2">
-                                    Pacientes activos en el sistema
+                                    Medios de atención activos en el sistema
                                 </p>
                                 <div class="w-1/2 flex justify-end">
                                     <jet-nav-link
@@ -125,8 +125,8 @@
     </app-layout>
 </template>
 
-<script>
-import { defineComponent, ref, computed, onMounted } from "vue";
+<script setup>
+import { computed } from "vue";
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
 import Pagination from "@/Shared/Pagination";
@@ -137,22 +137,20 @@ import {
     BanIcon,
     BadgeCheckIcon,
 } from "@heroicons/vue/outline";
-export default defineComponent({
-    components: {
-        AppLayout,
-        JetNavLink,
-        Pagination,
-        Icon,
-        Pagination,
-        ViewListIcon,
-        PencilIcon,
-        BanIcon,
-        BadgeCheckIcon,
-    },
-    props: ["medios"],
-    setup() {
-        return {};
-    },
+import Breadcrumb from "@/Components/Breadcrumb.vue";
+const breadcrumbs = computed(() => {
+    return [
+        {
+            label: "Inicio",
+            url: route("dashboard.list"),
+        },
+        {
+            label: "Medios de atención",
+        },
+    ];
+});
+const props = defineProps({
+    medios: Object,
 });
 </script>
 

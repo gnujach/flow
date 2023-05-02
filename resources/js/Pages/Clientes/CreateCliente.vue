@@ -2,20 +2,17 @@
     <app-layout>
         <template #header class="mb-2">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Alta de Clientes
+                <Breadcrumb :items="breadcrumbs" />
             </h2>
         </template>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-            <jet-form-section
-                @focusout="validate"
-                @submitted="onSubmit"
-            >
-                <template #title> Clientes</template>
-                <template #description> Alta de Cliente</template>
+            <jet-form-section @focusout="validate" @submitted="onSubmit">
+                <template #title> Usuarios</template>
+                <template #description> Alta de Usuario</template>
                 <!-- nombre -->
                 <template #form>
                     <div class="col-span-6 sm:col-span-4">
-                        <jet-label for="nombre" value="Nombre"/>
+                        <jet-label for="nombre" value="Nombre" />
                         <jet-input
                             id="nombre"
                             type="text"
@@ -30,7 +27,7 @@
                         />
                     </div>
                     <div class="col-span-6 sm:col-span-4">
-                        <jet-label for="apellido1" value="Primer Apellido"/>
+                        <jet-label for="apellido1" value="Primer Apellido" />
                         <jet-input
                             id="apellido1"
                             type="text"
@@ -44,7 +41,7 @@
                         />
                     </div>
                     <div class="col-span-6 sm:col-span-4">
-                        <jet-label for="apellido2" value="Segundo Apellido"/>
+                        <jet-label for="apellido2" value="Segundo Apellido" />
                         <jet-input
                             id="apellido2"
                             type="text"
@@ -57,7 +54,7 @@
                         />
                     </div>
                     <div class="col-span-6 sm:col-span-4">
-                        <jet-label for="email" value="Correo Electrónico"/>
+                        <jet-label for="email" value="Correo Electrónico" />
                         <jet-input
                             id="email"
                             type="text"
@@ -70,7 +67,7 @@
                         />
                     </div>
                     <div class="col-span-6 sm:col-span-4">
-                        <jet-label for="telefono" value="Teléfono"/>
+                        <jet-label for="telefono" value="Teléfono" />
                         <jet-input
                             id="telefono"
                             type="text"
@@ -82,8 +79,13 @@
                             class="mt-2"
                         />
                     </div>
-                    <div class="col-span-6 sm:col-span-4 flex flex-row justify-between">
-                        <jet-label for="interno" value="El usuario pertenece a SEG"/>
+                    <div
+                        class="col-span-6 sm:col-span-4 flex flex-row justify-between"
+                    >
+                        <jet-label
+                            for="interno"
+                            value="El usuario pertenece a SEG"
+                        />
                         <jet-checkbox
                             id="interno"
                             type="checkbox"
@@ -104,7 +106,7 @@
                     >
                         Guardado!!
                     </jet-action-message>
-                    <jet-section-border/>
+                    <jet-section-border />
                     <jet-button
                         :class="{ 'opacity-25': form.processing }"
                         :disabled="form.processing"
@@ -118,6 +120,7 @@
 </template>
 
 <script setup>
+import { computed } from "vue";
 import AppLayout from "@/Layouts/AppLayout";
 import JetButton from "@/Jetstream/Button";
 import JetFormSection from "@/Jetstream/FormSection";
@@ -127,28 +130,46 @@ import JetInputError from "@/Jetstream/InputError";
 import JetSectionBorder from "@/Jetstream/SectionBorder";
 import JetLabel from "@/Jetstream/Label";
 import JetActionMessage from "@/Jetstream/ActionMessage";
-import {useForm} from "@inertiajs/inertia-vue3";
-import {usePrevalidate} from "@/Composables/usePrevalidate";
-
+import { useForm } from "@inertiajs/inertia-vue3";
+import { usePrevalidate } from "@/Composables/usePrevalidate";
+import Breadcrumb from "@/Components/Breadcrumb.vue";
+const breadcrumbs = computed(() => {
+    return [
+        {
+            label: "Inicio",
+            url: route("dashboard.list"),
+        },
+        {
+            label: "Usuarios",
+            url: route("admin.clientes/"),
+        },
+        {
+            label: "Nuevo usuario",
+        },
+    ];
+});
 const form = useForm({
     nombre: null,
     apellido1: null,
     apellido2: null,
     email: null,
     cct_id: 1,
-    interno: 1
+    interno: 1,
 });
-const {validate} = usePrevalidate(form, {
+const { validate } = usePrevalidate(form, {
     method: "post",
     url: route("admin.clientes/store"),
 });
-const onSubmit = () => form.transform((data) => ({
-    ...data,
-    interno: data.interno ? 1 : 0
-})).post(route("admin.clientes/store"), {
-    errorBag: "saveRequisitoInformation",
-    preserveScroll: true,
-});
+const onSubmit = () =>
+    form
+        .transform((data) => ({
+            ...data,
+            interno: data.interno ? 1 : 0,
+        }))
+        .post(route("admin.clientes/store"), {
+            errorBag: "saveRequisitoInformation",
+            preserveScroll: true,
+        });
 </script>
 
 <style></style>

@@ -2,7 +2,7 @@
     <app-layout>
         <template #header class="mb-2">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Alta de Departamento de Trabajo
+                <Breadcrumb :items="breadcrumbs" />
             </h2>
         </template>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
@@ -16,7 +16,7 @@
                 <!-- nombre -->
                 <template #form>
                     <div class="col-span-6 sm:col-span-4">
-                        <jet-label for="nombre" value="Nombre"/>
+                        <jet-label for="nombre" value="Nombre" />
                         <jet-input
                             id="nombre"
                             type="text"
@@ -37,7 +37,7 @@
                     >
                         Guardado!!
                     </jet-action-message>
-                    <jet-section-border/>
+                    <jet-section-border />
                     <jet-button
                         :class="{ 'opacity-25': form.processing }"
                         :disabled="form.processing"
@@ -50,7 +50,8 @@
     </app-layout>
 </template>
 
-<script>
+<script setup>
+import { ref, computed } from "vue";
 import AppLayout from "@/Layouts/AppLayout";
 import JetButton from "@/Jetstream/Button";
 import JetFormSection from "@/Jetstream/FormSection";
@@ -59,13 +60,28 @@ import JetInputError from "@/Jetstream/InputError";
 import JetSectionBorder from "@/Jetstream/SectionBorder";
 import JetLabel from "@/Jetstream/Label";
 import JetActionMessage from "@/Jetstream/ActionMessage";
-import {useForm} from "@inertiajs/inertia-vue3";
-import {usePrevalidate} from "@/Composables/usePrevalidate";
-
+import { useForm } from "@inertiajs/inertia-vue3";
+import { usePrevalidate } from "@/Composables/usePrevalidate";
+import Breadcrumb from "@/Components/Breadcrumb.vue";
+const breadcrumbs = computed(() => {
+    return [
+        {
+            label: "Inicio",
+            url: route("dashboard.list"),
+        },
+        {
+            label: "Departamentos",
+            url: route("admin.departamentos/"),
+        },
+        {
+            label: "Nuevo departamento",
+        },
+    ];
+});
 const form = useForm({
     nombre: null,
 });
-const {validate} = usePrevalidate(form, {
+const { validate } = usePrevalidate(form, {
     method: "post",
     url: route("admin.departamentos/store"),
 });
@@ -77,30 +93,9 @@ const saveDepartamentoInformation = () => {
         preserveScroll: false,
         isDirty: false,
         preserveState: (page) => Object.keys(page.props.errors).length,
-        onBefore: () => confirm('Estás seguro(a) que quieres guardar este departamento?'),
+        onBefore: () =>
+            confirm("Estás seguro(a) que quieres guardar este departamento?"),
     });
-};
-export default {
-    components: {
-        AppLayout,
-        JetActionMessage,
-        JetButton,
-        JetFormSection,
-        JetInput,
-        JetInputError,
-        JetLabel,
-        JetSectionBorder,
-    },
-    setup() {
-        form.defaults({
-            nombre: 'departamento'
-        });
-        return {
-            form,
-            saveDepartamentoInformation,
-            validate,
-        };
-    },
 };
 </script>
 

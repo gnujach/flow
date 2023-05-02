@@ -2,7 +2,7 @@
     <app-layout>
         <template #header class="mb-2">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Alta de Medio de Atención
+                <Breadcrumb :items="breadcrumbs" />
             </h2>
         </template>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
@@ -51,7 +51,8 @@
     </app-layout>
 </template>
 
-<script>
+<script setup>
+import { computed } from "vue";
 import AppLayout from "@/Layouts/AppLayout";
 import JetButton from "@/Jetstream/Button";
 import JetFormSection from "@/Jetstream/FormSection";
@@ -62,6 +63,22 @@ import JetActionMessage from "@/Jetstream/ActionMessage";
 import JetSectionBorder from "@/Jetstream/SectionBorder";
 import { useForm } from "@inertiajs/inertia-vue3";
 import { usePrevalidate } from "@/Composables/usePrevalidate";
+import Breadcrumb from "@/Components/Breadcrumb.vue";
+const breadcrumbs = computed(() => {
+    return [
+        {
+            label: "Inicio",
+            url: route("dashboard.list"),
+        },
+        {
+            label: "Medios",
+            url: route("admin.medios/"),
+        },
+        {
+            label: "Nuevo medio de atención",
+        },
+    ];
+});
 const form = useForm({
     nombre: "",
 });
@@ -76,25 +93,6 @@ const saveMedioInformation = () => {
         errorBag: "saveMedioInformation",
         preserveScroll: true,
     });
-};
-export default {
-    components: {
-        AppLayout,
-        JetActionMessage,
-        JetButton,
-        JetFormSection,
-        JetInput,
-        JetInputError,
-        JetLabel,
-        JetSectionBorder,
-    },
-    setup() {
-        return {
-            form,
-            saveMedioInformation,
-            validate,
-        };
-    },
 };
 </script>
 

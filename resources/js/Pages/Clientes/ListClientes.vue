@@ -2,7 +2,7 @@
     <app-layout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Clientes
+                <Breadcrumb :items="breadcrumbs" />
             </h2>
             <div class="py-12">
                 <div class="max-w-full mx-auto sm:px-6 lg:px-8">
@@ -12,7 +12,7 @@
                         >
                             <div class="mt-8 flex flex-row m-2">
                                 <p class="text-2xl ml-4 w-1/2">
-                                    Clientes en el sistema
+                                    Usuarios en el sistema
                                 </p>
                                 <div class="w-1/2 flex justify-end">
                                     <jet-nav-link
@@ -29,7 +29,7 @@
                                                     class="block w-6 h-6 fill-gray-400"
                                                 />
                                                 <p class="font-bold">
-                                                    Agregar Cliente
+                                                    Agregar Usuario
                                                 </p>
                                             </div>
                                         </button>
@@ -110,7 +110,8 @@
                                         </th>
                                     </tr>
                                     <tr
-                                        v-for="cliente in clientes.data.clientes"
+                                        v-for="cliente in clientes.data
+                                            .clientes"
                                         :key="cliente.data.id"
                                         class="hover:bg-gray-100 focus-within:bg-gray-100"
                                         :class="[
@@ -152,7 +153,7 @@
                                             </p>
                                         </td>
                                         <td class="border-t">
-                                            <p class="pl-4 font-bold ">
+                                            <p class="pl-4 font-bold">
                                                 {{
                                                     cliente.data.attributes
                                                         .email
@@ -172,8 +173,9 @@
                                                         route(
                                                             'admin.clientes/',
                                                             {
-                                                                cliente: cliente
-                                                                    .data.uuid,
+                                                                cliente:
+                                                                    cliente.data
+                                                                        .uuid,
                                                             }
                                                         )
                                                     "
@@ -199,7 +201,7 @@
                                 </table>
                             </div>
                             <div class="max-w-3xl mx-auto sm:px-6 lg:px-8 pt-4">
-                                <pagination :meta="clientes.meta"/>
+                                <pagination :meta="clientes.meta" />
                             </div>
                         </div>
                     </div>
@@ -210,6 +212,7 @@
 </template>
 
 <script setup>
+import { computed } from "vue";
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
 import Pagination from "@/Shared/Pagination";
@@ -220,11 +223,22 @@ import {
     BanIcon,
     BadgeCheckIcon,
 } from "@heroicons/vue/outline";
-import {toRefs, defineProps} from "vue";
+import { toRefs, defineProps } from "vue";
+import Breadcrumb from "@/Components/Breadcrumb.vue";
+const breadcrumbs = computed(() => {
+    return [
+        {
+            label: "Inicio",
+            url: route("dashboard.list"),
+        },
+        {
+            label: "Usuarios",
+        },
+    ];
+});
 
-const props = defineProps(['clientes']);
-const {clientes} = toRefs(props);
-console.log(clientes.value);
+const props = defineProps(["clientes"]);
+const { clientes } = toRefs(props);
 </script>
 
 <style></style>

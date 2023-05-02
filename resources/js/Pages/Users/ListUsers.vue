@@ -2,7 +2,7 @@
     <app-layout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Usuarios en el sistema
+                <Breadcrumb :items="breadcrumbs" />
             </h2>
             <div class="py-12">
                 <div class="max-w-full mx-auto sm:px-6 lg:px-8">
@@ -201,12 +201,14 @@
     </app-layout>
 </template>
 
-<script>
+<script setup>
 import { defineComponent, ref, computed, onMounted } from "vue";
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
 import Pagination from "@/Shared/Pagination";
 import Icon from "@/Shared/Icon";
+import Breadcrumb from "@/Components/Breadcrumb.vue";
+import { usePage } from "@inertiajs/inertia-vue3";
 import {
     ViewListIcon,
     PencilIcon,
@@ -214,22 +216,22 @@ import {
     BadgeCheckIcon,
 } from "@heroicons/vue/outline";
 
-export default defineComponent({
-    components: {
-        AppLayout,
-        JetNavLink,
-        Pagination,
-        Icon,
-        ViewListIcon,
-        PencilIcon,
-        BanIcon,
-        BadgeCheckIcon,
-    },
-    props: ["users"],
-    setup() {
-        return {};
-    },
+const breadcrumbs = computed(() => {
+    return [
+        {
+            label: "Inicio",
+            url: route("dashboard.list"),
+        },
+        {
+            label: "Usuarios",
+        },
+    ];
 });
+const items = [];
+const props = defineProps({
+    users: Object,
+});
+usePage().props.appName = "List";
+const appName = computed(() => usePage().props.appName);
+const url = computed(() => usePage().url);
 </script>
-
-<style></style>

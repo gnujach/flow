@@ -12,10 +12,10 @@ class RequisitoUpdateRequest extends FormRequest
      *
      * @return bool
      */
-//    public function authorize()
-//    {
-//        return false;
-//    }
+    //    public function authorize()
+    //    {
+    //        return false;
+    //    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -25,7 +25,7 @@ class RequisitoUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => ['required', 'min:4', 'max:35',  Rule::unique('requisitos')->ignoreModel($this->requisito)],
+            'nombre' => ['required', 'min:4', 'max:125',  Rule::unique('requisitos')->ignoreModel($this->requisito)],
             'activo' => ['nullable', 'boolean'],
         ];
     }

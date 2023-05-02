@@ -2,7 +2,7 @@
     <app-layout>
         <template #header class="mb-2">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Modificación de Requisito
+                <Breadcrumb :items="breadcrumbs" />
             </h2>
         </template>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
@@ -34,7 +34,8 @@
                             :message="form.errors.nombre"
                             class="mt-2"
                         />
-                    </div><div class="col-span-6 sm:col-span-4">
+                    </div>
+                    <div class="col-span-6 sm:col-span-4">
                         <jet-label for="requisito" value="Requisito" />
                         <jet-input
                             id="requisito"
@@ -88,7 +89,7 @@
     </app-layout>
 </template>
 
-<script>
+<script setup>
 import AppLayout from "@/Layouts/AppLayout";
 import JetButton from "@/Jetstream/Button";
 import JetFormSection from "@/Jetstream/FormSection";
@@ -98,59 +99,32 @@ import JetLabel from "@/Jetstream/Label";
 import JetActionMessage from "@/Jetstream/ActionMessage";
 import JetSectionBorder from "@/Jetstream/SectionBorder";
 import { useForm } from "@inertiajs/inertia-vue3";
-import { ref } from "vue";
+import { computed } from "vue";
 import { Switch } from "@headlessui/vue";
-const form = useForm({
-    nombre: "",
-    objetivo: "",
-    activo: false,
-    uuid: "",
-    id: "",
+import Breadcrumb from "@/Components/Breadcrumb.vue";
+const props = defineProps({
+    requisito: Object,
 });
-const enabled = ref(false);
-const uuid = ref(null);
-function rellena(form, requisito) {
-    form.nombre = requisito.data.attributes.nombre;
-    form.objetivo = requisito.data.attributes.objetivo;
-    form.uuid = requisito.data.uuid;
-    form.activo = Boolean(requisito.data.attributes.activo);
-    form.id = requisito.data.id;
-}
-export default {
-    props: ["requisito"],
-    components: {
-        AppLayout,
-        JetActionMessage,
-        JetButton,
-        JetFormSection,
-        JetInput,
-        JetInputError,
-        JetLabel,
-        Switch,
-        JetSectionBorder,
-    },
-    setup(props) {
-        const saveRequisitoInformation = () => {
-            form.transform((data) => ({
-                ...data,
-                activo: enabled,
-            })).put(
-                route("admin.requisitos/update", {
-                    centro: uuid,
-                }),
-                {
-                    errorBag: "updateRequisitoInformation",
-                    preserveScroll: false,
-                }
-            );
-        };
-        rellena(form, props.requisito);
-        uuid.value = props.requisito.data.uuid;
-        return {
-            form,
-            enabled,
-            saveRequisitoInformation,
-        };
-    },
-};
+const form = useForm({
+    nombre: props.requisito.data.attributes.nombre,
+    objetivo: props.requisito.data.attributes.objetivo,
+    activo: Boolean(props.requisito.data.attributes.activo),
+    uuid: props.requisito.data.uuid,
+});
+
+const breadcrumbs = computed(() => {
+    return [
+        {
+            label: "Inicio",
+            url: route("dashboard.list"),
+        },
+        {
+            label: "Requisitos",
+            url: route("admin.requisitos/"),
+        },
+        {
+            label: "Editar requisito de atención",
+        },
+    ];
+});
 </script>

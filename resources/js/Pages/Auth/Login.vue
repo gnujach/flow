@@ -1,12 +1,12 @@
 <template>
-    <Head title="Log in"/>
+    <Head title="Log in" />
 
     <jet-authentication-card>
         <template #logo>
-            <jet-authentication-card-logo/>
+            <jet-authentication-card-logo />
         </template>
 
-        <jet-validation-errors class="mb-4"/>
+        <jet-validation-errors class="mb-4" />
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
             {{ status }}
@@ -14,7 +14,7 @@
 
         <form @submit.prevent="submit">
             <div>
-                <jet-label for="email" value="Email"/>
+                <jet-label for="email" value="Email" />
                 <jet-input
                     id="email"
                     type="email"
@@ -26,7 +26,7 @@
             </div>
 
             <div class="mt-4">
-                <jet-label for="password" value="Password"/>
+                <jet-label for="password" value="Password" />
                 <jet-input
                     id="password"
                     type="password"
@@ -44,7 +44,7 @@
                         v-model:checked="form.remember"
                     />
                     <span class="ml-2 text-sm text-gray-600"
-                    >Recordar usuario</span
+                        >Recordar usuario</span
                     >
                 </label>
             </div>
@@ -67,11 +67,11 @@
                 </jet-button>
             </div>
         </form>
-        <div class="w-full">
+        <!-- <div class="w-full">
             <a href="/auth/facebook">
                 <button>Login Facebook</button>
             </a>
-        </div>
+        </div> -->
         <div class="w-full">
             <a href="/login/azure">
                 <button>Login Correo Seg</button>
@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 import JetAuthenticationCard from "@/Jetstream/AuthenticationCard.vue";
 import JetAuthenticationCardLogo from "@/Jetstream/AuthenticationCardLogo.vue";
 import JetButton from "@/Jetstream/Button.vue";
@@ -89,7 +89,7 @@ import JetInput from "@/Jetstream/Input.vue";
 import JetCheckbox from "@/Jetstream/Checkbox.vue";
 import JetLabel from "@/Jetstream/Label.vue";
 import JetValidationErrors from "@/Jetstream/ValidationErrors.vue";
-import {Head, Link} from "@inertiajs/inertia-vue3";
+import { Head, Link } from "@inertiajs/inertia-vue3";
 
 export default defineComponent({
     components: {

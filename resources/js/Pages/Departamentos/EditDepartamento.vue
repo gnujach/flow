@@ -2,7 +2,7 @@
     <app-layout>
         <template #header class="mb-2">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Modificación de Departamento
+                <Breadcrumb :items="breadcrumbs" />
             </h2>
         </template>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
@@ -76,7 +76,7 @@
     </app-layout>
 </template>
 
-<script>
+<script setup>
 import AppLayout from "@/Layouts/AppLayout";
 import JetButton from "@/Jetstream/Button";
 import JetFormSection from "@/Jetstream/FormSection";
@@ -86,58 +86,46 @@ import JetLabel from "@/Jetstream/Label";
 import JetActionMessage from "@/Jetstream/ActionMessage";
 import JetSectionBorder from "@/Jetstream/SectionBorder";
 import { useForm } from "@inertiajs/inertia-vue3";
-import { ref } from "vue";
+import { computed } from "vue";
 import { Switch } from "@headlessui/vue";
-const form = useForm({
-    nombre: "",
-    activo: false,
-    uuid: "",
-    id: "",
+import Breadcrumb from "@/Components/Breadcrumb.vue";
+const breadcrumbs = computed(() => {
+    return [
+        {
+            label: "Inicio",
+            url: route("dashboard.list"),
+        },
+        {
+            label: "Departamentos",
+            url: route("admin.departamentos/"),
+        },
+        {
+            label: "Editar departamento",
+        },
+    ];
 });
-const enabled = ref(false);
-const uuid = ref(null);
-function rellena(form, departamento) {
-    form.nombre = departamento.data.attributes.nombre;
-    form.uuid = departamento.data.uuid;
-    form.activo = Boolean(departamento.data.attributes.activo);
-    form.id = departamento.data.id;
-}
-export default {
-    props: ["departamento"],
-    components: {
-        AppLayout,
-        JetActionMessage,
-        JetButton,
-        JetFormSection,
-        JetInput,
-        JetInputError,
-        JetLabel,
-        Switch,
-        JetSectionBorder,
-    },
-    setup(props) {
-        const savedepartamentoInformation = () => {
-            form.transform((data) => ({
-                ...data,
-                activo: enabled,
-            })).put(
-                route("admin.departamentos/update", {
-                    departamento: uuid,
-                }),
-                {
-                    errorBag: "updateDepartamentoInformation",
-                    preserveScroll: false,
-                }
-            );
-        };
-        rellena(form, props.departamento);
-        uuid.value = props.departamento.data.uuid;
-        return {
-            form,
-            enabled,
-            savedepartamentoInformation,
-        };
-    },
+const props = defineProps({
+    departamento: Object,
+});
+const form = useForm({
+    nombre: props.departamento.data.attributes.nombre,
+    activo: Boolean(props.departamento.data.attributes.activo),
+    uuid: props.departamento.data.uuid,
+});
+
+const savedepartamentoInformation = () => {
+    form.transform((data) => ({
+        ...data,
+        activo: enabled,
+    })).put(
+        route("admin.departamentos/update", {
+            departamento: uuid,
+        }),
+        {
+            errorBag: "updateDepartamentoInformation",
+            preserveScroll: false,
+        }
+    );
 };
 </script>
 

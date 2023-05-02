@@ -2,7 +2,7 @@
     <app-layout>
         <template #header class="mb-2">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Modificación de Puesto de Trabajo
+                <Breadcrumb :items="breadcrumbs" />
             </h2>
         </template>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
@@ -74,7 +74,8 @@
     </app-layout>
 </template>
 
-<script>
+<script setup>
+import { computed } from "vue";
 import AppLayout from "@/Layouts/AppLayout";
 import JetButton from "@/Jetstream/Button";
 import JetFormSection from "@/Jetstream/FormSection";
@@ -86,56 +87,44 @@ import JetSectionBorder from "@/Jetstream/SectionBorder";
 import { useForm } from "@inertiajs/inertia-vue3";
 import { ref } from "vue";
 import { Switch } from "@headlessui/vue";
-const form = useForm({
-    nombre: "",
-    activo: false,
-    uuid: "",
-    id: "",
+import Breadcrumb from "@/Components/Breadcrumb.vue";
+const breadcrumbs = computed(() => {
+    return [
+        {
+            label: "Inicio",
+            url: route("dashboard.list"),
+        },
+        {
+            label: "Puestos",
+            url: route("admin.puestos/"),
+        },
+        {
+            label: "Editar puesto",
+        },
+    ];
 });
-const enabled = ref(false);
-const uuid = ref(null);
-function rellena(form, puesto) {
-    form.nombre = puesto.data.attributes.nombre;
-    form.uuid = puesto.data.uuid;
-    form.activo = Boolean(puesto.data.attributes.activo);
-    form.id = puesto.data.id;
-}
-export default {
-    props: ["puesto"],
-    components: {
-        AppLayout,
-        JetActionMessage,
-        JetButton,
-        JetFormSection,
-        JetInput,
-        JetInputError,
-        JetLabel,
-        JetSectionBorder,
-        Switch,
-    },
-    setup(props) {
-        const savePuestoInformation = () => {
-            form.transform((data) => ({
-                ...data,
-                activo: enabled,
-            })).put(
-                route("admin.puestos/update", {
-                    puesto: uuid,
-                }),
-                {
-                    errorBag: "updatePuestoInformation",
-                    preserveScroll: false,
-                }
-            );
-        };
-        rellena(form, props.puesto);
-        uuid.value = props.puesto.data.uuid;
-        return {
-            form,
-            enabled,
-            savePuestoInformation,
-        };
-    },
+const props = defineProps({
+    puesto: Object,
+});
+const form = useForm({
+    nombre: props.puesto.data.attributes.nombre,
+    activo: Boolean(props.puesto.data.attributes.activo),
+    uuid: props.puesto.data.uuid,
+});
+
+const savePuestoInformation = () => {
+    form.transform((data) => ({
+        ...data,
+        activo: enabled,
+    })).put(
+        route("admin.puestos/update", {
+            puesto: uuid,
+        }),
+        {
+            errorBag: "updatePuestoInformation",
+            preserveScroll: false,
+        }
+    );
 };
 </script>
 

@@ -2,7 +2,7 @@
     <div class="hidden md:flex md:flex-1 items-start" v-if="statusSideBar">
         <TransitionRoot :show="statusSideBar">
             <Dialog
-                class="bg-gray-200 md:block fixed z-20 inset-0 top-[3.225rem] left-0 right-auto w-60 overflow-y-auto opacity-90  border-r border-gray-300"
+                class="bg-gray-200 md:block fixed z-20 inset-0 top-[3.225rem] left-0 right-auto w-60 overflow-y-auto opacity-90 border-r border-gray-300"
                 as="div"
                 @close="toggleNavBar"
                 :open="statusSideBar"
@@ -50,9 +50,15 @@
 </template>
 <script setup>
 import NavItem from "../components/NavItem.vue";
-import {ClipboardCheckIcon, HeartIcon, HomeIcon, NewspaperIcon, PhotographIcon} from "@heroicons/vue/outline";
-import {useStore} from "vuex";
-import {computed, ref} from "vue";
+import {
+    ClipboardCheckIcon,
+    HeartIcon,
+    HomeIcon,
+    NewspaperIcon,
+    PhotographIcon,
+} from "@heroicons/vue/outline";
+import { useStore } from "vuex";
+import { computed, ref } from "vue";
 import {
     TransitionRoot,
     TransitionChild,
@@ -61,15 +67,20 @@ import {
 } from "@headlessui/vue";
 
 const store = useStore();
-const statusSideBar = computed(
-    () => store.getters["todoStore/statusSideBar"]
-)
-const toggleNavBar = () => store.commit("todoStore/toggleNavBar")
+const statusSideBar = computed(() => store.getters["todoStore/statusSideBar"]);
+const toggleNavBar = () => store.commit("todoStore/toggleNavBar");
 let completeButtonRef = ref(null);
 const navItems = [
-    {href: "/dashboard", active: false, label: "Home", children: [], icon: HomeIcon},
     {
-        href: "#", active: false,
+        href: "/dashboard",
+        active: false,
+        label: "Home",
+        children: [],
+        icon: HomeIcon,
+    },
+    {
+        href: "#",
+        active: false,
         label: "Administración",
         children: [
             {
@@ -110,7 +121,7 @@ const navItems = [
             {
                 href: "/admin/clientes",
                 active: false,
-                label: "Administración de Clientes",
+                label: "Administración de Usuarios",
                 children: [],
                 icon: HeartIcon,
             },
@@ -121,56 +132,94 @@ const navItems = [
                 label: "Administración de Requisitos",
                 children: [],
                 icon: HeartIcon,
-            }, {
+            },
+            {
                 href: "/admin/tramites/",
                 active: false,
                 label: "Administración de Trámites",
                 children: [],
                 icon: ClipboardCheckIcon,
             },
+        ],
+    },
+    {
+        href: "#",
+        active: false,
+        label: "Solicitudes",
+        children: [
+            {
+                url: "/solicitudes/list",
+                active: false,
+                label: "Solicitudes",
+                children: [],
+                icon: ClipboardCheckIcon,
+            },
+        ],
+    },
+];
+const navItems2 = [
+    { href: "#", active: false, label: "Home", children: [], icon: HomeIcon },
+    {
+        href: "#",
+        active: false,
+        label: "Posts",
+        children: [
             {
                 href: "/dashboard",
                 active: false,
                 label: "Solicitudes",
                 children: [],
                 icon: ClipboardCheckIcon,
-            }
-        ],
-    },
-    {
-        href: "#", active: false,
-        label: "Solicitudes",
-        children: [
-            {
-                href: "/dashboard", active: false, label: "Solicitudes", children: [], icon: ClipboardCheckIcon,
             },
-        ]
-    }
-];
-const navItems2 = [
-    {href: "#", active: false, label: "Home", children: [], icon: HomeIcon},
-    {
-        href: "#", active: false,
-        label: "Posts",
-        children: [
             {
-                href: "/dashboard", active: false, label: "Solicitudes", children: [], icon: ClipboardCheckIcon,
+                href: "#",
+                active: false,
+                label: "All posts",
+                children: [],
+                icon: null,
             },
-            {href: "#", active: false, label: "All posts", children: [], icon: null},
-            {href: "#", active: false, label: "Add new", children: [], icon: null},
-            {href: "#", active: false, label: "Categories", children: [], icon: null},
+            {
+                href: "#",
+                active: false,
+                label: "Add new",
+                children: [],
+                icon: null,
+            },
+            {
+                href: "#",
+                active: false,
+                label: "Categories",
+                children: [],
+                icon: null,
+            },
         ],
         icon: NewspaperIcon,
     },
     {
-        href: "#", active: false,
+        href: "#",
+        active: false,
         label: "Media",
         children: [
-            {href: "#", active: false, label: "Library", children: [], icon: null},
             {
-                href: "#", active: false,
+                href: "#",
+                active: false,
+                label: "Library",
+                children: [],
+                icon: null,
+            },
+            {
+                href: "#",
+                active: false,
                 label: "Add new",
-                children: [{href: "#", active: false, label: "Third level", children: [], icon: null}],
+                children: [
+                    {
+                        href: "#",
+                        active: false,
+                        label: "Third level",
+                        children: [],
+                        icon: null,
+                    },
+                ],
                 icon: null,
             },
         ],
@@ -178,4 +227,3 @@ const navItems2 = [
     },
 ];
 </script>
-

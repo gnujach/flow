@@ -2,7 +2,7 @@
     <app-layout>
         <template #header class="mb-2">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Modificación de Medio de Atención
+                <Breadcrumb :items="breadcrumbs" />
             </h2>
         </template>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
@@ -72,7 +72,8 @@
     </app-layout>
 </template>
 
-<script>
+<script setup>
+import { computed } from "vue";
 import AppLayout from "@/Layouts/AppLayout";
 import JetButton from "@/Jetstream/Button";
 import JetFormSection from "@/Jetstream/FormSection";
@@ -82,59 +83,47 @@ import JetLabel from "@/Jetstream/Label";
 import JetActionMessage from "@/Jetstream/ActionMessage";
 import JetSectionBorder from "@/Jetstream/SectionBorder";
 import { useForm } from "@inertiajs/inertia-vue3";
-import { ref } from "vue";
 import { Switch } from "@headlessui/vue";
+import Breadcrumb from "@/Components/Breadcrumb.vue";
+const breadcrumbs = computed(() => {
+    return [
+        {
+            label: "Inicio",
+            url: route("dashboard.list"),
+        },
+        {
+            label: "Medios",
+            url: route("admin.medios/"),
+        },
+        {
+            label: "Editar medio",
+        },
+    ];
+});
 
 const form = useForm({
-    nombre: "",
-    activo: false,
-    uuid: "",
+    nombre: props.medio.data.attributes.nombre,
+    activo: Boolean(props.medio.data.attributes.activo),
+    uuid: props.medio.data.uuid,
 });
-const enabled = ref(false);
-const uuid = ref(null);
-function rellena(form, medio) {
-    form.nombre = medio.data.attributes.nombre;
-    form.uuid = medio.data.uuid;
-    // form.activo = medio.data.attributes.activo;
-    form.activo = Boolean(medio.data.attributes.activo);
-}
 
-export default {
-    props: ["medio"],
-    components: {
-        AppLayout,
-        JetActionMessage,
-        JetButton,
-        JetFormSection,
-        JetInput,
-        JetInputError,
-        JetLabel,
-        JetSectionBorder,
-        Switch,
-    },
-    setup(props) {
-        const saveMedioInformation = () => {
-            form.transform((data) => ({
-                ...data,
-                activo: enabled,
-            })).put(
-                route("admin.medios/update", {
-                    medio: uuid,
-                }),
-                {
-                    errorBag: "updateMedioInformation",
-                    preserveScroll: false,
-                }
-            );
-        };
-        rellena(form, props.medio);
-        uuid.value = props.medio.data.uuid;
-        return {
-            form,
-            enabled,
-            saveMedioInformation,
-        };
-    },
+const props = defineProps({
+    medio: Object,
+});
+
+const saveMedioInformation = () => {
+    form.transform((data) => ({
+        ...data,
+        activo: enabled,
+    })).put(
+        route("admin.medios/update", {
+            medio: uuid,
+        }),
+        {
+            errorBag: "updateMedioInformation",
+            preserveScroll: false,
+        }
+    );
 };
 </script>
 

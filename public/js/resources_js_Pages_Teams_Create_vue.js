@@ -511,7 +511,7 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         href: "/admin/clientes",
         active: false,
-        label: "Administración de Clientes",
+        label: "Administración de Usuarios",
         children: [],
         icon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_4__["default"]
       }, {
@@ -526,19 +526,13 @@ __webpack_require__.r(__webpack_exports__);
         label: "Administración de Trámites",
         children: [],
         icon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_5__["default"]
-      }, {
-        href: "/dashboard",
-        active: false,
-        label: "Solicitudes",
-        children: [],
-        icon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_5__["default"]
       }]
     }, {
       href: "#",
       active: false,
       label: "Solicitudes",
       children: [{
-        href: "/dashboard",
+        url: "/solicitudes/list",
         active: false,
         label: "Solicitudes",
         children: [],

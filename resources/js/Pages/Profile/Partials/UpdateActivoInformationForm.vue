@@ -7,7 +7,7 @@
         <template #form>
             <!-- Name -->
             <div class="col-span-6 sm:col-span-4">
-                <jet-label for="name" value="Name" />
+                <jet-label for="name" value="Nombre" />
                 <jet-input
                     id="name"
                     type="text"

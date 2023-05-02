@@ -1,7 +1,7 @@
 <template>
     <div>
-        <Head :title="title"/>
-        <JetBanner/>
+        <Head :title="title" />
+        <JetBanner />
         <div class="min-h-screen">
             <navbar></navbar>
             <!-- Page Heading -->
@@ -12,7 +12,7 @@
             </header>
             <div>
                 <!-- Page Content -->
-                <side-bar-two/>
+                <side-bar-two />
                 <main>
                     <slot></slot>
                 </main>
@@ -22,17 +22,17 @@
 </template>
 
 <script>
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 import JetApplicationMark from "@/Jetstream/ApplicationMark.vue";
 import JetBanner from "@/Jetstream/Banner.vue";
 import JetDropdown from "@/Jetstream/Dropdown.vue";
 import JetDropdownLink from "@/Jetstream/DropdownLink.vue";
 import JetNavLink from "@/Jetstream/NavLink.vue";
 import JetResponsiveNavLink from "@/Jetstream/ResponsiveNavLink.vue";
-import {Head, Link} from "@inertiajs/inertia-vue3";
+import { Head, Link } from "@inertiajs/inertia-vue3";
 import Navbar from "./Nav.vue";
 import SideBarTwo from "./SideBarTwo.vue";
-import {Inertia} from "@inertiajs/inertia";
+import { Inertia } from "@inertiajs/inertia";
 
 export default defineComponent({
     props: {
@@ -49,7 +49,7 @@ export default defineComponent({
         JetResponsiveNavLink,
         Link,
         Navbar,
-        SideBarTwo
+        SideBarTwo,
     },
 
     data() {

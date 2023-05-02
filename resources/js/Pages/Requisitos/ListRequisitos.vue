@@ -2,7 +2,7 @@
     <app-layout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Requisitos
+                <Breadcrumb :items="breadcrumbs" />
             </h2>
             <div class="py-12">
                 <div class="max-w-full mx-auto sm:px-6 lg:px-8">
@@ -11,27 +11,25 @@
                             class="p-6 sm:px-20 bg-white border-b border-gray-200"
                         >
                             <div class="mt-8 flex flex-row m-2">
-                                <p class="text-2xl ml-4 w-1/2">
-                                    Requisitos
-                                </p>
+                                <p class="text-2xl ml-4 w-1/2">Requisitos</p>
                                 <div class="w-1/2 flex justify-end">
                                     <jet-nav-link
                                         :href="
                                             route('admin.requisitos/create', {})
                                         "
-                                    ><button
-                                        class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500"
-                                    >
-                                        <div class="flex flex-row">
-                                            <icon
-                                                name="plus"
-                                                class="block w-6 h-6 fill-gray-400"
-                                            />
-                                            <p class="font-bold">
-                                                Agregar Requisito
-                                            </p>
-                                        </div>
-                                    </button>
+                                        ><button
+                                            class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500"
+                                        >
+                                            <div class="flex flex-row">
+                                                <icon
+                                                    name="plus"
+                                                    class="block w-6 h-6 fill-gray-400"
+                                                />
+                                                <p class="font-bold">
+                                                    Agregar Requisito
+                                                </p>
+                                            </div>
+                                        </button>
                                     </jet-nav-link>
                                 </div>
                             </div>
@@ -49,7 +47,8 @@
                                                     class="w-8 h-8 mr-2 text-indigo-900"
                                                 />Nombre
                                             </div>
-                                        </th><th class="px-6 pt-6 pb-4">
+                                        </th>
+                                        <th class="px-6 pt-6 pb-4">
                                             <div
                                                 class="flex content-center items-center"
                                             >
@@ -71,11 +70,13 @@
                                         </th>
                                     </tr>
                                     <tr
-                                        v-for="requisito in requisitos.data.requisitos"
+                                        v-for="requisito in requisitos.data
+                                            .requisitos"
                                         :key="requisito.data.id"
                                         class="hover:bg-gray-100 focus-within:bg-gray-100"
                                         :class="[
-                                            requisito.data.attributes.activo == 0
+                                            requisito.data.attributes.activo ==
+                                            0
                                                 ? 'text-gray-400'
                                                 : '',
                                         ]"
@@ -87,7 +88,8 @@
                                                         .nombre
                                                 }}
                                             </p>
-                                        </td><td class="border-t">
+                                        </td>
+                                        <td class="border-t">
                                             <p class="pl-4 font-bold uppercase">
                                                 {{
                                                     requisito.data.attributes
@@ -107,8 +109,10 @@
                                                         route(
                                                             'admin.requisitos/edit',
                                                             {
-                                                                requisito: requisito
-                                                                    .data.uuid,
+                                                                requisito:
+                                                                    requisito
+                                                                        .data
+                                                                        .uuid,
                                                             }
                                                         )
                                                     "
@@ -119,8 +123,8 @@
                                                 </jet-nav-link>
                                                 <BanIcon
                                                     v-if="
-                                                        requisito.data.attributes
-                                                            .activo
+                                                        requisito.data
+                                                            .attributes.activo
                                                     "
                                                     class="w-5 h-5 ml-3 pointer-events-none"
                                                 />
@@ -144,7 +148,8 @@
     </app-layout>
 </template>
 
-<script>
+<script setup>
+import { computed } from "vue";
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
 import Pagination from "@/Shared/Pagination";
@@ -155,20 +160,19 @@ import {
     BanIcon,
     BadgeCheckIcon,
 } from "@heroicons/vue/outline";
-
-export default {
-    components: {
-        AppLayout,
-        JetNavLink,
-        Pagination,
-        Icon,
-        ViewListIcon,
-        PencilIcon,
-        BanIcon,
-        BadgeCheckIcon,
-    },
-    props: ["requisitos"],
-};
+import Breadcrumb from "@/Components/Breadcrumb.vue";
+const breadcrumbs = computed(() => {
+    return [
+        {
+            label: "Inicio",
+            url: route("dashboard.list"),
+        },
+        {
+            label: "Requisitos",
+        },
+    ];
+});
+const props = defineProps(["requisitos"]);
 </script>
 
 <style></style>
