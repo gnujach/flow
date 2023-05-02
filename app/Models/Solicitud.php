@@ -17,13 +17,14 @@ class Solicitud extends Model
         'by',
         'cliente_id',
         'tramite_id',
+        'centro_id',
         'medio_id',
         'modified_by',
         'concluido',
         'nota'
     ];
 
-//    protected $with = ['cliente', 'historysolicitud', 'tramite', 'medio'];
+    //    protected $with = ['cliente', 'historysolicitud', 'tramite', 'medio'];
     protected static function booted()
     {
         static::addGlobalScope('withmodel', function (Builder $builder) {
@@ -54,6 +55,13 @@ class Solicitud extends Model
     {
         return $this->belongsTo(Tramite::class);
     }
+    /**
+     * Una solicitud pertenece a un centro
+     */
+    public function centro(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Centro::class);
+    }
 
     /**
      * Una solicitud pertenece a un medio
@@ -72,5 +80,4 @@ class Solicitud extends Model
     }
 
     /** load all relations */
-
 }

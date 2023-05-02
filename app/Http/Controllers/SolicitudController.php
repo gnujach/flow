@@ -29,7 +29,7 @@ class SolicitudController extends Controller
         $this->authorize('create', Solicitud::class);
         return Inertia::render('Solicitudes/ListSolicitudes', [
             'solicitudes' => new SolicitudCollection(Solicitud::whereHas('tramite', function ($query) {
-                $query->where('departamento_id', Auth::user()->departamento_id)->orwhere('by', Auth::user()->id);
+                $query->where('centro_id', Auth::user()->centro_id)->orwhere('by', Auth::user()->id);
             })->OrderBy('id', 'desc')
                 ->with(['cliente', 'medio', 'tramite', 'tramite.departamento:id,nombre'])
                 ->paginate(config('openlink.perpage'))),
@@ -80,6 +80,7 @@ class SolicitudController extends Controller
                 'cliente_id' => $request->cliente_id,
                 'tramite_id' => $request->tramite_id,
                 'medio_id' => $request->medio_id,
+                'centro_id' => Auth::user()->centro_id,
                 'modified_by' => Auth::id(),
                 'concluido' => $request->concluido,
                 'nota' => $request->nota
@@ -91,7 +92,8 @@ class SolicitudController extends Controller
                         'solicitud_id' => $solicitud->id,
                         'task_id' => $tarea,
                         'by' => Auth::id(),
-                    ]);
+                    ]
+                );
             }
             DB::commit();
             return Redirect::route('solicitudes.list')->banner('Solicitud Guardada.');
@@ -114,7 +116,6 @@ class SolicitudController extends Controller
             'email' => ['required', 'max:100', 'email'],
             'captcha_token' => [new Recaptcha],
         ]);
-
     }
 
     /**
@@ -125,9 +126,9 @@ class SolicitudController extends Controller
      */
     public function edit(Solicitud $solicitud)
     {
-//        $task = Tareatramite::where('tramite_id', $solicitud->tramite_id)->get();
-//        $solicitud = Solicitud::where('id', $solicitud->id)->with('tramite', 'historysolicitud', 'cliente')->get();
-//        $res = ['tareas' => $task, 'sol' => $solicitud];
+        //        $task = Tareatramite::where('tramite_id', $solicitud->tramite_id)->get();
+        //        $solicitud = Solicitud::where('id', $solicitud->id)->with('tramite', 'historysolicitud', 'cliente')->get();
+        //        $res = ['tareas' => $task, 'sol' => $solicitud];
         return response()->json($solicitud);
     }
 
@@ -142,7 +143,7 @@ class SolicitudController extends Controller
     {
 
         $solicitudService->updateSolicitud($request, $solicitud);
-//        $tramiteconcluido =
+        //        $tramiteconcluido =
         return Inertia::render('Solicitudes/ListSolicitudes', [
             'solicitudes' => new SolicitudCollection(Solicitud::OrderBy('id', 'desc')->paginate(config('openlink.perpage'))),
         ]);

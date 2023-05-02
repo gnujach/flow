@@ -23,4 +23,8 @@ class Centro extends Model
     {
         return $this->hasMany(User::class);
     }
+    public function solicitud()
+    {
+        return $this->hasMany(Solicitud::class);
+    }
 }

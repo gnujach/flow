@@ -20,6 +20,7 @@ class CreateSolicitudsTable extends Migration
             $table->foreignId('cliente_id');
             $table->foreignId('tramite_id');
             $table->foreignId('medio_id');
+            $table->foreignId('centro_id');
             $table->BigInteger('modified_by')->nullable(false);
             $table->boolean('concluido')->default(false);
             $table->boolean('cancelado')->default(false);
