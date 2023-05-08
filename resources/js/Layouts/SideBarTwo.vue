@@ -17,17 +17,24 @@
                     leave-to="-translate-x-full"
                     as="div"
                 >
+                    <div v-if="$page.props.auth.roles.includes('Admin')">
+                        <nav class="mt-2 px-2">
+                            <NavItem
+                                :item="item"
+                                v-for="item in navItems"
+                                :key="item.label"
+                            />
+                        </nav>
+                    </div>
                     <div
-                        v-if="
-                            $page.props.auth.permissions.includes(
-                                'manage-users'
-                            )
+                        v-else-if="
+                            $page.props.auth.roles.includes('capturista')
                         "
                     >
                         <nav class="mt-2 px-2">
                             <NavItem
                                 :item="item"
-                                v-for="item in navItems"
+                                v-for="item in navItems2"
                                 :key="item.label"
                             />
                         </nav>
@@ -148,9 +155,9 @@ const navItems = [
         label: "Solicitudes",
         children: [
             {
-                url: "/solicitudes/list",
+                href: "/solicitudes/list",
                 active: false,
-                label: "Solicitudes",
+                label: "Nueva Solicitudes",
                 children: [],
                 icon: ClipboardCheckIcon,
             },
@@ -158,72 +165,27 @@ const navItems = [
     },
 ];
 const navItems2 = [
-    { href: "#", active: false, label: "Home", children: [], icon: HomeIcon },
     {
         href: "#",
         active: false,
-        label: "Posts",
+        label: "Inicio",
         children: [
             {
-                href: "/dashboard",
+                href: "/solicitudes",
                 active: false,
-                label: "Solicitudes",
+                label: "Nueva Solicitud",
                 children: [],
                 icon: ClipboardCheckIcon,
             },
             {
-                href: "#",
+                href: "/solicitudes/list",
                 active: false,
-                label: "All posts",
+                label: "Mostrar solicitudes",
                 children: [],
-                icon: null,
-            },
-            {
-                href: "#",
-                active: false,
-                label: "Add new",
-                children: [],
-                icon: null,
-            },
-            {
-                href: "#",
-                active: false,
-                label: "Categories",
-                children: [],
-                icon: null,
+                icon: ClipboardCheckIcon,
             },
         ],
-        icon: NewspaperIcon,
-    },
-    {
-        href: "#",
-        active: false,
-        label: "Media",
-        children: [
-            {
-                href: "#",
-                active: false,
-                label: "Library",
-                children: [],
-                icon: null,
-            },
-            {
-                href: "#",
-                active: false,
-                label: "Add new",
-                children: [
-                    {
-                        href: "#",
-                        active: false,
-                        label: "Third level",
-                        children: [],
-                        icon: null,
-                    },
-                ],
-                icon: null,
-            },
-        ],
-        icon: PhotographIcon,
+        icon: HomeIcon,
     },
 ];
 </script>

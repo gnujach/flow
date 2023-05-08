@@ -781,9 +781,9 @@ __webpack_require__.r(__webpack_exports__);
       active: false,
       label: "Solicitudes",
       children: [{
-        url: "/solicitudes/list",
+        href: "/solicitudes/list",
         active: false,
-        label: "Solicitudes",
+        label: "Nueva Solicitudes",
         children: [],
         icon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_5__["default"]
       }]
@@ -791,63 +791,21 @@ __webpack_require__.r(__webpack_exports__);
     var navItems2 = [{
       href: "#",
       active: false,
-      label: "Home",
-      children: [],
-      icon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_3__["default"]
-    }, {
-      href: "#",
-      active: false,
-      label: "Posts",
+      label: "Inicio",
       children: [{
-        href: "/dashboard",
+        href: "/solicitudes",
         active: false,
-        label: "Solicitudes",
+        label: "Nueva Solicitud",
         children: [],
         icon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_5__["default"]
       }, {
-        href: "#",
+        href: "/solicitudes/list",
         active: false,
-        label: "All posts",
+        label: "Mostrar solicitudes",
         children: [],
-        icon: null
-      }, {
-        href: "#",
-        active: false,
-        label: "Add new",
-        children: [],
-        icon: null
-      }, {
-        href: "#",
-        active: false,
-        label: "Categories",
-        children: [],
-        icon: null
+        icon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_5__["default"]
       }],
-      icon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_6__["default"]
-    }, {
-      href: "#",
-      active: false,
-      label: "Media",
-      children: [{
-        href: "#",
-        active: false,
-        label: "Library",
-        children: [],
-        icon: null
-      }, {
-        href: "#",
-        active: false,
-        label: "Add new",
-        children: [{
-          href: "#",
-          active: false,
-          label: "Third level",
-          children: [],
-          icon: null
-        }],
-        icon: null
-      }],
-      icon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_7__["default"]
+      icon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_3__["default"]
     }];
     var __returned__ = {
       store: store,
@@ -1080,7 +1038,7 @@ var _hoisted_8 = {
 
 var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", {
   "class": "mb-2 font-semibold leading-5"
-}, "Nueva Solicitud", -1
+}, " Nueva Solicitud ", -1
 /* HOISTED */
 );
 
@@ -1099,7 +1057,7 @@ var _hoisted_12 = {
 
 var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", {
   "class": "mb-2 font-semibold leading-5"
-}, "Ver Solicitudes", -1
+}, " Ver Solicitudes ", -1
 /* HOISTED */
 );
 
@@ -1110,6 +1068,7 @@ var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 );
 
 var _hoisted_15 = {
+  key: 0,
   "class": "flex flex-col justify-between p-5 border rounded shadow-sm"
 };
 var _hoisted_16 = {
@@ -1118,7 +1077,7 @@ var _hoisted_16 = {
 
 var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", {
   "class": "mb-2 font-semibold leading-5"
-}, "Administración de Trámites", -1
+}, " Administración de Trámites ", -1
 /* HOISTED */
 );
 
@@ -1129,6 +1088,7 @@ var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 );
 
 var _hoisted_19 = {
+  key: 1,
   "class": "flex flex-col justify-between p-5 border rounded shadow-sm"
 };
 var _hoisted_20 = {
@@ -1137,7 +1097,7 @@ var _hoisted_20 = {
 
 var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", {
   "class": "mb-2 font-semibold leading-5"
-}, "Catálogo de Requisitos", -1
+}, " Catálogo de Requisitos ", -1
 /* HOISTED */
 );
 
@@ -1176,7 +1136,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["href"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["NewspaperIcon"], {
+  , ["href"])])]), _ctx.$page.props.auth.roles.includes('Admin') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["NewspaperIcon"], {
     "class": "w-10 h-10"
   })]), _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["JetNavLink"], {
     href: _ctx.route('admin.tramites')
@@ -1189,7 +1149,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["href"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ClipboardIcon"], {
+  , ["href"])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.$page.props.auth.roles.includes('Admin') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ClipboardIcon"], {
     "class": "w-10 h-10"
   })]), _hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["JetNavLink"], {
     href: _ctx.route('admin.requisitos/')
@@ -1202,7 +1162,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["href"])])])])]);
+  , ["href"])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
 }
 
 /***/ }),
@@ -2125,6 +2085,12 @@ var _hoisted_2 = {
 var _hoisted_3 = {
   "class": "mt-2 px-2"
 };
+var _hoisted_4 = {
+  key: 1
+};
+var _hoisted_5 = {
+  "class": "mt-2 px-2"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return $setup.statusSideBar ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TransitionRoot"], {
     show: $setup.statusSideBar
@@ -2148,7 +2114,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             as: "div"
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [_ctx.$page.props.auth.permissions.includes('manage-users') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.navItems, function (item) {
+              return [_ctx.$page.props.auth.roles.includes('Admin') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.navItems, function (item) {
+                return (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["NavItem"], {
+                  item: item,
+                  key: item.label
+                }, null, 8
+                /* PROPS */
+                , ["item"]);
+              }), 64
+              /* STABLE_FRAGMENT */
+              ))])])) : _ctx.$page.props.auth.roles.includes('capturista') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_5, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.navItems2, function (item) {
                 return (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["NavItem"], {
                   item: item,
                   key: item.label

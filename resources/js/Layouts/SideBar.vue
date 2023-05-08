@@ -1,5 +1,6 @@
 <template>
     <!-- Desktop -->
+    <p>Menu</p>
     <div class="hidden md:flex md:flex-1 items-start" v-if="statusSideBar">
         <TransitionRoot :show="statusSideBar">
             <Dialog
@@ -18,13 +19,7 @@
                     leave-to="-translate-x-full"
                     as="div"
                 >
-                    <div
-                        v-if="
-                            $page.props.auth.permissions.includes(
-                                'manage-users'
-                            )
-                        "
-                    >
+                    <div v-if="$page.props.auth.roles.includes('Admin')">
                         <div
                             v-for="(item, index) in mainNavigationAdmin"
                             :key="index"
@@ -39,11 +34,22 @@
                             </Link>
                         </div>
                     </div>
-                    <div
-                        v-if="
-                            $page.props.auth.roles[0] === 'PersonalVentanilla'
-                        "
-                    ></div>
+                    <div v-else-if="$page.props.auth.roles[0] === 'capturista'">
+                        <div
+                            v-for="(item, index) in mainNavigationAdmin"
+                            :key="index"
+                            class="py-4 px-6 flex"
+                        >
+                            <component
+                                :is="item.icon"
+                                class="h-6 w-6 text-gray-500 mx-2"
+                            />
+                            <Link :href="item.url" @click="toggleNavBar"
+                                >{{ item.label }}
+                            </Link>
+                        </div>
+                    </div>
+
                     <!-- <DialogOverlay /> -->
                 </TransitionChild>
                 <TransitionChild
