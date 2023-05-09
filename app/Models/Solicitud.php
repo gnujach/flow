@@ -79,5 +79,6 @@ class Solicitud extends Model
         return $this->belongsTo(Cliente::class);
     }
 
+
     /** load all relations */
 }

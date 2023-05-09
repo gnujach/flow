@@ -28,9 +28,9 @@ class SolicitudPolicy
      * @param \App\Models\Solicitud $solicitud
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Solicitud $solicitud)
+    public function view(User $user)
     {
-        //
+        return $user->hasRole('Admin');
     }
 
     /**

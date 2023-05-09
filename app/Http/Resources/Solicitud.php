@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use App\Http\Resources\Medio as MedioResource;
 use App\Http\Resources\Cliente as ClienteResource;
 use App\Http\Resources\Tramite as TramiteResource;
+use App\Http\Resources\Centro as CentroResource;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -26,6 +27,7 @@ class Solicitud extends JsonResource
                 'medio' => new MedioResource($this->whenLoaded('medio')),
                 'tramite' => new TramiteResource($this->whenLoaded('tramite')),
                 'cliente' => new ClienteResource($this->whenLoaded('cliente')),
+                'centro' => new CentroResource($this->whenLoaded('centro')),
                 'attributes' => [
                     'cliente' => $this->cliente_id,
                     'tramite' => $this->tramite_id,

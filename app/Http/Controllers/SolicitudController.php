@@ -35,6 +35,20 @@ class SolicitudController extends Controller
                 ->paginate(config('openlink.perpage'))),
         ]);
     }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function listadmin()
+    {
+        $this->authorize('view', Solicitud::class);
+        return Inertia::render('Solicitudes/ListSolicitudesAdmin', [
+            'solicitudes' => new SolicitudCollection(Solicitud::OrderBy('id', 'desc')
+                ->with(['cliente', 'medio', 'tramite', 'centro', 'tramite.departamento:id,nombre'])
+                ->paginate(config('openlink.perpage'))),
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.
