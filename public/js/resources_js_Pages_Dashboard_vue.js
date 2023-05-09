@@ -864,15 +864,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   __name: 'Dashboard',
-  props: ['dataset', 'concluidas', 'byTramite', 'today', 'week'],
+  props: ["dataset", "datasetAll", "concluidas", "concluidasAll", "byTramite", "today", "todayAll", "week", "weekAll"],
   setup: function setup(__props, _ref) {
     var expose = _ref.expose;
     expose();
     var props = __props;
     var dataYear = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(props.dataset);
+    var dataYearAll = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(props.datasetAll);
     var dataConcluidas = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(props.concluidas);
+    var dataConcluidasAll = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(props.concluidasAll);
     var dataTramite = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(props.byTramite);
     var dataToday = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(props.today);
+    var dataTodayAll = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(props.todayAll);
     var dataTramiteNombre = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(props.byTramite);
     var tramitesNombre = props.byTramite.map(function (item) {
       return item.tramite.slice(0, 20);
@@ -881,12 +884,12 @@ __webpack_require__.r(__webpack_exports__);
       return item.total;
     });
     var chartData = {
-      labels: ['Solicitadas', 'Concluidas'],
+      labels: ["Solicitadas", "Concluidas"],
       datasets: [{
-        label: 'Tramites solicitados este mes',
+        label: "Tramites solicitados este mes",
         data: [dataYear.value[0], dataConcluidas.value[0]],
         // data: [48, 44],
-        backgroundColor: ['#f87979', 'lightgreen']
+        backgroundColor: ["#f87979", "lightgreen"]
       }]
     };
     var charDataPie = {
@@ -895,15 +898,18 @@ __webpack_require__.r(__webpack_exports__);
       datasets: [{
         // data: [dataTramite.value[0].total, dataTramite.value[1].total],
         data: tramitesTotal,
-        backgroundColor: ['#F65988', '#F78B73', '#F2AEF0']
+        backgroundColor: ["#F65988", "#F78B73", "#F2AEF0"]
       }]
     };
     var __returned__ = {
       props: props,
       dataYear: dataYear,
+      dataYearAll: dataYearAll,
       dataConcluidas: dataConcluidas,
+      dataConcluidasAll: dataConcluidasAll,
       dataTramite: dataTramite,
       dataToday: dataToday,
+      dataTodayAll: dataTodayAll,
       dataTramiteNombre: dataTramiteNombre,
       tramitesNombre: tramitesNombre,
       tramitesTotal: tramitesTotal,
@@ -2193,6 +2199,7 @@ var _hoisted_3 = {
   "class": "bg-white overflow-hidden shadow-xl sm:rounded-lg"
 };
 var _hoisted_4 = {
+  key: 2,
   "class": "flex flex-col md:flex-row p-6 justify-around"
 };
 var _hoisted_5 = {
@@ -2203,7 +2210,7 @@ var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   "class": "px-5 py-4 border-b border-slate-100"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
   "class": "font-semibold text-slate-800"
-}, "Solicitadas vs Concluidas")], -1
+}, " Solicitadas vs Concluidas ")], -1
 /* HOISTED */
 );
 
@@ -2215,29 +2222,48 @@ var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   "class": "px-5 py-4 border-b border-slate-100"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
   "class": "font-semibold text-slate-800"
-}, "Solicitudes por Trámite")], -1
+}, " Solicitudes por Trámite ")], -1
 /* HOISTED */
 );
 
+var _hoisted_9 = {
+  key: 3,
+  "class": "flex flex-col md:flex-row p-6 justify-around"
+};
+
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Graficos de centro de trabajo", -1
+/* HOISTED */
+);
+
+var _hoisted_11 = [_hoisted_10];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["AppLayout"], {
     title: "Dashboard"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Actions"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Stats"], {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Actions"]), _ctx.$page.props.auth.roles.includes('Admin') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["Stats"], {
+        key: 0,
+        total: $setup.dataYearAll[0],
+        concluidas: $setup.dataConcluidasAll[0],
+        today: $setup.dataTodayAll[0].total,
+        week: $props.weekAll[0].total
+      }, null, 8
+      /* PROPS */
+      , ["total", "concluidas", "today", "week"])) : _ctx.$page.props.auth.roles.includes('capturista') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["Stats"], {
+        key: 1,
         total: $setup.dataYear[0],
         concluidas: $setup.dataConcluidas[0],
         today: $setup.dataToday[0].total,
         week: $props.week[0].total
       }, null, 8
       /* PROPS */
-      , ["total", "concluidas", "today", "week"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ChartAnual"], {
+      , ["total", "concluidas", "today", "week"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.$page.props.auth.roles.includes('capturista') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ChartAnual"], {
         "class": "w-full",
         "chart-data": $setup.chartData
       })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["PieTramite"], {
         "class": "w-full",
         "chart-data": $setup.charDataPie
-      })])])])])])];
+      })])])) : _ctx.$page.props.auth.roles.includes('Admin') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_9, _hoisted_11)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])];
     }),
     _: 1
     /* STABLE */

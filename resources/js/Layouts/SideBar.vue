@@ -1,6 +1,6 @@
 <template>
     <!-- Desktop -->
-    <p>Menu</p>
+
     <div class="hidden md:flex md:flex-1 items-start" v-if="statusSideBar">
         <TransitionRoot :show="statusSideBar">
             <Dialog
