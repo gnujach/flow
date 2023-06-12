@@ -19,6 +19,9 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\CentroController;
 use App\Http\Controllers\RequisitoController;
+use App\Models\User;
+use App\Notifications\SolicitudNotification;
+use Illuminate\Support\Facades\Notification;
 use Inertia\Inertia;
 
 
@@ -31,8 +34,10 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('testemail', function () {
-    dispatch(new App\Jobs\SendEmailJob());
+Route::get('/testemail', function () {
+    $maildata = ['email' => 'julian.abarca@gmail.com', 'nombre_cliente' => 'José Julián Abarca Chávez', 'url_encuesta' => 'https://encuestas.strc.guanajuato.gob.mx/#/enc/dac2b5bd-4b20-ff88-14bb-b2063669210c/bdec9998-2189-de78-4ee6-adb113a83ced'];
+    dispatch(new App\Jobs\SendEmailJob($maildata));
+    // Notification::send(User::all(), new SolicitudNotification);
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.list');

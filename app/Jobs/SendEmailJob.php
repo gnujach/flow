@@ -14,15 +14,15 @@ use Illuminate\Support\Facades\Mail;
 class SendEmailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
+    protected $details;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($details)
     {
-        //
+        $this->details = $details;
     }
 
     /**
@@ -33,10 +33,12 @@ class SendEmailJob implements ShouldQueue
     public function handle()
     {
         $maildata = [
-            'title' => 'Sistema de seguimiento a trámites USAE San Luis de la Paz',
-            'url' => 'https://www.open-link.net',
-            'body' => 'Estamos trabajando para concluir tu trámite'
+            'title' => 'Sistema de seguimiento a trámites USAE San Luis de la Paz Flow',
+            'url' => 'https://flow.open-link.net',
+            'body' => 'Go!!',
+            'nombre_cliente' => $this->details['nombre_cliente'],
+            'url_encuesta' => $this->details['url_encuesta'],
         ];
-        Mail::to('usaeslp@gmail.com')->send(new OrdenEmail($maildata));
+        Mail::to($this->details['email'])->send(new OrdenEmail($maildata));
     }
 }

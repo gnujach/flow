@@ -17,6 +17,7 @@ class OrdenEmail extends Mailable
      *
      * @return void
      */
+    protected $maildata;
     public function __construct($maildata)
     {
         $this->maildata = $maildata;

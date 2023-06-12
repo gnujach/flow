@@ -1,7 +1,11 @@
 @component('mail::messagerevisar')
-    # {{ $maildata['title'] }}
-    # {{ $maildata['body'] }}
-    {{--    @component('mail::button', ['url' => $maildata['url'], 'color' => 'success'])--}}
-    {{--        Revisar--}}
-    {{--    @endcomponent--}}
+    Estimado (a): {{ $maildata['nombre_cliente'] }}
+    Hemos detectado que hace poco visitó USAE San Luis de la Paz, agradecemos mucho nos ayude a responder una encuesta de
+    satisfacción de servicio, haciendo clic en el siguiente botón.
+    @component('mail::button', [
+        'url' => $maildata['url_encuesta'],
+        'color' => 'success',
+    ])
+        Llenar encuesta
+    @endcomponent
 @endcomponent

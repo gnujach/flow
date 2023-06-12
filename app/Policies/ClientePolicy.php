@@ -41,7 +41,7 @@ class ClientePolicy
      */
     public function create(User $user)
     {
-        return $user->hasRole('Admin');
+        return $user->hasRole('Admin') || $user->hasRole('capturista');
     }
 
     /**
