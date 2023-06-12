@@ -57,7 +57,7 @@ class ClientePolicy
     }
     public function updatebyUser(User $user)
     {
-        return $user->hasRole('Admin');
+        return $user->hasRole('Admin') || $user->hasRole('capturista');
     }
 
     /**
