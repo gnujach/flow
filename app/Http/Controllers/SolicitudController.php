@@ -32,7 +32,7 @@ class SolicitudController extends Controller
             'solicitudes' => new SolicitudCollection(Solicitud::whereHas('tramite', function ($query) {
                 $query->where('centro_id', Auth::user()->centro_id)->orwhere('by', Auth::user()->id);
             })->OrderBy('id', 'desc')
-                ->with(['cliente', 'medio', 'tramite', 'tramite.departamento:id,nombre'])
+                ->with(['cliente', 'medio', 'tramite', 'tramite.departamento:id,nombre', 'user:id,name'])
                 ->paginate(config('openlink.perpage'))),
         ]);
     }

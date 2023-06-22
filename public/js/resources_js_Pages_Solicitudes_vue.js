@@ -2751,7 +2751,7 @@ var _hoisted_29 = {
   "class": "flex flex-row rounded-lg justify-between my-2"
 };
 var _hoisted_30 = {
-  "class": "flex flex-row items-center space-x-5 w-1/3"
+  "class": "flex flex-row items-center space-x-5 w-1/2"
 };
 var _hoisted_31 = {
   "class": "w-2/3"

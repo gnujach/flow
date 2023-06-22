@@ -68,6 +68,11 @@
                                             <th
                                                 class="p-3 text-sm font-semibold tracking-wide text-left w-32"
                                             >
+                                                Atendió
+                                            </th>
+                                            <th
+                                                class="p-3 text-sm font-semibold tracking-wide text-left w-32"
+                                            >
                                                 Usuario
                                             </th>
                                             <th
@@ -117,6 +122,17 @@
                                                 class="p-3 text-sm text-gray-700"
                                             >
                                                 <p
+                                                    class="font-bold text-blue-500 truncate"
+                                                >
+                                                    {{
+                                                        `${solicitud.data.user.data.attributes.name}`
+                                                    }}
+                                                </p>
+                                            </td>
+                                            <td
+                                                class="p-3 text-sm text-gray-700"
+                                            >
+                                                <p
                                                     class="font-bold text-blue-500 hover:underline"
                                                 >
                                                     {{
@@ -162,7 +178,7 @@
                                                 class="p-3 text-sm text-gray-700 whitespace-nowrap"
                                             >
                                                 <span
-                                                    class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50"
+                                                    class="p-1.5 text-xs font-medium tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50 truncate"
                                                 >
                                                     {{
                                                         solicitud.data.medio
