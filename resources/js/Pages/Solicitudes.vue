@@ -141,13 +141,13 @@
                                         class="flex flex-row rounded-lg justify-between my-2"
                                     >
                                         <div
-                                            class="flex flex-row items-center space-x-5 w-1/3"
+                                            class="flex flex-row items-center space-x-5 w-1/2"
                                         >
                                             <ColorSwatchIcon
                                                 class="w-5 h-5 ml-4"
                                                 aria-hidden="true"
                                             />
-                                            <div class="w-3/3">
+                                            <div class="w-2/3">
                                                 <Listbox
                                                     v-model="
                                                         selectedDepartamento
