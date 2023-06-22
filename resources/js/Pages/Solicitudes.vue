@@ -147,7 +147,7 @@
                                                 class="w-5 h-5 ml-4"
                                                 aria-hidden="true"
                                             />
-                                            <div class="w-2/3">
+                                            <div class="w-3/3">
                                                 <Listbox
                                                     v-model="
                                                         selectedDepartamento
