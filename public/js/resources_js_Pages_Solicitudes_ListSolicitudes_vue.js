@@ -1688,7 +1688,7 @@ var _hoisted_31 = {
   "class": "p-3 text-sm text-gray-700"
 };
 var _hoisted_32 = {
-  "class": "font-bold text-blue-500 truncate"
+  "class": "font-bold text-blue-500 truncate uppercase"
 };
 var _hoisted_33 = {
   "class": "p-3 text-sm text-gray-700"
@@ -1706,7 +1706,7 @@ var _hoisted_37 = {
   "class": "p-3 text-sm text-gray-700 whitespace-nowrap"
 };
 var _hoisted_38 = {
-  "class": "p-1.5 text-xs font-medium tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50 truncate"
+  "class": "p-1.5 text-xs font-medium tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50 truncate uppercase"
 };
 var _hoisted_39 = {
   "class": "p-3 text-sm text-gray-700 whitespace-nowrap text-center"

@@ -122,7 +122,7 @@
                                                 class="p-3 text-sm text-gray-700"
                                             >
                                                 <p
-                                                    class="font-bold text-blue-500 truncate"
+                                                    class="font-bold text-blue-500 truncate uppercase"
                                                 >
                                                     {{
                                                         `${solicitud.data.user.data.attributes.name}`
