@@ -2751,10 +2751,10 @@ var _hoisted_29 = {
   "class": "flex flex-row rounded-lg justify-between my-2"
 };
 var _hoisted_30 = {
-  "class": "flex flex-row items-center space-x-5"
+  "class": "flex flex-row items-center space-x-5 w-1/3"
 };
 var _hoisted_31 = {
-  "class": "w-60"
+  "class": "w-2/3"
 };
 var _hoisted_32 = {
   "class": "relative mt-1 z-20"
@@ -2772,8 +2772,10 @@ var _hoisted_36 = {
 };
 
 var _hoisted_37 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "flex items-center"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Catálogo de Trámites")], -1
+  "class": "flex items-center justify-start w-64"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+  "class": "text-center font-semibold"
+}, " Catálogo de Trámites ")], -1
 /* HOISTED */
 );
 
@@ -2834,7 +2836,7 @@ var _hoisted_51 = {
   "class": "flex justify-around"
 };
 var _hoisted_52 = {
-  "class": "flex flex-row justify-around row-span-2"
+  "class": "flex flex-row justify-around row-span-2 mb-2 pb-2"
 };
 var _hoisted_53 = {
   "class": "w-1/3 block mx-auto p-2 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100"

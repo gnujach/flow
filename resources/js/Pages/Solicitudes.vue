@@ -33,7 +33,7 @@
                         v-else
                     >
                         <p class="font-bold">{{ selected.nombre }}</p>
-                        <ModalInfoTramite :tram="selected"/>
+                        <ModalInfoTramite :tram="selected" />
                     </div>
                 </div>
             </div>
@@ -131,7 +131,7 @@
                                 </button>
                             </Tab>
                         </TabList>
-                        <ToolBar/>
+                        <ToolBar />
                         <TabPanels class="mt-8 mx-4 bg-blue-300/70 pb-8">
                             <TabPanel>
                                 <div
@@ -141,13 +141,13 @@
                                         class="flex flex-row rounded-lg justify-between my-2"
                                     >
                                         <div
-                                            class="flex flex-row items-center space-x-5"
+                                            class="flex flex-row items-center space-x-5 w-1/3"
                                         >
                                             <ColorSwatchIcon
                                                 class="w-5 h-5 ml-4"
                                                 aria-hidden="true"
                                             />
-                                            <div class="w-60">
+                                            <div class="w-2/3">
                                                 <Listbox
                                                     v-model="
                                                         selectedDepartamento
@@ -161,7 +161,7 @@
                                                         >
                                                             <span
                                                                 class="block truncate"
-                                                            >{{
+                                                                >{{
                                                                     selectedDepartamento.nombre
                                                                 }}</span
                                                             >
@@ -220,7 +220,7 @@
                                                                                     : 'font-normal',
                                                                                 'block truncate',
                                                                             ]"
-                                                                        >{{
+                                                                            >{{
                                                                                 departamento.nombre
                                                                             }}</span
                                                                         >
@@ -243,8 +243,14 @@
                                                 </Listbox>
                                             </div>
                                         </div>
-                                        <div class="flex items-center">
-                                            <h2>Catálogo de Trámites</h2>
+                                        <div
+                                            class="flex items-center justify-start w-64"
+                                        >
+                                            <h2
+                                                class="text-center font-semibold"
+                                            >
+                                                Catálogo de Trámites
+                                            </h2>
                                         </div>
                                         <div class="flex flex-row ml-2">
                                             <form
@@ -275,7 +281,7 @@
                                     >
                                         <RadioGroup v-model="selected">
                                             <RadioGroupLabel class="sr-only"
-                                            >Trámite
+                                                >Trámite
                                             </RadioGroupLabel>
                                             <div
                                                 class="grid grid-cols-4 justify-between justify-items-center md:grid-rows-2 md:grid-flow-row-dense gap-4 my-4 overflow-y-auto"
@@ -315,7 +321,7 @@
                                                                                 : 'text-gray-900'
                                                                         "
                                                                         class="font-medium uppercase"
-                                                                    >"{{
+                                                                        >"{{
                                                                             tramite.nombre
                                                                         }}"
                                                                     </RadioGroupLabel>
@@ -378,11 +384,11 @@
                                     class="grid grid-rows-3 grid-flow-col gap-4 h-96"
                                 >
                                     <div class="flex justify-around">
-                                        <ModalSearch/>
-                                        <ModalAddUser/>
+                                        <ModalSearch />
+                                        <ModalAddUser />
                                     </div>
                                     <div
-                                        class="flex flex-row justify-around row-span-2"
+                                        class="flex flex-row justify-around row-span-2 mb-2 pb-2"
                                     >
                                         <div
                                             class="w-1/3 block mx-auto p-2 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100"
@@ -392,15 +398,17 @@
                                             >
                                                 Información de usuario
                                             </h5>
-                                            <div v-if="
-                                                    getSelectedCliente.id !=
-                                                    null
-                                                ">
-                                                <p
-                                                    v-if="
+                                            <div
+                                                v-if="
                                                     getSelectedCliente.id !=
                                                     null
                                                 "
+                                            >
+                                                <p
+                                                    v-if="
+                                                        getSelectedCliente.id !=
+                                                        null
+                                                    "
                                                 >
                                                     {{
                                                         `${
@@ -415,11 +423,18 @@
                                                         }`
                                                     }}
                                                 </p>
-                                                <hr/>
-                                                <span>{{ getSelectedCliente.email }}</span>
-                                                <hr/>
+                                                <hr />
+                                                <span>{{
+                                                    getSelectedCliente.email
+                                                }}</span>
+                                                <hr />
                                                 <div class="flex flex-row m-2">
-                                                    <jet-input v-model="formClientTel.telefono" class="m-2"></jet-input>
+                                                    <jet-input
+                                                        v-model="
+                                                            formClientTel.telefono
+                                                        "
+                                                        class="m-2"
+                                                    ></jet-input>
                                                     <button
                                                         type="button"
                                                         class="h-8 inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-1 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
@@ -440,10 +455,8 @@
                                             </h5>
                                             <RadioGroup v-model="medioAtencion">
                                                 <RadioGroupLabel class="sr-only"
-                                                >Medios de
-                                                    Atención
-                                                </RadioGroupLabel
-                                                >
+                                                    >Medios de Atención
+                                                </RadioGroupLabel>
                                                 <div class="space-y-2">
                                                     <RadioGroupOption
                                                         as="template"
@@ -560,7 +573,7 @@
                                                 >
                                                     <span
                                                         class="text-center text-white font-bold text-9xl ml-2 hover:text-gray-200"
-                                                    >{{ id + 1 }}</span
+                                                        >{{ id + 1 }}</span
                                                     >
                                                 </div>
                                                 <section
@@ -640,14 +653,7 @@
 </template>
 
 <script setup>
-import {
-    ref,
-    computed,
-    toRefs,
-    defineProps,
-    watch,
-    onMounted,
-} from "vue";
+import { ref, computed, toRefs, defineProps, watch, onMounted } from "vue";
 import {
     TabGroup,
     TabList,
@@ -669,7 +675,7 @@ import ModalSearch from "@/modules/Dialog/Components/ModalSearch.vue";
 import ModalAddUser from "@/modules/Dialog/Components/ModalAddUser";
 import ModalInfoTramite from "@/modules/Dialog/Components/ModalInfoTramite";
 import SaveDialog from "@/modules/Dialog/Components/SaveDialog";
-import {useStore, mapGetters} from "vuex";
+import { useStore, mapGetters } from "vuex";
 import {
     SearchIcon,
     SelectorIcon,
@@ -682,13 +688,13 @@ import {
     NewspaperIcon,
     CogIcon,
 } from "@heroicons/vue/outline";
-import {useForm} from "@inertiajs/inertia-vue3";
+import { useForm } from "@inertiajs/inertia-vue3";
 import JetInput from "@/Jetstream/Input";
 import JetButton from "@/Jetstream/Button";
 
 let listaTramites = ref(props.tramites);
 const props = defineProps(["tramites", "departamentos", "medios"]);
-const {departamentos, tramites, medios} = toRefs(props);
+const { departamentos, tramites, medios } = toRefs(props);
 const medioAtencion = ref(null);
 const selectedDepartamento = ref(departamentos.value[0]);
 const showModalAddUser = ref(false);
@@ -707,7 +713,7 @@ const getNote = computed(() => store.getters["solicitudesStore/getNote"]);
 
 onMounted(() => {
     // medioAtencion.value = medios.value[0];
-    console.log("Component Mounted")
+    console.log("Component Mounted");
 });
 const form = useForm({
     cliente_id: null,
@@ -718,7 +724,7 @@ const form = useForm({
     tareas: [],
 });
 const formClientTel = useForm({
-    telefono: null
+    telefono: null,
 });
 const selected = ref(null);
 const text = ref("");
@@ -730,14 +736,17 @@ let tabs = ref({
     Tareas: [],
 });
 const updateTel = () => {
-    formClientTel.put(route("admin.clientes/updatephone", {
-        cliente: getSelectedCliente.value.uuid
-    }), {
-        preserveState: true,
-        preserveScroll: true,
-        resetOnSuccess: false,
-    })
-}
+    formClientTel.put(
+        route("admin.clientes/updatephone", {
+            cliente: getSelectedCliente.value.uuid,
+        }),
+        {
+            preserveState: true,
+            preserveScroll: true,
+            resetOnSuccess: false,
+        }
+    );
+};
 const saveSolicitud = (id, concluido) => {
     store.dispatch("solicitudesStore/setTask", {
         id: id,
@@ -768,8 +777,8 @@ const changePrevTab = () => {
         selectIndexTab.value = selectIndexTab.value - 1;
 };
 watch(getSelectedCliente, () => {
-    formClientTel.telefono = getSelectedCliente.value.telefono
-})
+    formClientTel.telefono = getSelectedCliente.value.telefono;
+});
 
 function buttonClickSave(id, cerrado) {
     // console.log(selected.value.id, getSelectedCliente.value.id, medioAtencion.value.id);
@@ -779,7 +788,7 @@ function buttonClickSave(id, cerrado) {
         tramite_id: selected.value.id,
         medio_id: medioAtencion.value.id,
         concluido: cerrado,
-        tareas: {id: id},
+        tareas: { id: id },
         nota: store.getters["solicitudesStore/getNote"],
     })).post(route("solicitudes/store"), {
         errorBag: "saveRequisitoInformation",

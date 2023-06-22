@@ -19,9 +19,6 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\CentroController;
 use App\Http\Controllers\RequisitoController;
-use App\Models\User;
-use App\Notifications\SolicitudNotification;
-use Illuminate\Support\Facades\Notification;
 use Inertia\Inertia;
 
 
