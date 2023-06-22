@@ -178,7 +178,7 @@
                                                 class="p-3 text-sm text-gray-700 whitespace-nowrap"
                                             >
                                                 <span
-                                                    class="p-1.5 text-xs font-medium tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50 truncate"
+                                                    class="p-1.5 text-xs font-medium tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50 truncate uppercase"
                                                 >
                                                     {{
                                                         solicitud.data.medio
