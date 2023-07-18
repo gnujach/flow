@@ -55,9 +55,20 @@
                                     </div>
                                 </div>
                             </div>
+                            <div>
+                                <vue-good-table
+                                    :columns="columns"
+                                    :rows="rows"
+                                    :search-options="{
+                                        enabled: true,
+                                        placeholder: 'Buscar en la tabla',
+                                    }"
+                                />
+                            </div>
                             <div
                                 class="overflow-auto rounded-lg shadow md:block"
                             >
+                                <!--
                                 <table class="w-full table-fixed">
                                     <thead
                                         class="bg-gray-50 border-b-2 border-gray-200"
@@ -199,7 +210,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
+                            --></div>
                             <div class="max-w-3xl mx-auto sm:px-6 lg:px-8 pt-4">
                                 <pagination :meta="solicitudes.meta" />
                             </div>
@@ -215,19 +226,53 @@
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
 import Pagination from "@/Shared/Pagination";
+import { ref, onMounted } from "vue";
 import Icon from "@/Shared/Icon";
-import {
-    ViewListIcon,
-    PencilIcon,
-    BanIcon,
-    BadgeCheckIcon,
-    PencilAltIcon,
-    DocumentDownloadIcon,
-} from "@heroicons/vue/outline";
-import ModalUpdateSolicitud from "@/modules/Dialog/Components/ModalUpdateSolicitud";
+import { DocumentDownloadIcon } from "@heroicons/vue/outline";
+import { VueGoodTable } from "vue-good-table-next";
+// import the styles
+import "vue-good-table-next/dist/vue-good-table-next.css";
 import AlertToast from "@/modules/Dialog/Components/AlertToast";
-
 const props = defineProps({
     solicitudes: Object,
 });
+const obj = {
+    name: "Jean-Luc Picard",
+    rank: "Captain",
+};
+onMounted(() => {
+    Object.entries(obj).forEach((entry) => {
+        const [key, value] = entry;
+        console.log(key, value);
+    });
+    props.solicitudes.data.solicitudes.forEach((element) => {
+        let solicitud = {
+            id: element.data.id,
+            cliente: element.data.cliente.data.attributes.full_name,
+            centro: element.data.centro.data.attributes.nombre,
+            tramite: element.data.tramite.data.attributes.nombre,
+            m_atencion: element.data.medio.data.attributes.nombre,
+        };
+        rows.value.push(solicitud);
+    });
+});
+const rows = ref([]);
+const columns = ref([
+    {
+        label: "Usuario",
+        field: "cliente",
+    },
+    {
+        label: "Centro de atención",
+        field: "centro",
+    },
+    {
+        label: "Trámite",
+        field: "tramite",
+    },
+    {
+        label: "Medio de Atención",
+        field: "m_atencion",
+    },
+]);
 </script>

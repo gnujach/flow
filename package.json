@@ -32,6 +32,7 @@
         "chart.js": "^3.9.1",
         "vue-chartjs": "^4.1.2",
         "vue-good-table": "^2.21.11",
+        "vue-good-table-next": "^0.2.1",
         "vue-recaptcha-v3": "^2.0.1",
         "vuex": "^4.0.2"
     }
