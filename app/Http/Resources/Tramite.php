@@ -24,7 +24,7 @@ class Tramite extends JsonResource
                 'departamento' => new DepartamentoResource($this->whenLoaded('departamento')),
                 'requisitos' => new RequisitoListCollection($this->whenLoaded('requisitos')),
                 'attributes' => [
-                    'nombre' => $this->nombre,
+                    'nombre' => strtolower($this->nombre),
                     'objetivo' => $this->objetivo,
                     'fundamento_jur' => $this->fundamento_jur,
                     'casos' => $this->casos,

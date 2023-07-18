@@ -108,6 +108,7 @@ Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(functi
     Route::post('/clientes/', [Clientecontroller::class, 'store'])->name('clientes/store');
     Route::put('/clientes/{cliente:uuid}/update', [Clientecontroller::class, 'update'])->name('clientes/update');
     Route::put('/clientes/{cliente:uuid}/updatephone', [Clientecontroller::class, 'updateTel'])->name('clientes/updatephone');
+    Route::get('/clientes/{cliente:uuid}/show', [Clientecontroller::class, 'show'])->name('clientes/show');
     //    Route::get('/clientes/updatetel', [ClienteController::class, 'editTel'])->name('clientes/updatetel');
     //Administrar Centros de Trabajo
     Route::get('/centros/', [CentroController::class, 'index'])->name('centros/');

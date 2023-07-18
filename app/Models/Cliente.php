@@ -30,7 +30,8 @@ class Cliente extends Model
 
     public function getFullNameAttribute()
     {
-        return $this->nombre . " " . $this->apellido1 . " " . $this->apellido2;
+        $fullname =  preg_replace('/\s+/', ' ', $this->nombre . " " . $this->apellido1 . " " . $this->apellido2);
+        return $fullname;
     }
 
     protected $appends = ['full_name'];

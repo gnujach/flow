@@ -15,7 +15,7 @@
                                 <p class="text-2xl ml-4 w-1/2">
                                     Solicitudes por usuario
                                 </p>
-                                <div class="flex flex-row justify-end">
+                                <div class="flex flex-row justify-end pb-4">
                                     <div class="flex justify-end">
                                         <jet-nav-link
                                             :href="route('solicitudes', {})"
@@ -65,6 +65,11 @@
                                         <tr
                                             class="p-3 text-sm font-semibold tracking-wide text-left"
                                         >
+                                            <th
+                                                class="p-3 text-sm font-semibold tracking-wide text-left w-32"
+                                            >
+                                                Realizado
+                                            </th>
                                             <th
                                                 class="p-3 text-sm font-semibold tracking-wide text-left w-32"
                                             >
@@ -122,6 +127,17 @@
                                                 class="p-3 text-sm text-gray-700"
                                             >
                                                 <p
+                                                    class="pl-2 font-bold italic whitespace-pre-line"
+                                                >
+                                                    {{
+                                                        `${solicitud.data.attributes.created}`
+                                                    }}
+                                                </p>
+                                            </td>
+                                            <td
+                                                class="p-3 text-sm text-gray-700"
+                                            >
+                                                <p
                                                     class="font-bold text-blue-500 truncate uppercase"
                                                 >
                                                     {{
@@ -132,35 +148,55 @@
                                             <td
                                                 class="p-3 text-sm text-gray-700"
                                             >
-                                                <p
-                                                    class="font-bold text-blue-500 hover:underline"
+                                                <jet-nav-link
+                                                    :href="
+                                                        route(
+                                                            'admin.clientes/show',
+                                                            {
+                                                                cliente:
+                                                                    solicitud
+                                                                        .data
+                                                                        .cliente
+                                                                        .data
+                                                                        .uuid,
+                                                            }
+                                                        )
+                                                    "
                                                 >
-                                                    {{
-                                                        `${
-                                                            solicitud.data
-                                                                .cliente.data
-                                                                .attributes
-                                                                .nombre
-                                                        } ${
-                                                            solicitud.data
-                                                                .cliente.data
-                                                                .attributes
-                                                                .apellido1
-                                                        } ${
-                                                            solicitud.data
-                                                                .cliente.data
-                                                                .attributes
-                                                                .apellido2 ==
-                                                            "NULL"
-                                                                ? ""
-                                                                : solicitud.data
-                                                                      .cliente
-                                                                      .data
-                                                                      .attributes
-                                                                      .apellido2
-                                                        }`
-                                                    }}
-                                                </p>
+                                                    <p
+                                                        class="font-bold text-blue-500 hover:underline"
+                                                    >
+                                                        {{
+                                                            `${
+                                                                solicitud.data
+                                                                    .cliente
+                                                                    .data
+                                                                    .attributes
+                                                                    .nombre
+                                                            } ${
+                                                                solicitud.data
+                                                                    .cliente
+                                                                    .data
+                                                                    .attributes
+                                                                    .apellido1
+                                                            } ${
+                                                                solicitud.data
+                                                                    .cliente
+                                                                    .data
+                                                                    .attributes
+                                                                    .apellido2 ==
+                                                                "NULL"
+                                                                    ? ""
+                                                                    : solicitud
+                                                                          .data
+                                                                          .cliente
+                                                                          .data
+                                                                          .attributes
+                                                                          .apellido2
+                                                            }`
+                                                        }}
+                                                    </p>
+                                                </jet-nav-link>
                                             </td>
                                             <td
                                                 class="p-3 text-sm text-gray-700"
@@ -175,10 +211,10 @@
                                             </td>
 
                                             <td
-                                                class="p-3 text-sm text-gray-700 whitespace-nowrap"
+                                                class="p-3 text-sm text-gray-700 whitespace-nowrap truncate"
                                             >
                                                 <span
-                                                    class="p-1.5 text-xs font-medium tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50 truncate uppercase"
+                                                    class="p-1.5 text-xs font-thin text-green-800 bg-green-200 rounded-lg bg-opacity-50 truncate"
                                                 >
                                                     {{
                                                         solicitud.data.medio

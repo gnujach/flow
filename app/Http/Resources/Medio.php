@@ -20,7 +20,7 @@ class Medio extends JsonResource
                 'id' => $this->id,
                 'uuid' => $this->uuid,
                 'attributes' => [
-                    'nombre' => $this->nombre,
+                    'nombre' => strtolower($this->nombre),
                     'activo' => $this->activo,
                 ],
                 'links' => [

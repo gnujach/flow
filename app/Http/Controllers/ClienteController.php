@@ -98,7 +98,12 @@ class ClienteController extends Controller
      */
     public function show(Cliente $cliente)
     {
-        //
+        $this->authorize('updatebyUser', Cliente::class);
+        return Inertia::render('Clientes/ShowCliente', [
+            'cliente' => new ClienteResource($cliente->load(['solicitud' => function ($query) {
+                $query->latest()->take(5);
+            }, 'solicitud.user', 'solicitud.medio', 'solicitud.tramite'])),
+        ]);
     }
 
     /**

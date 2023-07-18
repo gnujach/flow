@@ -13,6 +13,7 @@ class Historysolicitud extends Model
         'by',
         'solicitud_id',
         'task_id',
+        // 'notes'
     ];
 
     /**
@@ -22,5 +23,4 @@ class Historysolicitud extends Model
     {
         return $this->belongsTo(Solicitud::class);
     }
-
 }

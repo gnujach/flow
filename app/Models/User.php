@@ -54,6 +54,11 @@ class User extends Authenticatable
         return $this->belongsTo(Departamento::class);
     }
 
+    public function solicitudes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Solicitud::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
