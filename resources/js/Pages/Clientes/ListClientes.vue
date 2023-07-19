@@ -36,6 +36,9 @@
                                     </jet-nav-link>
                                 </div>
                             </div>
+                            <div class="flex justify-start m-4">
+                                <ModalSearchClient />
+                            </div>
                             <div
                                 class="bg-white rounded shadow overflow-x-auto ml-4 mr-4"
                             >
@@ -216,6 +219,7 @@ import { computed } from "vue";
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
 import Pagination from "@/Shared/Pagination";
+import ModalSearchClient from "@/modules/Dialog/Components/ModalSeachClient.vue";
 import Icon from "@/Shared/Icon";
 import {
     ViewListIcon,

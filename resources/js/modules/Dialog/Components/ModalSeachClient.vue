@@ -147,6 +147,8 @@ import { nextTick, computed, onMounted, onUnmounted, ref } from "vue";
 import { SearchIcon, UserAddIcon } from "@heroicons/vue/solid";
 import JetNavLink from "@/Jetstream/NavLink";
 import { useStore, mapActions } from "vuex";
+import { Inertia } from "@inertiajs/inertia";
+// import { router } from "@inertiajs/inertia-vue3";
 import {
     Dialog,
     DialogOverlay,
@@ -220,10 +222,11 @@ export default {
                     break;
                 case "Enter":
                     // console.log(results.value[selectedIndex.value].id);
-                    store.dispatch(
-                        "solicitudesStore/selectUsuario",
-                        results.value[selectedIndex.value]
-                    );
+                    selectUser(results.value[selectedIndex.value]);
+                    // store.dispatch(
+                    //     "solicitudesStore/selectUsuario",
+                    //     results.value[selectedIndex.value]
+                    // );
                     break;
             }
 
@@ -246,6 +249,11 @@ export default {
 
         const closeModal = () => {
             store.dispatch("solicitudesStore/toggleModalSearchUser");
+        };
+
+        const selectUser = (item) => {
+            console.log(item.uuid);
+            Inertia.get("clientes/" + item.uuid + "/show");
         };
         onUnmounted(() => window.removeEventListener("keydown", onKeyDown));
 

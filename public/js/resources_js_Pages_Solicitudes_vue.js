@@ -1579,18 +1579,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onUnmounted)(function () {
       return window.removeEventListener("keydown", onKeyDown);
     });
-    return _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_8__.mapActions)("solicitudesStore", ["toggleModalAddUser", "selectUsuario", "toggleModalSearchUser"])), {}, _defineProperty({
+    return _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_8__.mapActions)("solicitudesStore", ["toggleModalAddUser", "selectUsuario", "toggleModalSearchUser"])), {}, {
       isOpen: isOpen,
       navigateResults: navigateResults,
-      onSubmit: onSubmit,
+      // onSubmit,
       onTermKeydown: onTermKeydown,
       results: results,
       resultsRefs: resultsRefs,
       search: search,
       selectedIndex: selectedIndex,
       closeModal: closeModal,
-      keyboardShortcut: keyboardShortcut
-    }, "onSubmit", onSubmit));
+      keyboardShortcut: keyboardShortcut,
+      onSubmit: onSubmit
+    });
   }
 });
 
