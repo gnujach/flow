@@ -497,18 +497,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_good_table_next__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-good-table-next */ "./node_modules/vue-good-table-next/dist/vue-good-table.esm.js");
 /* harmony import */ var vue_good_table_next_dist_vue_good_table_next_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-good-table-next/dist/vue-good-table-next.css */ "./node_modules/vue-good-table-next/dist/vue-good-table-next.css");
 /* harmony import */ var _modules_Dialog_Components_AlertToast__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/modules/Dialog/Components/AlertToast */ "./resources/js/modules/Dialog/Components/AlertToast.vue");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 
 
 
@@ -533,17 +521,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       rank: "Captain"
     };
     (0,vue__WEBPACK_IMPORTED_MODULE_3__.onMounted)(function () {
-      Object.entries(obj).forEach(function (entry) {
-        var _entry = _slicedToArray(entry, 2),
-            key = _entry[0],
-            value = _entry[1];
-
-        console.log(key, value);
-      });
       props.solicitudes.data.solicitudes.forEach(function (element) {
         var solicitud = {
           id: element.data.id,
           cliente: element.data.cliente.data.attributes.full_name,
+          cliente_uuid: element.data.cliente.data.uuid,
           centro: element.data.centro.data.attributes.nombre,
           tramite: element.data.tramite.data.attributes.nombre,
           m_atencion: element.data.medio.data.attributes.nombre
@@ -1509,13 +1491,13 @@ var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "overflow-auto rounded-lg shadow md:block"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("\n                                <table class=\"w-full table-fixed\">\n                                    <thead\n                                        class=\"bg-gray-50 border-b-2 border-gray-200\"\n                                    >\n                                        <tr\n                                            class=\"p-3 text-sm font-semibold tracking-wide text-left\"\n                                        >\n                                            <th\n                                                class=\"p-3 text-sm font-semibold tracking-wide text-left w-32\"\n                                            >\n                                                Usuario\n                                            </th>\n                                            <th\n                                                class=\"w-32 p-3 text-sm font-semibold tracking-wide text-center w-12\"\n                                            >\n                                                <div\n                                                    class=\"content-center items-center\"\n                                                >\n                                                    <icon\n                                                        name=\"sun\"\n                                                        class=\"w-8 h-8 mr-2 text-indigo-900\"\n                                                    />\n                                                    Centro de Atención\n                                                </div>\n                                            </th>\n                                            <th\n                                                class=\"p-3 text-sm font-semibold tracking-wide text-center w-32\"\n                                            >\n                                                Trámite\n                                            </th>\n                                            <th\n                                                class=\"p-3 text-sm font-semibold tracking-wide text-center w-20\"\n                                            >\n                                                Medio de Atención\n                                            </th>\n                                            <th\n                                                class=\"p-3 text-sm font-semibold tracking-wide text-center w-12\"\n                                            >\n                                                Concluida\n                                            </th>\n                                        </tr>\n                                    </thead>\n                                    <tbody class=\"divide-y divide-gray-100\">\n                                        <tr\n                                            v-for=\"solicitud in solicitudes.data\n                                                .solicitudes\"\n                                            :key=\"solicitud.data.id\"\n                                            class=\"hover:bg-gray-100 focus-within:bg-gray-100\"\n                                            :class=\"[\n                                                solicitud.data.attributes\n                                                    .concluido == 0\n                                                    ? 'text-gray-400'\n                                                    : '',\n                                            ]\"\n                                        >\n                                            <td\n                                                class=\"p-3 text-sm text-gray-700\"\n                                            >\n                                                <p\n                                                    class=\"font-bold text-blue-500 hover:underline\"\n                                                >\n                                                    {{\n                                                        `${\n                                                            solicitud.data\n                                                                .cliente.data\n                                                                .attributes\n                                                                .nombre\n                                                        } ${\n                                                            solicitud.data\n                                                                .cliente.data\n                                                                .attributes\n                                                                .apellido1\n                                                        } ${\n                                                            solicitud.data\n                                                                .cliente.data\n                                                                .attributes\n                                                                .apellido2 ==\n                                                            \"NULL\"\n                                                                ? \"\"\n                                                                : solicitud.data\n                                                                      .cliente\n                                                                      .data\n                                                                      .attributes\n                                                                      .apellido2\n                                                        }`\n                                                    }}\n                                                </p>\n                                            </td>\n                                            <td\n                                                class=\"p-3 text-sm text-gray-700\"\n                                            >\n                                                <p\n                                                    class=\"pl-4 font-bold uppercase whitespace-pre-line\"\n                                                >\n                                                    {{\n                                                        `${solicitud.data.centro.data.attributes.nombre}`\n                                                    }}\n                                                </p>\n                                            </td>\n                                            <td\n                                                class=\"p-3 text-sm text-gray-700\"\n                                            >\n                                                <p\n                                                    class=\"pl-4 font-bold uppercase whitespace-pre-line\"\n                                                >\n                                                    {{\n                                                        `${solicitud.data.tramite.data.attributes.nombre}`\n                                                    }}\n                                                </p>\n                                            </td>\n                                            <td\n                                                class=\"p-3 text-sm text-gray-700 whitespace-nowrap\"\n                                            >\n                                                <span\n                                                    class=\"p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50\"\n                                                >\n                                                    {{\n                                                        solicitud.data.medio\n                                                            .data.attributes\n                                                            .nombre\n                                                    }}\n                                                </span>\n                                            </td>\n                                            <td\n                                                class=\"p-3 text-sm text-gray-700 whitespace-nowrap text-center\"\n                                            >\n                                                <p\n                                                    class=\"pl-4 font-bold uppercase\"\n                                                >\n                                                    {{\n                                                        solicitud.data\n                                                            .attributes\n                                                            .concluido == 1\n                                                            ? \"SI\"\n                                                            : \"No\"\n                                                    }}\n                                                </p>\n                                            </td>\n                                        </tr>\n                                    </tbody>\n                                </table>\n                            ")], -1
-/* HOISTED */
-);
-
+var _hoisted_18 = {
+  "class": "font-bold text-blue-500 hover:underline"
+};
 var _hoisted_19 = {
+  key: 1
+};
+var _hoisted_20 = {
   "class": "max-w-3xl mx-auto sm:px-6 lg:px-8 pt-4"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -1544,9 +1526,34 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           enabled: true,
           placeholder: 'Buscar en la tabla'
         }
-      }, null, 8
+      }, {
+        "table-row": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function (props) {
+          return [props.column.field == 'cliente' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["JetNavLink"], {
+            key: 0,
+            href: _ctx.route('admin.clientes/show', {
+              cliente: props.row.cliente_uuid
+            })
+          }, {
+            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(props.row.cliente), 1
+              /* TEXT */
+              )];
+            }),
+            _: 2
+            /* DYNAMIC */
+
+          }, 1032
+          /* PROPS, DYNAMIC_SLOTS */
+          , ["href"])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(props.formattedRow[props.column.field]), 1
+          /* TEXT */
+          ))];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
       /* PROPS */
-      , ["columns", "rows"])]), _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Pagination"], {
+      , ["columns", "rows"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Pagination"], {
         meta: $props.solicitudes.meta
       }, null, 8
       /* PROPS */

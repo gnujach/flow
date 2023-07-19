@@ -55,7 +55,86 @@
                                     </div>
                                 </div>
                             </div>
-                            <div
+                            <div>
+                                <vue-good-table
+                                    :columns="columns"
+                                    :rows="rows"
+                                    :search-options="{
+                                        enabled: true,
+                                        placeholder: 'Buscar en tabla',
+                                    }"
+                                >
+                                    <template #table-row="props">
+                                        <jet-nav-link
+                                            v-if="
+                                                props.column.field == 'cliente'
+                                            "
+                                            :href="
+                                                route('admin.clientes/show', {
+                                                    cliente:
+                                                        props.row.cliente_uuid,
+                                                })
+                                            "
+                                            ><p
+                                                class="font-bold text-blue-500 hover:underline capitalize"
+                                            >
+                                                {{ props.row.cliente }}
+                                            </p>
+                                        </jet-nav-link>
+                                        <span
+                                            v-else-if="
+                                                props.column.field ==
+                                                'm_atencion'
+                                            "
+                                            class="p-1.5 text-xs font-thin text-green-800 bg-green-200 rounded-lg bg-opacity-50 truncate"
+                                        >
+                                            {{ props.row.m_atencion }}
+                                        </span>
+
+                                        <div
+                                            v-else-if="
+                                                props.column.field == 'acciones'
+                                            "
+                                        >
+                                            <ModalUpdateSolicitud
+                                                v-if="
+                                                    props.row.concluida == false
+                                                "
+                                                :uuid="props.row.id"
+                                            />
+                                        </div>
+                                        <div
+                                            v-else-if="
+                                                props.column.field ==
+                                                'concluida'
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    props.row.concluida == false
+                                                "
+                                            >
+                                                No
+                                            </span>
+                                            <span
+                                                v-else-if="
+                                                    props.row.concluida == true
+                                                "
+                                            >
+                                                Si
+                                            </span>
+                                        </div>
+                                        <span v-else>
+                                            {{
+                                                props.formattedRow[
+                                                    props.column.field
+                                                ]
+                                            }}
+                                        </span>
+                                    </template>
+                                </vue-good-table>
+                            </div>
+                            <!--            <div
                                 class="overflow-auto rounded-lg shadow md:block"
                             >
                                 <table class="w-full table-fixed">
@@ -271,6 +350,7 @@
                                     </tbody>
                                 </table>
                             </div>
+                            -->
                             <div class="max-w-3xl mx-auto sm:px-6 lg:px-8 pt-4">
                                 <pagination :meta="solicitudes.meta" />
                             </div>
@@ -285,20 +365,71 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
+import { ref, onMounted } from "vue";
 import Pagination from "@/Shared/Pagination";
 import Icon from "@/Shared/Icon";
-import {
-    ViewListIcon,
-    PencilIcon,
-    BanIcon,
-    BadgeCheckIcon,
-    PencilAltIcon,
-    DocumentDownloadIcon,
-} from "@heroicons/vue/outline";
+import { PencilAltIcon, DocumentDownloadIcon } from "@heroicons/vue/outline";
 import ModalUpdateSolicitud from "@/modules/Dialog/Components/ModalUpdateSolicitud";
 import AlertToast from "@/modules/Dialog/Components/AlertToast";
+import { VueGoodTable } from "vue-good-table-next";
+// import the styles
+import "vue-good-table-next/dist/vue-good-table-next.css";
 
 const props = defineProps({
     solicitudes: Object,
 });
+const rows = ref([]);
+onMounted(() => {
+    props.solicitudes.data.solicitudes.forEach((element) => {
+        let solicitud = {
+            id: element.data.id,
+            user: element.data.user.data.attributes.name,
+            created_at: element.data.attributes.created,
+            cliente: element.data.cliente.data.attributes.full_name,
+            cliente_uuid: element.data.cliente.data.uuid,
+            // centro: element.data.centro.data.attributes.nombre,
+            tramite: element.data.tramite.data.attributes.nombre,
+            departamento:
+                element.data.tramite.data.departamento.data.attributes.nombre,
+            m_atencion: element.data.medio.data.attributes.nombre,
+            concluida: element.data.attributes.concluido,
+        };
+        rows.value.push(solicitud);
+    });
+});
+const columns = ref([
+    {
+        label: "Realizado",
+        field: "created_at",
+    },
+    {
+        label: "Atendió",
+        field: "user",
+    },
+    {
+        label: "Usuario",
+        field: "cliente",
+    },
+    {
+        label: "Departamento",
+        field: "departamento",
+    },
+    {
+        label: "Trámite",
+        field: "tramite",
+    },
+    {
+        label: "Medio de atención",
+        field: "m_atencion",
+    },
+    {
+        label: "Concluída",
+        field: "concluida",
+    },
+    {
+        label: "Acciones",
+        field: "acciones",
+        sortable: false,
+    },
+]);
 </script>

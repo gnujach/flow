@@ -63,154 +63,34 @@
                                         enabled: true,
                                         placeholder: 'Buscar en la tabla',
                                     }"
-                                />
+                                >
+                                    <template #table-row="props">
+                                        <jet-nav-link
+                                            v-if="
+                                                props.column.field == 'cliente'
+                                            "
+                                            :href="
+                                                route('admin.clientes/show', {
+                                                    cliente:
+                                                        props.row.cliente_uuid,
+                                                })
+                                            "
+                                            ><p
+                                                class="font-bold text-blue-500 hover:underline"
+                                            >
+                                                {{ props.row.cliente }}
+                                            </p>
+                                        </jet-nav-link>
+                                        <span v-else>
+                                            {{
+                                                props.formattedRow[
+                                                    props.column.field
+                                                ]
+                                            }}
+                                        </span>
+                                    </template>
+                                </vue-good-table>
                             </div>
-                            <div
-                                class="overflow-auto rounded-lg shadow md:block"
-                            >
-                                <!--
-                                <table class="w-full table-fixed">
-                                    <thead
-                                        class="bg-gray-50 border-b-2 border-gray-200"
-                                    >
-                                        <tr
-                                            class="p-3 text-sm font-semibold tracking-wide text-left"
-                                        >
-                                            <th
-                                                class="p-3 text-sm font-semibold tracking-wide text-left w-32"
-                                            >
-                                                Usuario
-                                            </th>
-                                            <th
-                                                class="w-32 p-3 text-sm font-semibold tracking-wide text-center w-12"
-                                            >
-                                                <div
-                                                    class="content-center items-center"
-                                                >
-                                                    <icon
-                                                        name="sun"
-                                                        class="w-8 h-8 mr-2 text-indigo-900"
-                                                    />
-                                                    Centro de Atención
-                                                </div>
-                                            </th>
-                                            <th
-                                                class="p-3 text-sm font-semibold tracking-wide text-center w-32"
-                                            >
-                                                Trámite
-                                            </th>
-                                            <th
-                                                class="p-3 text-sm font-semibold tracking-wide text-center w-20"
-                                            >
-                                                Medio de Atención
-                                            </th>
-                                            <th
-                                                class="p-3 text-sm font-semibold tracking-wide text-center w-12"
-                                            >
-                                                Concluida
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-gray-100">
-                                        <tr
-                                            v-for="solicitud in solicitudes.data
-                                                .solicitudes"
-                                            :key="solicitud.data.id"
-                                            class="hover:bg-gray-100 focus-within:bg-gray-100"
-                                            :class="[
-                                                solicitud.data.attributes
-                                                    .concluido == 0
-                                                    ? 'text-gray-400'
-                                                    : '',
-                                            ]"
-                                        >
-                                            <td
-                                                class="p-3 text-sm text-gray-700"
-                                            >
-                                                <p
-                                                    class="font-bold text-blue-500 hover:underline"
-                                                >
-                                                    {{
-                                                        `${
-                                                            solicitud.data
-                                                                .cliente.data
-                                                                .attributes
-                                                                .nombre
-                                                        } ${
-                                                            solicitud.data
-                                                                .cliente.data
-                                                                .attributes
-                                                                .apellido1
-                                                        } ${
-                                                            solicitud.data
-                                                                .cliente.data
-                                                                .attributes
-                                                                .apellido2 ==
-                                                            "NULL"
-                                                                ? ""
-                                                                : solicitud.data
-                                                                      .cliente
-                                                                      .data
-                                                                      .attributes
-                                                                      .apellido2
-                                                        }`
-                                                    }}
-                                                </p>
-                                            </td>
-                                            <td
-                                                class="p-3 text-sm text-gray-700"
-                                            >
-                                                <p
-                                                    class="pl-4 font-bold uppercase whitespace-pre-line"
-                                                >
-                                                    {{
-                                                        `${solicitud.data.centro.data.attributes.nombre}`
-                                                    }}
-                                                </p>
-                                            </td>
-                                            <td
-                                                class="p-3 text-sm text-gray-700"
-                                            >
-                                                <p
-                                                    class="pl-4 font-bold uppercase whitespace-pre-line"
-                                                >
-                                                    {{
-                                                        `${solicitud.data.tramite.data.attributes.nombre}`
-                                                    }}
-                                                </p>
-                                            </td>
-                                            <td
-                                                class="p-3 text-sm text-gray-700 whitespace-nowrap"
-                                            >
-                                                <span
-                                                    class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50"
-                                                >
-                                                    {{
-                                                        solicitud.data.medio
-                                                            .data.attributes
-                                                            .nombre
-                                                    }}
-                                                </span>
-                                            </td>
-                                            <td
-                                                class="p-3 text-sm text-gray-700 whitespace-nowrap text-center"
-                                            >
-                                                <p
-                                                    class="pl-4 font-bold uppercase"
-                                                >
-                                                    {{
-                                                        solicitud.data
-                                                            .attributes
-                                                            .concluido == 1
-                                                            ? "SI"
-                                                            : "No"
-                                                    }}
-                                                </p>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            --></div>
                             <div class="max-w-3xl mx-auto sm:px-6 lg:px-8 pt-4">
                                 <pagination :meta="solicitudes.meta" />
                             </div>
@@ -241,14 +121,11 @@ const obj = {
     rank: "Captain",
 };
 onMounted(() => {
-    Object.entries(obj).forEach((entry) => {
-        const [key, value] = entry;
-        console.log(key, value);
-    });
     props.solicitudes.data.solicitudes.forEach((element) => {
         let solicitud = {
             id: element.data.id,
             cliente: element.data.cliente.data.attributes.full_name,
+            cliente_uuid: element.data.cliente.data.uuid,
             centro: element.data.centro.data.attributes.nombre,
             tramite: element.data.tramite.data.attributes.nombre,
             m_atencion: element.data.medio.data.attributes.nombre,

@@ -32,6 +32,10 @@ class Solicitud extends Model
         });
     }
 
+    protected $casts = [
+        'concluido' => 'boolean',
+    ];
+
     /**
      * Una solicitud puede tener muchas historysolicitud
      */
