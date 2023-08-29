@@ -45,6 +45,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/solicitudes', [SolicitudC
 Route::middleware(['auth:sanctum', 'verified'])->post('/solicitudes/store', [SolicitudController::class, 'store'])->name('solicitudes/store');
 Route::get('/request', [SolicitudController::class, 'recaptcha'])->name('request');
 Route::middleware(['auth:sanctum', 'verified'])->get('solicitudes/list', [SolicitudController::class, 'index'])->name('solicitudes.list');
+Route::middleware(['auth:sanctum', 'verified'])->get('solicitudes/listpendientes', [SolicitudController::class, 'listarPendientes'])->name('solicitudes.listpendientes');
 Route::middleware(['auth:sanctum', 'verified'])->get('solicitudes/{solicitud:id}/edit', [SolicitudController::class, 'edit'])->name('solicitudes.edit');
 Route::middleware(['auth:sanctum', 'verified'])->put('/solicitudes/{solicitud:id}/update', [SolicitudController::class, 'update'])->name('solicitudes/update');
 Route::middleware(['auth:sanctum', 'verified'])->get('solicitudes/export/', [SolicitudController::class, 'export'])->name('solicitudes.export');

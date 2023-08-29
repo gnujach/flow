@@ -12,18 +12,20 @@ class UserService
 {
     public function updateUser(Request $request, User $user)
     {
-        // $request->centro_id = 1;
-        // $request->departamento_id = 1;
-        // $request->puesto_id = 1;
-        // dd($request);
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'activo' => $request->activo,
-            // 'centro_id' => $request->centro_id,
-            // 'departamento_id' => $request->departamento_id,User
-            // 'puesto_id' => $request->puesto_id,
-        ]);
+        if (!empty($request->password))
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'activo' => $request->activo,
+                'password' => Hash::make($request->password),
+            ]);
+        else {
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'activo' => $request->activo,
+            ]);
+        }
     }
 
     public function updateUserTrabajo(Request $request, User $user)

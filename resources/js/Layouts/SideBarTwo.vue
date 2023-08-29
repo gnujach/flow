@@ -128,7 +128,7 @@ const navItems = [
             {
                 href: "/admin/clientes",
                 active: false,
-                label: "Administración de Usuarios",
+                label: "Administración de Clientes",
                 children: [],
                 icon: HeartIcon,
             },

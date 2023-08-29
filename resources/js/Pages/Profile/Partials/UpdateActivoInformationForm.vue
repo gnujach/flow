@@ -29,6 +29,17 @@
                 />
                 <jet-input-error :message="form.errors.email" class="mt-2" />
             </div>
+            <!-- Password -->
+            <div class="col-span-6 sm:col-span-4">
+                <jet-label for="password" value="Nuevo Password" />
+                <jet-input
+                    id="password"
+                    type="password"
+                    class="mt-1 block w-full"
+                    v-model="form.password"
+                />
+                <jet-input-error :message="form.errors.password" class="mt-2" />
+            </div>
             <!-- Activo -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="Activo" value="Activo" />
@@ -92,6 +103,7 @@ export default {
         const form = useForm({
             name: props.user.data.attributes.name,
             email: props.user.data.attributes.email,
+            password: null,
             activo: Boolean(props.user.data.attributes.activo),
         });
         function updateProfileInformation() {

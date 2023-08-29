@@ -84,6 +84,26 @@
                 </div>
             </div>
             <div
+                v-if="$page.props.auth.roles.includes('capturista')"
+                class="flex flex-col justify-between p-5 border rounded shadow-sm"
+            >
+                <div>
+                    <div
+                        class="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50"
+                    >
+                        <NewspaperIcon class="w-10 h-10" />
+                    </div>
+                    <h6 class="mb-2 font-semibold leading-5">
+                        Solicitudes pendientes de concluir
+                    </h6>
+                    <jet-nav-link :href="route('solicitudes.listpendientes')">
+                        <p class="mb-3 text-sm text-gray-900">
+                            Solicitudes pendientes de finalizar
+                        </p>
+                    </jet-nav-link>
+                </div>
+            </div>
+            <div
                 class="flex flex-col justify-between p-5 border rounded shadow-sm"
                 v-if="$page.props.auth.roles.includes('Admin')"
             >

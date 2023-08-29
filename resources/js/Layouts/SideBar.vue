@@ -143,7 +143,7 @@ export default defineComponent({
                 },
                 {
                     url: "/admin/clientes",
-                    label: "Administración de Usuario",
+                    label: "Administración de Clientes",
                     icon: HeartIcon,
                 },
                 {

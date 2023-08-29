@@ -36,6 +36,16 @@ class SolicitudController extends Controller
                 ->paginate(config('openlink.perpage'))),
         ]);
     }
+    public function listarPendientes()
+    {
+        $this->authorize('create', Solicitud::class);
+        return Inertia::render('Solicitudes/ListSolicitudes', [
+            'solicitudes' => new SolicitudCollection(Solicitud::where('by', Auth::user()->id)->where('concluido', false)
+                ->OrderBy('id', 'desc')
+                ->with(['cliente', 'medio', 'tramite', 'tramite.departamento:id,nombre', 'user:id,name'])
+                ->paginate(config('openlink.perpage'))),
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *
