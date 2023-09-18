@@ -20,13 +20,14 @@ class SolicitudsExport implements FromQuery, WithMapping, WithHeadings
             $solicitud->tramite->nombre,
             $solicitud->user->name,
             $solicitud->concluido == 1 ? 'Si' : 'No',
+            $solicitud->tramite->departamento->nombre,
             $solicitud->created_at,
         ];
     }
 
     public function query()
     {
-//        return Solicitud->whereYear('created_at', date('Y'));
+        //        return Solicitud->whereYear('created_at', date('Y'));
         return Solicitud::query()->whereYear('created_at', date('Y'))
             ->orderBy('solicituds.id', 'desc');
     }
@@ -39,6 +40,7 @@ class SolicitudsExport implements FromQuery, WithMapping, WithHeadings
             'Tramite',
             'Atendió',
             'Concluido',
+            'Departamento',
             'fecha de inicio'
         ];
     }
