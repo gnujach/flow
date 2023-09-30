@@ -121,13 +121,31 @@ class SolicitudController extends Controller
                 );
             }
             DB::commit();
-            // if ($solicitud->concluido) {
-            //     $solicitud->load('cliente');
-            //     $email = env('SEG_MAIL');
-            //     // $maildata = ['email' => trim($solicitud->cliente->email), 'nombre_cliente' => $solicitud->cliente->full_name, 'url_encuesta' => 'https://encuestas.strc.guanajuato.gob.mx/#/enc/dac2b5bd-4b20-ff88-14bb-b2063669210c/bdec9998-2189-de78-4ee6-adb113a83ced'];
-            //     $maildata = ['email' => trim($email), 'nombre_cliente' => $solicitud->cliente->full_name, 'url_encuesta' => 'https://encuestas.strc.guanajuato.gob.mx/#/enc/dac2b5bd-4b20-ff88-14bb-b2063669210c/bdec9998-2189-de78-4ee6-adb113a83ced'];
-            //     dispatch(new SendEmailJob($maildata));
-            // }
+            if ($solicitud->concluido && !empty($solicitud->cliente->email)) {
+                $solicitud->load('cliente');
+                $email = env('SEG_MAIL');
+                $maildata = [
+                    'email' => trim($email),
+                    'nombre_cliente' => $solicitud->cliente->full_name,
+                    'url' => 'https://encuestas.strc.guanajuato.gob.mx/#/enc/dac2b5bd-4b20-ff88-14bb-b2063669210c/bdec9998-2189-de78-4ee6-adb113a83ced',
+                    'folio' => $solicitud->id,
+                    'concluido' => 'A',
+                    'correo' =>  trim($solicitud->cliente->email),
+                ];
+                dispatch(new SendEmailJob($maildata));
+            } else if (!empty($solicitud->cliente->email)) {
+                $solicitud->load('cliente');
+                $email = env('SEG_MAIL');
+                $maildata = [
+                    'email' => trim($email),
+                    'nombre_cliente' => $solicitud->cliente->full_name,
+                    'url' => 'https://flow.open-link.net/request',
+                    'folio' => $solicitud->id,
+                    'concluido' => 'B',
+                    'correo' =>  trim($solicitud->cliente->email),
+                ];
+                dispatch(new SendEmailJob($maildata));
+            }
             return Redirect::route('solicitudes.list')->banner('Solicitud Guardada.');
         } catch (\Exception $e) {
             DB::rollback();

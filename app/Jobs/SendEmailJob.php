@@ -10,6 +10,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class SendEmailJob implements ShouldQueue
 {
@@ -37,8 +39,19 @@ class SendEmailJob implements ShouldQueue
             'url' => 'https://flow.open-link.net',
             'body' => 'Go!!',
             'nombre_cliente' => $this->details['nombre_cliente'],
-            'url_encuesta' => $this->details['url_encuesta'],
+            'url' => $this->details['url'],
+            'folio' => $this->details['folio'],
+            'concluido' => $this->details['concluido'],
+            'correo' => $this->details['correo'],
         ];
+        // Log::emergency($maildata);
+        // dd($maildata);
+
         Mail::to($this->details['email'])->send(new OrdenEmail($maildata));
+    }
+
+    public function failed(Throwable $exception): void
+    {
+        Log::emergency($exception);
     }
 }

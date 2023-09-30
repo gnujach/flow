@@ -121,7 +121,15 @@ return [
         'theme' => 'default',
 
         'paths' => [
-            resource_path('views/vendor/mail'),
+            resource_path('views/vendor/mails'),
+        ],
+    ],
+
+    'text' => [
+        'theme' => 'default',
+
+        'paths' => [
+            resource_path('views/mails'),
         ],
     ],
 

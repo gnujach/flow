@@ -561,7 +561,7 @@ __webpack_require__.r(__webpack_exports__);
         label: "Inicio",
         url: route("dashboard.list")
       }, {
-        label: "Usuarios"
+        label: "Clientes"
       }];
     });
 
@@ -867,7 +867,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
 
     var selectUser = function selectUser(item) {
-      console.log(item.uuid);
+      // console.log(item.uuid);
+      closeModal();
       _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia.get("clientes/" + item.uuid + "/show");
     };
 
@@ -885,7 +886,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       selectedIndex: selectedIndex,
       closeModal: closeModal,
       keyboardShortcut: keyboardShortcut,
-      onSubmit: onSubmit
+      onSubmit: onSubmit,
+      selectUser: selectUser
     });
   }
 });
@@ -1369,7 +1371,7 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 
 var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "self-center text-lg font-semibold whitespace-nowrap dark:text-white hidden md:block"
-}, "Flujo de Trabajo", -1
+}, "Flujo de Servicio", -1
 /* HOISTED */
 );
 
@@ -1859,10 +1861,23 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         /* TEXT */
         )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_43, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(cliente.data.attributes.email), 1
         /* TEXT */
-        )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ViewListIcon"], {
-          "class": "w-5 h-5 ml-3 pointer-events-none"
-        }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["JetNavLink"], {
-          href: _ctx.route('admin.clientes/', {
+        )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["JetNavLink"], {
+          href: _ctx.route('admin.clientes/show', {
+            cliente: cliente.data.uuid
+          })
+        }, {
+          "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+            return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ViewListIcon"], {
+              "class": "w-5 h-5 ml-3 pointer-events-none"
+            })];
+          }),
+          _: 2
+          /* DYNAMIC */
+
+        }, 1032
+        /* PROPS, DYNAMIC_SLOTS */
+        , ["href"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["JetNavLink"], {
+          href: _ctx.route('admin.clientes/edit', {
             cliente: cliente.data.uuid
           })
         }, {
@@ -2249,7 +2264,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     return $setup.selectedIndex = index;
                   },
                   onClick: function onClick($event) {
-                    return _ctx.selectUsuario(item);
+                    return $setup.selectUser(item);
                   }
                 }, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.nombre) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.apellido1) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.apellido2 == "NULL" ? "" : item.apellido2), 1
                 /* TEXT */

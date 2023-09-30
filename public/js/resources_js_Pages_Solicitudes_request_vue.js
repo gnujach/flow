@@ -245,7 +245,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 _context.next = 4;
-                return executeRecaptcha('login');
+                return executeRecaptcha("login");
 
               case 4:
                 form.captcha_token = _context.sent;
@@ -266,10 +266,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }();
 
     function submit() {
-      form.get(route('admin.clientes/create'), {
+      form.post(route("requests/login"), {
         preserveScroll: true,
         onSuccess: function onSuccess() {
-          return console.log('success');
+          return console.log("success");
         }
       });
     }
@@ -596,7 +596,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         value: "Correo Electrónico"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["JetInput"], {
         id: "password",
-        type: "text",
+        type: "email",
         "class": "mt-1 block w-full",
         modelValue: $setup.form.email,
         "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
@@ -608,7 +608,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       /* PROPS */
       , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["JetLabel"], {
         "for": "email",
-        value: "Número de Folio"
+        value: "Número de Folio",
+        "class": "pt-2"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["JetInput"], {
         id: "email",
         type: "text",

@@ -58,6 +58,18 @@ class ClienteController extends Controller
     }
 
     /**
+     * Edit a client
+     */
+    public function edit(Cliente $cliente)
+    {
+        return Inertia::render(
+            'Clientes/EditCliente',
+            [
+                'cliente' => new ClienteResource($cliente),
+            ]
+        );
+    }
+    /**
      * get the last cliente saved.
      *
      * @return \Illuminate\Http\Response
@@ -130,7 +142,7 @@ class ClienteController extends Controller
     {
         $this->authorize('updatebyUser', Cliente::class);
         $puesto = $clienteService->updateCliente($request, $cliente);
-        return Redirect::route('admin.puestos/');
+        return Redirect::route('admin.clientes/');
     }
 
     /**

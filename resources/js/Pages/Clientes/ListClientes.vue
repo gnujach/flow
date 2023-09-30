@@ -168,13 +168,26 @@
                                             <div
                                                 class="flex flex-row items-center text-gray-400 focus-within:text-gray-600"
                                             >
-                                                <ViewListIcon
-                                                    class="w-5 h-5 ml-3 pointer-events-none"
-                                                />
                                                 <jet-nav-link
                                                     :href="
                                                         route(
-                                                            'admin.clientes/',
+                                                            'admin.clientes/show',
+                                                            {
+                                                                cliente:
+                                                                    cliente.data
+                                                                        .uuid,
+                                                            }
+                                                        )
+                                                    "
+                                                >
+                                                    <ViewListIcon
+                                                        class="w-5 h-5 ml-3 pointer-events-none"
+                                                    />
+                                                </jet-nav-link>
+                                                <jet-nav-link
+                                                    :href="
+                                                        route(
+                                                            'admin.clientes/edit',
                                                             {
                                                                 cliente:
                                                                     cliente.data
@@ -236,7 +249,7 @@ const breadcrumbs = computed(() => {
             url: route("dashboard.list"),
         },
         {
-            label: "Usuarios",
+            label: "Clientes",
         },
     ];
 });

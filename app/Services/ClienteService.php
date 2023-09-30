@@ -32,6 +32,11 @@ class ClienteService
     {
         $cliente->update([
             'nombre' => $request->nombre,
+            'apellido1' => strtoupper($request->input('apellido1')),
+            'apellido2' => strtoupper($request->input('apellido2')),
+            'interno' => strtoupper($request->input('interno')),
+            'email' => $request->input('email'),
+            'telefono' => $request->input('telefono'),
         ]);
         return $cliente;
     }

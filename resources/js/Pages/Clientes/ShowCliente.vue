@@ -34,6 +34,22 @@
                                                 class="text-white text-3xl text-center font-bold"
                                                 >Datos Personales</span
                                             >
+                                            <jet-nav-link
+                                                :href="
+                                                    route(
+                                                        'admin.clientes/edit',
+                                                        {
+                                                            cliente:
+                                                                cliente.data
+                                                                    .uuid,
+                                                        }
+                                                    )
+                                                "
+                                            >
+                                                <PencilIcon
+                                                    class="w-6 h-6 ml-3 pointer-events-none text-white"
+                                                />
+                                            </jet-nav-link>
                                         </div>
                                         <div class="w-full flex">
                                             <div class="w-1/3">
@@ -125,7 +141,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-row bg-white w-1/2">
+                                <div
+                                    class="flex flex-row bg-white w-1/2"
+                                    v-if="
+                                        cliente.data.solicitudes.solicitudes
+                                            .length > 0
+                                    "
+                                >
                                     <div
                                         class="border border-1 border-blue-400 rounded w-full"
                                     >
@@ -231,6 +253,10 @@
                             </div>
                             <div
                                 class="grid grid-cols-4 grid-flow-row mt-8 rounded"
+                                v-if="
+                                    cliente.data.solicitudes.solicitudes
+                                        .length > 0
+                                "
                             >
                                 <div
                                     class="flex flex-row col-span-4 bg-gray-100 rounded"
@@ -282,8 +308,6 @@
 import { computed, ref } from "vue";
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
-import Pagination from "@/Shared/Pagination";
-import Icon from "@/Shared/Icon";
 import {
     CollectionIcon,
     ClipboardIcon,
@@ -293,6 +317,7 @@ import {
     ClipboardCopyIcon,
     CalendarIcon,
     UserCircleIcon,
+    PencilIcon,
 } from "@heroicons/vue/outline";
 import { toRefs, defineProps } from "vue";
 import ModalShowOrderNotes from "@/modules/Dialog/Components/ModalShowOrderNotes";
@@ -305,7 +330,11 @@ const breadcrumbs = computed(() => {
             url: route("dashboard.list"),
         },
         {
-            label: "Usuarios",
+            label: "Clientes",
+            url: route("admin.clientes/"),
+        },
+        {
+            label: "Ver",
         },
     ];
 });

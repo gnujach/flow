@@ -30,13 +30,21 @@ class OrdenEmail extends Mailable
      */
     public function build()
     {
-        $address = 'openlinkmx@gmail.com';
-        $subject = 'Trabajamos para su servicio!';
-        $name = 'This is perfect';
+        $address = 'segusaeslp@gmail.com';
+        $subject = $this->maildata['nombre_cliente'];
+        $subjectData = $this->maildata['nombre_cliente'] . '#' . $this->maildata['concluido'];
+        $name = 'USAE San Luis de la Paz';
+        $correo = $this->maildata['correo'];
 
         return $this->markdown('mails.order')
-            ->from($address, $name)
+            // ->from($address, $name)
+            ->from($address)
             ->subject($subject)
             ->with('maildata', $this->maildata);
+
+        // return $this->text('mails.order')
+        //     ->from($address)
+        //     ->subject($subjectData)
+        //     ->with('maildata', $this->maildata);
     }
 }

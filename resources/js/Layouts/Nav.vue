@@ -20,9 +20,7 @@
                         v-else
                     />
                 </button>
-                <jet-nav-link
-                    :href="route('dashboard.list')"
-                >
+                <jet-nav-link :href="route('dashboard.list')">
                     <svg
                         class="mr-3 h-10"
                         viewBox="0 0 52 72"
@@ -44,7 +42,7 @@
                     </svg>
                     <span
                         class="self-center text-lg font-semibold whitespace-nowrap dark:text-white hidden md:block"
-                    >Flujo de Trabajo</span
+                        >Flujo de Servicio</span
                     >
                 </jet-nav-link>
             </div>
@@ -52,9 +50,9 @@
                 <SearchCircleIcon
                     class="md:hidden h-6 w-6 text-gray-500 mx-2"
                 />
-                <ClipboardIcon class="h-6 w-6 text-gray-500 mx-2"/>
-                <BellIcon class="h-6 w-6 text-gray-500 mx-2"/>
-                <MoonIcon class="h-6 w-6 text-gray-500 mx-2"/>
+                <ClipboardIcon class="h-6 w-6 text-gray-500 mx-2" />
+                <BellIcon class="h-6 w-6 text-gray-500 mx-2" />
+                <MoonIcon class="h-6 w-6 text-gray-500 mx-2" />
                 <!-- Dropdown menu -->
                 <div class="ml-3 relative">
                     <jet-dropdown align="right" width="48">
@@ -129,14 +127,14 @@
 </template>
 
 <script>
-import {defineComponent, computed} from "vue";
-import {useStore} from "vuex";
+import { defineComponent, computed } from "vue";
+import { useStore } from "vuex";
 import JetNavLink from "@/Jetstream/NavLink";
 import JetResponsiveNavLink from "@/Jetstream/ResponsiveNavLink";
 import JetDropdown from "@/Jetstream/Dropdown";
 import JetDropdownLink from "@/Jetstream/DropdownLink";
 import Icon from "../Shared/Icon.vue";
-import {Inertia} from "@inertiajs/inertia";
+import { Inertia } from "@inertiajs/inertia";
 import {
     BellIcon,
     ClipboardIcon,
@@ -171,10 +169,9 @@ export default defineComponent({
                 Inertia.post("/logout");
             },
             btnClick: () => {
-                console.log("pressed btn")
-                store.commit("todoStore/toggleNavBar")
-            }
-
+                console.log("pressed btn");
+                store.commit("todoStore/toggleNavBar");
+            },
         };
     },
 });

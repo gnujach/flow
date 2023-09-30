@@ -110,7 +110,7 @@
                                     "
                                     @mousemove="selectedIndex = index"
                                     class="flex items-center px-4 py-2.5 relative"
-                                    @click="selectUsuario(item)"
+                                    @click="selectUser(item)"
                                 >
                                     <span class="absolute inset-0"></span>
                                     <div class="ml-3">
@@ -252,7 +252,8 @@ export default {
         };
 
         const selectUser = (item) => {
-            console.log(item.uuid);
+            // console.log(item.uuid);
+            closeModal();
             Inertia.get("clientes/" + item.uuid + "/show");
         };
         onUnmounted(() => window.removeEventListener("keydown", onKeyDown));
@@ -274,6 +275,7 @@ export default {
             closeModal,
             keyboardShortcut,
             onSubmit,
+            selectUser,
         };
     },
 };

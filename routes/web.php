@@ -18,6 +18,7 @@ use App\Http\Controllers\PuestoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\CentroController;
+use App\Http\Controllers\RequestController;
 use App\Http\Controllers\RequisitoController;
 use Inertia\Inertia;
 
@@ -44,6 +45,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/tasks', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/solicitudes', [SolicitudController::class, 'create'])->name('solicitudes');
 Route::middleware(['auth:sanctum', 'verified'])->post('/solicitudes/store', [SolicitudController::class, 'store'])->name('solicitudes/store');
 Route::get('/request', [SolicitudController::class, 'recaptcha'])->name('request');
+Route::post('/request/login', [RequestController::class, 'login'])->name('requests/login');
 Route::middleware(['auth:sanctum', 'verified'])->get('solicitudes/list', [SolicitudController::class, 'index'])->name('solicitudes.list');
 Route::middleware(['auth:sanctum', 'verified'])->get('solicitudes/listpendientes', [SolicitudController::class, 'listarPendientes'])->name('solicitudes.listpendientes');
 Route::middleware(['auth:sanctum', 'verified'])->get('solicitudes/{solicitud:id}/edit', [SolicitudController::class, 'edit'])->name('solicitudes.edit');
@@ -110,6 +112,7 @@ Route::middleware('auth:sanctum')->name('admin.')->prefix('admin')->group(functi
     Route::put('/clientes/{cliente:uuid}/update', [Clientecontroller::class, 'update'])->name('clientes/update');
     Route::put('/clientes/{cliente:uuid}/updatephone', [Clientecontroller::class, 'updateTel'])->name('clientes/updatephone');
     Route::get('/clientes/{cliente:uuid}/show', [Clientecontroller::class, 'show'])->name('clientes/show');
+    Route::get('/clientes/{cliente:uuid}/edit', [Clientecontroller::class, 'edit'])->name('clientes/edit');
     //    Route::get('/clientes/updatetel', [ClienteController::class, 'editTel'])->name('clientes/updatetel');
     //Administrar Centros de Trabajo
     Route::get('/centros/', [CentroController::class, 'index'])->name('centros/');
