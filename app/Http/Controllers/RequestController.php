@@ -21,6 +21,14 @@ class RequestController extends Controller
 
     public function login(Request $request)
     {
-        return Inertia::render('Requests/Acceso');
+        $email = $request->email;
+        $folio = substr($request->folio, 5);
+        $solicitud = Solicitud::where('id', $folio)
+            ->whereHas('cliente', function ($query) use ($email) {
+                $query->where('email', $email);
+            })->firstOrFail();
+        return Inertia::render('Requests/Acceso', [
+            'solicitud' => $solicitud
+        ]);
     }
 }

@@ -592,10 +592,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
         onSubmit: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.recaptcha, ["prevent"])
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["JetLabel"], {
-        "for": "password",
+        "for": "email",
         value: "Correo Electrónico"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["JetInput"], {
-        id: "password",
+        id: "email",
         type: "email",
         "class": "mt-1 block w-full",
         modelValue: $setup.form.email,
@@ -611,14 +611,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         value: "Número de Folio",
         "class": "pt-2"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["JetInput"], {
-        id: "email",
         type: "text",
         "class": "mt-1 block w-full",
         modelValue: $setup.form.folio,
         "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
           return $setup.form.folio = $event;
         }),
-        required: ""
+        required: "",
+        minlength: "7",
+        maxlength: "12",
+        pattern: "[Dd][Rr][Ii][Ii]-\\d{2,4}"
       }, null, 8
       /* PROPS */
       , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["JetInputError"], {

@@ -10,9 +10,9 @@
 
         <form @submit.prevent="recaptcha">
             <div class="mt-4">
-                <jet-label for="password" value="Correo Electrónico" />
+                <jet-label for="email" value="Correo Electrónico" />
                 <jet-input
-                    id="password"
+                    id="email"
                     type="email"
                     class="mt-1 block w-full"
                     v-model="form.email"
@@ -23,11 +23,13 @@
             <div>
                 <jet-label for="email" value="Número de Folio" class="pt-2" />
                 <jet-input
-                    id="email"
                     type="text"
                     class="mt-1 block w-full"
                     v-model="form.folio"
                     required
+                    minlength="7"
+                    maxlength="12"
+                    pattern="[Dd][Rr][Ii][Ii]-\d{2,4}"
                 />
             </div>
             <jet-input-error
