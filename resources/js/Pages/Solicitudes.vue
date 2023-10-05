@@ -277,7 +277,7 @@
                                         </div>
                                     </div>
                                     <div
-                                        class="mx-4 px-4 bg-gradient-to-r from-blue-500 overflow-y-auto max-h-96"
+                                        class="mx-4 px-4 bg-gradient-to-r from-blue-500 overflow-y-auto max-h-96 overflow-x-auto"
                                     >
                                         <RadioGroup v-model="selected">
                                             <RadioGroupLabel class="sr-only"

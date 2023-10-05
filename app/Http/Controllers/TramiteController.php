@@ -25,7 +25,7 @@ class TramiteController extends Controller
     {
         $this->authorize('viewAny', Tramite::class);
         return Inertia::render('Tramites/ListTramites', [
-            'tramites' => new TramiteCollection(Tramite::OrderBy('id', 'desc')->paginate(config('openlink.perpage'))),
+            'tramites' => new TramiteCollection(Tramite::OrderBy('id', 'desc')->with('departamento')->paginate(config('openlink.perpage'))),
         ]);
     }
 

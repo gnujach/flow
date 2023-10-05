@@ -2788,7 +2788,7 @@ var _hoisted_40 = {
   "class": "relative flex items-center text-gray-400 focus-within:text-gray-600"
 };
 var _hoisted_41 = {
-  "class": "mx-4 px-4 bg-gradient-to-r from-blue-500 overflow-y-auto max-h-96"
+  "class": "mx-4 px-4 bg-gradient-to-r from-blue-500 overflow-y-auto max-h-96 overflow-x-auto"
 };
 
 var _hoisted_42 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Trámite ");

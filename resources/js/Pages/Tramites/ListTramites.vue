@@ -106,8 +106,8 @@
                                         <td class="border-t">
                                             <p class="pl-4 font-bold uppercase">
                                                 {{
-                                                    tramite.data.attributes
-                                                        .modalidad
+                                                    tramite.data.departamento
+                                                        .data.attributes.nombre
                                                 }}
                                             </p>
                                         </td>
