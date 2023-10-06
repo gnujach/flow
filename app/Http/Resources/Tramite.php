@@ -26,7 +26,10 @@ class Tramite extends JsonResource
                 'attributes' => [
                     'nombre' => strtolower($this->nombre),
                     'objetivo' => $this->objetivo,
+                    'departamento_id' => $this->departamento_id,
                     'fundamento_jur' => $this->fundamento_jur,
+                    'tipo' => $this->tipo,
+                    'ser_recibido' => $this->ser_recibido,
                     'casos' => $this->casos,
                     'modalidad' => $this->modalidad,
                     'plazo_respuesta' => $this->plazo_respuesta,

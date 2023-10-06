@@ -12,7 +12,7 @@ class RequestUpdateTramite extends FormRequest
      *
      * @return bool
      */
-   
+
 
     /**
      * Get the validation rules that apply to the request.
@@ -22,9 +22,9 @@ class RequestUpdateTramite extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => ['required', 'min:4', 'max:120', Rule::unique('tramites')],
-            'objetivo' => ['required', 'min:4', 'max:120', Rule::unique('tramites')],
-            'plazo_respuesta' => ['required', 'min:1', 'max:1'],
+            'nombre' => ['required', 'min:4', 'max:120', Rule::unique('tramites')->ignoreModel($this->tramite)],
+            'objetivo' => ['required', 'min:4', 'max:120', Rule::unique('tramites')->ignoreModel($this->tramite)],
+            'plazo_respuesta' => ['required', 'min:1', 'max:3'],
             'departamento_id' => ['required', 'exists:departamentos,id'],
             'url_proceso' => ['nullable', 'url'],
             'activo' => ['nullable', 'boolean'],

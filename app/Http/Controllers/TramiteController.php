@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RequestUpdateTramite;
 use App\Http\Requests\TramitePostRequest;
 use App\Http\Resources\TramiteCollection;
-use App\Http\Resources\Tramite as TramiteResouce;
+use App\Http\Resources\Tramite as TramiteResource;
 use App\Models\Tareatramite;
 use App\Models\Tramite;
 use App\Services\TramiteService;
@@ -116,7 +116,7 @@ class TramiteController extends Controller
         return Inertia::render(
             'Tramites/ShowTramite',
             [
-                'tramite' => new TramiteResouce($tramite),
+                'tramite' => new TramiteResource($tramite),
             ]
         );
     }
@@ -129,7 +129,14 @@ class TramiteController extends Controller
      */
     public function edit(Tramite $tramite)
     {
-        //
+        $this->authorize('create', Tramite::class);
+        return Inertia::render(
+            'Tramites/EditTramite',
+            [
+                'tramite' => new TramiteResource($tramite),
+                'departamentos' => DB::table('departamentos')->where('id', '>', 1)->where('activo', true)->select('id', 'nombre')->get(),
+            ]
+        );
     }
 
     /**
@@ -143,7 +150,7 @@ class TramiteController extends Controller
     {
         $this->authorize('updateRequest', Tramite::class);
         $tramiteService->updateTramite($request, $tramite);
-        return Redirect::route('admin.tramites/');
+        return Redirect::route('admin.tramites');
     }
 
     /**

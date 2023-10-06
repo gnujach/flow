@@ -14,7 +14,7 @@ class TramiteService
             'nombre' => strtoupper($request->input('nombre')),
             'objetivo' => strtoupper($request->objetivo),
             'fundamento_jur' => strtoupper($request->fundamento_jur),
-            'casos' => strtoupper($request->casos),
+            // 'casos' => strtoupper($request->casos),
             'modalidad' => $request->modalidad,
             'plazo_respuesta' => $request->plazo_respuesta,
             'costo' => $request->costo,
@@ -26,10 +26,9 @@ class TramiteService
             'by' => Auth::id(),
         ]);
         if ($request->has('requisitos')) {
-//            dd('Llegamos aqui');
+            //            dd('Llegamos aqui');
             $tramite->requisitos()->sync($request['requisitos']);
         }
         return $tramite;
     }
-
 }
