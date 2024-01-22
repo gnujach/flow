@@ -255,8 +255,8 @@ const form = useForm({
 });
 
 const props = defineProps({
-    tramite: Object,
     departamentos: Object,
+    tramite: Object,
 });
 const departamentosList = ref(props.departamentos);
 const modalidad = [

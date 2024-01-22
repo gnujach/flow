@@ -127,7 +127,8 @@ class SolicitudController extends Controller
                 $maildata = [
                     'email' => trim($email),
                     'nombre_cliente' => $solicitud->cliente->full_name,
-                    'url' => 'https://encuestas.strc.guanajuato.gob.mx/#/enc/dac2b5bd-4b20-ff88-14bb-b2063669210c/bdec9998-2189-de78-4ee6-adb113a83ced',
+                    // 'url' => 'https://encuestas.strc.guanajuato.gob.mx/#/enc/dac2b5bd-4b20-ff88-14bb-b2063669210c/bdec9998-2189-de78-4ee6-adb113a83ced',
+                    'url' => 'https://forms.office.com/r/4JYzyCTnaY?origin=lprLink',
                     'folio' => $solicitud->id,
                     'concluido' => 'A',
                     'correo' =>  trim($solicitud->cliente->email),
