@@ -27,9 +27,9 @@ class SolicitudsExport implements FromQuery, WithMapping, WithHeadings
 
     public function query()
     {
-        //        return Solicitud->whereYear('created_at', date('Y'));
-        return Solicitud::query()->whereYear('created_at', date('Y'))
-            ->orderBy('solicituds.id', 'desc');
+        return Solicitud->whereYear('created_at', 2023);
+        // return Solicitud::query()->whereYear('created_at', date('Y'))
+        //     ->orderBy('solicituds.id', 'desc');
     }
 
     public function headings(): array
