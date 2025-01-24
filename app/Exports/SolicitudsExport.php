@@ -17,6 +17,8 @@ class SolicitudsExport implements FromQuery, WithMapping, WithHeadings
         return [
             $solicitud->id,
             $solicitud->cliente->full_name,
+            $solicitud->cliente->email,
+            $solicitud->cliente->telefono,
             $solicitud->tramite->nombre,
             $solicitud->user->name,
             $solicitud->concluido == 1 ? 'Si' : 'No',
@@ -37,6 +39,8 @@ class SolicitudsExport implements FromQuery, WithMapping, WithHeadings
         return [
             'id',
             'Ciudadano (a)',
+            'email',
+            'telefono',
             'Tramite',
             'Atendió',
             'Concluido',
