@@ -1,39 +1,23 @@
 <template>
     <div
-        class="relative flex bg-no-repeat bg-cover bg-fixed items-top justify-center z-0 min-h-screen bg-[url('/assets/img/pactosocial2.svg')] sm:items-center sm:pt-0"
-    >
-        <div
-            v-if="canLogin"
-            class="fixed top-0 right-0 px-6 py-4 sm:block z-40"
-        >
-            <jet-nav-link
-                v-if="$page.props.user"
-                href="/dashboard"
-                class="text-sm text-orange-500 underline"
-            >
+        class="relative flex bg-no-repeat bg-cover bg-fixed items-top justify-center z-0 min-h-screen bg-[url('/assets/img/decalogo1.jpeg')] sm:items-center sm:pt-0">
+        <div v-if="canLogin" class="fixed top-0 right-0 px-6 py-4 sm:block z-40">
+            <jet-nav-link v-if="$page.props.user" href="/dashboard" class="text-sm text-orange-500 underline">
                 Dashboard
             </jet-nav-link>
 
             <template v-else>
-                <jet-nav-link
-                    :href="route('login')"
-                    class="z-40 text-sm text-orange-500 underline"
-                >
+                <jet-nav-link :href="route('login')" class="z-40 text-sm text-orange-500 underline">
                     Login
                 </jet-nav-link>
             </template>
         </div>
 
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-            <Link
-                :href="route('login')"
-                class="underline text-sm text-gray-600 hover:text-gray-900"
-            >
-                <jet-button
-                    class="ml-4"
-                >
-                    Ingresar
-                </jet-button>
+            <Link :href="route('login')" class="underline text-sm text-gray-600 hover:text-gray-900">
+            <jet-button class="ml-4">
+                Ingresar
+            </jet-button>
             </Link>
 
         </div>
@@ -105,9 +89,9 @@
 </style>
 
 <script>
-import JetNavLink from "@/Jetstream/NavLink";
+import JetNavLink from "@/Jetstream/NavLink.vue";
 import JetButton from "@/Jetstream/Button.vue";
-import {Head, Link} from "@inertiajs/inertia-vue3";
+import { Link, Head } from '@inertiajs/vue3'
 
 export default {
     props: {

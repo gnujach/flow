@@ -1,5 +1,6 @@
 <template>
     <div>
+
         <Head :title="title" />
         <JetBanner />
         <div class="min-h-screen">
@@ -29,10 +30,10 @@ import JetDropdown from "@/Jetstream/Dropdown.vue";
 import JetDropdownLink from "@/Jetstream/DropdownLink.vue";
 import JetNavLink from "@/Jetstream/NavLink.vue";
 import JetResponsiveNavLink from "@/Jetstream/ResponsiveNavLink.vue";
-import { Head, Link } from "@inertiajs/inertia-vue3";
+import { Link, Head } from '@inertiajs/vue3'
 import Navbar from "./Nav.vue";
 import SideBarTwo from "./SideBarTwo.vue";
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3'
 
 export default defineComponent({
     props: {

@@ -1,0 +1,1 @@
+var r,e;function i(){return e||(e=1,r=new Proxy({},{get:(t,o)=>{if(o==="__esModule")return{};throw new Error(`You're trying to import \`@heroicons/vue/solid/${o}\` from Heroicons v1 but have installed Heroicons v2. Install \`@heroicons/vue@v1\` to resolve this error.`)}})),r}var n=i();export{n as s};

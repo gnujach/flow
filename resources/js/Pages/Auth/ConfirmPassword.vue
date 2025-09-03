@@ -1,4 +1,5 @@
 <template>
+
     <Head title="Secure Area" />
 
     <jet-authentication-card>
@@ -15,7 +16,8 @@
         <form @submit.prevent="submit">
             <div>
                 <jet-label for="password" value="Password" />
-                <jet-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="current-password" autofocus />
+                <jet-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" required
+                    autocomplete="current-password" autofocus />
             </div>
 
             <div class="flex justify-end mt-4">
@@ -28,40 +30,41 @@
 </template>
 
 <script>
-    import { defineComponent } from 'vue';
-    import { Head } from '@inertiajs/inertia-vue3';
-    import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue'
-    import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue'
-    import JetButton from '@/Jetstream/Button.vue'
-    import JetInput from '@/Jetstream/Input.vue'
-    import JetLabel from '@/Jetstream/Label.vue'
-    import JetValidationErrors from '@/Jetstream/ValidationErrors.vue'
+import { defineComponent } from 'vue';
+// import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3'
+import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue'
+import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue'
+import JetButton from '@/Jetstream/Button.vue'
+import JetInput from '@/Jetstream/Input.vue'
+import JetLabel from '@/Jetstream/Label.vue'
+import JetValidationErrors from '@/Jetstream/ValidationErrors.vue'
 
-    export default defineComponent({
-        components: {
-            Head,
-            JetAuthenticationCard,
-            JetAuthenticationCardLogo,
-            JetButton,
-            JetInput,
-            JetLabel,
-            JetValidationErrors
-        },
+export default defineComponent({
+    components: {
+        Head,
+        JetAuthenticationCard,
+        JetAuthenticationCardLogo,
+        JetButton,
+        JetInput,
+        JetLabel,
+        JetValidationErrors
+    },
 
-        data() {
-            return {
-                form: this.$inertia.form({
-                    password: '',
-                })
-            }
-        },
-
-        methods: {
-            submit() {
-                this.form.post(this.route('password.confirm'), {
-                    onFinish: () => this.form.reset(),
-                })
-            }
+    data() {
+        return {
+            form: this.$inertia.form({
+                password: '',
+            })
         }
-    })
+    },
+
+    methods: {
+        submit() {
+            this.form.post(this.route('password.confirm'), {
+                onFinish: () => this.form.reset(),
+            })
+        }
+    }
+})
 </script>

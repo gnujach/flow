@@ -24,10 +24,22 @@ class Cliente extends Model
         'email',
         'telefono',
         'interno',
-        'by'
+        'by',
+        'puesto_id'
     ];
 
-
+    public function setNombreAttribute($value)
+    {
+        $this->attributes['nombre'] = ucfirst(mb_strtolower(trim($value), 'UTF-8'));
+    }
+    public function setApellido1Attribute($value)
+    {
+        $this->attributes['apellido1'] = ucfirst(mb_strtolower(trim($value), 'UTF-8'));
+    }
+    public function setApellido2Attribute($value)
+    {
+        $this->attributes['apellido2'] = ucfirst(mb_strtolower(trim($value), 'UTF-8'));
+    }
     public function getFullNameAttribute()
     {
         $fullname =  preg_replace('/\s+/', ' ', $this->nombre . " " . $this->apellido1 . " " . $this->apellido2);
@@ -42,5 +54,15 @@ class Cliente extends Model
     public function solicitud()
     {
         return $this->hasMany(Solicitud::class);
+    }
+
+    public function cct()
+    {
+        return $this->belongsTo(Cct::class, 'cct_id');
+    }
+
+    public function puesto()
+    {
+        return $this->belongsTo(Puesto::class, 'puesto_id');
     }
 }

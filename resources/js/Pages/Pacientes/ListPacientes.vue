@@ -10,17 +10,10 @@
                 <div class="bg-red-300 overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
                         <div>
-                            <search-filter
-                                v-model="form.search"
-                                class="ml-4 w-full max-w-md mr-4"
-                                @reset="reset"
-                            >
+                            <search-filter v-model="form.search" class="ml-4 w-full max-w-md mr-4" @reset="reset">
                                 <div slot="dropdown">
-                                    <select
-                                        v-model="form.field"
-                                        class="mt-1 w-full form-select"
-                                        @change.prevent="searcher"
-                                    >
+                                    <select v-model="form.field" class="mt-1 w-full form-select"
+                                        @change.prevent="searcher">
                                         <option value="ap1" default>
                                             Apellido 1
                                         </option>
@@ -36,18 +29,11 @@
                             </p>
                             <div class="w-1/2 flex justify-end">
                                 <div class="w-1/2 flex justify-end">
-                                    <jet-nav-link
-                                        :href="
-                                            route('admin.pacientes/create', {})
-                                        "
-                                        ><button
-                                            class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500"
-                                        >
+                                    <jet-nav-link :href="route('admin.pacientes/create', {})
+                                        "><button
+                                            class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500">
                                             <div class="flex flex-row">
-                                                <icon
-                                                    name="plus"
-                                                    class="block w-6 h-6 fill-gray-400"
-                                                />
+                                                <icon name="plus" class="block w-6 h-6 fill-gray-400" />
                                                 <p class="font-bold">
                                                     Agregar Pacientes
                                                 </p>
@@ -57,84 +43,48 @@
                                 </div>
                             </div>
                         </div>
-                        <div
-                            class="bg-white rounded shadow overflow-x-auto ml-4 mr-4"
-                        >
+                        <div class="bg-white rounded shadow overflow-x-auto ml-4 mr-4">
                             <table class="w-full">
                                 <tr class="text-left font-bold bg-aqua">
                                     <th class="px-6 pt-6 pb-4">
-                                        <div
-                                            class="flex content-center items-center"
-                                        >
-                                            <icon
-                                                name="sun"
-                                                class="w-8 h-8 mr-2 text-indigo-900"
-                                            />Nombre
+                                        <div class="flex content-center items-center">
+                                            <icon name="sun" class="w-8 h-8 mr-2 text-indigo-900" />Nombre
                                         </div>
                                     </th>
 
                                     <th class="px-6 pt-6 pb-4">
-                                        <div
-                                            class="flex content-center items-center"
-                                        >
-                                            <icon
-                                                name="sun"
-                                                class="w-8 h-8 mr-2 text-indigo-900"
-                                            />Apellido Paterno
+                                        <div class="flex content-center items-center">
+                                            <icon name="sun" class="w-8 h-8 mr-2 text-indigo-900" />Apellido Paterno
                                         </div>
                                     </th>
 
                                     <th class="px-6 pt-6 pb-4">
-                                        <div
-                                            class="flex content-center items-center"
-                                        >
-                                            <icon
-                                                name="sun"
-                                                class="w-8 h-8 mr-2 text-indigo-900"
-                                            />Apellido Materno
+                                        <div class="flex content-center items-center">
+                                            <icon name="sun" class="w-8 h-8 mr-2 text-indigo-900" />Apellido Materno
                                         </div>
                                     </th>
                                     <th class="px-6 pt-6 pb-4">
-                                        <div
-                                            class="flex content-center items-center"
-                                        >
-                                            <icon
-                                                name="sun"
-                                                class="w-8 h-8 mr-2 text-indigo-900"
-                                            />Teléfono
+                                        <div class="flex content-center items-center">
+                                            <icon name="sun" class="w-8 h-8 mr-2 text-indigo-900" />Teléfono
                                         </div>
                                     </th>
                                     <th class="px-6 pt-6 pb-4">
-                                        <div
-                                            class="flex content-center items-center"
-                                        >
-                                            <icon
-                                                name="sun"
-                                                class="w-8 h-8 mr-2 text-indigo-900"
-                                            />Email
+                                        <div class="flex content-center items-center">
+                                            <icon name="sun" class="w-8 h-8 mr-2 text-indigo-900" />Email
                                         </div>
                                     </th>
                                     <th class="px-6 pt-6 pb-4">
-                                        <div
-                                            class="flex content-center items-center"
-                                        >
-                                            <icon
-                                                name="sun"
-                                                class="w-8 h-8 mr-2 text-indigo-900"
-                                            />Aciones
+                                        <div class="flex content-center items-center">
+                                            <icon name="sun" class="w-8 h-8 mr-2 text-indigo-900" />Aciones
                                         </div>
                                     </th>
                                 </tr>
-                                <tr
-                                    v-for="paciente in pacientes.data.pacientes"
-                                    :key="paciente.data.id"
-                                    class="hover:bg-gray-100 focus-within:bg-gray-100"
-                                    :class="[
+                                <tr v-for="paciente in pacientes.data.pacientes" :key="paciente.data.id"
+                                    class="hover:bg-gray-100 focus-within:bg-gray-100" :class="[
                                         paciente.data.attributes.activo == 0
                                             ? 'text-gray-400'
                                             : '',
-                                    ]"
-                                >
+                                    ]">
                                     <td class="border-t">
                                         <p class="pl-4 font-bold uppercase">
                                             {{ paciente.data.attributes.name }}
@@ -161,27 +111,17 @@
                                         </p>
                                     </td>
                                     <td class="border-t">
-                                        <jet-nav-link
-                                            :href="
-                                                route('admin.pacientes/', {
-                                                    paciente: paciente.data.id,
-                                                })
-                                            "
-                                            ><icon
-                                                name="edit"
-                                                class="block w-6 h-6 fill-gray-400"
-                                            />
+                                        <jet-nav-link :href="route('admin.pacientes/', {
+                                            paciente: paciente.data.id,
+                                        })
+                                            ">
+                                            <icon name="edit" class="block w-6 h-6 fill-gray-400" />
                                         </jet-nav-link>
-                                        <jet-nav-link
-                                            :href="
-                                                route('admin.pacientes/', {
-                                                    paciente: paciente.data.id,
-                                                })
-                                            "
-                                            ><icon
-                                                name="user-remove"
-                                                class="block w-6 h-6 fill-gray-400"
-                                            />
+                                        <jet-nav-link :href="route('admin.pacientes/', {
+                                            paciente: paciente.data.id,
+                                        })
+                                            ">
+                                            <icon name="user-remove" class="block w-6 h-6 fill-gray-400" />
                                         </jet-nav-link>
                                     </td>
                                     <!-- Show-->
@@ -199,11 +139,11 @@
 </template>
 
 <script>
-import AppLayout from "@/Layouts/AppLayout";
-import SearchFilter from "@/Shared/SearchFilter";
-import JetNavLink from "@/Jetstream/NavLink";
-import Icon from "@/Shared/Icon";
-import Pagination from "@/Shared/Pagination";
+import AppLayout from "@/Layouts/AppLayout.vue";
+import SearchFilter from "@/Shared/SearchFilter.vue";
+import JetNavLink from "@/Jetstream/NavLink.vue";
+import Icon from "@/Shared/Icon.vue";
+import Pagination from "@/Shared/Pagination.vue";
 import mapValues from "lodash/mapValues";
 import pickBy from "lodash/pickBy";
 
@@ -246,7 +186,7 @@ export default {
             deep: true,
         },
     },
-    mounted() {},
+    mounted() { },
     methods: {
         click() {
             this.showModal = !this.showModal;

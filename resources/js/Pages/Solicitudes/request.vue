@@ -1,4 +1,5 @@
 <template>
+
     <Head title="Log in" />
 
     <jet-authentication-card>
@@ -11,36 +12,15 @@
         <form @submit.prevent="recaptcha">
             <div class="mt-4">
                 <jet-label for="email" value="Correo Electrónico" />
-                <jet-input
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                />
+                <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus />
             </div>
             <div>
                 <jet-label for="email" value="Número de Folio" class="pt-2" />
-                <jet-input
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.folio"
-                    required
-                    minlength="7"
-                    maxlength="12"
-                    pattern="[Dd][Rr][Ii][Ii]-\d{2,4}"
-                />
+                <jet-input type="text" class="mt-1 block w-full" v-model="form.folio" required minlength="7"
+                    maxlength="12" pattern="[Dd][Rr][Ii][Ii]-\d{2,4}" />
             </div>
-            <jet-input-error
-                :message="form.errors.captcha_token"
-                class="mt-2"
-            />
-            <jet-button
-                class="mt-4"
-                :class="{ 'opacity-25': form.processing }"
-                :disabled="form.processing"
-            >
+            <jet-input-error :message="form.errors.captcha_token" class="mt-2" />
+            <jet-button class="mt-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                 Buscar
             </jet-button>
         </form>
@@ -48,16 +28,18 @@
 </template>
 
 <script setup>
-import { useForm } from "@inertiajs/inertia-vue3";
+// import { useForm } from "@inertiajs/inertia-vue3";
+import { useForm } from '@inertiajs/vue3'
 import JetAuthenticationCard from "@/Jetstream/AuthenticationCard.vue";
 import JetAuthenticationCardLogo from "@/Jetstream/AuthenticationCardLogo.vue";
-import JetInputError from "@/Jetstream/InputError";
+import JetInputError from "@/Jetstream/InputError.vue";
 import JetButton from "@/Jetstream/Button.vue";
 import JetInput from "@/Jetstream/Input.vue";
 import JetCheckbox from "@/Jetstream/Checkbox.vue";
 import JetLabel from "@/Jetstream/Label.vue";
 import JetValidationErrors from "@/Jetstream/ValidationErrors.vue";
-import { Head, Link } from "@inertiajs/inertia-vue3";
+// import { Head, Link } from "@inertiajs/inertia-vue3";
+import { Head } from '@inertiajs/vue3'
 import { onMounted } from "vue";
 
 import { VueReCaptcha, useReCaptcha } from "vue-recaptcha-v3";

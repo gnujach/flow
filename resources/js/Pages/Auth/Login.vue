@@ -1,4 +1,5 @@
 <template>
+
     <Head title="Log in" />
 
     <jet-authentication-card>
@@ -15,54 +16,29 @@
         <form @submit.prevent="submit">
             <div>
                 <jet-label for="email" value="Email" />
-                <jet-input
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                />
+                <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus />
             </div>
 
             <div class="mt-4">
                 <jet-label for="password" value="Password" />
-                <jet-input
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="current-password"
-                />
+                <jet-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" required
+                    autocomplete="current-password" />
             </div>
 
             <div class="block mt-4">
                 <label class="flex items-center">
-                    <jet-checkbox
-                        name="remember"
-                        v-model:checked="form.remember"
-                    />
-                    <span class="ml-2 text-sm text-gray-600"
-                        >Recordar usuario</span
-                    >
+                    <jet-checkbox name="remember" v-model:checked="form.remember" />
+                    <span class="ml-2 text-sm text-gray-600">Recordar usuario</span>
                 </label>
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <Link
-                    v-if="canResetPassword"
-                    :href="route('password.request')"
-                    class="underline text-sm text-gray-600 hover:text-gray-900"
-                >
-                    Recuperar Contraseña
+                <Link v-if="canResetPassword" :href="route('password.request')"
+                    class="underline text-sm text-gray-600 hover:text-gray-900">
+                Recuperar Contraseña
                 </Link>
 
-                <jet-button
-                    class="ml-4"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
+                <jet-button class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Ingresar
                 </jet-button>
             </div>
@@ -89,7 +65,8 @@ import JetInput from "@/Jetstream/Input.vue";
 import JetCheckbox from "@/Jetstream/Checkbox.vue";
 import JetLabel from "@/Jetstream/Label.vue";
 import JetValidationErrors from "@/Jetstream/ValidationErrors.vue";
-import { Head, Link } from "@inertiajs/inertia-vue3";
+// import { Head, Link } from "@inertiajs/inertia-vue3";
+import { Head, Link } from '@inertiajs/vue3'
 
 export default defineComponent({
     components: {

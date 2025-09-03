@@ -7,9 +7,7 @@
             <div class="py-12">
                 <div class="max-w-full mx-auto sm:px-6 lg:px-8">
                     <div class="overflow-hidden shadow-xl sm:rounded-lg">
-                        <div
-                            class="p-6 sm:px-20 bg-white border-b border-gray-200"
-                        >
+                        <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
                             <AlertToast />
                             <div class="mt-8 flex flex-row m-2 justify-between">
                                 <p class="text-2xl ml-4 w-1/2">
@@ -17,17 +15,11 @@
                                 </p>
                                 <div class="flex flex-row justify-end">
                                     <div class="flex justify-end">
-                                        <jet-nav-link
-                                            :href="route('solicitudes', {})"
-                                        >
+                                        <jet-nav-link :href="route('solicitudes', {})">
                                             <button
-                                                class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500"
-                                            >
+                                                class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500">
                                                 <div class="flex flex-row">
-                                                    <icon
-                                                        name="plus"
-                                                        class="block w-6 h-6 fill-gray-400"
-                                                    />
+                                                    <icon name="plus" class="block w-6 h-6 fill-gray-400" />
                                                     <p class="font-bold">
                                                         Nueva Solicitud
                                                     </p>
@@ -38,14 +30,9 @@
                                     <div class="flex justify-center">
                                         <a href="/solicitudes/export/">
                                             <button
-                                                class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500"
-                                            >
-                                                <div
-                                                    class="flex flex-row justify-between"
-                                                >
-                                                    <DocumentDownloadIcon
-                                                        class="h-5 w-5"
-                                                    />
+                                                class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500">
+                                                <div class="flex flex-row justify-between">
+                                                    <DocumentDownloadIcon class="h-5 w-5" />
                                                     <p class="font-bold">
                                                         Excel
                                                     </p>
@@ -56,35 +43,26 @@
                                 </div>
                             </div>
                             <div>
-                                <vue-good-table
-                                    :columns="columns"
-                                    :rows="rows"
-                                    :search-options="{
-                                        enabled: true,
-                                        placeholder: 'Buscar en la tabla',
-                                    }"
-                                >
+                                <vue-good-table :columns="columns" :rows="rows" :search-options="{
+                                    enabled: true,
+                                    placeholder: 'Buscar en la tabla',
+                                }">
                                     <template #table-row="props">
-                                        <jet-nav-link
-                                            v-if="
-                                                props.column.field == 'cliente'
-                                            "
-                                            :href="
-                                                route('admin.clientes/show', {
-                                                    cliente:
-                                                        props.row.cliente_uuid,
-                                                })
-                                            "
-                                            ><p
-                                                class="font-bold text-blue-500 hover:underline"
-                                            >
+                                        <jet-nav-link v-if="
+                                            props.column.field == 'cliente'
+                                        " :href="route('admin.clientes/show', {
+                                            cliente:
+                                                props.row.cliente_uuid,
+                                        })
+                                            ">
+                                            <p class="font-bold text-blue-500 hover:underline">
                                                 {{ props.row.cliente }}
                                             </p>
                                         </jet-nav-link>
                                         <span v-else>
                                             {{
                                                 props.formattedRow[
-                                                    props.column.field
+                                                props.column.field
                                                 ]
                                             }}
                                         </span>
@@ -103,16 +81,16 @@
 </template>
 
 <script setup>
-import AppLayout from "@/Layouts/AppLayout";
-import JetNavLink from "@/Jetstream/NavLink";
-import Pagination from "@/Shared/Pagination";
+import AppLayout from "@/Layouts/AppLayout.vue";
+import JetNavLink from "@/Jetstream/NavLink.vue";
+import Pagination from "@/Shared/Pagination.vue";
 import { ref, onMounted } from "vue";
-import Icon from "@/Shared/Icon";
+import Icon from "@/Shared/Icon.vue";
 import { DocumentDownloadIcon } from "@heroicons/vue/outline";
 import { VueGoodTable } from "vue-good-table-next";
 // import the styles
 import "vue-good-table-next/dist/vue-good-table-next.css";
-import AlertToast from "@/modules/Dialog/Components/AlertToast";
+import AlertToast from "@/modules/Dialog/Components/AlertToast.vue";
 const props = defineProps({
     solicitudes: Object,
 });

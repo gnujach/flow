@@ -21,6 +21,7 @@ class ClienteService
             'interno' => strtoupper($request->input('interno')),
             'email' => $request->input('email'),
             'telefono' => $request->input('telefono'),
+            'puesto_id' => $request->input('puesto_id'),
             'by' => Auth::id(),
         ]);
         if ($cliente)
@@ -37,6 +38,7 @@ class ClienteService
             'interno' => strtoupper($request->input('interno')),
             'email' => $request->input('email'),
             'telefono' => $request->input('telefono'),
+            'puesto_id' => $request->input('puesto_id'),
         ]);
         return $cliente;
     }

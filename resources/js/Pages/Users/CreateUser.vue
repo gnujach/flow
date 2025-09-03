@@ -8,12 +8,8 @@
         <div>
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
                 <div v-if="$page.props.jetstream.canUpdateProfileInformation">
-                    <CreateActivoInformationForm
-                        :departamentos="$page.props.departamentos"
-                        :puestos="$page.props.puestos"
-                        :roles="$page.props.roles"
-                        :centros="$page.props.centros"
-                    />
+                    <CreateActivoInformationForm :departamentos="$page.props.departamentos"
+                        :puestos="$page.props.puestos" :roles="$page.props.roles" :centros="$page.props.centros" />
                     <jet-section-border />
                 </div>
             </div>
@@ -24,9 +20,10 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import CreateActivoInformationForm from "@/Pages/Profile/Partials/CreateActivoInformationForm.vue";
-import JetSectionBorder from "@/Jetstream/SectionBorder";
+import JetSectionBorder from "@/Jetstream/SectionBorder.vue";
 import { computed } from "vue";
-import { usePage } from "@inertiajs/inertia-vue3";
+// import { usePage } from "@inertiajs/inertia-vue3";
+import { usePage } from '@inertiajs/vue3'
 import Breadcrumb from "@/Components/Breadcrumb.vue";
 
 const appName = computed(() => usePage().props.appName);

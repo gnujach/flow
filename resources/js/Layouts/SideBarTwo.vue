@@ -3,52 +3,26 @@
         <TransitionRoot :show="statusSideBar">
             <Dialog
                 class="bg-gray-200 md:block fixed z-20 inset-0 top-[3.225rem] left-0 right-auto w-60 overflow-y-auto opacity-90 border-r border-gray-300"
-                as="div"
-                @close="toggleNavBar"
-                :open="statusSideBar"
-                :initialFocus="completeButtonRef"
-            >
-                <TransitionChild
-                    enter="transition ease-in-out duration-200 transform"
-                    enter-from="-translate-x-full"
-                    enter-to="translate-x-0"
-                    leave="transition ease-in-out duration-200 transform"
-                    leave-from="translate-x-0"
-                    leave-to="-translate-x-full"
-                    as="div"
-                >
+                as="div" @close="toggleNavBar" :open="statusSideBar" :initialFocus="completeButtonRef">
+                <TransitionChild enter="transition ease-in-out duration-200 transform" enter-from="-translate-x-full"
+                    enter-to="translate-x-0" leave="transition ease-in-out duration-200 transform"
+                    leave-from="translate-x-0" leave-to="-translate-x-full" as="div">
                     <div v-if="$page.props.auth.roles.includes('Admin')">
                         <nav class="mt-2 px-2">
-                            <NavItem
-                                :item="item"
-                                v-for="item in navItems"
-                                :key="item.label"
-                            />
+                            <NavItem :item="item" v-for="item in navItems" :key="item.label" />
                         </nav>
                     </div>
-                    <div
-                        v-else-if="
-                            $page.props.auth.roles.includes('capturista')
-                        "
-                    >
+                    <div v-else-if="
+                        $page.props.auth.roles.includes('capturista')
+                    ">
                         <nav class="mt-2 px-2">
-                            <NavItem
-                                :item="item"
-                                v-for="item in navItems2"
-                                :key="item.label"
-                            />
+                            <NavItem :item="item" v-for="item in navItems2" :key="item.label" />
                         </nav>
                     </div>
                 </TransitionChild>
-                <TransitionChild
-                    enter="transition-opacity ease-linear duration-200"
-                    enter-from="opacity-0"
-                    enter-to="opacity-100"
-                    leave="transition-opacity ease-linear duration-200"
-                    leave-from="opacity-100"
-                    leave-to="opacity-0"
-                    as="div"
-                >
+                <TransitionChild enter="transition-opacity ease-linear duration-200" enter-from="opacity-0"
+                    enter-to="opacity-100" leave="transition-opacity ease-linear duration-200" leave-from="opacity-100"
+                    leave-to="opacity-0" as="div">
                     <DialogOverlay></DialogOverlay>
                 </TransitionChild>
             </Dialog>
@@ -56,14 +30,12 @@
     </div>
 </template>
 <script setup>
-import NavItem from "../components/NavItem.vue";
+import NavItem from "../Components/NavItem.vue";
 import {
-    ClipboardCheckIcon,
+    ClipboardIcon,
     HeartIcon,
     HomeIcon,
-    NewspaperIcon,
-    PhotographIcon,
-} from "@heroicons/vue/outline";
+} from "@heroicons/vue/24/outline";
 import { useStore } from "vuex";
 import { computed, ref } from "vue";
 import {
@@ -145,7 +117,7 @@ const navItems = [
                 active: false,
                 label: "Administración de Trámites",
                 children: [],
-                icon: ClipboardCheckIcon,
+                icon: ClipboardIcon,
             },
         ],
     },
@@ -159,7 +131,7 @@ const navItems = [
                 active: false,
                 label: "Nueva Solicitudes",
                 children: [],
-                icon: ClipboardCheckIcon,
+                icon: ClipboardIcon,
             },
         ],
     },
@@ -175,14 +147,14 @@ const navItems2 = [
                 active: false,
                 label: "Nueva Solicitud",
                 children: [],
-                icon: ClipboardCheckIcon,
+                icon: ClipboardIcon,
             },
             {
                 href: "/solicitudes/list",
                 active: false,
                 label: "Mostrar solicitudes",
                 children: [],
-                icon: ClipboardCheckIcon,
+                icon: ClipboardIcon,
             },
         ],
         icon: HomeIcon,

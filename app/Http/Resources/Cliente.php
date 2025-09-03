@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\SolicitudListCollection;
+use App\Http\Resources\Puesto;
 
 class Cliente extends JsonResource
 {
@@ -21,6 +22,7 @@ class Cliente extends JsonResource
                 'uuid' => $this->uuid,
                 'id' => $this->id,
                 'solicitudes' =>  new SolicitudListCollection($this->whenLoaded('solicitud')),
+                'puesto' => new Puesto($this->whenLoaded('puesto')),
                 'attributes' => [
                     'rfc' => $this->rfc,
                     'curp' => $this->curp,
@@ -32,12 +34,13 @@ class Cliente extends JsonResource
                     'telefono' => $this->telefono,
                     'cct_id' => $this->cct_id,
                     'interno' => $this->interno,
+                    'puesto_id' => $this->puesto_id,
                     'created_at' => \Carbon\Carbon::parse($this->created_at)->diffForHumans(),
                     'updated_at' => \Carbon\Carbon::parse($this->updated_at)->diffForHumans(),
                 ]
             ],
             'links' => [
-                'self' => url('/admin/paciente/' . $this->id),
+                'self' => url('/admin/cliente/' . $this->id),
             ]
         ];
     }

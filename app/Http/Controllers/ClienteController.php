@@ -9,9 +9,12 @@ use App\Http\Resources\ClienteCollection;
 use App\Services\ClienteService;
 use App\Http\Requests\StoreClienteRequest;
 use App\Http\Requests\updateClienteRequest;
+use App\Models\Cct;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
 use Redirect;
 use Inertia\Inertia;
+
 
 class ClienteController extends Controller
 {
@@ -54,6 +57,10 @@ class ClienteController extends Controller
     {
         return Inertia::render(
             'Clientes/CreateCliente',
+            [
+                'puestos' => DB::table('puestos')->select('id', 'nombre')->get(),
+                'ccts' => Cct::orderBy('cct', 'asc')->get(),
+            ]
         );
     }
 
@@ -66,6 +73,7 @@ class ClienteController extends Controller
             'Clientes/EditCliente',
             [
                 'cliente' => new ClienteResource($cliente),
+                'puestos' => DB::table('puestos')->select('id', 'nombre')->get(),
             ]
         );
     }
@@ -114,7 +122,7 @@ class ClienteController extends Controller
         return Inertia::render('Clientes/ShowCliente', [
             'cliente' => new ClienteResource($cliente->load(['solicitud' => function ($query) {
                 $query->latest()->take(5);
-            }, 'solicitud.user', 'solicitud.medio', 'solicitud.tramite'])),
+            }, 'solicitud.user', 'solicitud.medio', 'solicitud.tramite', 'puesto'])),
         ]);
     }
 

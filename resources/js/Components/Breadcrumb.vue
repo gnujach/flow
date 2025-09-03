@@ -10,8 +10,8 @@
     </div>
 </template>
 <script setup>
-import JetNavLink from "@/Jetstream/NavLink";
-import { ChevronRightIcon } from "@heroicons/vue/outline";
+import JetNavLink from "@/Jetstream/NavLink.vue";
+import { ChevronRightIcon } from "@heroicons/vue/24/outline";
 
 const props = defineProps({
     items: {

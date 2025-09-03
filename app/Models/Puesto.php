@@ -21,4 +21,8 @@ class Puesto extends Model
     {
         return $this->hasOne(User::class);
     }
+    public function cliente()
+    {
+        return $this->hasMany(Cliente::class);
+    }
 }

@@ -1,0 +1,1 @@
+var r,o;function t(){return o||(o=1,r=new Proxy({},{get:(i,e)=>{if(e==="__esModule")return{};throw new Error(`You're trying to import \`@heroicons/vue/outline/${e}\` from Heroicons v1 but have installed Heroicons v2. Install \`@heroicons/vue@v1\` to resolve this error.`)}})),r}var u=t();export{u as o};

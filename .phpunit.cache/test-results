@@ -1,0 +1,1 @@
+{"version":"pest_2.36.0","defects":[],"times":{"P\\Tests\\Unit\\ClienteTest::__pest_evaluable_it_logged_user_with_rol_admin_can_view_clientes_index":0.16,"P\\Tests\\Unit\\ClienteTest::__pest_evaluable_it_logged_user_can_add_clientes":0.125}}

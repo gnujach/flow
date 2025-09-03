@@ -6,15 +6,13 @@
             </h2>
         </template>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-            <jet-form-section
-                @submit.prevent="
-                    form.put(
-                        route('admin.requisitos/update', {
-                            requisito: form.uuid,
-                        })
-                    )
-                "
-            >
+            <jet-form-section @submit.prevent="
+                form.put(
+                    route('admin.requisitos/update', {
+                        requisito: form.uuid,
+                    })
+                )
+                ">
                 <template #title> Requisito </template>
                 <template #description>
                     Modificación de Requisito <canvas></canvas>
@@ -23,63 +21,34 @@
                 <template #form>
                     <div class="col-span-6 sm:col-span-4">
                         <jet-label for="nombre" value="Nombre" />
-                        <jet-input
-                            id="nombre"
-                            type="text"
-                            class="mt-1 block w-full"
-                            v-model="form.nombre"
-                            autocomplete="nombre"
-                        />
-                        <jet-input-error
-                            :message="form.errors.nombre"
-                            class="mt-2"
-                        />
+                        <jet-input id="nombre" type="text" class="mt-1 block w-full" v-model="form.nombre"
+                            autocomplete="nombre" />
+                        <jet-input-error :message="form.errors.nombre" class="mt-2" />
                     </div>
                     <div class="col-span-6 sm:col-span-4">
                         <jet-label for="requisito" value="Requisito" />
-                        <jet-input
-                            id="requisito"
-                            type="text"
-                            class="mt-1 block w-full"
-                            v-model="form.objetivo"
-                        />
-                        <jet-input-error
-                            :message="form.errors.requisito"
-                            class="mt-2"
-                        />
+                        <jet-input id="requisito" type="text" class="mt-1 block w-full" v-model="form.objetivo" />
+                        <jet-input-error :message="form.errors.requisito" class="mt-2" />
                     </div>
                     <div class="col-span-6 sm:col-span-4">
                         <jet-label for="Activo" value="Activo" />
-                        <Switch
-                            v-model="form.activo"
-                            name="enabled"
+                        <Switch v-model="form.activo" name="enabled"
                             :class="form.activo ? 'bg-teal-900' : 'bg-teal-200'"
-                            class="relative inline-flex h-6 w-11 items-center rounded-full"
-                        >
+                            class="relative inline-flex h-6 w-11 items-center rounded-full">
                             <span class="sr-only">Activar</span>
-                            <span
-                                :class="
-                                    form.activo
-                                        ? 'translate-x-6'
-                                        : 'translate-x-1'
-                                "
-                                class="inline-block h-4 w-4 transform rounded-full bg-white"
-                            />
+                            <span :class="form.activo
+                                ? 'translate-x-6'
+                                : 'translate-x-1'
+                                " class="inline-block h-4 w-4 transform rounded-full bg-white" />
                         </Switch>
                     </div>
                 </template>
                 <template #actions>
-                    <jet-action-message
-                        :on="form.recentlySuccessful"
-                        class="mr-3"
-                    >
+                    <jet-action-message :on="form.recentlySuccessful" class="mr-3">
                         Guardado!!
                     </jet-action-message>
                     <jet-section-border />
-                    <jet-button
-                        :class="{ 'opacity-25': form.processing }"
-                        :disabled="form.processing"
-                    >
+                    <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                         Guardar
                     </jet-button>
                 </template>
@@ -90,15 +59,15 @@
 </template>
 
 <script setup>
-import AppLayout from "@/Layouts/AppLayout";
-import JetButton from "@/Jetstream/Button";
-import JetFormSection from "@/Jetstream/FormSection";
-import JetInput from "@/Jetstream/Input";
-import JetInputError from "@/Jetstream/InputError";
-import JetLabel from "@/Jetstream/Label";
-import JetActionMessage from "@/Jetstream/ActionMessage";
-import JetSectionBorder from "@/Jetstream/SectionBorder";
-import { useForm } from "@inertiajs/inertia-vue3";
+import AppLayout from "@/Layouts/AppLayout.vue";
+import JetButton from "@/Jetstream/Button.vue";
+import JetFormSection from "@/Jetstream/FormSection.vue";
+import JetInput from "@/Jetstream/Input.vue";
+import JetInputError from "@/Jetstream/InputError.vue";
+import JetLabel from "@/Jetstream/Label.vue";
+import JetActionMessage from "@/Jetstream/ActionMessage.vue";
+import JetSectionBorder from "@/Jetstream/SectionBorder.vue";
+import { useForm } from '@inertiajs/vue3'
 import { computed } from "vue";
 import { Switch } from "@headlessui/vue";
 import Breadcrumb from "@/Components/Breadcrumb.vue";

@@ -4,57 +4,35 @@
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <Actions />
-                    <Stats
-                        v-if="$page.props.auth.roles.includes('Admin')"
-                        :total="dataYearAll[0]"
-                        :concluidas="dataConcluidasAll[0]"
-                        :today="dataTodayAll[0].total"
-                        :week="weekAll[0].total"
-                    />
-                    <Stats
-                        v-else-if="
-                            $page.props.auth.roles.includes('capturista')
-                        "
-                        :total="dataYear[0]"
-                        :concluidas="dataConcluidas[0]"
-                        :today="dataToday[0].total"
-                        :week="week[0].total"
-                    />
-                    <div
-                        class="flex flex-col md:flex-row p-6 justify-around"
-                        v-if="$page.props.auth.roles.includes('capturista')"
-                    >
+                    <Stats v-if="$page.props.auth.roles.includes('Admin')" :total="dataYearAll[0]"
+                        :concluidas="dataConcluidasAll[0]" :today="dataTodayAll[0].total" :week="weekAll[0].total" />
+                    <Stats v-else-if="
+                        $page.props.auth.roles.includes('capturista')
+                    " :total="dataYear[0]" :concluidas="dataConcluidas[0]" :today="dataToday[0].total"
+                        :week="week[0].total" />
+                    <div class="flex flex-col md:flex-row p-6 justify-around"
+                        v-if="$page.props.auth.roles.includes('capturista')">
                         <div
-                            class="flex flex-col col-span-full sm:col-span-6 bg-white shadow-lg rounded-sm border border-slate-200"
-                        >
+                            class="flex flex-col col-span-full sm:col-span-6 bg-white shadow-lg rounded-sm border border-slate-200">
                             <header class="px-5 py-4 border-b border-slate-100">
                                 <h2 class="font-semibold text-slate-800">
                                     Solicitadas vs Concluidas
                                 </h2>
                             </header>
-                            <ChartAnual
-                                class="w-full"
-                                :chart-data="chartData"
-                            />
+                            <ChartAnual class="w-full" :chart-data="chartData" />
                         </div>
                         <div
-                            class="flex flex-col col-span-full sm:col-span-6 bg-white shadow-lg rounded-sm border border-slate-200"
-                        >
+                            class="flex flex-col col-span-full sm:col-span-6 bg-white shadow-lg rounded-sm border border-slate-200">
                             <header class="px-5 py-4 border-b border-slate-100">
                                 <h2 class="font-semibold text-slate-800">
                                     Solicitudes por Trámite
                                 </h2>
                             </header>
-                            <PieTramite
-                                class="w-full"
-                                :chart-data="charDataPie"
-                            />
+                            <PieTramite class="w-full" :chart-data="charDataPie" />
                         </div>
                     </div>
-                    <div
-                        class="flex flex-col md:flex-row p-6 justify-around"
-                        v-else-if="$page.props.auth.roles.includes('Admin')"
-                    >
+                    <div class="flex flex-col md:flex-row p-6 justify-around"
+                        v-else-if="$page.props.auth.roles.includes('Admin')">
                         <p>Graficos de centro de trabajo</p>
                     </div>
                 </div>
@@ -67,10 +45,10 @@
 import { defineProps, ref } from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Welcome from "@/Jetstream/Welcome.vue";
-import ChartAnual from "@/Components/Charts/Anual";
-import PieTramite from "@/Components/Charts/PieTramite";
-import Stats from "@/Components/Stats";
-import Actions from "@/Components/Actions";
+import ChartAnual from "@/Components/Charts/Anual.vue";
+import PieTramite from "@/Components/Charts/PieTramite.vue";
+import Stats from "@/Components/Stats.vue";
+import Actions from "@/Components/Actions.vue";
 
 const props = defineProps([
     "dataset",

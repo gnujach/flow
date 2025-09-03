@@ -7,9 +7,7 @@
             <div class="py-12">
                 <div class="max-w-full mx-auto sm:px-6 lg:px-8">
                     <div class="overflow-hidden shadow-xl sm:rounded-lg">
-                        <div
-                            class="p-6 sm:px-20 bg-white border-b border-gray-200"
-                        >
+                        <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
                             <AlertToast />
                             <div class="mt-8 flex flex-row m-2 justify-between">
                                 <p class="text-2xl ml-4 w-1/2">
@@ -17,17 +15,11 @@
                                 </p>
                                 <div class="flex flex-row justify-end pb-4">
                                     <div class="flex justify-end">
-                                        <jet-nav-link
-                                            :href="route('solicitudes', {})"
-                                        >
+                                        <jet-nav-link :href="route('solicitudes', {})">
                                             <button
-                                                class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500"
-                                            >
+                                                class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500">
                                                 <div class="flex flex-row">
-                                                    <icon
-                                                        name="plus"
-                                                        class="block w-6 h-6 fill-gray-400"
-                                                    />
+                                                    <icon name="plus" class="block w-6 h-6 fill-gray-400" />
                                                     <p class="font-bold">
                                                         Nueva Solicitud
                                                     </p>
@@ -38,14 +30,9 @@
                                     <div class="flex justify-center">
                                         <a href="/solicitudes/export/">
                                             <button
-                                                class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500"
-                                            >
-                                                <div
-                                                    class="flex flex-row justify-between"
-                                                >
-                                                    <DocumentDownloadIcon
-                                                        class="h-5 w-5"
-                                                    />
+                                                class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500">
+                                                <div class="flex flex-row justify-between">
+                                                    <DocumentArrowDownIcon class="h-5 w-5" />
                                                     <p class="font-bold">
                                                         Excel
                                                     </p>
@@ -56,78 +43,56 @@
                                 </div>
                             </div>
                             <div>
-                                <vue-good-table
-                                    :columns="columns"
-                                    :rows="rows"
-                                    :search-options="{
-                                        enabled: true,
-                                        placeholder: 'Buscar en tabla',
-                                    }"
-                                >
+                                <vue-good-table :columns="columns" :rows="rows" :search-options="{
+                                    enabled: true,
+                                    placeholder: 'Buscar en tabla',
+                                }">
                                     <template #table-row="props">
-                                        <jet-nav-link
-                                            v-if="
-                                                props.column.field == 'cliente'
-                                            "
-                                            :href="
-                                                route('admin.clientes/show', {
-                                                    cliente:
-                                                        props.row.cliente_uuid,
-                                                })
-                                            "
-                                            ><p
-                                                class="font-bold text-blue-500 hover:underline capitalize"
-                                            >
+                                        <jet-nav-link v-if="
+                                            props.column.field == 'cliente'
+                                        " :href="route('admin.clientes/show', {
+                                            cliente:
+                                                props.row.cliente_uuid,
+                                        })
+                                            ">
+                                            <p class="font-bold text-blue-500 hover:underline capitalize">
                                                 {{ props.row.cliente }}
                                             </p>
                                         </jet-nav-link>
-                                        <span
-                                            v-else-if="
-                                                props.column.field ==
-                                                'm_atencion'
-                                            "
-                                            class="p-1.5 text-xs font-thin text-green-800 bg-green-200 rounded-lg bg-opacity-50 truncate"
-                                        >
+                                        <span v-else-if="
+                                            props.column.field ==
+                                            'm_atencion'
+                                        "
+                                            class="p-1.5 text-xs font-thin text-green-800 bg-green-200 rounded-lg bg-opacity-50 truncate">
                                             {{ props.row.m_atencion }}
                                         </span>
 
-                                        <div
-                                            v-else-if="
-                                                props.column.field == 'acciones'
-                                            "
-                                        >
-                                            <ModalUpdateSolicitud
-                                                v-if="
-                                                    props.row.concluida == false
-                                                "
-                                                :uuid="props.row.id"
-                                            />
+                                        <div v-else-if="
+                                            props.column.field == 'acciones'
+                                        ">
+                                            <ModalUpdateSolicitud v-if="
+                                                props.row.concluida == false
+                                            " :uuid="props.row.id" />
                                         </div>
-                                        <div
-                                            v-else-if="
-                                                props.column.field ==
-                                                'concluida'
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    props.row.concluida == false
-                                                "
-                                            >
+                                        <div v-else-if="
+                                            props.column.field ==
+                                            'concluida'
+                                        ">
+                                            <span v-if="
+                                                props.row.concluida == false
+                                            ">
                                                 No
                                             </span>
-                                            <span
-                                                v-else-if="
-                                                    props.row.concluida == true
-                                                "
-                                            >
+                                            <span v-else-if="
+                                                props.row.concluida == true
+                                            ">
                                                 Si
                                             </span>
                                         </div>
                                         <span v-else>
                                             {{
                                                 props.formattedRow[
-                                                    props.column.field
+                                                props.column.field
                                                 ]
                                             }}
                                         </span>
@@ -363,14 +328,14 @@
 </template>
 
 <script setup>
-import AppLayout from "@/Layouts/AppLayout";
-import JetNavLink from "@/Jetstream/NavLink";
+import AppLayout from "@/Layouts/AppLayout.vue";
+import JetNavLink from "@/Jetstream/NavLink.vue";
 import { ref, onMounted } from "vue";
-import Pagination from "@/Shared/Pagination";
-import Icon from "@/Shared/Icon";
-import { PencilAltIcon, DocumentDownloadIcon } from "@heroicons/vue/outline";
-import ModalUpdateSolicitud from "@/modules/Dialog/Components/ModalUpdateSolicitud";
-import AlertToast from "@/modules/Dialog/Components/AlertToast";
+import Pagination from "@/Shared/Pagination.vue";
+import Icon from "@/Shared/Icon.vue";
+import { DocumentArrowDownIcon } from "@heroicons/vue/24/outline";
+import ModalUpdateSolicitud from "@/modules/Dialog/Components/ModalUpdateSolicitud.vue";
+import AlertToast from "@/modules/Dialog/Components/AlertToast.vue";
 import { VueGoodTable } from "vue-good-table-next";
 // import the styles
 import "vue-good-table-next/dist/vue-good-table-next.css";

@@ -6,56 +6,30 @@
             </h2>
         </template>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-            <jet-form-section
-                @focusout="validate"
-                @submitted="saveRequisitoInformation"
-            >
+            <jet-form-section @focusout="validate" @submitted="saveRequisitoInformation">
                 <template #title> Requisito</template>
                 <template #description> Alta de Requisito</template>
                 <!-- nombre -->
                 <template #form>
                     <div class="col-span-6 sm:col-span-4">
                         <jet-label for="nombre" value="Nombre" />
-                        <jet-input
-                            id="nombre"
-                            type="text"
-                            class="mt-1 block w-full"
-                            v-model="form.nombre"
-                            autocomplete="nombre"
-                            autofocus
-                        />
-                        <jet-input-error
-                            :message="form.errors.nombre"
-                            class="mt-2"
-                        />
+                        <jet-input id="nombre" type="text" class="mt-1 block w-full" v-model="form.nombre"
+                            autocomplete="nombre" autofocus />
+                        <jet-input-error :message="form.errors.nombre" class="mt-2" />
                     </div>
                     <div class="col-span-6 sm:col-span-4">
                         <jet-label for="objetivo" value="Objetivo" />
-                        <jet-input
-                            id="objetivo"
-                            type="text"
-                            class="mt-1 block w-full"
-                            v-model="form.objetivo"
-                            autocomplete="objetivo"
-                        />
-                        <jet-input-error
-                            :message="form.errors.objetivo"
-                            class="mt-2"
-                        />
+                        <jet-input id="objetivo" type="text" class="mt-1 block w-full" v-model="form.objetivo"
+                            autocomplete="objetivo" />
+                        <jet-input-error :message="form.errors.objetivo" class="mt-2" />
                     </div>
                 </template>
                 <template #actions>
-                    <jet-action-message
-                        :on="form.recentlySuccessful"
-                        class="mr-3"
-                    >
+                    <jet-action-message :on="form.recentlySuccessful" class="mr-3">
                         Guardado!!
                     </jet-action-message>
                     <jet-section-border />
-                    <jet-button
-                        :class="{ 'opacity-25': form.processing }"
-                        :disabled="form.processing"
-                    >
+                    <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                         Guardar
                     </jet-button>
                 </template>
@@ -66,15 +40,15 @@
 
 <script setup>
 import { computed } from "vue";
-import AppLayout from "@/Layouts/AppLayout";
-import JetButton from "@/Jetstream/Button";
-import JetFormSection from "@/Jetstream/FormSection";
-import JetInput from "@/Jetstream/Input";
-import JetInputError from "@/Jetstream/InputError";
-import JetSectionBorder from "@/Jetstream/SectionBorder";
-import JetLabel from "@/Jetstream/Label";
-import JetActionMessage from "@/Jetstream/ActionMessage";
-import { useForm } from "@inertiajs/inertia-vue3";
+import AppLayout from "@/Layouts/AppLayout.vue";
+import JetButton from "@/Jetstream/Button.vue";
+import JetFormSection from "@/Jetstream/FormSection.vue";
+import JetInput from "@/Jetstream/Input.vue";
+import JetInputError from "@/Jetstream/InputError.vue";
+import JetSectionBorder from "@/Jetstream/SectionBorder.vue";
+import JetLabel from "@/Jetstream/Label.vue";
+import JetActionMessage from "@/Jetstream/ActionMessage.vue";
+import { useForm } from '@inertiajs/vue3'
 import { usePrevalidate } from "@/Composables/usePrevalidate";
 import Breadcrumb from "@/Components/Breadcrumb.vue";
 const breadcrumbs = computed(() => {

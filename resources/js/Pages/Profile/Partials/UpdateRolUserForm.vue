@@ -6,16 +6,9 @@
 
         <template #form>
             <!-- Roles-->
-            <div
-                class="col-span-6 sm:col-span-4"
-                v-if="roles && roles.length > 0"
-            >
+            <div class="col-span-6 sm:col-span-4" v-if="roles && roles.length > 0">
                 <jet-label for="roles" value="Roles" />
-                <BaseListbox
-                    :options="roles"
-                    placeholder="Seleccione Rol de Usuario"
-                    v-model="formRoles.roles_id"
-                />
+                <BaseListbox :options="roles" placeholder="Seleccione Rol de Usuario" v-model="formRoles.roles_id" />
             </div>
         </template>
 
@@ -24,10 +17,7 @@
                 Guardar.
             </jet-action-message>
 
-            <jet-button
-                :class="{ 'opacity-25': formRoles.processing }"
-                :disabled="formRoles.processing"
-            >
+            <jet-button :class="{ 'opacity-25': formRoles.processing }" :disabled="formRoles.processing">
                 Guardar
             </jet-button>
         </template>
@@ -42,7 +32,8 @@ import JetLabel from "@/Jetstream/Label.vue";
 import JetActionMessage from "@/Jetstream/ActionMessage.vue";
 import JetSecondaryButton from "@/Jetstream/SecondaryButton.vue";
 import BaseListbox from "@/Shared/BaseListbox.vue";
-import { useForm } from "@inertiajs/inertia-vue3";
+// import { useForm } from "@inertiajs/inertia-vue3";
+import { useForm } from '@inertiajs/vue3'
 import { ref } from "vue";
 import {
     Listbox,
@@ -50,7 +41,7 @@ import {
     ListboxOptions,
     ListboxOption,
 } from "@headlessui/vue";
-import { CheckIcon, SelectorIcon } from "@heroicons/vue/solid";
+import { CheckCircleIcon } from "@heroicons/vue/24/solid";
 
 export default {
     props: ["roles", "user", "rolesUsuario"],
@@ -65,8 +56,7 @@ export default {
         ListboxButton,
         ListboxOption,
         ListboxOptions,
-        CheckIcon,
-        SelectorIcon,
+        CheckCircleIcon,
         BaseListbox,
     },
 

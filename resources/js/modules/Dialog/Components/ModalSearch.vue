@@ -1,122 +1,57 @@
 <template>
     <div class="flex items-center justify-center">
-        <button
-            v-bind="$attrs"
-            type="button"
-            @click="toggleModalSearchUser"
-            class="flex items-center space-x-2 border border-gray-300 shadow-sm px-3 py-1.5 hover:border-gray-600 focus:outline-none focus:border-gray-600 rounded-lg"
-        >
-            <SearchIcon
-                class="flex-none text-blue-800 -ml-1 w-5 h-5"
-                aria-hidden="true"
-            />
+        <button v-bind="$attrs" type="button" @click="toggleModalSearchUser"
+            class="flex items-center space-x-2 border border-gray-300 shadow-sm px-3 py-1.5 hover:border-gray-600 focus:outline-none focus:border-gray-600 rounded-lg">
+            <MagnifyingGlassIcon class="flex-none text-blue-800 -ml-1 w-5 h-5" aria-hidden="true" />
             <span class="text-sm text-blue-800 flex-1 text-left">..buscar</span>
             <span class="flex-none text-xs font-semibold text-blue-800">{{
                 keyboardShortcut
-            }}</span>
+                }}</span>
         </button>
         <TransitionRoot :show="isOpen" as="template">
-            <Dialog
-                :open="isOpen"
-                @close="closeModal"
-                @keydown="navigateResults"
-                class="fixed inset-0 z-50 flex justify-center items-start"
-            >
-                <TransitionChild
-                    enter="duration-200 ease-out"
-                    enter-from="opacity-0"
-                    enter-to="opacity-100"
-                    leave="duration-200 ease-in"
-                    leave-from="opacity-100"
-                    leave-to="opacity-0"
-                    as="template"
-                >
-                    <DialogOverlay
-                        class="fixed inset-0 bg-black bg-opacity-75"
-                    ></DialogOverlay>
+            <Dialog :open="isOpen" @close="closeModal" @keydown="navigateResults"
+                class="fixed inset-0 z-50 flex justify-center items-start">
+                <TransitionChild enter="duration-200 ease-out" enter-from="opacity-0" enter-to="opacity-100"
+                    leave="duration-200 ease-in" leave-from="opacity-100" leave-to="opacity-0" as="template">
+                    <DialogOverlay class="fixed inset-0 bg-black bg-opacity-75"></DialogOverlay>
                 </TransitionChild>
 
-                <TransitionChild
-                    as="template"
-                    enter="duration-200 ease-out"
-                    enter-from="opacity-0 scale-95"
-                    enter-to="opacity-100 scale-100"
-                    leave="duration-200 ease-in"
-                    leave-from="opacity-100 scale-100"
-                    leave-to="opacity-0 scale-95"
-                >
+                <TransitionChild as="template" enter="duration-200 ease-out" enter-from="opacity-0 scale-95"
+                    enter-to="opacity-100 scale-100" leave="duration-200 ease-in" leave-from="opacity-100 scale-100"
+                    leave-to="opacity-0 scale-95">
                     <div
-                        class="flex flex-col overflow-hidden w-full max-w-2xl bg-white rounded-lg mx-4 max-h-[80vh] mt-[10vh] relative"
-                    >
-                        <form
-                            action="#"
-                            class="relative flex items-center"
-                            @submit.prevent="onSubmit"
-                        >
-                            <div
-                                class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none"
-                            >
-                                <SearchIcon
-                                    class="flex-none text-gray-700 -ml-1 w-5 h-5"
-                                    aria-hidden="true"
-                                />
+                        class="flex flex-col overflow-hidden w-full max-w-2xl bg-white rounded-lg mx-4 max-h-[80vh] mt-[10vh] relative">
+                        <form action="#" class="relative flex items-center" @submit.prevent="onSubmit">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                                <MagnifyingGlassIcon class="flex-none text-gray-700 -ml-1 w-5 h-5" aria-hidden="true" />
                             </div>
-                            <input
-                                @input="(e) => search(e.target.value)"
-                                @keydown="onTermKeydown"
-                                type="text"
+                            <input @input="(e) => search(e.target.value)" @keydown="onTermKeydown" type="text"
                                 placeholder="Buscar"
-                                class="w-full py-4 pl-12 border-b border-gray-100 placeholder-gray-400"
-                            />
-                            <div
-                                class="absolute inset-y-0 right-0 flex items-center pr-3"
-                            >
-                                <button
-                                    @click="closeModal"
-                                    type="button"
-                                    class="flex items-center p-1.5 uppercase font-semibold tracking-wider text-gray-700 rounded-md border border-gray-200 focus:outline-none focus:border-gray-300 text-xxs"
-                                >
+                                class="w-full py-4 pl-12 border-b border-gray-100 placeholder-gray-400" />
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                <button @click="closeModal" type="button"
+                                    class="flex items-center p-1.5 uppercase font-semibold tracking-wider text-gray-700 rounded-md border border-gray-200 focus:outline-none focus:border-gray-300 text-xxs">
                                     Esc
                                 </button>
-                                <button
-                                    @click="toggleModalAddUser()"
-                                    type="button"
-                                    class="flex items-center p-1.5 uppercase ml-1 rounded-md border border-gray-200 focus:outline-none focus:border-gray-300 text-xxs"
-                                >
-                                    <UserAddIcon
-                                        class="flex-none text-gray-700 -ml-1 w-5 h-5"
-                                        aria-hidden="true"
-                                    />
+                                <button @click="toggleModalAddUser()" type="button"
+                                    class="flex items-center p-1.5 uppercase ml-1 rounded-md border border-gray-200 focus:outline-none focus:border-gray-300 text-xxs">
+                                    <UserPlusIcon class="flex-none text-gray-700 -ml-1 w-5 h-5" aria-hidden="true" />
                                 </button>
                             </div>
                         </form>
                         <div class="overflow-auto">
-                            <ul
-                                v-if="results.length > 0"
-                                class="divide-y divide-gray-300"
-                            >
-                                <li
-                                    v-for="(item, index) in results"
-                                    :key="index"
-                                    :ref="
-                                        (el) => {
-                                            resultsRefs[index] = el;
-                                        }
-                                    "
-                                    :class="
-                                        selectedIndex === index
-                                            ? 'italic bg-gray-100'
-                                            : ''
-                                    "
-                                    @mousemove="selectedIndex = index"
-                                    class="flex items-center px-4 py-2.5 relative"
-                                    @click="selectUsuario(item)"
-                                >
+                            <ul v-if="results" class="divide-y divide-gray-300">
+                                <li v-for="(item, index) in results" :key="index" :ref="(el) => {
+                                    resultsRefs[index] = el;
+                                }
+                                    " :class="selectedIndex === index
+                                        ? 'italic bg-gray-100'
+                                        : ''
+                                        " @mousemove="selectedIndex = index"
+                                    class="flex items-center px-4 py-2.5 relative" @click="selectUsuario(item)">
                                     <span class="absolute inset-0"></span>
                                     <div class="ml-3">
-                                        <div
-                                            class="font-semibold text-gray-600"
-                                        >
+                                        <div class="font-semibold text-gray-600">
                                             {{ item.nombre }}
                                             {{ item.apellido1 }}
                                             {{
@@ -128,10 +63,7 @@
                                     </div>
                                 </li>
                             </ul>
-                            <p
-                                v-if="results.length === 0"
-                                class="p-10 text-lg text-center text-gray-400"
-                            >
+                            <p v-if="results.length === 0" class="p-10 text-lg text-center text-gray-400">
                                 Sin resultados aún...
                             </p>
                         </div>
@@ -144,8 +76,8 @@
 
 <script>
 import { nextTick, computed, onMounted, onUnmounted, ref } from "vue";
-import { SearchIcon, UserAddIcon } from "@heroicons/vue/solid";
-import JetNavLink from "@/Jetstream/NavLink";
+import { MagnifyingGlassIcon, UserPlusIcon } from "@heroicons/vue/24/solid";
+import JetNavLink from "@/Jetstream/NavLink.vue";
 import { useStore, mapActions } from "vuex";
 import {
     Dialog,
@@ -158,8 +90,8 @@ import { debounce } from "lodash";
 
 export default {
     components: {
-        SearchIcon,
-        UserAddIcon,
+        MagnifyingGlassIcon,
+        UserPlusIcon,
         Dialog,
         DialogOverlay,
         TransitionRoot,

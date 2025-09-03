@@ -20,7 +20,7 @@
                 </span>
                 Sistema de Gestión de Solicitudes de Atención
             </h2>
-            <p class="text-base text-gray-700 md:text-lg text-indigo-500 font-bold">
+            <p class="text-base  md:text-lg text-indigo-500 font-bold">
                 Delegación Regional Noreste, USAE San Luis de la Paz
             </p>
         </div>
@@ -28,7 +28,7 @@
             <div class="flex flex-col justify-between p-5 border rounded shadow-sm">
                 <div>
                     <div class="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
-                        <LightningBoltIcon class="w-10 h-10" />
+                        <LightBulbIcon class="w-10 h-10" />
                     </div>
                     <h6 class="mb-2 font-semibold leading-5">
                         Nueva Solicitud
@@ -107,12 +107,12 @@
     </div>
 </template>
 <script setup>
-import JetApplicationLogo from "@/Jetstream/ApplicationLogo";
-import JetNavLink from "@/Jetstream/NavLink";
+import JetApplicationLogo from "@/Jetstream/ApplicationLogo.vue";
+import JetNavLink from "@/Jetstream/NavLink.vue";
 import {
     ChartBarIcon,
-    LightningBoltIcon,
+    LightBulbIcon,
     ClipboardIcon,
     NewspaperIcon,
-} from "@heroicons/vue/outline";
+} from "@heroicons/vue/24/outline";
 </script>

@@ -1,20 +1,14 @@
 <template>
     <div>
-        <Actions/>
+        <Actions />
         <div class="p-6 sm:px-20 bg-white border-b border-gray-200 divide-y-4 divide-slate-400/25">
             <div class="flex flex-row">
                 <div class="w-32 h-32">
-                    <jet-nav-link
-                        :href="route('solicitudes') "
-                    >
+                    <jet-nav-link :href="route('solicitudes')">
                         <button
-                            class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500"
-                        >
+                            class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500">
                             <div class="flex flex-row">
-                                <icon
-                                    name="plus"
-                                    class="block w-6 h-6 fill-gray-400"
-                                />
+                                <icon name="plus" class="block w-6 h-6 fill-gray-400" />
                                 <p class="font-bold">
                                     Nueva Solicitud
                                 </p>
@@ -23,17 +17,11 @@
                     </jet-nav-link>
                 </div>
                 <div class="w-32 h-32">
-                    <jet-nav-link
-                        :href="route('solicitudes.list') "
-                    >
+                    <jet-nav-link :href="route('solicitudes.list')">
                         <button
-                            class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500"
-                        >
+                            class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500">
                             <div class="flex flex-row">
-                                <icon
-                                    name="plus"
-                                    class="block w-6 h-6 fill-gray-400"
-                                />
+                                <icon name="plus" class="block w-6 h-6 fill-gray-400" />
                                 <p class="font-bold">
                                     Ver Solicitudes
                                 </p>
@@ -47,15 +35,15 @@
 </template>
 
 <script>
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 import JetApplicationLogo from "@/Jetstream/ApplicationLogo.vue";
-import {computed, ref} from "vue";
-import {useStore} from "vuex";
-import Icon from "@/Shared/Icon";
-import JetNavLink from "@/Jetstream/NavLink";
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
+import Icon from "@/Shared/Icon.vue";
+import JetNavLink from "@/Jetstream/NavLink.vue";
 import Button from "@/Jetstream/Button.vue";
-import {plus,} from "@heroicons/vue/outline";
-import Actions from "@/Components/Actions";
+// import { plus, } from "@heroicons/vue/24/outline";
+import Actions from "@/Components/Actions.vue";
 
 export default defineComponent({
     components: {

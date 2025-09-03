@@ -1,3 +1,39 @@
+<script setup>
+import { computed, ref } from "vue";
+import {
+    Listbox,
+    ListboxButton,
+    ListboxOption,
+    ListboxOptions,
+} from "@headlessui/vue";
+import { CheckCircleIcon, ChevronUpDownIcon } from "@heroicons/vue/24/solid";
+
+const props = defineProps({
+    options: Array,
+    modelValue: [String, Number, Array],
+    placeholder: {
+        type: String,
+        default: "Select option",
+    },
+    multiple: Boolean,
+    error: String,
+});
+
+const emit = defineEmits(["update:modelValue"]);
+
+const label = computed(() => {
+    return props.options
+        .filter((option) => {
+            if (Array.isArray(props.modelValue)) {
+                return props.modelValue.includes(option.id);
+            }
+
+            return props.modelValue === option.id;
+        })
+        .map((option) => option.nombre)
+        .join(", ");
+});
+</script>
 <template>
     <Listbox
         :model-value="props.modelValue"
@@ -56,7 +92,7 @@
                                 v-if="selected"
                                 class="flex absolute inset-y-0 left-0 items-center pl-3 text-amber-600"
                             >
-                                <CheckIcon aria-hidden="true" class="w-5 h-5" />
+                                <CheckCircleIcon aria-hidden="true" class="w-5 h-5" />
                             </span>
                         </li>
                     </ListboxOption>
@@ -68,39 +104,3 @@
         </div>
     </Listbox>
 </template>
-<script setup>
-import { computed, ref } from "vue";
-import {
-    Listbox,
-    ListboxButton,
-    ListboxOption,
-    ListboxOptions,
-} from "@headlessui/vue";
-import { CheckIcon, SelectorIcon } from "@heroicons/vue/solid";
-
-const props = defineProps({
-    options: Array,
-    modelValue: [String, Number, Array],
-    placeholder: {
-        type: String,
-        default: "Select option",
-    },
-    multiple: Boolean,
-    error: String,
-});
-
-const emit = defineEmits(["update:modelValue"]);
-
-const label = computed(() => {
-    return props.options
-        .filter((option) => {
-            if (Array.isArray(props.modelValue)) {
-                return props.modelValue.includes(option.id);
-            }
-
-            return props.modelValue === option.id;
-        })
-        .map((option) => option.nombre)
-        .join(", ");
-});
-</script>
