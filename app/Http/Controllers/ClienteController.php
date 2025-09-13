@@ -9,6 +9,7 @@ use App\Http\Resources\ClienteCollection;
 use App\Services\ClienteService;
 use App\Http\Requests\StoreClienteRequest;
 use App\Http\Requests\updateClienteRequest;
+use App\Policies\ClientePolicy;
 use App\Models\Cct;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
@@ -29,7 +30,7 @@ class ClienteController extends Controller
         return Inertia::render(
             'Clientes/ListClientes',
             [
-                'clientes' => new ClienteCollection(Cliente::orderBy('apellido1', 'asc')->paginate(config('openlink.perpage'))),
+                'clientes' => new ClienteCollection(Cliente::orderBy('created_at', 'desc')->with(['cct'])->paginate(config('openlink.perpage'))),
             ]
         );
         return Redirect::route('admin.clientes/');
@@ -59,7 +60,7 @@ class ClienteController extends Controller
             'Clientes/CreateCliente',
             [
                 'puestos' => DB::table('puestos')->select('id', 'nombre')->get(),
-                'ccts' => Cct::orderBy('cct', 'asc')->get(),
+                'ccts' => Cct::where(['clave_municipio'=> 33])->orderBy('cct', 'asc')->get(),
             ]
         );
     }
@@ -74,6 +75,7 @@ class ClienteController extends Controller
             [
                 'cliente' => new ClienteResource($cliente),
                 'puestos' => DB::table('puestos')->select('id', 'nombre')->get(),
+                'ccts' => Cct::where(['clave_municipio'=> 33])->orderBy('cct', 'asc')->get(),
             ]
         );
     }
@@ -122,7 +124,7 @@ class ClienteController extends Controller
         return Inertia::render('Clientes/ShowCliente', [
             'cliente' => new ClienteResource($cliente->load(['solicitud' => function ($query) {
                 $query->latest()->take(5);
-            }, 'solicitud.user', 'solicitud.medio', 'solicitud.tramite', 'puesto'])),
+            }, 'solicitud.user', 'solicitud.medio', 'solicitud.tramite', 'puesto', 'cct'])),
         ]);
     }
 

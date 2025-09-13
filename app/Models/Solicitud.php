@@ -36,6 +36,8 @@ class Solicitud extends Model
         'concluido' => 'boolean',
     ];
 
+    
+
     /**
      * Una solicitud puede tener muchas historysolicitud
      */

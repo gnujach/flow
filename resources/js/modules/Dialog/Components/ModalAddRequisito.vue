@@ -2,7 +2,7 @@
     <div class="flex items-center justify-center">
         <button v-bind="$attrs" type="button" @click="openModalAddRequisito"
             class="flex items-center space-x-2 border border-gray-300 shadow-sm px-3 py-1.5 hover:border-gray-600 focus:outline-none focus:border-gray-600 rounded-lg">
-            <DocumentAddIcon class="flex-none text-blue-800 -ml-1 w-5 h-5" aria-hidden="true" />
+            <DocumentIcon class="flex-none text-blue-800 -ml-1 w-5 h-5" aria-hidden="true" />
             <span class="text-sm text-blue-800 flex-1 text-left">Agregar Requisito</span>
             <span class="flex-none text-xs font-semibold text-blue-800">{{
                 keyboardShortcutaddUser
@@ -23,7 +23,7 @@
                         class="flex flex-col overflow-hidden w-full max-w-2xl bg-white rounded-lg mx-4 max-h-[80vh] mt-[10vh] relative">
                         <div class="flex flex-row justify-between items-center border-b border-gray-300">
                             <div class="inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-                                <DocumentAddIcon class="flex-none text-gray-700 -ml-1 w-5 h-5" aria-hidden="true" />
+                                <DocumentIcon class="flex-none text-gray-700 -ml-1 w-5 h-5" aria-hidden="true" />
                             </div>
                             <p>Registrar nuevo requisito en el sistema</p>
                             <div class="inset-y-0 right-0 flex items-center pr-3 my-2">
@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import { SearchIcon, DocumentAddIcon } from "@heroicons/vue/solid";
+import { DocumentIcon, MagnifyingGlassCircleIcon} from "@heroicons/vue/24/solid";
 import JetNavLink from "@/Jetstream/NavLink.vue";
 import JetFormSection from "@/Jetstream/FormSection.vue";
 import JetInput from "@/Jetstream/Input.vue";
@@ -107,7 +107,6 @@ import { useForm } from '@inertiajs/vue3'
 
 export default {
     components: {
-        SearchIcon,
         Dialog,
         DialogOverlay,
         TransitionRoot,
@@ -118,7 +117,7 @@ export default {
         JetInputError,
         JetLabel,
         JetButton,
-        DocumentAddIcon
+        DocumentIcon
     },
     props: {},
 

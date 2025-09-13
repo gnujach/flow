@@ -1,6 +1,6 @@
 <template>
     <div class="px-4 py-4 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-6">
-        <div class="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
+        <div class="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12 flex flex-col justify-center items-center">
             <div class="mb-4">
                 <jet-application-logo class="block h-24 w-auto mx-auto" />
             </div>
@@ -23,9 +23,10 @@
             <p class="text-base  md:text-lg text-indigo-500 font-bold">
                 Delegación Regional Noreste, USAE San Luis de la Paz
             </p>
+            <Decalogo />
         </div>
         <div class="grid gap-4 row-gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            <div class="flex flex-col justify-between p-5 border rounded shadow-sm">
+            <div class="flex flex-col justify-between p-5 border border-gray-100 rounded shadow-sm">
                 <div>
                     <div class="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
                         <LightBulbIcon class="w-10 h-10" />
@@ -40,7 +41,7 @@
                     </jet-nav-link>
                 </div>
             </div>
-            <div class="flex flex-col justify-between p-5 border rounded shadow-sm">
+            <div class="flex flex-col justify-between p-5 border border-gray-50 rounded shadow-sm">
                 <div>
                     <div class="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
                         <ChartBarIcon class="w-10 h-10" />
@@ -56,7 +57,7 @@
                 </div>
             </div>
             <div v-if="$page.props.auth.roles.includes('capturista')"
-                class="flex flex-col justify-between p-5 border rounded shadow-sm">
+                class="flex flex-col justify-between p-5 border border-gray-50 rounded shadow-sm">
                 <div>
                     <div class="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
                         <NewspaperIcon class="w-10 h-10" />
@@ -71,7 +72,7 @@
                     </jet-nav-link>
                 </div>
             </div>
-            <div class="flex flex-col justify-between p-5 border rounded shadow-sm"
+            <div class="flex flex-col justify-between p-5 border border-gray-50 rounded shadow-sm"
                 v-if="$page.props.auth.roles.includes('Admin')">
                 <div>
                     <div class="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
@@ -87,7 +88,7 @@
                     </jet-nav-link>
                 </div>
             </div>
-            <div class="flex flex-col justify-between p-5 border rounded shadow-sm"
+            <div class="flex flex-col justify-between p-5 border border-gray-50 rounded shadow-sm"
                 v-if="$page.props.auth.roles.includes('Admin')">
                 <div>
                     <div class="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
@@ -115,4 +116,5 @@ import {
     ClipboardIcon,
     NewspaperIcon,
 } from "@heroicons/vue/24/outline";
+import Decalogo from "./Decalogo.vue";
 </script>

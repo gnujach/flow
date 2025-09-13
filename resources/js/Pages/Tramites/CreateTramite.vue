@@ -10,7 +10,7 @@
                 </div>
                 <div class="flex flex-row">
                     <div class="flex">
-                        <DotsCircleHorizontalIcon class="h-5 text-gray-200" :class="{
+                        <EllipsisHorizontalCircleIcon class="h-5 text-gray-200" :class="{
                             'h-6 text-blue-400': selectIndexTab == 0,
                         }" />
                         <span :class="{
@@ -22,7 +22,7 @@
                         <MinusIcon class="h-5" />
                     </div>
                     <div class="flex">
-                        <DotsCircleHorizontalIcon class="h-5 text-gray-200" :class="{
+                        <EllipsisHorizontalCircleIcon class="h-5 text-gray-200" :class="{
                             'text-blue-400 h-6': selectIndexTab == 1,
                         }" />
                         <span :class="{
@@ -34,7 +34,7 @@
                         <MinusIcon class="h-5" />
                     </div>
                     <div class="flex">
-                        <DotsCircleHorizontalIcon class="h-5 text-gray-400" :class="{
+                        <EllipsisHorizontalCircleIcon class="h-5 text-gray-400" :class="{
                             'text-blue-400 h-6': selectIndexTab == 2,
                         }" />
                         <span :class="{
@@ -184,7 +184,7 @@
                                 <button
                                     class="bg-gray-100 text-blue-700 rounded-md flex flex-row m-2 items-center hover:bg-blue-700 hover:text-gray-100"
                                     @click="selectIndexTab = 1">
-                                    <ArrowCircleRightIcon class="h-5 w-5"></ArrowCircleRightIcon>
+                                    <ArrowRightCircleIcon class="h-5 w-5"></ArrowRightCircleIcon>
                                     <span class="p-2">Siguiente</span>
                                 </button>
                             </div>
@@ -264,14 +264,14 @@ req, index
                                 <button
                                     class="bg-gray-100 text-blue-700 rounded-md flex flex-row m-2 items-center hover:bg-blue-700 hover:text-gray-100"
                                     @click="selectIndexTab = 0">
-                                    <ArrowCircleLeftIcon class="h-5 w-5"></ArrowCircleLeftIcon>
+                                    <ArrowLeftCircleIcon class="h-5 w-5"></ArrowLeftCircleIcon>
                                     <span class="p-2">Anterior</span>
                                 </button>
                                 <button
                                     class="bg-gray-100 text-blue-700 rounded-md flex flex-row m-2 items-center hover:bg-blue-700 hover:text-gray-100"
                                     @click="selectIndexTab = 2">
                                     <span class="p-2">Siguiente</span>
-                                    <ArrowCircleRightIcon class="h-5 w-5"></ArrowCircleRightIcon>
+                                    <ArrowRightCircleIcon class="h-5 w-5"></ArrowRightCircleIcon>
                                 </button>
                             </div>
                         </TabPanel>
@@ -323,14 +323,14 @@ req, index
                                 <button
                                     class="bg-gray-100 text-blue-700 rounded-md flex flex-row m-2 items-center hover:bg-blue-700 hover:text-gray-100"
                                     @click="selectIndexTab = 1">
-                                    <ArrowCircleLeftIcon class="h-5 w-5"></ArrowCircleLeftIcon>
+                                    <ArrowLeftCircleIcon class="h-5 w-5"></ArrowLeftCircleIcon>
                                     <span class="p-2">Anterior</span>
                                 </button>
                                 <button
                                     class="bg-gray-100 text-blue-700 rounded-md flex flex-row m-2 items-center hover:bg-blue-700 hover:text-gray-100"
                                     @click="saveTramiteInformation">
                                     <span class="p-2">Guardar</span>
-                                    <SaveIcon class="h-5 w-5"></SaveIcon>
+                                    <ArrowDownOnSquareIcon class="h-5 w-5"></ArrowDownOnSquareIcon>
                                 </button>
                             </div>
                         </TabPanel>
@@ -345,15 +345,15 @@ req, index
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
 import {
-    DotsCircleHorizontalIcon,
+    EllipsisHorizontalIcon,
     MinusIcon,
-    ArrowCircleRightIcon,
+    ArrowRightCircleIcon,
     CheckIcon,
     XCircleIcon,
     PlusCircleIcon,
-    ArrowCircleLeftIcon,
-    SaveIcon,
-} from "@heroicons/vue/solid";
+    ArrowLeftCircleIcon,
+    ArrowDownOnSquareIcon,
+} from "@heroicons/vue/24/outline";
 import JetInput from "@/Jetstream/Input.vue";
 import JetInputError from "@/Jetstream/InputError.vue";
 import JetLabel from "@/Jetstream/Label.vue";
@@ -366,6 +366,7 @@ import { usePrevalidate } from "@/Composables/usePrevalidate";
 import Alert from "@/Components/Alert.vue";
 import ModalAddRequisito from "@/modules/Dialog/Components/ModalAddRequisito.vue";
 import Breadcrumb from "@/Components/Breadcrumb.vue";
+import { EllipsisHorizontalCircleIcon } from "@heroicons/vue/24/outline";
 const breadcrumbs = computed(() => {
     return [
         {

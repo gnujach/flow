@@ -27,8 +27,19 @@ class Tramite extends Model
         'by',
         'ser_recibido',
         'tipo'
-//        'cliente_id'
+        //        'cliente_id'
     ];
+
+    public function setNombreAttribute($value)
+    {
+        $this->attributes['nombre'] = ucfirst(mb_strtolower(trim($value), 'UTF-8'));
+    }
+
+    public function getNombreAttribute($value)
+    {
+        return ucfirst(mb_strtolower($value, 'UTF-8'));
+    }
+
 
     /**
      * Un tramite puede tener muchos requisitos
@@ -61,5 +72,4 @@ class Tramite extends Model
     {
         return $this->hasMany(Solicitud::class);
     }
-
 }

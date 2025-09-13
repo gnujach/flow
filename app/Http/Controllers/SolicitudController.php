@@ -6,6 +6,7 @@ use App\Models\Solicitud;
 use App\Models\Tareatramite;
 use App\Models\Historysolicitud;
 use App\Models\Tramite;
+use App\Models\Departamento;
 use App\Services\SolicitudService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,11 +40,42 @@ class SolicitudController extends Controller
     public function listarPendientes()
     {
         $this->authorize('create', Solicitud::class);
-        return Inertia::render('Solicitudes/ListSolicitudes', [
-            'solicitudes' => new SolicitudCollection(Solicitud::where('by', Auth::user()->id)->where('concluido', false)
+        // return Inertia::render('Solicitudes/ListSolicitudes', [
+        //     'solicitudes' => new SolicitudCollection(Solicitud::where('by', Auth::user()->id)->where('concluido', false)
+        //         ->OrderBy('id', 'desc')
+        //         ->with(['cliente', 'medio', 'tramite', 'tramite.departamento:id,nombre', 'user:id,name'])
+        //         ->paginate(config('openlink.perpage'))),
+        // ]);
+        $userId = Auth::id();
+        $userDepartamentoId = Auth::user()->departamento_id;
+
+        // dd($userDepartamentoId);
+        $solicitudes =  new SolicitudCollection(
+            Solicitud::whereHas('tramite', function ($query) use ($userDepartamentoId) {
+                $query->where('departamento_id', $userDepartamentoId);
+            })
+                ->where(['concluido'=> false, 'centro_id' => Auth::user()->centro_id])
                 ->OrderBy('id', 'desc')
                 ->with(['cliente', 'medio', 'tramite', 'tramite.departamento:id,nombre', 'user:id,name'])
-                ->paginate(config('openlink.perpage'))),
+                ->paginate(config('openlink.perpage'))
+        );
+
+        // $solicitudes = new SolicitudCollection(
+        //     $solicitudes = Solicitud::whereHas('tramite', function ($query) use ($userId) {
+        //         $query->whereHas('departamento', function ($q) use ($userId) {
+        //             $q->where('id', function ($subquery) use ($userId) {
+        //                 $subquery->select('departamento_id')
+        //                     ->from('users')
+        //                     ->where('id', $userId);
+        //             });
+        //         });
+        //     })->where('concluido',false)->OrderBy('id', 'desc')
+        //         ->with(['cliente', 'medio', 'tramite', 'tramite.departamento:id,nombre', 'user:id,name'])
+        //         ->paginate(config('openlink.perpage'))
+        // );
+
+        return Inertia::render('Solicitudes/ListSolicitudes', [
+            'solicitudes' => $solicitudes,
         ]);
     }
     /**
@@ -70,7 +102,9 @@ class SolicitudController extends Controller
     {
         $this->authorize('create', Solicitud::class);
         return Inertia::render('Solicitudes', [
-            'departamentos' => DB::table('departamentos')->where('id', '>', 0)->where('activo', true)->select('id', 'nombre')->get(),
+            // 'departamentos' => DB::table('departamentos')->where('id', '>', 0)->where('activo', true)->select('id', 'nombre')->get(),
+            'departamentos' => Departamento::where('activo', true)->get(),
+            // 'departamentos' => DB::table('departamentos')->where('id', '>', 0)->where('activo', true)->select('id', 'nombre')->get(),
             'tramites' => Tramite::where('activo', true)->with(['requisitos', 'departamento', 'Tareastramite'])->get(),
             'medios' => DB::table('medios')->where('id', '>', 0)->where('activo', true)->select('id', 'nombre')->get(),
         ]);

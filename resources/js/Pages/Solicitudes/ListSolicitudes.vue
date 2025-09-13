@@ -1,3 +1,74 @@
+<script setup>
+import AppLayout from "@/Layouts/AppLayout.vue";
+import JetNavLink from "@/Jetstream/NavLink.vue";
+import { ref, onMounted } from "vue";
+import Pagination from "@/Shared/Pagination.vue";
+import Icon from "@/Shared/Icon.vue";
+import { DocumentArrowDownIcon } from "@heroicons/vue/24/outline";
+import ModalUpdateSolicitud from "@/modules/Dialog/Components/ModalUpdateSolicitud.vue";
+import AlertToast from "@/modules/Dialog/Components/AlertToast.vue";
+import { VueGoodTable } from "vue-good-table-next";
+// import the styles
+import "vue-good-table-next/dist/vue-good-table-next.css";
+
+const props = defineProps({
+    solicitudes: Object,
+});
+const rows = ref([]);
+onMounted(() => {
+    props.solicitudes.data.solicitudes.forEach((element) => {
+        let solicitud = {
+            id: element.data.id,
+            user: element.data.user.data.attributes.name,
+            created_at: element.data.attributes.created,
+            cliente: element.data.cliente.data.attributes.full_name,
+            cliente_uuid: element.data.cliente.data.uuid,
+            // centro: element.data.centro.data.attributes.nombre,
+            tramite: element.data.tramite.data.attributes.nombre,
+            departamento:
+                element.data.tramite.data.departamento.data.attributes.nombre,
+            m_atencion: element.data.medio.data.attributes.nombre,
+            concluida: element.data.attributes.concluido,
+        };
+        rows.value.push(solicitud);
+    });
+});
+const columns = ref([
+    {
+        label: "Realizado",
+        field: "created_at",
+    },
+    {
+        label: "Atendió",
+        field: "user",
+    },
+    {
+        label: "Usuario",
+        field: "cliente",
+    },
+    {
+        label: "Departamento",
+        field: "departamento",
+    },
+    {
+        label: "Trámite",
+        field: "tramite",
+    },
+    {
+        label: "Medio de atención",
+        field: "m_atencion",
+    },
+    {
+        label: "Concluída",
+        field: "concluida",
+    },
+    {
+        label: "Acciones",
+        field: "acciones",
+        sortable: false,
+    },
+]);
+</script>
 <template>
     <app-layout>
         <template #header>
@@ -27,7 +98,7 @@
                                             </button>
                                         </jet-nav-link>
                                     </div>
-                                    <div class="flex justify-center">
+                                    <div class="flex justify-center" v-if="$page.props.auth.roles.includes('Supervisor') || $page.props.auth.roles.includes('Admin')">
                                         <a href="/solicitudes/export/">
                                             <button
                                                 class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500">
@@ -326,75 +397,3 @@
         </template>
     </app-layout>
 </template>
-
-<script setup>
-import AppLayout from "@/Layouts/AppLayout.vue";
-import JetNavLink from "@/Jetstream/NavLink.vue";
-import { ref, onMounted } from "vue";
-import Pagination from "@/Shared/Pagination.vue";
-import Icon from "@/Shared/Icon.vue";
-import { DocumentArrowDownIcon } from "@heroicons/vue/24/outline";
-import ModalUpdateSolicitud from "@/modules/Dialog/Components/ModalUpdateSolicitud.vue";
-import AlertToast from "@/modules/Dialog/Components/AlertToast.vue";
-import { VueGoodTable } from "vue-good-table-next";
-// import the styles
-import "vue-good-table-next/dist/vue-good-table-next.css";
-
-const props = defineProps({
-    solicitudes: Object,
-});
-const rows = ref([]);
-onMounted(() => {
-    props.solicitudes.data.solicitudes.forEach((element) => {
-        let solicitud = {
-            id: element.data.id,
-            user: element.data.user.data.attributes.name,
-            created_at: element.data.attributes.created,
-            cliente: element.data.cliente.data.attributes.full_name,
-            cliente_uuid: element.data.cliente.data.uuid,
-            // centro: element.data.centro.data.attributes.nombre,
-            tramite: element.data.tramite.data.attributes.nombre,
-            departamento:
-                element.data.tramite.data.departamento.data.attributes.nombre,
-            m_atencion: element.data.medio.data.attributes.nombre,
-            concluida: element.data.attributes.concluido,
-        };
-        rows.value.push(solicitud);
-    });
-});
-const columns = ref([
-    {
-        label: "Realizado",
-        field: "created_at",
-    },
-    {
-        label: "Atendió",
-        field: "user",
-    },
-    {
-        label: "Usuario",
-        field: "cliente",
-    },
-    {
-        label: "Departamento",
-        field: "departamento",
-    },
-    {
-        label: "Trámite",
-        field: "tramite",
-    },
-    {
-        label: "Medio de atención",
-        field: "m_atencion",
-    },
-    {
-        label: "Concluída",
-        field: "concluida",
-    },
-    {
-        label: "Acciones",
-        field: "acciones",
-        sortable: false,
-    },
-]);
-</script>

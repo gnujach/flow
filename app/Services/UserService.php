@@ -42,18 +42,19 @@ class UserService
     {
         $rol_valido = false;
         $roles = $request->roles_id;
-        if (is_array($roles)) {
-            foreach ($roles as $rol) {
-                $role = Role::find($rol);
-                if ($role) {
-                    $rol_valido = true;
-                }
-            }
-            $user->syncRoles($roles);
-        } else {
-            // dd($roles);
-            $user->syncRoles($roles);
-        }
+        $user->syncRoles($roles);
+        // if (is_array($roles)) {
+        //     foreach ($roles as $rol) {
+        //         $role = Role::find($rol);
+        //         if ($role) {
+        //             $rol_valido = true;
+        //         }
+        //     }
+        //     $user->syncRoles($roles);
+        // } else {
+        //     // dd($roles);
+        //     $user->syncRoles($roles);
+        // }
         // if ($rol_valido)
     }
 

@@ -1,3 +1,88 @@
+<script setup>
+import { defineComponent, ref, computed, onMounted } from "vue";
+import AppLayout from "@/Layouts/AppLayout.vue";
+import JetNavLink from "@/Jetstream/NavLink.vue";
+import Pagination from "@/Shared/Pagination.vue";
+import Icon from "@/Shared/Icon.vue";
+import Breadcrumb from "@/Components/Breadcrumb.vue";
+import "vue-good-table-next/dist/vue-good-table-next.css";
+import { usePage } from '@inertiajs/vue3'
+import { VueGoodTable } from "vue-good-table-next";
+
+import {
+    Bars4Icon,
+    PencilIcon,
+    ExclamationCircleIcon,
+    CheckBadgeIcon,
+} from "@heroicons/vue/24/outline";
+
+const breadcrumbs = computed(() => {
+    return [
+        {
+            label: "Inicio",
+            url: route("dashboard.list"),
+        },
+        {
+            label: "Usuarios",
+        },
+    ];
+});
+const items = [];
+const props = defineProps({
+    users: Object,
+});
+usePage().props.appName = "List";
+const appName = computed(() => usePage().props.appName);
+const url = computed(() => usePage().url);
+const rows = ref([]);
+const columns = ref([
+    {
+        label: "Nombre",
+        field: "name",
+    },
+    {
+        label: "Email",
+        field: "email",
+    },
+    {
+        label: "Centro de Trabajo",
+        field: "centro",
+    },
+    {
+        label: "Departamento",
+        field: "departamento",
+    },
+    {
+        label: "Puesto",
+        field: "puesto",
+        tooltip: 'Puesto de trabajo',
+    },
+    {
+        label: "Acciones",
+        field: "acciones",
+        sortable: false,
+    },
+    { label: "Activo", field: "activo" },
+]);
+onMounted(() => {
+    rows.value = props.users.data.usuarios.map((item) => {
+        return {
+            uuid: item.data.uuid,
+            name: item.data.attributes.name,
+            email: item.data.attributes.email,
+            centro: item.data.centro.data.attributes.nombre,
+            departamento: item.data.departamento.data.attributes.nombre,
+            puesto: item.data.puesto.data.attributes.nombre,
+            acciones: "acciones",
+            activo: item.data.attributes.activo?"Si":"No",
+        };
+    });
+});
+const rowStyleClassFn = (row) => {
+    return row.activo === "No" ? "bg-red-200" : "";
+};
+</script>
+
 <template>
     <app-layout>
         <template #header>
@@ -27,109 +112,24 @@
                                     </jet-nav-link>
                                 </div>
                             </div>
-                            <div class="bg-white rounded shadow overflow-x-auto ml-4 mr-4">
-                                <table class="w-full">
-                                    <tr class="text-left font-bold bg-aqua">
-                                        <th class="px-6 pt-6 pb-4">
-                                            <div class="flex content-center items-center">
-                                                <icon name="sun" class="w-8 h-8 mr-2 text-indigo-900" />
-                                                Nombre
-                                            </div>
-                                        </th>
-                                        <th class="px-6 pt-6 pb-4">
-                                            <div class="flex content-center items-center">
-                                                <icon name="sun" class="w-8 h-8 mr-2 text-indigo-900" />
-                                                email
-                                            </div>
-                                        </th>
-                                        <th class="px-6 pt-6 pb-4">
-                                            <div class="flex content-center items-center">
-                                                <icon name="sun" class="w-8 h-8 mr-2 text-indigo-900" />
-                                                Centro de Trabajo
-                                            </div>
-                                        </th>
-                                        <th class="px-6 pt-6 pb-4">
-                                            <div class="flex content-center items-center">
-                                                <icon name="sun" class="w-8 h-8 mr-2 text-indigo-900" />
-                                                Departamento
-                                            </div>
-                                        </th>
-                                        <th class="px-6 pt-6 pb-4">
-                                            <div class="flex content-center items-center">
-                                                <icon name="sun" class="w-8 h-8 mr-2 text-indigo-900" />
-                                                Puesto
-                                            </div>
-                                        </th>
-                                        <th class="px-6 pt-6 pb-4">
-                                            <div class="flex content-center items-center">
-                                                <icon name="sun" class="w-8 h-8 mr-2 text-indigo-900" />
-                                                Acciones
-                                            </div>
-                                        </th>
-                                    </tr>
-                                    <tr v-for="user in users.data.usuarios" :key="user.data.id"
-                                        class="hover:bg-gray-100 focus-within:bg-gray-100" :class="[
-                                            user.data.attributes.activo == 0
-                                                ? 'text-gray-400'
-                                                : '',
-                                        ]">
-                                        <td class="border-t">
-                                            <p class="pl-4 font-bold">
-                                                {{ user.data.attributes.name }}
-                                            </p>
-                                        </td>
-                                        <td class="border-t">
-                                            <p class="pl-4 font-bold">
-                                                {{ user.data.attributes.email }}
-                                            </p>
-                                        </td>
-                                        <td class="border-t">
-                                            <p class="pl-4 font-bold">
-                                                {{
-                                                    user.data.centro.data
-                                                        .attributes.nombre
-                                                }}
-                                            </p>
-                                        </td>
-                                        <td class="border-t">
-                                            <p class="pl-4 font-bold">
-                                                {{
-                                                    user.data.departamento.data
-                                                        .attributes.nombre
-                                                }}
-                                            </p>
-                                        </td>
-                                        <td class="border-t">
-                                            <p class="pl-4 font-bold">
-                                                {{
-                                                    user.data.puesto.data
-                                                        .attributes.nombre
-                                                }}
-                                            </p>
-                                        </td>
-                                        <td class="border-t">
-                                            <div
-                                                class="flex flex-row items-center text-gray-400 focus-within:text-gray-600">
-                                                <Bars4Icon class="w-5 h-5 ml-3 pointer-events-none" />
-                                                <jet-nav-link :href="route(
-                                                    'admin.usuarios/edit',
-                                                    {
-                                                        user: user.data
-                                                            .uuid,
-                                                    }
-                                                )
-                                                    ">
-                                                    <PencilIcon class="w-5 h-5 ml-3 pointer-events-none" />
+                            <div class="bg-white rounded shadow overflow-x-auto">
+                                <vue-good-table :columns="columns" :rows="rows"  :row-style-class="rowStyleClassFn" :search-options="{
+                                    enabled: true,
+                                    placeholder: 'Buscar en tabla',
+                                }">
+                                    <template #table-row="props">
+                                        <span v-if="props.column.field === 'acciones'">
+                                            <div class="flex space-x-2">
+                                                <jet-nav-link
+                                                    :href="route('admin.usuarios/edit', { user: props.row.uuid })"
+                                                    class="text-blue-600 hover:text-blue-900">
+                                                    <PencilIcon class="w-5 h-5" />
                                                 </jet-nav-link>
-                                                <ExclamationCircleIcon v-if="
-                                                    user.data.attributes
-                                                        .activo
-                                                " class="w-5 h-5 ml-3 pointer-events-none" />
-                                                <BadgeCheckIcon v-else class="w-5 h-5 ml-3 pointer-events-none" />
+                                                <!-- other actions can be added here -->
                                             </div>
-                                        </td>
-                                    </tr>
-                                </table>
+                                        </span>
+                                    </template>
+                                </vue-good-table>
                             </div>
                             <div class="max-w-3xl mx-auto sm:px-6 lg:px-8 pt-4">
                                 <pagination :meta="users.meta" />
@@ -141,40 +141,3 @@
         </template>
     </app-layout>
 </template>
-
-<script setup>
-import { defineComponent, ref, computed, onMounted } from "vue";
-import AppLayout from "@/Layouts/AppLayout.vue";
-import JetNavLink from "@/Jetstream/NavLink.vue";
-import Pagination from "@/Shared/Pagination.vue";
-import Icon from "@/Shared/Icon.vue";
-import Breadcrumb from "@/Components/Breadcrumb.vue";
-// import { usePage } from "@inertiajs/inertia-vue3";
-import { usePage } from '@inertiajs/vue3'
-
-import {
-    Bars4Icon,
-    PencilIcon,
-    ExclamationCircleIcon,
-    CheckBadgeIcon,
-} from "@heroicons/vue/24/outline";
-
-const breadcrumbs = computed(() => {
-    return [
-        {
-            label: "Inicio",
-            url: route("dashboard.list"),
-        },
-        {
-            label: "Usuarios",
-        },
-    ];
-});
-const items = [];
-const props = defineProps({
-    users: Object,
-});
-usePage().props.appName = "List";
-const appName = computed(() => usePage().props.appName);
-const url = computed(() => usePage().url);
-</script>

@@ -36,8 +36,8 @@ import { useForm } from '@inertiajs/vue3'
 import JetInput from "@/Jetstream/Input.vue";
 import JetButton from "@/Jetstream/Button.vue";
 
-let listaTramites = ref(props.tramites);
 const props = defineProps(["tramites", "departamentos", "medios"]);
+let listaTramites = ref(props.tramites);
 const { departamentos, tramites, medios } = toRefs(props);
 const medioAtencion = ref(null);
 const selectedDepartamento = ref(departamentos.value[0]);
@@ -144,9 +144,9 @@ function buttonClickSave(id, cerrado) {
 <template>
     <app-layout title="Dashboard">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Solicitudes
-            </h2>
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    Ordenes de servicio
+                </h2>
         </template>
         <div class="py-4 flex mx-auto max-w-7xl">
             <div class="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto">
@@ -213,14 +213,14 @@ function buttonClickSave(id, cerrado) {
             </div>
         </div>
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="mx-auto @sm:max-w-7xl sm:px-6 lg:px-8 xl:max-w-[100rem]">
                 <div class="shadow-xl sm:rounded-lg mb-4 w-full max-w-full">
                     <TabGroup :selectedIndex="selectIndexTab">
                         <TabList class="flex p-1 space-x-1 rounded-xl">
                             <Tab v-for="(category, key) in Object.keys(tabs)" as="template" :key="category"
                                 v-slot="{ selected }" @click="selectIndexTab = key">
                                 <button :class="[
-                                    'w-full py-2.5 text-lg leading-5 font-medium font-semibold ',
+                                    'w-full py-2.5 text-lg leading-5 font-semibold ',
                                     'hover:ring-2 hover:ring-sky-900 hover:bg-sky-900 hover:text-white',
                                     selected
                                         ? 'bg-sky-900  border-b-2 border-blue-800 text-white italic'
@@ -233,7 +233,7 @@ function buttonClickSave(id, cerrado) {
                         <ToolBar />
                         <TabPanels class="mt-8 mx-4 bg-blue-300/70 pb-8">
                             <TabPanel>
-                                <div class="grid auto-rows-max auto-cols-auto mt-2 border-2">
+                                <div class="grid auto-rows-max auto-cols-auto mt-2 border-2 border-blue-300">
                                     <div class="flex flex-row rounded-lg justify-between my-2">
                                         <div class="flex flex-row items-center space-x-5 w-1/2">
                                             <SwatchIcon class="w-5 h-5 ml-4" aria-hidden="true" />
@@ -245,7 +245,7 @@ function buttonClickSave(id, cerrado) {
                                                             class="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
                                                             <span class="block truncate">{{
                                                                 selectedDepartamento.nombre
-                                                                }}</span>
+                                                            }}</span>
                                                             <span
                                                                 class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                                                                 <ChevronUpIcon class="w-5 h-5 text-gray-400"
@@ -256,7 +256,7 @@ function buttonClickSave(id, cerrado) {
                                                         <transition leave-active-class="transition duration-100 ease-in"
                                                             leave-from-class="opacity-100" leave-to-class="opacity-0">
                                                             <ListboxOptions
-                                                                class="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-96 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                                                class="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-96  ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                                                                 <ListboxOption v-slot="{
                                                                     active,
                                                                     selected,
@@ -282,7 +282,7 @@ function buttonClickSave(id, cerrado) {
                                                                             'block truncate',
                                                                         ]">{{
                                                                             departamento.nombre
-                                                                        }}</span>
+                                                                            }}</span>
                                                                         <span v-if="
                                                                             selected
                                                                         "
@@ -311,7 +311,7 @@ function buttonClickSave(id, cerrado) {
                                                         class="w-5 h-5 absolute ml-3 pointer-events-none" />
                                                     <input v-model="text" type="text" name="buscar" placeholder="Buscar"
                                                         autocomplete="off" arial-label="buscar trámite"
-                                                        class="pl-10 pr-3 py-2 font-semibold placeholder-gray-500 rounded-2xl border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500" />
+                                                        class="bg-white pl-10 pr-3 py-2 font-semibold placeholder-gray-500 rounded-2xl border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500" />
                                                 </div>
                                             </form>
                                         </div>
@@ -410,7 +410,7 @@ function buttonClickSave(id, cerrado) {
                                                 <hr />
                                                 <span>{{
                                                     getSelectedCliente.email
-                                                }}</span>
+                                                    }}</span>
                                                 <hr />
                                                 <div class="flex flex-row m-2">
                                                     <jet-input v-model="formClientTel.telefono

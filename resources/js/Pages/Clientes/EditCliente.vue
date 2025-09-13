@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import JetButton from "@/Jetstream/Button.vue";
 import JetFormSection from "@/Jetstream/FormSection.vue";
@@ -14,6 +14,7 @@ import { useForm } from '@inertiajs/vue3'
 import { usePrevalidate } from "@/Composables/usePrevalidate";
 import Breadcrumb from "@/Components/Breadcrumb.vue";
 import BaseListbox from "@/Shared/BaseListbox.vue";
+import VueSelect from "vue3-select-component";
 
 const props = defineProps({
     cliente: Object,
@@ -21,7 +22,16 @@ const props = defineProps({
         type: Array,
         required: false,
     },
+    ccts: {
+        type: Array,
+        required: false,
+        default: () => [],
+    },
 });
+const options = props.ccts.map((cct) => ({
+    label: cct.full_name,
+    value: cct.id,
+}));
 const breadcrumbs = computed(() => {
     return [
         {
@@ -41,9 +51,9 @@ const form = useForm({
     nombre: props.cliente.data.attributes.nombre.trim(),
     apellido1: props.cliente.data.attributes.apellido1.trim(),
     apellido2: props.cliente.data.attributes.apellido2.trim(),
-    email: props.cliente.data.attributes.email.trim(),
+    email: props.cliente.data.attributes.email || null,
     telefono: props.cliente.data.attributes.telefono,
-    cct_id: 1,
+    cct_id: props.cliente.data.attributes.cct_id,
     interno: props.cliente.data.attributes.interno ? 1 : 0,
     puesto_id: props.cliente.data.attributes.puesto_id,
     uuid: props.cliente.data.uuid,
@@ -66,7 +76,17 @@ const onSubmit = () =>
                 // errorBag: "saveRequisitoInformation",
                 preserveScroll: true,
             }
-        );
+    );
+const isSeg = ref(form.interno === 1);
+watch(
+    () => form.interno,
+    (newVal) => {
+        isSeg.value = newVal;    
+        if (!newVal) {
+            form.cct_id = 1;
+        }
+    }
+);
 </script>
 <template>
     <app-layout>
@@ -108,7 +128,7 @@ const onSubmit = () =>
                         <jet-input id="telefono" type="text" class="mt-1 block w-full" v-model="form.telefono" />
                         <jet-input-error :message="form.errors.telefono" class="mt-2" />
                     </div>
-                     <!-- Puesto -->
+                    <!-- Puesto -->
                     <div class="col-span-6 sm:col-span-4" v-if="props.puestos && puestos.length > 0">
                         <jet-label for="puesto" value="Puesto" />
                         <BaseListbox :options="puestos" placeholder="Seleccione Puesto de Trabajo"
@@ -119,6 +139,13 @@ const onSubmit = () =>
                         <jet-label for="interno" value="El usuario pertenece a SEG" />
                         <jet-checkbox id="interno" type="checkbox" class="mt-1 block" checked v-model="form.interno" />
                         <jet-input-error :message="form.errors.interno" class="mt-2" />
+                    </div>
+                     <!-- Cct -->
+                    <div class="col-span-6 sm:col-span-4">
+                        <jet-label for="cct_id" value="Centro de Trabajo" />
+                        <VueSelect :options="options" placeholder="Seleccione Centro de Trabajo"
+                            v-model="form.cct_id" :isDisabled="!isSeg"/>
+                        <jet-input-error :message="form.errors.cct_id" class="mt-2" />
                     </div>
                 </template>
                 <template #actions>

@@ -6,7 +6,7 @@ import { createInertiaApp } from "@inertiajs/vue3";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { ZiggyVue } from "../../vendor/tightenco/ziggy/dist/vue.m";
 import store from "./store";
-import "@themesberg/flowbite";
+// import "@themesberg/flowbite";
 import { VueReCaptcha, useReCaptcha } from "vue-recaptcha-v3";
 
 const appName =

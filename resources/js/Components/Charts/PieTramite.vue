@@ -1,7 +1,7 @@
 <template>
     <Pie
-        :chart-options="chartOptions"
-        :chart-data="chartData"
+        :options="chartOptions"
+        :data="chartData"
         :chart-id="chartId"
         :dataset-id-key="datasetIdKey"
         :plugins="plugins"

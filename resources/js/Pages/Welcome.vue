@@ -13,11 +13,11 @@
             </template>
         </div>
 
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-            <Link :href="route('login')" class="underline text-sm text-gray-600 hover:text-gray-900">
-            <jet-button class="ml-4">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <Link :href="route('login')" class="text-sm text-gray-600 hover:text-gray-900">
+            <button class="w-full ml-4 btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl btn-secondary z-40">
                 Ingresar
-            </jet-button>
+            </button>
             </Link>
 
         </div>

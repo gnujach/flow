@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import JetButton from "@/Jetstream/Button.vue";
 import JetFormSection from "@/Jetstream/FormSection.vue";
@@ -15,6 +15,7 @@ import { usePrevalidate } from "@/Composables/usePrevalidate";
 import Breadcrumb from "@/Components/Breadcrumb.vue";
 import BaseListbox from "@/Shared/BaseListbox.vue";
 import BaseListboxCt from "@/Shared/BaseListboxCt.vue";
+import VueSelect from "vue3-select-component";
 
 const props = defineProps({
     puestos: {
@@ -43,6 +44,13 @@ const breadcrumbs = computed(() => {
         },
     ];
 });
+
+const isSeg = ref(true);
+
+const options = props.ccts.map((cct) => ({
+    label: cct.full_name,
+    value: cct.id,
+}));
 const form = useForm({
     nombre: null,
     apellido1: null,
@@ -68,6 +76,16 @@ const onSubmit = () =>
             errorBag: "saveRequisitoInformation",
             preserveScroll: true,
         });
+
+watch(
+    () => form.interno,
+    (newVal) => {
+        isSeg.value = newVal;    
+        if (!newVal) {
+            form.cct_id = 1;
+        }
+    }
+);
 </script>
 <template>
     <app-layout>
@@ -76,7 +94,7 @@ const onSubmit = () =>
                 <Breadcrumb :items="breadcrumbs" />
             </h2>
         </template>
-        <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8 ">
             <jet-form-section @focusout="validate" @submitted="onSubmit">
                 <template #title> Usuarios</template>
                 <template #description> Alta de Usuario</template>
@@ -85,7 +103,7 @@ const onSubmit = () =>
                     <div class="col-span-6 sm:col-span-4">
                         <jet-label for="nombre" value="Nombre" />
                         <jet-input id="nombre" type="text" class="mt-1 block w-full" v-model="form.nombre"
-                            autocomplete="nombre" autofocus />
+                            autocomplete="nombre" autofocus="" />
                         <jet-input-error :message="form.errors.nombre" class="mt-2" />
                     </div>
                     <div class="col-span-6 sm:col-span-4">
@@ -124,8 +142,8 @@ const onSubmit = () =>
                     <!-- Cct -->
                     <div class="col-span-6 sm:col-span-4">
                         <jet-label for="cct_id" value="Centro de Trabajo" />
-                        <BaseListboxCt :options="ccts" placeholder="Seleccione Centro de Trabajo"
-                            v-model="form.cct_id" />
+                        <VueSelect :options="options" placeholder="Seleccione Centro de Trabajo"
+                            v-model="form.cct_id" :isDisabled="!isSeg"/>
                         <jet-input-error :message="form.errors.cct_id" class="mt-2" />
                     </div>
                 </template>

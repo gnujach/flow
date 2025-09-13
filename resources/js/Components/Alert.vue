@@ -5,5 +5,5 @@
     </div>
 </template>
 <script setup>
-import {ExclamationCircleIcon} from '@heroicons/vue/solid'
+import { ExclamationCircleIcon } from "@heroicons/vue/24/solid";
 </script>

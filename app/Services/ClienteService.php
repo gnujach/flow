@@ -39,6 +39,8 @@ class ClienteService
             'email' => $request->input('email'),
             'telefono' => $request->input('telefono'),
             'puesto_id' => $request->input('puesto_id'),
+            'cct_id' => strtoupper($request->input('cct_id')),
+            'by' => Auth::id(),
         ]);
         return $cliente;
     }

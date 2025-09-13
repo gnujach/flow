@@ -32,7 +32,7 @@ class UserController extends Controller
         return Inertia\Inertia::render(
             'Users/ListUsers',
             [
-                'users' => new UserCollection(User::orderBy('id', 'desc')->with(['puesto', 'centro', 'departamento'])->paginate(config('openlink.perpage'))),
+                'users' => new UserCollection(User::where('id', '>', 1)->orderBy('id', 'desc')->with(['puesto', 'centro', 'departamento'])->paginate(config('openlink.perpage'))),
             ]
         );
     }

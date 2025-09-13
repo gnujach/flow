@@ -1,3 +1,39 @@
+<script setup>
+import {computed, ref} from "vue";
+import {
+    Listbox,
+    ListboxButton,
+    ListboxOption,
+    ListboxOptions,
+} from "@headlessui/vue";
+import {CheckIcon, SelectorIcon} from "@heroicons/vue/solid";
+
+const props = defineProps({
+    options: Array,
+    modelValue: [String, Number, Array],
+    placeholder: {
+        type: String,
+        default: "Select option",
+    },
+    multiple: Boolean,
+    error: String,
+});
+
+const emit = defineEmits(["update:modelValue"]);
+
+const label = computed(() => {
+    return props.options
+        .filter((option) => {
+            if (Array.isArray(props.modelValue)) {
+                return props.modelValue.includes(option.name);
+            }
+
+            return props.modelValue === option.name;
+        })
+        .map((option) => option.name)
+        .join(", ");
+});
+</script>
 <template>
     <Listbox
         :model-value="props.modelValue"
@@ -68,39 +104,3 @@
         </div>
     </Listbox>
 </template>
-<script setup>
-import {computed, ref} from "vue";
-import {
-    Listbox,
-    ListboxButton,
-    ListboxOption,
-    ListboxOptions,
-} from "@headlessui/vue";
-import {CheckIcon, SelectorIcon} from "@heroicons/vue/solid";
-
-const props = defineProps({
-    options: Array,
-    modelValue: [String, Number, Array],
-    placeholder: {
-        type: String,
-        default: "Select option",
-    },
-    multiple: Boolean,
-    error: String,
-});
-
-const emit = defineEmits(["update:modelValue"]);
-
-const label = computed(() => {
-    return props.options
-        .filter((option) => {
-            if (Array.isArray(props.modelValue)) {
-                return props.modelValue.includes(option.name);
-            }
-
-            return props.modelValue === option.name;
-        })
-        .map((option) => option.name)
-        .join(", ");
-});
-</script>

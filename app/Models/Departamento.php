@@ -18,6 +18,16 @@ class Departamento extends Model
         'by'
     ];
 
+    public function setNombreAttribute($value)
+    {
+        $this->attributes['nombre'] = ucfirst(mb_strtolower(trim($value), 'UTF-8'));
+    }
+
+    public function getNombreAttribute($value)
+    {
+        return ucfirst(mb_strtolower($value, 'UTF-8'));
+    }
+
     public function user()
     {
         return $this->hasOne(User::class);

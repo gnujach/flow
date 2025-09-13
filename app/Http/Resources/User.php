@@ -28,7 +28,7 @@ class User extends JsonResource
                 'attributes' => [
                     'name' => $this->name,
                     'email' => $this->email,
-                    'role' => $this->role,
+                    'role' => $this->roles->pluck('id'),
                     'activo' => $this->activo,
                     'centro_id' => $this->centro_id,
                     'departamento_id' => $this->departamento_id,

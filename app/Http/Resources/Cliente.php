@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\SolicitudListCollection;
+use App\Http\Resources\CctResource as Cct;
 use App\Http\Resources\Puesto;
 
 class Cliente extends JsonResource
@@ -23,6 +24,7 @@ class Cliente extends JsonResource
                 'id' => $this->id,
                 'solicitudes' =>  new SolicitudListCollection($this->whenLoaded('solicitud')),
                 'puesto' => new Puesto($this->whenLoaded('puesto')),
+                'cct' => new Cct($this->whenLoaded('cct')),
                 'attributes' => [
                     'rfc' => $this->rfc,
                     'curp' => $this->curp,

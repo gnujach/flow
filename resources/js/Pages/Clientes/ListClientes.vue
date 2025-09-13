@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from "vue";
+import { computed, onMounted, ref } from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import JetNavLink from "@/Jetstream/NavLink.vue";
 import Pagination from "@/Shared/Pagination.vue";
@@ -13,6 +13,10 @@ import {
 } from "@heroicons/vue/24/outline";
 import { toRefs, defineProps } from "vue";
 import Breadcrumb from "@/Components/Breadcrumb.vue";
+import { VueGoodTable } from "vue-good-table-next";
+// import the styles
+import "vue-good-table-next/dist/vue-good-table-next.css";
+
 const breadcrumbs = computed(() => {
     return [
         {
@@ -24,16 +28,63 @@ const breadcrumbs = computed(() => {
         },
     ];
 });
-
 const props = defineProps(["clientes"]);
+const rows = ref([]);
+const columns = ref([
+    {
+        label: "Nombre",
+        field: "created_at",
+    },
+    {
+        label: "Apellido 1",
+        field: "user",
+    },
+    {
+        label: "Apellido 2",
+        field: "cliente",
+    },
+    {
+        label: "Teléfono",
+        field: "departamento",
+    },
+    {
+        label: "Correo",
+        field: "tramite",
+    },
+    {
+        label: "Centro de Trabajo",
+        field: "ct",
+    },
+    {
+        label: "Acciones",
+        field: "acciones",
+        sortable: false,
+    },
+]);
+onMounted(() => {
+    rows.value = props.clientes.data.clientes.map((item) => {
+        return {
+            uuid: item.data.uuid,
+            created_at: item.data.attributes.nombre,
+            user: item.data.attributes.apellido1,
+            cliente: item.data.attributes.apellido2,
+            departamento: item.data.attributes.telefono,
+            tramite: item.data.attributes.email,
+            ct: item.data.cct.data.attributes.nombre_ct,
+            acciones: "acciones",
+        };
+    });
+});
 const { clientes } = toRefs(props);
 </script>
 <template>
     <app-layout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                <Breadcrumb :items="breadcrumbs" />
-            </h2>
+            <div class="flex flex-row justify-between items-center">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    <Breadcrumb :items="breadcrumbs" />
+                </h2>
+            </div>
             <div class="py-12">
                 <div class="max-w-full mx-auto sm:px-6 lg:px-8">
                     <div class="overflow-hidden shadow-xl sm:rounded-lg">
@@ -46,7 +97,7 @@ const { clientes } = toRefs(props);
                                     <jet-nav-link :href="route('admin.clientes/create', {})
                                         ">
                                         <button
-                                            class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500">
+                                            class="border-green-700 border bg-white rounded mr-4 w-32 mb:w-42 p-1 hover:bg-aqua transition duration-500 btn btn-md">
                                             <div class="flex flex-row">
                                                 <icon name="plus" class="block w-6 h-6 fill-gray-400" />
                                                 <p class="font-bold">
@@ -60,129 +111,27 @@ const { clientes } = toRefs(props);
                             <div class="flex justify-start m-4">
                                 <ModalSearchClient />
                             </div>
-                            <div class="bg-white rounded shadow overflow-x-auto ml-4 mr-4">
-                                <table class="w-full">
-                                    <tr class="text-left font-bold bg-aqua">
-                                        <th class="px-6 pt-6 pb-4">
-                                            <div class="flex content-center items-center">
-                                                <icon name="sun" class="w-8 h-8 mr-2 text-indigo-900" />
-                                                Nombre
-                                            </div>
-                                        </th>
-                                        <th class="px-6 pt-6 pb-4">
-                                            <div class="flex content-center items-center">
-                                                <icon name="sun" class="w-8 h-8 mr-2 text-indigo-900" />
-                                                Apellido 1
-                                            </div>
-                                        </th>
-                                        <th class="px-6 pt-6 pb-4">
-                                            <div class="flex content-center items-center">
-                                                <icon name="sun" class="w-8 h-8 mr-2 text-indigo-900" />
-                                                Apellido 2
-                                            </div>
-                                        </th>
-                                        <th class="px-6 pt-6 pb-4">
-                                            <div class="flex content-center items-center">
-                                                <icon name="sun" class="w-8 h-8 mr-2 text-indigo-900" />
-                                                Teléfono
-                                            </div>
-                                        </th>
-                                        <th class="px-6 pt-6 pb-4">
-                                            <div class="flex content-center items-center">
-                                                <icon name="sun" class="w-8 h-8 mr-2 text-indigo-900" />
-                                                Correo
-                                            </div>
-                                        </th>
-
-                                        <th class="px-6 pt-6 pb-4">
-                                            <div class="flex content-center items-center">
-                                                <icon name="sun" class="w-8 h-8 mr-2 text-indigo-900" />
-                                                Acciones
-                                            </div>
-                                        </th>
-                                    </tr>
-                                    <tr v-for="cliente in clientes.data
-                                        .clientes" :key="cliente.data.id"
-                                        class="hover:bg-gray-100 focus-within:bg-gray-100" :class="[
-                                            cliente.data.attributes.activo == 0
-                                                ? 'text-gray-400'
-                                                : '',
-                                        ]">
-                                        <td class="border-t">
-                                            <p class="pl-4 font-bold uppercase">
-                                                {{
-                                                    cliente.data.attributes
-                                                        .nombre
-                                                }}
-                                            </p>
-                                        </td>
-                                        <td class="border-t">
-                                            <p class="pl-4 font-bold uppercase">
-                                                {{
-                                                    cliente.data.attributes
-                                                        .apellido1
-                                                }}
-                                            </p>
-                                        </td>
-                                        <td class="border-t">
-                                            <p class="pl-4 font-bold uppercase">
-                                                {{
-                                                    cliente.data.attributes
-                                                        .apellido2
-                                                }}
-                                            </p>
-                                        </td>
-                                        <td class="border-t">
-                                            <p class="pl-4 font-bold">
-                                                {{
-                                                    cliente.data.attributes
-                                                        .telefono
-                                                }}
-                                            </p>
-                                        </td>
-                                        <td class="border-t">
-                                            <p class="pl-4 font-bold">
-                                                {{
-                                                    cliente.data.attributes
-                                                        .email
-                                                }}
-                                            </p>
-                                        </td>
-
-                                        <td class="border-t">
-                                            <div
-                                                class="flex flex-row items-center text-gray-400 focus-within:text-gray-600">
-                                                <jet-nav-link :href="route(
-                                                    'admin.clientes/show',
-                                                    {
-                                                        cliente:
-                                                            cliente.data
-                                                                .uuid,
-                                                    }
-                                                )
-                                                    ">
-                                                    <Bars4Icon class="w-5 h-5 ml-3 pointer-events-none" />
+                            <div class="bg-white rounded shadow overflow-x-auto">
+                                <!-- tabla de clientes -->
+                                <vue-good-table :columns="columns" :rows="rows" styleClass="vgt-table striped">
+                                    <template #table-row="props">
+                                        <span v-if="props.column.field === 'acciones'">
+                                            <div class="flex space-x-2">
+                                                <jet-nav-link
+                                                    :href="route('admin.clientes/edit', { cliente: props.row.uuid })"
+                                                    class="text-blue-600 hover:text-blue-900">
+                                                    <PencilIcon class="w-5 h-5" />
                                                 </jet-nav-link>
-                                                <jet-nav-link :href="route(
-                                                    'admin.clientes/edit',
-                                                    {
-                                                        cliente:
-                                                            cliente.data
-                                                                .uuid,
-                                                    }
-                                                )
-                                                    ">
-                                                    <PencilIcon class="w-5 h-5 ml-3 pointer-events-none" />
-                                                </jet-nav-link>
-                                                <ExclamationCircleIcon v-if="
-                                                    cliente.data.attributes
-                                                        .activo
-                                                " class="w-5 h-5 ml-3 pointer-events-none" />
-                                                <CheckBadgeIcon v-else class="w-5 h-5 ml-3 pointer-events-none" />
+                                                <!-- other actions can be added here -->
                                             </div>
-                                        </td>
-                                    </tr>
-                                </table>
+                                        </span>
+
+
+                                    </template>
+
+
+                                </vue-good-table>
+
                             </div>
                             <div class="max-w-3xl mx-auto sm:px-6 lg:px-8 pt-4">
                                 <pagination :meta="clientes.meta" />

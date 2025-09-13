@@ -7,77 +7,50 @@
         <template #form>
             <!-- Roles-->
             <div class="col-span-6 sm:col-span-4" v-if="roles && roles.length > 0">
-                <jet-label for="roles" value="Roles" />
-                <BaseListbox :options="roles" placeholder="Seleccione Rol de Usuario" v-model="formRoles.roles_id" />
+                <jet-label for="roles" value="Rol o roles de usuario" />
+                <VueSelect v-model="formRoles.roles_id" :is-multi="true" :options="options" />
             </div>
         </template>
 
         <template #actions>
             <jet-action-message :on="formRoles.recentlySuccessful" class="mr-3">
-                Guardar.
+                Actualizar.
             </jet-action-message>
 
             <jet-button :class="{ 'opacity-25': formRoles.processing }" :disabled="formRoles.processing">
-                Guardar
+                Actualizar
             </jet-button>
         </template>
     </jet-form-section>
 </template>
 
-<script>
+<script setup>
 import JetButton from "@/Jetstream/Button.vue";
 import JetFormSection from "@/Jetstream/FormSection.vue";
 import JetInputError from "@/Jetstream/InputError.vue";
 import JetLabel from "@/Jetstream/Label.vue";
 import JetActionMessage from "@/Jetstream/ActionMessage.vue";
-import JetSecondaryButton from "@/Jetstream/SecondaryButton.vue";
-import BaseListbox from "@/Shared/BaseListbox.vue";
-// import { useForm } from "@inertiajs/inertia-vue3";
+import VueSelect from "vue3-select-component";
+
 import { useForm } from '@inertiajs/vue3'
 import { ref } from "vue";
-import {
-    Listbox,
-    ListboxButton,
-    ListboxOptions,
-    ListboxOption,
-} from "@headlessui/vue";
-import { CheckCircleIcon } from "@heroicons/vue/24/solid";
 
-export default {
-    props: ["roles", "user", "rolesUsuario"],
-    components: {
-        JetActionMessage,
-        JetButton,
-        JetFormSection,
-        JetInputError,
-        JetLabel,
-        JetSecondaryButton,
-        Listbox,
-        ListboxButton,
-        ListboxOption,
-        ListboxOptions,
-        CheckCircleIcon,
-        BaseListbox,
-    },
 
-    setup(props) {
-        const rolesActual = ref(props.roles.find((rol) => rol.id === 1));
-        const formRoles = useForm({
-            roles_id: rolesActual.value.id,
-            // (rol) => rol. === props.rolesName
-        });
-        function updateRolesInformation() {
-            formRoles.put(
-                route("admin.usuarios/updateroles", {
-                    user: props.user.data.uuid,
-                })
-            );
-        }
-        return {
-            updateRolesInformation,
-            formRoles,
-            rolesActual,
-        };
-    },
-};
+const props = defineProps(["roles", "user", "rolesUsuario"]);
+const rolesActual = ref(props.user.data.attributes.role);
+const formRoles = useForm({
+    roles_id: rolesActual.value ? rolesActual.value : null,
+});
+function updateRolesInformation() {
+    formRoles.put(
+        route("admin.usuarios/updateroles", {
+            user: props.user.data.uuid,
+        })
+    );
+}
+
+const options = props.roles.map((rol) => ({
+    label: rol.nombre,
+    value: rol.id,
+}));
 </script>
