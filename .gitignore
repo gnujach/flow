@@ -15,3 +15,5 @@ yarn-error.log
 /.idea
 /.vscode
 /storage/clientes.index
+/storage/ccts.index
+/storage/pacientes.index

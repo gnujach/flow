@@ -167,7 +167,8 @@ const actionModal = (o) => {
                     <div class="p-6 sm:px-20 bg-white border-gray-200">
                         <div class="flex flex-row w-full gap-4">
                             <div class="flex flex-row bg-white w-full">
-                                <div class="border border-green-400 rounded w-full">
+                                <div class="border border-green-400 rounded w-full" v-if="cliente.data.cct.data !=
+                                    null">
                                     <div class="w-full flex bg-green-500 h-20 justify-center items-center mb-2">
                                         <span class="text-white text-3xl text-center font-bold">Centro de trabajo</span>
                                     </div>
