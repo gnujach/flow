@@ -248,7 +248,8 @@ const actionModal = (o) => {
                         <span class="w-1/5">Observaciones</span>
                     </div>
                     <div class="flex flex-row col-span-4 rounded" v-for="solicitud in cliente.data.solicitudes
-                        .solicitudes">
+                        .solicitudes" v-if="cliente.data.solicitudes
+                        .length > 0" :key="solicitud.data.uuid">
                         <span class="w-1/5">{{
                             solicitud.data.tramite.data.attributes
                                 .nombre
