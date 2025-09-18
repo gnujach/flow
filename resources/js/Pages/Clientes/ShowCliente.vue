@@ -82,7 +82,8 @@ const actionModal = (o) => {
                                             }
                                         )
                                             ">
-                                            <PencilIcon class="sm:w-6 sm:h-6 lg:w-6 lg:h-6 lg:ml-3 pointer-events-none text-white" />
+                                            <PencilIcon
+                                                class="sm:w-6 sm:h-6 lg:w-6 lg:h-6 lg:ml-3 pointer-events-none text-white" />
                                         </jet-nav-link>
                                     </div>
                                     <div class="w-full flex">
@@ -107,9 +108,9 @@ const actionModal = (o) => {
                                                 cliente.data.attributes
                                                     .email
                                             ">{{
-                                                    cliente.data.attributes
-                                                        .email
-                                                }}</span>
+                                                cliente.data.attributes
+                                                    .email
+                                            }}</span>
                                         </div>
                                     </div>
                                     <div class="w-full flex">
@@ -122,11 +123,11 @@ const actionModal = (o) => {
                                                 cliente.data.attributes
                                                     .telefono
                                             ">{{
-                                                    cliente.data.attributes.telefono.replace(
-                                                        /(\d{3})(\d{3})(\d{2})(\d{2})/,
-                                                        "$1.$2.$3.$4"
-                                                    )
-                                                }}</span>
+                                                cliente.data.attributes.telefono.replace(
+                                                    /(\d{3})(\d{3})(\d{2})(\d{2})/,
+                                                    "$1.$2.$3.$4"
+                                                )
+                                            }}</span>
                                         </div>
                                     </div>
                                     <div class="w-full flex">
@@ -153,7 +154,7 @@ const actionModal = (o) => {
                                                 cliente.data.puesto.data.attributes
                                                     .nombre
                                             ">{{ cliente.data.puesto.data.attributes
-                                                    .nombre }}</span>
+                                                .nombre }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -248,8 +249,7 @@ const actionModal = (o) => {
                         <span class="w-1/5">Observaciones</span>
                     </div>
                     <div class="flex flex-row col-span-4 rounded" v-for="solicitud in cliente.data.solicitudes
-                        .solicitudes" v-if="cliente.data.solicitudes
-                        .length > 0" :key="solicitud.data.uuid">
+                        .solicitudes" :key="solicitud.data.uuid">
                         <span class="w-1/5">{{
                             solicitud.data.tramite.data.attributes
                                 .nombre
@@ -264,13 +264,16 @@ const actionModal = (o) => {
                         }}</span>
                         <span class="w-1/5">{{
                             solicitud.data.user.data.attributes.name
-                        }}</span>
+                            }}</span>
                         <div class="w-15">
                             <button class="rounded bg-green-300 m-2" @click="actionModal(solicitud)">
                                 <span class="p-2">Ver</span>
                             </button>
                         </div>
                     </div>
+                </div>
+                <div v-else class="col-span-2 flex justify-center items-center">
+                    <span class="text-gray-400 italic text-xl lg:text-2xl">No hay trámites registrados</span>
                 </div>
             </div>
         </div>

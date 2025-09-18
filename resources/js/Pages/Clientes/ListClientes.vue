@@ -10,6 +10,7 @@ import {
     PencilIcon,
     ExclamationCircleIcon,
     CheckBadgeIcon,
+    EyeIcon
 } from "@heroicons/vue/24/outline";
 import { toRefs, defineProps } from "vue";
 import Breadcrumb from "@/Components/Breadcrumb.vue";
@@ -117,6 +118,11 @@ const { clientes } = toRefs(props);
                                     <template #table-row="props">
                                         <span v-if="props.column.field === 'acciones'">
                                             <div class="flex space-x-2">
+                                                <jet-nav-link
+                                                    :href="route('admin.clientes/show', { cliente: props.row.uuid })"
+                                                    class="text-blue-600 hover:text-blue-900">
+                                                    <EyeIcon class="w-5 h-5" />
+                                                </jet-nav-link>
                                                 <jet-nav-link
                                                     :href="route('admin.clientes/edit', { cliente: props.row.uuid })"
                                                     class="text-blue-600 hover:text-blue-900">
