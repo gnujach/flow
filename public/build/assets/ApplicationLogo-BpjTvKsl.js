@@ -1,1 +1,0 @@
-import{_ as e}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{e as o,o as t}from"./app-CTvA-cdz.js";const s={},c={src:"/assets/img/logosegnuevo.png",class:"fill-current text-gray-500"};function r(n,a){return t(),o("img",c)}const l=e(s,[["render",r]]);export{l as J};
