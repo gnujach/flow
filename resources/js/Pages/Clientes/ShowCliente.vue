@@ -152,7 +152,7 @@ const actionModal = (o) => {
                                             <PhoneIcon class="w-5 h-5 ml-1 pointer-events-none" />
                                             <span class="capitalize" v-if="
                                                 cliente.data.puesto.data.attributes
-                                                    .nombre
+                                                    .nombre.length > 0
                                             ">{{ cliente.data.puesto.data.attributes
                                                 .nombre }}</span>
                                         </div>
