@@ -178,7 +178,8 @@ const actionModal = (o) => {
                                         </div>
                                         <div class="w-2/3 flex flex-row justify-start px-1">
                                             <AcademicCapIcon class="w-5 h-5 ml-1 pointer-events-none" />
-                                            <span class="capitalize italic overflow-hidden">{{
+                                            <span class="capitalize italic overflow-hidden"v-if="cliente.data.cct.data.attributes
+                                                    .cct.length > 0"> {{
                                                 cliente.data.cct.data.attributes
                                                     .cct
                                             }}</span>
