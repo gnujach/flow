@@ -148,7 +148,7 @@ const actionModal = (o) => {
                                         <div class="w-1/3">
                                             <span class="pl-2">Puesto</span>
                                         </div>
-                                        <div class="flex flex-row w-2/3 justify-start" v-if="cliente.data.puesto.data != null">
+                                        <div class="flex flex-row w-2/3 justify-start" v-if="cliente.data.puesto != null">
                                             <PhoneIcon class="w-5 h-5 ml-1 pointer-events-none" />
                                             <span class="capitalize" v-if="
                                                 cliente.data.puesto.data.attributes
