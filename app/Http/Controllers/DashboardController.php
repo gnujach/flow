@@ -80,7 +80,7 @@ class DashboardController extends Controller
             ->selectRaw('tramites.nombre as tramite')
             ->join('tramites', 'solicituds.tramite_id', '=', 'tramites.id')
             ->orderBy('solicituds.tramite_id')
-            ->groupBy('solicituds.tramite_id')
+            ->groupBy('solicituds.tramite_id', 'tramites.nombre')
             ->withoutGlobalScope('withmodel')
             //            ->pluck('total')
             ->get();

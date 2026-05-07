@@ -14,7 +14,8 @@ class CctController extends Controller
      */
     public function index()
     {
-        //
+        $this->authorize('viewAny', Cct::class);
+        return response()->json('Hello', 200);
     }
 
     /**
